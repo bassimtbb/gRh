@@ -1,0 +1,144 @@
+<div class="containe">
+    <div class="entete">
+        <h3>Les formations</h3>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#formationAdd" class="btn btn-success " >Ajouter une formation</button>
+
+    </div>
+    <div class="body">
+
+          <div  class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div style="width: 44%;" class="col-md-4">
+                <img  src="https://thinkthyme.com/wp-content/uploads/2017/11/Scrum-Management-Explained.png" class="img-fluid rounded-start" alt="...">
+            </div>
+              <div style="width: 56%;" class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Scrum</h5>
+                  <p  style="max-height: 200px; overflow: clip;" class=" d-block card-text">Scrum est un cadre de travail agile qui aide les équipes à travailler ensemble. Il encourage les équipes à apprendre par l’expérience, à s’auto-organiser tout en travaillant sur un problème, et à réfléchir sur leurs victoires et leurs défaites pour améliorer continuellement. Cette formation vous fournira une compréhension approfondie des principes et des pratiques de Scrum et vous préparera à devenir un membre efficace de votre équipe Scrum. Ne manquez pas cette opportunité d’améliorer vos compétences et de contribuer encore plus à notre succès commun. Inscrivez-vous dès maintenant !</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                  <p class="mb-0 card-text"><small class="text-body-secondary">11/04/2024</small></p>
+                  <div class="d-flex   justify-content-around" style="gap:1rem;">
+                  <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#FormationD"><i class="bi bi-eye-fill"></i></button>
+                  <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#formationAdd"><i class="bi bi-people-fill"></i>                  </button>
+</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+
+</div>
+
+
+
+
+<!-- Modal  FormationD -->
+<div class="modal  fade" id="FormationD" tabindex="-1" aria-labelledby="FormationD" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Formation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex">
+        <div class="col1">
+          <img class="img"href="#" src="https://thinkthyme.com/wp-content/uploads/2017/11/Scrum-Management-Explained.png" alt="SAIPH" id="logo">
+          <div class="detail">
+            <h5 class="card-title">Scrum</h5>
+            <hr>
+            <p class="card-text">Scrum est un cadre de travail agile qui aide les équipes à travailler ensemble. Il encourage les équipes à apprendre par l’expérience, à s’auto-organiser tout en travaillant sur un problème, et à réfléchir sur leurs victoires et leurs défaites pour améliorer continuellement. Cette formation vous fournira une compréhension approfondie des principes et des pratiques de Scrum et vous préparera à devenir un membre efficace de votre équipe Scrum. Ne manquez pas cette opportunité d’améliorer vos compétences et de contribuer encore plus à notre succès commun. Inscrivez-vous dès maintenant !</p>     
+        </div>      </div>        
+      <div class="col2">
+          <div class="cara">
+                 <p class="titre">Durée</p>
+                 <p class="reponse">4 mois</p>
+          </div>
+          <div class="cara">
+                 <p class="titre">Date de debut</p>
+                 <p class="reponse">11/02/2024</p>
+          </div>
+          <div class="cara">
+                 <p class="titre">Date de fin</p>
+                 <p class="reponse">11/06/2024</p>
+          </div>
+          <div class="cara">
+                 <p class="titre">Lieu</p>
+                 <p class="reponse">Sousse</p>
+          </div>
+
+          <div class="cara">
+                 <p class="titre">Nombre des Places</p>
+                 <p class="reponse">10</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Postuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+   
+    <!-- Modal Ajouter une formation -->
+    <div class="modal  fade" id="formationAdd" tabindex="-1" aria-labelledby="formationAdd" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">AJOUTER UNE FORMATION</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body ">
+            <div class="cl d-flex " >
+              <div class="form-floating mb-2">
+                  <input required type="Text"  [(ngModel)]="formationAdd.titre"  class="form-control inputF" id="titre"   >
+                  <label for="titre">Titre</label>
+              </div>
+   
+              <div class="form-floating mb-2">
+                  <input required type="Text"  [(ngModel)]="formationAdd.lieu"  class="form-control inputF" id="lieu"  >
+                  <label for="lieu">Lieu</label>
+              </div>
+               </div>
+
+          <div class="cl d-flex" >
+            <div class="form-floating mb-2">
+              <input required type="date"  [(ngModel)]="formationAdd.Ddebut"  class="form-control inputF" id="Ddebut"   >
+              <label for="Ddebut">Date Debut</label>
+          </div>
+          <div class="form-floating mb-2">
+            <input required type="date"  [(ngModel)]="formationAdd.Dfin"  class="form-control inputF" id="Dfin"   >
+            <label for="Dfin">Date Fin</label>
+        </div>
+          </div>      
+          <div class="cl d-flex" >
+              <div class="form-floating mb-2">
+                  <input required type="number"  [(ngModel)]="formationAdd.nbrplace"  class="form-control inputF" id="nbrplace"   >
+                  <label for="nbrplace">Nombre des Places</label>
+              </div>           
+              <div class="form-floating mb-2">
+                <textarea class="form-control inputF" id="description"  value="description" ></textarea>
+                <label for="description">Description</label>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="file" class="form-control" [(ngModel)]="formationAdd.image"  id="image" accept="image/*">
+            <label class="input-group-text" for="image">Photo</label>
+          </div>  
+          
+      
+  </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+

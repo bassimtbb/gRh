@@ -1,0 +1,136 @@
+
+.containe{
+    
+    border-radius:20px ;
+    margin: .7rem;
+    padding: 1rem;
+    padding-bottom: 0rem;
+    display: grid;
+    gap: 0rem;
+
+}
+.col1{
+  padding: 1rem;
+  display: grid;
+  width: 60%;
+}
+.cara{
+  background-color: #F6F7F6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  padding-left:1rem ;
+  padding-right: 1rem;
+}
+.img{
+    width: 100%;
+    height: 10rem;
+    align-items: center;
+    background-position: top;
+    background-size: cover; 
+    display: flex;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+}
+
+.card-text{
+text-justify: inter-word;
+}
+.titre
+{
+  color: #617067;
+  font-size: larger;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: auto;
+  margin-bottom: 2px;
+}
+.reponse,.list {
+  color: #657A6D;
+  font-size: large;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: auto;
+  margin-bottom: 2px;
+}
+.list {
+  color: #657A6D;
+  font-size: medium;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: auto;
+  padding-right:1rem ;
+  margin-bottom: 2px;
+}
+.col2{
+  padding: 1rem;
+  display: grid;
+  width: 40%;
+  gap: .5rem;
+
+}
+.entete{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom:1rem;
+    justify-content: space-between;
+
+}
+.img-fluid {
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+  }
+  .body{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .card{
+    cursor: pointer;
+  }
+
+@media screen and (max-width:600px){  
+        .containe{
+        margin-top: .2rem;
+        margin-left: 0rem;
+        margin-right: 0rem;
+        padding: .5rem;
+        border-radius: 0%; 
+        width: 100%;   
+    }
+  }
+ @media screen and (max-width:400px){  
+    .entete{
+        display: grid;   
+    }
+
+}
+form{
+    /* margin-right:  3rem;
+    margin-left:  3rem; */
+    display: grid;
+    gap: .3rem; 
+    justify-content: center;
+  }
+  .inputF{
+     width:27vw;
+  }
+  .cl{
+     width: 90%;
+     display: flex;
+     justify-content: space-around;
+     gap: 1rem;
+  
+  }
+  .btn{
+     font-size: larger;
+  }
+  
+   .modal-body{
+     padding-top: 2rem;
+     padding-left: 1rem;
+     padding-right: 1rem;
+     padding-bottom: 2rem;
+     display: grid;
+     gap: .2 rem;
+  }

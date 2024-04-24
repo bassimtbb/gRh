@@ -1,0 +1,115 @@
+
+.containe{
+    background-color: white;
+    border-radius:20px ;
+    margin: .7rem;
+    padding: 1rem;
+    padding-bottom: 0rem;
+    display: grid;
+    gap: 0rem;
+
+}
+ 
+.entete{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom:1rem;
+    justify-content: space-between;
+
+}
+table{
+    margin: 0%;
+
+}
+.data{
+    background-color: white;
+    padding: .6rem;
+    border-radius: 10px;
+}
+
+@media screen and (max-width:600px){  
+        .containe{
+        margin-top: .2rem;
+        margin-left: 0rem;
+        margin-right: 0rem;
+        padding: .5rem;
+        border-radius: 0%; 
+        width: 100%;   
+    }
+  }
+ @media screen and (max-width:400px){  
+    .entete{
+        display: grid;   
+    }
+
+}
+.container-fluid{
+    max-width: 50rem;
+    margin-bottom: 1rem;
+}
+
+
+.bi-arrow-left-circle-fill{
+    cursor: pointer;
+    font-size: xx-large;
+    transition: transform 0.3s; /* pour ajouter une transition fluide */
+  }
+  
+  .bi-arrow-left-circle-fill:hover {
+    transform: translate(-10px, 0); /* pour déplacer l'icône de 10 pixels vers la gauche */
+  }
+
+.typeD{
+    display: flex;
+    justify-content: space-evenly;
+    /* align-items: center; */
+    margin-bottom: 2rem;
+    p{  
+        text-align: center;
+        width:80% ; 
+        border: 2px solid black;
+        border-radius: 10px;
+        margin-bottom: 0%;
+        padding: 2px;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: 600;
+        font-size: x-large;
+    }
+}
+.E-Ju{
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 0rem;
+}
+.search{
+   /* margin-right:  3rem;
+   margin-left:  3rem; */
+   display: flex;
+   margin-left: 10%;
+   margin-right: 10%;
+   gap: .3rem; 
+   justify-content: center;
+}
+.inputF{
+    width:27vw;
+}
+.cl{
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+
+}
+.btn{
+    font-size: larger;
+}
+
+  .modal-body{
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    display: grid;
+    gap: .2 rem;
+}

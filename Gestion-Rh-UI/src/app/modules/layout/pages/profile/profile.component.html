@@ -1,0 +1,261 @@
+<div *ngIf="utilisateur as user" class="containe">
+    <!-- <div class="entete">
+        <h3>Profile</h3>
+    </div> -->
+ <div class="   card ">
+    <div class="img">
+        <img class="card-img-top" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Profile pic ">
+        <div class="Ch-pic-btn">
+                  <button type="button" class="btn editP btn-primary"><i class="bi bi-pencil"></i></button>
+        </div>
+    </div>
+      <div class="list-group">
+        <a (click)="toggle()"  [class.item-active]="!show"  class="nav-link  list-group-item   " >
+          Informations personnelles        </a>
+
+        <a (click)="toggle()"  [class.item-active]="show"  class=" nav-link list-group-item  " >
+          Informations confidentiel
+        </a>
+
+
+        <button style="margin-top: 1rem;" (click)="logout()" type="button" class="btn btn-danger">Déconnexion</button>
+
+ </div>
+
+ </div>
+  <div class="center">
+    <div class="infoP" *ngIf="!show">
+      <h3 class=" ml-3 mt-3 mb-5  fw-bolder">Informations personnelles</h3 >
+      <div class="container ">
+          <div class="row mb-4 pl-7 ">
+            <div class="col">
+                  <div class="item">
+                      <p class=" fw-bolder mb-0 fs-5 titre"> Matricule</p>    
+                      <p class=" fs-7 titre"> {{ user.id }}</p>
+                  </div>          
+              </div>
+            <div class="col order-5">  
+                  <div class="item">
+                      <p class=" fw-bolder mb-0 fs-5 titre"> Nom</p>          
+                      <p class=" fs-7 titre">{{ user.nom }}</p>
+                  </div>          
+              </div>
+            <div class="col order-1">
+                  <div class="item">
+                      <p class=" fw-bolder mb-0 fs-5 titre"> Prénom</p>       
+                      <p class=" fs-7 titre"> {{ user.prenom }}</p>
+                  </div>          
+              </div>
+          </div>
+      
+          <div class="row mb-4 pl-7">
+              <div class="col">
+                    <div class="item">
+                      <p class=" fw-bolder mb-0 fs-5 titre"> CIN</p>          
+                      <p class=" fs-7 titre"> {{ user.cin }}</p>
+                    </div>          
+                </div>
+              <div class="col order-5">  
+                    <div class="item">
+                      <p class=" fw-bolder mb-0 fs-5 titre"> Service</p>      
+                      <p class=" fs-7 titre"> {{ user.service }}</p>
+                    </div>          
+                </div>
+              <div class="col order-1">
+                    <div class="item">
+                      <p class=" fw-bolder mb-0 fs-5 titre"> Direction</p>    
+                      <p class=" fs-7 titre"> {{ user.direction }}</p>
+                    </div>          
+                </div>
+            </div>
+  
+            <div class="row mb-4 pl-7">
+              <div class="col">
+                    <div class="item">
+                      <p class=" fw-bolder mb-0 fs-5 titre">Sexe</p>         
+                      <p class=" fs-7 titre">  {{ user.sexe }}</p>
+                    </div>          
+                </div>
+              <div class="col order-5">  
+                    <div class="item">
+                      <p class=" fw-bolder mb-0 fs-5 titre"> Adresse </p>     
+                      <p class=" fs-7 titre"> {{ user.adresse }} </p>   
+                    </div>          
+                </div>
+              <div class="col order-1">
+                    <div class="item">
+                      <p class=" fw-bolder mb-0 fs-5 titre"> Date d'embauche </p>     
+                      <p class=" fs-7 titre"> {{ user.createdDate }} </p>   
+                    </div>          
+                </div>
+            </div>          
+
+      </div>
+
+      <div>
+      <div class="ml-3 mt-3 ">
+      <p class=" fw-bolder mb-0 fs-5 titre"> Solde de congé</p>          
+      <div class="progress-stacked">
+                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 66%">
+              <div class="progress-bar progress-bar-striped progress-bar-animated">20 Jours pris</div>
+          </div>  
+       
+      
+      </div>
+  </div>
+  </div>
+  </div>
+
+
+<div class="infoP" *ngIf="show">
+    <div class="ml-3 mt-3 mb-5 d-flex justify-content-between">
+    <h3 class="   fw-bolder">Informations confidentiel</h3 >
+    </div>
+    <div class="container ">
+        <div class="row mb-4 pl-7 ">
+          <div class="col">
+                <div class="item">
+                    <p class=" fw-bolder mb-0 fs-5 titre"> Username</p>    
+                    <div class="input-group mb-3">                        
+                        <input type="text" class="form-control"  disabled="true" placeholder=" {{ user.username }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#username" id="button-addon2"><i class="bi bi-pencil-square"></i></button>
+                    </div>
+                </div>          
+            </div>
+          <div class="col order-5">  
+                <div class="item">
+                    <p class=" fw-bolder mb-0 fs-5 titre"> Email</p>          
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" disabled placeholder="{{user.email}}" aria-label="Recipient's username" aria-describedby="button-addon2">                    
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#email" id="button-addon2"><i class="bi bi-pencil-square"></i></button>
+                    </div>                
+                </div>          
+            </div>
+        </div>
+        <div class="row mb-4 pl-7">
+            <div class="col">
+                <div class="item">
+                    <p class=" fw-bolder mb-0 fs-5 titre"> Mot de passe</p>          
+                    <div class="input-group mb-3">                        
+                        <input type="password" class="form-control" disabled="true"  value=" {{ user.password }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#mdp" id="button-addon2"><i class="bi bi-pencil-square"></i></button>
+
+                    </div>                  
+                </div>          
+            </div>
+            <div class="col order-5">  
+                <div class="item">
+                    <p class=" fw-bolder mb-0 fs-5 titre"> Numéro de téléphone</p>      
+                    <div class="input-group mb-3">                        
+                        <input type="text" class="form-control" disabled   value=" {{ user.telephone }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#telephone" id="button-addon2"><i class="bi bi-pencil-square"></i></button>
+                    </div>                  
+                </div>          
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    <!-- Modal Modifier Username-->
+    <div class="modal  fade" id="username" tabindex="-1" aria-labelledby="username" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title mb-1 fs-5" id="exampleModalLabel">Modifier Username</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body m-3 ">
+                <div class="item">
+                <p class=" fw-bolder mb-0 fs-5 titre"> Username</p>    
+                <input type="text" class="form-control" [(ngModel)]="updatedUserInfo.username"  placeholder=" {{ user.username }}" aria-label="Recipient's username" >
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button  data-bs-dismiss="modal" type="button" class="btn btn-secondary" >Close</button>
+              <button type="submit" (click)="updateUsername()" class="btn btn-primary" data-bs-dismiss="modal" >Modifier</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+          <!-- Modal Modifier téléphone-->
+      <div class="modal  fade" id="telephone" tabindex="-1" aria-labelledby="telephone" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title mb-1 fs-5" id="exampleModalLabel">Modifier téléphone</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body m-3 ">
+                <div class="item">
+                    <p class=" fw-bolder mb-0 fs-5 titre"> Numéro de téléphone</p>      
+                    <div class="input-group mb-3">                        
+                        <input type="text" class="form-control" autocomplete="off"   [(ngModel)]="updatedUserInfo.telephone" placeholder=" {{ user.telephone }}" >
+                    </div>                  
+                </div> 
+            </div>
+            <div class="modal-footer">
+              <button  data-bs-dismiss="modal" type="button" class="btn btn-secondary" >Close</button>
+              <button type="submit" class="btn btn-primary" (click)= "updatetelephone() " data-bs-dismiss="modal" >Modifier</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- Modal Modifier Mot de passe-->
+      <div class="modal  fade" id="mdp" tabindex="-1" aria-labelledby="mdp" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title mb-1 fs-5" id="exampleModalLabel">Modifier Mot de passe</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body m-3 ">
+                <div class="item">
+                    <p class=" fw-bolder mb-0 fs-5 titre"> Mot de passe</p>          
+                    <div class="input-group mb-3">                        
+                        <input type="password" class="form-control"  [(ngModel)]="updatedUserInfo.password"  value=" {{ user.password }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    </div>  
+                    <div class="item">
+                        <p class=" fw-bolder mb-0 fs-5 titre"> Confirmer le nouveau mot de passe</p>          
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" value="" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        </div>                  
+                    </div>                  
+                </div>  
+            </div>
+            <div class="modal-footer">
+              <button  data-bs-dismiss="modal" type="button" class="btn btn-secondary" >Close</button>
+              <button type="submit" class="btn btn-primary" (click)="  updatePassword() " data-bs-dismiss="modal" >Modifier</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+          <!-- Modal Modifier Email-->
+          <div class="modal  fade" id="email" tabindex="-1" aria-labelledby="email" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title mb-1 fs-5" id="exampleModalLabel">Modifier Email</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>      
+                <div class="modal-body m-3 "> 
+                    <div class="item">
+                        <p class=" fw-bolder mb-0 fs-5 titre"> Email</p>    
+                        <input type="text" class="form-control" [(ngModel)]="updatedUserInfo.email"  placeholder=" {{ user.email }}" aria-label="Recipient's username" >
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button  data-bs-dismiss="modal" type="button" class="btn btn-secondary" >Close</button>
+                  <button type="submit" class="btn btn-primary"  (click)=" updateemail() " data-bs-dismiss="modal" >Modifier</button>
+                </div>
+              </div>
+            </div>
+          </div>

@@ -1,0 +1,22 @@
+<div class=" card " >
+    <div  class="form" >
+        <p class="titre" >Réinitialiser le mot de passe</p>
+      <span style="color: white;">Laissez-nous vous aider</span>
+          <div  class="mat-form-field"> 
+                  <label class="form-label">Enter your email</label>
+                  <input class="form-control" placeholder="pat@example.com"  required>
+          </div>
+                  <div  class="mat-form-field"> 
+                    <label class="form-label">Telephone</label>
+                    <span matTextPrefix>+216 &nbsp;</span>
+                    <input class="form-control"type="number"  minlength="8"  maxlength="8"  pattern="[0-9]{8}">
+              </div>
+                      <div  class="mat-form-field"> 
+                <label class="form-label">CIN</label>
+                <input class="form-control"type="number"  minlength="8"  maxlength="8"   placeholder="11111111" pattern="[0-9]{8}">
+          </div>
+          <button  class="btn btn-primary"  type="submit" >Réinitialiser le mot de passe</button>
+          <a style="text-align: center;  cursor: pointer; color: rgb(0, 0, 132);" aria-level="5" (click)="login()">S'identifier
+          </a>
+    </div>
+    </div>
