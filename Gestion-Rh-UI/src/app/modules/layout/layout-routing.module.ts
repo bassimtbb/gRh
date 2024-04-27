@@ -21,7 +21,8 @@ const routes: Routes = [
       {path:'formations',component:FormationComponent,canActivate: [authGuard]},
       {path:'event',component:EventComponent,canActivate: [authGuard]},
       {path:'chat',component:ChatComponent,canActivate: [authGuard]},
-      {path:'GererDemandes',component:GererDemandesComponent,canActivate: [authGuard]},
+      {path:'mesdemande',component:MesDemandesComponent,canActivate: [authGuard]},
+      {path:'gererdemande',component:GererDemandesComponent,canActivate: [authGuard]},
       {path:'profile',component:ProfileComponent,canActivate: [authGuard]},
       {path:'users',component:UsersComponent,canActivate: [authGuard]},
       {path:'UserDetails',component:ManageUserComponent,canActivate: [authGuard]}

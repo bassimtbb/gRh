@@ -1,3051 +1,3063 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-  "title": "OpenApi specification - Bassim",
-  "description": "OpenApi documentation for Spring Security",
-  "termsOfService": "Terms of service",
-  "contact": {
-  "name": "bassim",
-  "url": "https://bassimtabbe.com/",
-  "email": "Bassim.tabbeb@gmail.com"
-  },
-  "license": {
-  "name": "Licence name",
-  "url": "https://some-url.com"
-  },
-  "version": "1.0"
-  },
-  "servers": [
-  {
-  "url": "http://localhost:8081/api/v1",
-  "description": "Local ENV"
-  },
-  {
-  "url": "https://bassimtabbe.com/e",
-  "description": "PROD ENV"
-  }
-  ],
-  "security": [
-  {
-  "bearerAuth": []
-  }
-  ],
-  "paths": {
-  "/utilisateur/{id}": {
-  "get": {
-  "tags": [
-  "UtilisateurController"
-  ],
-  "operationId": "findById",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/UtilisateurDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "UtilisateurController"
-  ],
-  "operationId": "update",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/UtilisateurDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/UtilisateurDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "UtilisateurController"
-  ],
-  "operationId": "delete",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/pub/{id}": {
-  "get": {
-  "tags": [
-  "PublicationController"
-  ],
-  "operationId": "findById_1",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PublicationDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "PublicationController"
-  ],
-  "operationId": "update_1",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PublicationDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PublicationDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "PublicationController"
-  ],
-  "operationId": "delete_1",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/formation/{id}": {
-  "get": {
-  "tags": [
-  "FormationController"
-  ],
-  "operationId": "findById_2",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/FormationDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "FormationController"
-  ],
-  "operationId": "update_2",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/FormationDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/FormationDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "FormationController"
-  ],
-  "operationId": "delete_2",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/event/{id}": {
-  "get": {
-  "tags": [
-  "EventController"
-  ],
-  "operationId": "findById_3",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/EventDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "EventController"
-  ],
-  "operationId": "update_3",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/EventDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/EventDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "EventController"
-  ],
-  "operationId": "delete_3",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/department/{id}": {
-  "get": {
-  "tags": [
-  "DepartementController"
-  ],
-  "operationId": "findById_4",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/DepartementDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "DepartementController"
-  ],
-  "operationId": "update_4",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/DepartementDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/DepartementDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "DepartementController"
-  ],
-  "operationId": "delete_4",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/acompte/{id}": {
-  "get": {
-  "tags": [
-  "AcompteController"
-  ],
-  "operationId": "findById_5",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AcompteDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "AcompteController"
-  ],
-  "operationId": "update_5",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AcompteDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AcompteDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "AcompteController"
-  ],
-  "operationId": "delete_5",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/TravailSup/{id}": {
-  "get": {
-  "tags": [
-  "AutorisationTravailSupController"
-  ],
-  "operationId": "findById_6",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTravailSupDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "AutorisationTravailSupController"
-  ],
-  "operationId": "update_6",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTravailSupDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTravailSupDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "AutorisationTravailSupController"
-  ],
-  "operationId": "delete_6",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/Teletravail/{id}": {
-  "get": {
-  "tags": [
-  "AutorisationTeletravailController"
-  ],
-  "operationId": "findById_7",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTeletravailDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "AutorisationTeletravailController"
-  ],
-  "operationId": "update_7",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTeletravailDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTeletravailDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "AutorisationTeletravailController"
-  ],
-  "operationId": "delete_7",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/Pret/{id}": {
-  "get": {
-  "tags": [
-  "PretController"
-  ],
-  "operationId": "findById_8",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PretDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "PretController"
-  ],
-  "operationId": "update_8",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PretDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PretDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "PretController"
-  ],
-  "operationId": "delete_8",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/OrdreMission/{id}": {
-  "get": {
-  "tags": [
-  "OrdreMissionController"
-  ],
-  "operationId": "findById_9",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/OrdreMissionDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "OrdreMissionController"
-  ],
-  "operationId": "update_9",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/OrdreMissionDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/OrdreMissionDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "OrdreMissionController"
-  ],
-  "operationId": "delete_9",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/Conge/{id}": {
-  "get": {
-  "tags": [
-  "CongeController"
-  ],
-  "operationId": "findById_10",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/CongeDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "CongeController"
-  ],
-  "operationId": "update_10",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/CongeDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/CongeDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "CongeController"
-  ],
-  "operationId": "delete_10",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/ChangementH/{id}": {
-  "get": {
-  "tags": [
-  "ChangementHoraireController"
-  ],
-  "operationId": "findById_11",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/ChangementHoraireDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "ChangementHoraireController"
-  ],
-  "operationId": "update_11",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/ChangementHoraireDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/ChangementHoraireDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "ChangementHoraireController"
-  ],
-  "operationId": "delete_11",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/AutorisationS/{id}": {
-  "get": {
-  "tags": [
-  "AutorisationSortieController"
-  ],
-  "operationId": "findById_12",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationSortieDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "put": {
-  "tags": [
-  "AutorisationSortieController"
-  ],
-  "operationId": "update_12",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationSortieDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "Successfully updated entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationSortieDto"
-  }
-  }
-  }
-  }
-  }
-  },
-  "delete": {
-  "tags": [
-  "AutorisationSortieController"
-  ],
-  "operationId": "delete_12",
-  "parameters": [
-  {
-  "name": "id",
-  "in": "path",
-  "required": true,
-  "schema": {
-  "type": "integer",
-  "format": "int64"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "Successfully delete entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/utilisateur": {
-  "post": {
-  "tags": [
-  "UtilisateurController"
-  ],
-  "operationId": "add",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/UtilisateurDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/UtilisateurDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/pub": {
-  "post": {
-  "tags": [
-  "PublicationController"
-  ],
-  "operationId": "add_1",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PublicationDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PublicationDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/formation": {
-  "post": {
-  "tags": [
-  "FormationController"
-  ],
-  "operationId": "add_2",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/FormationDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/FormationDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/event": {
-  "post": {
-  "tags": [
-  "EventController"
-  ],
-  "operationId": "add_3",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/EventDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/EventDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/department": {
-  "post": {
-  "tags": [
-  "DepartementController"
-  ],
-  "operationId": "add_4",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/DepartementDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/DepartementDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/auth/register": {
-  "post": {
-  "tags": [
-  "Authentication"
-  ],
-  "operationId": "register",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/RegistrationRequest"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "202": {
-  "description": "Accepted",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "object"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/auth/authenticate": {
-  "post": {
-  "tags": [
-  "Authentication"
-  ],
-  "operationId": "authenticate",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AuthenticationRequest"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "200": {
-  "description": "OK",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AuthenticationResponse"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/acompte": {
-  "post": {
-  "tags": [
-  "AcompteController"
-  ],
-  "operationId": "add_5",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AcompteDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AcompteDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/TravailSup": {
-  "post": {
-  "tags": [
-  "AutorisationTravailSupController"
-  ],
-  "operationId": "add_6",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTravailSupDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTravailSupDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/Teletravail": {
-  "post": {
-  "tags": [
-  "AutorisationTeletravailController"
-  ],
-  "operationId": "add_7",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTeletravailDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationTeletravailDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/Pret": {
-  "post": {
-  "tags": [
-  "PretController"
-  ],
-  "operationId": "add_8",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PretDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/PretDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/OrdreMission": {
-  "post": {
-  "tags": [
-  "OrdreMissionController"
-  ],
-  "operationId": "add_9",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/OrdreMissionDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/OrdreMissionDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/Conge": {
-  "post": {
-  "tags": [
-  "CongeController"
-  ],
-  "operationId": "add_10",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/CongeDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/CongeDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/ChangementH": {
-  "post": {
-  "tags": [
-  "ChangementHoraireController"
-  ],
-  "operationId": "add_11",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/ChangementHoraireDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/ChangementHoraireDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/AutorisationS": {
-  "post": {
-  "tags": [
-  "AutorisationSortieController"
-  ],
-  "operationId": "add_12",
-  "requestBody": {
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationSortieDto"
-  }
-  }
-  },
-  "required": true
-  },
-  "responses": {
-  "201": {
-  "description": "Successfully created entity",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/AutorisationSortieDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/utilisateur/email/{email}": {
-  "get": {
-  "tags": [
-  "UtilisateurController"
-  ],
-  "operationId": "loadUserByUsername",
-  "parameters": [
-  {
-  "name": "username",
-  "in": "query",
-  "required": true,
-  "schema": {
-  "type": "string"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "OK",
-  "content": {
-  "application/json": {
-  "schema": {
-  "$ref": "#/components/schemas/Utilisateur"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/utilisateur/all": {
-  "get": {
-  "tags": [
-  "UtilisateurController"
-  ],
-  "operationId": "findAll",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/UtilisateurDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/pub/all": {
-  "get": {
-  "tags": [
-  "PublicationController"
-  ],
-  "operationId": "findAll_1",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/PublicationDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/formation/all": {
-  "get": {
-  "tags": [
-  "FormationController"
-  ],
-  "operationId": "findAll_2",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/FormationDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/event/all": {
-  "get": {
-  "tags": [
-  "EventController"
-  ],
-  "operationId": "findAll_3",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/EventDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/department/all": {
-  "get": {
-  "tags": [
-  "DepartementController"
-  ],
-  "operationId": "findAll_4",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/DepartementDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/auth/activate-account": {
-  "get": {
-  "tags": [
-  "Authentication"
-  ],
-  "operationId": "confirm",
-  "parameters": [
-  {
-  "name": "token",
-  "in": "query",
-  "required": true,
-  "schema": {
-  "type": "string"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "OK"
-  }
-  }
-  }
-  },
-  "/auth/Encode": {
-  "get": {
-  "tags": [
-  "Authentication"
-  ],
-  "operationId": "codeMdp",
-  "parameters": [
-  {
-  "name": "mdp",
-  "in": "query",
-  "required": true,
-  "schema": {
-  "type": "string"
-  }
-  }
-  ],
-  "responses": {
-  "200": {
-  "description": "OK",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "string"
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/acompte/all": {
-  "get": {
-  "tags": [
-  "AcompteController"
-  ],
-  "operationId": "findAll_5",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/AcompteDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/TravailSup/all": {
-  "get": {
-  "tags": [
-  "AutorisationTravailSupController"
-  ],
-  "operationId": "findAll_6",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/AutorisationTravailSupDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/Teletravail/all": {
-  "get": {
-  "tags": [
-  "AutorisationTeletravailController"
-  ],
-  "operationId": "findAll_7",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/AutorisationTeletravailDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/Pret/all": {
-  "get": {
-  "tags": [
-  "PretController"
-  ],
-  "operationId": "findAll_8",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/PretDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/OrdreMission/all": {
-  "get": {
-  "tags": [
-  "OrdreMissionController"
-  ],
-  "operationId": "findAll_9",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/OrdreMissionDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/Conge/all": {
-  "get": {
-  "tags": [
-  "CongeController"
-  ],
-  "operationId": "findAll_10",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/CongeDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/ChangementH/all": {
-  "get": {
-  "tags": [
-  "ChangementHoraireController"
-  ],
-  "operationId": "findAll_11",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/ChangementHoraireDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "/AutorisationS/all": {
-  "get": {
-  "tags": [
-  "AutorisationSortieController"
-  ],
-  "operationId": "findAll_12",
-  "responses": {
-  "200": {
-  "description": "Successfully retrieve list",
-  "content": {
-  "application/json": {
-  "schema": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/AutorisationSortieDto"
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  }
-  },
-  "components": {
-  "schemas": {
-  "Departement": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "nom": {
-  "type": "string"
-  },
-  "manager": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "listEmploye": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/Utilisateur"
-  }
-  }
-  }
-  },
-  "DepartementDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "nom": {
-  "type": "string"
-  },
-  "manager": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "listEmploye": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/Utilisateur"
-  }
-  }
-  }
-  },
-  "GrantedAuthority": {
-  "type": "object",
-  "properties": {
-  "authority": {
-  "type": "string"
-  }
-  }
-  },
-  "Role": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "name": {
-  "type": "string"
-  }
-  }
-  },
-  "Utilisateur": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "nom": {
-  "type": "string"
-  },
-  "prenom": {
-  "type": "string"
-  },
-  "departement": {
-  "$ref": "#/components/schemas/Departement"
-  },
-  "cin": {
-  "type": "string"
-  },
-  "service": {
-  "type": "string"
-  },
-  "direction": {
-  "type": "string"
-  },
-  "sexe": {
-  "type": "string"
-  },
-  "adresse": {
-  "type": "string"
-  },
-  "telephone": {
-  "type": "string"
-  },
-  "img": {
-  "type": "string"
-  },
-  "username": {
-  "type": "string"
-  },
-  "email": {
-  "type": "string"
-  },
-  "password": {
-  "type": "string"
-  },
-  "accountLocked": {
-  "type": "boolean"
-  },
-  "enabled": {
-  "type": "boolean"
-  },
-  "roles": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/Role"
-  }
-  },
-  "name": {
-  "type": "string"
-  },
-  "fullName": {
-  "type": "string"
-  },
-  "authorities": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/GrantedAuthority"
-  }
-  },
-  "credentialsNonExpired": {
-  "type": "boolean"
-  },
-  "accountNonExpired": {
-  "type": "boolean"
-  },
-  "ejuridic": {
-  "type": "string"
-  },
-  "dembauche": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "accountNonLocked": {
-  "type": "boolean"
-  }
-  }
-  },
-  "UtilisateurDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "nom": {
-  "type": "string"
-  },
-  "prenom": {
-  "type": "string"
-  },
-  "departement": {
-  "$ref": "#/components/schemas/DepartementDto"
-  },
-  "cin": {
-  "type": "string"
-  },
-  "service": {
-  "type": "string"
-  },
-  "direction": {
-  "type": "string"
-  },
-  "sexe": {
-  "type": "string"
-  },
-  "adresse": {
-  "type": "string"
-  },
-  "telephone": {
-  "type": "string"
-  },
-  "img": {
-  "type": "string"
-  },
-  "username": {
-  "type": "string"
-  },
-  "email": {
-  "type": "string"
-  },
-  "password": {
-  "type": "string"
-  },
-  "accountLocked": {
-  "type": "boolean"
-  },
-  "enabled": {
-  "type": "boolean"
-  },
-  "roles": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/Role"
-  }
-  },
-  "name": {
-  "type": "string"
-  },
-  "authorities": {
-  "type": "array",
-  "items": {
-  "$ref": "#/components/schemas/GrantedAuthority"
-  }
-  },
-  "credentialsNonExpired": {
-  "type": "boolean"
-  },
-  "accountNonExpired": {
-  "type": "boolean"
-  },
-  "ejuridic": {
-  "type": "string"
-  },
-  "dembauche": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "accountNonLocked": {
-  "type": "boolean"
-  }
-  }
-  },
-  "PublicationDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "file": {
-  "type": "string"
-  },
-  "typeF": {
-  "type": "string"
-  },
-  "description": {
-  "type": "string"
-  }
-  }
-  },
-  "FormationDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "dateD": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "dateF": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "duree": {
-  "type": "integer",
-  "format": "int32"
-  },
-  "lieu": {
-  "type": "string"
-  },
-  "nbrPlace": {
-  "type": "integer",
-  "format": "int32"
-  },
-  "img": {
-  "type": "string"
-  },
-  "description": {
-  "type": "string"
-  }
-  }
-  },
-  "EventDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "dateD": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "dateF": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "duree": {
-  "type": "integer",
-  "format": "int32"
-  },
-  "lieu": {
-  "type": "string"
-  },
-  "nbrPlace": {
-  "type": "integer",
-  "format": "int32"
-  },
-  "img": {
-  "type": "string"
-  },
-  "description": {
-  "type": "string"
-  }
-  }
-  },
-  "AcompteDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "statut": {
-  "type": "string",
-  "enum": [
-  "valid",
-  "pending",
-  "rejected",
-  "cancel"
-  ]
-  },
-  "employe": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "montant": {
-  "type": "integer",
-  "format": "int32"
-  }
-  }
-  },
-  "AutorisationTravailSupDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "statut": {
-  "type": "string",
-  "enum": [
-  "valid",
-  "pending",
-  "rejected",
-  "cancel"
-  ]
-  },
-  "employe": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "date": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "motif": {
-  "type": "string"
-  },
-  "hsortie": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "hacces": {
-  "type": "string",
-  "format": "date-time"
-  }
-  }
-  },
-  "AutorisationTeletravailDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "statut": {
-  "type": "string",
-  "enum": [
-  "valid",
-  "pending",
-  "rejected",
-  "cancel"
-  ]
-  },
-  "employe": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "debut": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "fin": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "contact": {
-  "type": "string"
-  },
-  "telephone": {
-  "type": "string"
-  },
-  "lieu": {
-  "type": "string"
-  },
-  "tache": {
-  "type": "string"
-  }
-  }
-  },
-  "PretDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "statut": {
-  "type": "string",
-  "enum": [
-  "valid",
-  "pending",
-  "rejected",
-  "cancel"
-  ]
-  },
-  "employe": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "montant": {
-  "type": "integer",
-  "format": "int32"
-  },
-  "motif": {
-  "type": "string"
-  },
-  "credit": {
-  "type": "string"
-  },
-  "remboursement": {
-  "type": "string"
-  }
-  }
-  },
-  "OrdreMissionDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "statut": {
-  "type": "string",
-  "enum": [
-  "valid",
-  "pending",
-  "rejected",
-  "cancel"
-  ]
-  },
-  "employe": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "dateS": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "dateR": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "motif": {
-  "type": "string"
-  },
-  "hsortie": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "hretour": {
-  "type": "string",
-  "format": "date-time"
-  }
-  }
-  },
-  "CongeDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "statut": {
-  "type": "string",
-  "enum": [
-  "valid",
-  "pending",
-  "rejected",
-  "cancel"
-  ]
-  },
-  "employe": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "duree": {
-  "type": "integer",
-  "format": "int32"
-  },
-  "debut": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "fin": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "reprise": {
-  "type": "string",
-  "format": "date-time"
-  }
-  }
-  },
-  "ChangementHoraireDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "statut": {
-  "type": "string",
-  "enum": [
-  "valid",
-  "pending",
-  "rejected",
-  "cancel"
-  ]
-  },
-  "employe": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "debut": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "fin": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "motif": {
-  "type": "string"
-  },
-  "nouvelH": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "ancienH": {
-  "type": "string",
-  "format": "date-time"
-  }
-  }
-  },
-  "AutorisationSortieDto": {
-  "type": "object",
-  "properties": {
-  "id": {
-  "type": "integer",
-  "format": "int64"
-  },
-  "createdBy": {
-  "type": "string"
-  },
-  "lastModifiedBy": {
-  "type": "string"
-  },
-  "createdDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "lastModifiedDate": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "statut": {
-  "type": "string",
-  "enum": [
-  "valid",
-  "pending",
-  "rejected",
-  "cancel"
-  ]
-  },
-  "employe": {
-  "$ref": "#/components/schemas/Utilisateur"
-  },
-  "duree": {
-  "type": "integer",
-  "format": "int32"
-  },
-  "dateS": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "dateR": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "motif": {
-  "type": "string"
-  },
-  "hsortie": {
-  "type": "string",
-  "format": "date-time"
-  },
-  "temporaire": {
-  "type": "boolean"
-  },
-  "hretour": {
-  "type": "string",
-  "format": "date-time"
-  }
-  }
-  },
-  "RegistrationRequest": {
-  "required": [
-  "email",
-  "firstname",
-  "lastname",
-  "password"
-  ],
-  "type": "object",
-  "properties": {
-  "firstname": {
-  "type": "string"
-  },
-  "lastname": {
-  "type": "string"
-  },
-  "email": {
-  "type": "string"
-  },
-  "password": {
-  "maxLength": 2147483647,
-  "minLength": 8,
-  "type": "string"
-  }
-  }
-  },
-  "AuthenticationRequest": {
-  "required": [
-  "email",
-  "password"
-  ],
-  "type": "object",
-  "properties": {
-  "email": {
-  "type": "string"
-  },
-  "password": {
-  "maxLength": 2147483647,
-  "minLength": 8,
-  "type": "string"
-  }
-  }
-  },
-  "AuthenticationResponse": {
-  "type": "object",
-  "properties": {
-  "token": {
-  "type": "string"
-  }
-  }
-  }
-  },
-  "securitySchemes": {
-  "bearerAuth": {
-  "type": "http",
-  "description": "JWT auth description",
-  "in": "header",
-  "scheme": "bearer",
-  "bearerFormat": "JWT"
-  }
-  }
-  }
-  }
-  
+    "openapi": "3.0.1",
+    "info": {
+    "title": "OpenApi specification - Bassim",
+    "description": "OpenApi documentation for Spring Security",
+    "termsOfService": "Terms of service",
+    "contact": {
+    "name": "bassim",
+    "url": "https://bassimtabbe.com/",
+    "email": "Bassim.tabbeb@gmail.com"
+    },
+    "license": {
+    "name": "Licence name",
+    "url": "https://some-url.com"
+    },
+    "version": "1.0"
+    },
+    "servers": [
+    {
+    "url": "http://localhost:8081/api/v1",
+    "description": "Local ENV"
+    },
+    {
+    "url": "https://bassimtabbe.com/e",
+    "description": "PROD ENV"
+    }
+    ],
+    "security": [
+    {
+    "bearerAuth": []
+    }
+    ],
+    "paths": {
+    "/utilisateur/{id}": {
+    "get": {
+    "tags": [
+    "UtilisateurController"
+    ],
+    "operationId": "findById",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/UtilisateurDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "UtilisateurController"
+    ],
+    "operationId": "update",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/UtilisateurDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/UtilisateurDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "UtilisateurController"
+    ],
+    "operationId": "delete",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/pub/{id}": {
+    "get": {
+    "tags": [
+    "PublicationController"
+    ],
+    "operationId": "findById_1",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PublicationDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "PublicationController"
+    ],
+    "operationId": "update_1",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PublicationDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PublicationDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "PublicationController"
+    ],
+    "operationId": "delete_1",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/formation/{id}": {
+    "get": {
+    "tags": [
+    "FormationController"
+    ],
+    "operationId": "findById_2",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/FormationDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "FormationController"
+    ],
+    "operationId": "update_2",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/FormationDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/FormationDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "FormationController"
+    ],
+    "operationId": "delete_2",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/event/{id}": {
+    "get": {
+    "tags": [
+    "EventController"
+    ],
+    "operationId": "findById_3",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/EventDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "EventController"
+    ],
+    "operationId": "update_3",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/EventDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/EventDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "EventController"
+    ],
+    "operationId": "delete_3",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/department/{id}": {
+    "get": {
+    "tags": [
+    "DepartementController"
+    ],
+    "operationId": "findById_4",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartementDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "DepartementController"
+    ],
+    "operationId": "update_4",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartementDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartementDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "DepartementController"
+    ],
+    "operationId": "delete_4",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/acompte/{id}": {
+    "get": {
+    "tags": [
+    "AcompteController"
+    ],
+    "operationId": "findById_5",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AcompteDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "AcompteController"
+    ],
+    "operationId": "update_5",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AcompteDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AcompteDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "AcompteController"
+    ],
+    "operationId": "delete_5",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/TravailSup/{id}": {
+    "get": {
+    "tags": [
+    "AutorisationTravailSupController"
+    ],
+    "operationId": "findById_6",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTravailSupDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "AutorisationTravailSupController"
+    ],
+    "operationId": "update_6",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTravailSupDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTravailSupDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "AutorisationTravailSupController"
+    ],
+    "operationId": "delete_6",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Teletravail/{id}": {
+    "get": {
+    "tags": [
+    "AutorisationTeletravailController"
+    ],
+    "operationId": "findById_7",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTeletravailDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "AutorisationTeletravailController"
+    ],
+    "operationId": "update_7",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTeletravailDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTeletravailDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "AutorisationTeletravailController"
+    ],
+    "operationId": "delete_7",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Pret/{id}": {
+    "get": {
+    "tags": [
+    "PretController"
+    ],
+    "operationId": "findById_8",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PretDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "PretController"
+    ],
+    "operationId": "update_8",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PretDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PretDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "PretController"
+    ],
+    "operationId": "delete_8",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/OrdreMission/{id}": {
+    "get": {
+    "tags": [
+    "OrdreMissionController"
+    ],
+    "operationId": "findById_9",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/OrdreMissionDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "OrdreMissionController"
+    ],
+    "operationId": "update_9",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/OrdreMissionDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/OrdreMissionDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "OrdreMissionController"
+    ],
+    "operationId": "delete_9",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Conge/{id}": {
+    "get": {
+    "tags": [
+    "CongeController"
+    ],
+    "operationId": "findById_10",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/CongeDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "CongeController"
+    ],
+    "operationId": "update_10",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/CongeDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/CongeDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "CongeController"
+    ],
+    "operationId": "delete_10",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/ChangementH/{id}": {
+    "get": {
+    "tags": [
+    "ChangementHoraireController"
+    ],
+    "operationId": "findById_11",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/ChangementHoraireDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "ChangementHoraireController"
+    ],
+    "operationId": "update_11",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/ChangementHoraireDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/ChangementHoraireDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "ChangementHoraireController"
+    ],
+    "operationId": "delete_11",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/AutorisationS/{id}": {
+    "get": {
+    "tags": [
+    "AutorisationSortieController"
+    ],
+    "operationId": "findById_12",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationSortieDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "AutorisationSortieController"
+    ],
+    "operationId": "update_12",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationSortieDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationSortieDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "AutorisationSortieController"
+    ],
+    "operationId": "delete_12",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/utilisateur": {
+    "post": {
+    "tags": [
+    "UtilisateurController"
+    ],
+    "operationId": "add",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/UtilisateurDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/UtilisateurDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/pub": {
+    "post": {
+    "tags": [
+    "PublicationController"
+    ],
+    "operationId": "add_1",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PublicationDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PublicationDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/formation": {
+    "post": {
+    "tags": [
+    "FormationController"
+    ],
+    "operationId": "add_2",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/FormationDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/FormationDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/event": {
+    "post": {
+    "tags": [
+    "EventController"
+    ],
+    "operationId": "add_3",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/EventDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/EventDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/department": {
+    "post": {
+    "tags": [
+    "DepartementController"
+    ],
+    "operationId": "add_4",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartementDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DepartementDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/auth/register": {
+    "post": {
+    "tags": [
+    "Authentication"
+    ],
+    "operationId": "register",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/RegistrationRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "202": {
+    "description": "Accepted",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "object"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/auth/authenticate": {
+    "post": {
+    "tags": [
+    "Authentication"
+    ],
+    "operationId": "authenticate",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AuthenticationRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AuthenticationResponse"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/acompte": {
+    "post": {
+    "tags": [
+    "AcompteController"
+    ],
+    "operationId": "add_5",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AcompteDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AcompteDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/TravailSup": {
+    "post": {
+    "tags": [
+    "AutorisationTravailSupController"
+    ],
+    "operationId": "add_6",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTravailSupDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTravailSupDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Teletravail": {
+    "post": {
+    "tags": [
+    "AutorisationTeletravailController"
+    ],
+    "operationId": "add_7",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTeletravailDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationTeletravailDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Pret": {
+    "post": {
+    "tags": [
+    "PretController"
+    ],
+    "operationId": "add_8",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PretDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/PretDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/OrdreMission": {
+    "post": {
+    "tags": [
+    "OrdreMissionController"
+    ],
+    "operationId": "add_9",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/OrdreMissionDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/OrdreMissionDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Conge": {
+    "post": {
+    "tags": [
+    "CongeController"
+    ],
+    "operationId": "add_10",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/CongeDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/CongeDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/ChangementH": {
+    "post": {
+    "tags": [
+    "ChangementHoraireController"
+    ],
+    "operationId": "add_11",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/ChangementHoraireDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/ChangementHoraireDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/AutorisationS": {
+    "post": {
+    "tags": [
+    "AutorisationSortieController"
+    ],
+    "operationId": "add_12",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationSortieDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/AutorisationSortieDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/utilisateur/email/{email}": {
+    "get": {
+    "tags": [
+    "UtilisateurController"
+    ],
+    "operationId": "loadUserByUsername",
+    "parameters": [
+    {
+    "name": "email",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Utilisateur"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/utilisateur/all": {
+    "get": {
+    "tags": [
+    "UtilisateurController"
+    ],
+    "operationId": "findAll",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/UtilisateurDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/userD/username/{username}": {
+    "get": {
+    "tags": [
+    "user-detail-imp-controller"
+    ],
+    "operationId": "loadUserByUsername_1",
+    "parameters": [
+    {
+    "name": "username",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/UserDetails"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/pub/all": {
+    "get": {
+    "tags": [
+    "PublicationController"
+    ],
+    "operationId": "findAll_1",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/PublicationDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/formation/all": {
+    "get": {
+    "tags": [
+    "FormationController"
+    ],
+    "operationId": "findAll_2",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/FormationDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/event/all": {
+    "get": {
+    "tags": [
+    "EventController"
+    ],
+    "operationId": "findAll_3",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/EventDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/department/all": {
+    "get": {
+    "tags": [
+    "DepartementController"
+    ],
+    "operationId": "findAll_4",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/DepartementDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/auth/activate-account": {
+    "get": {
+    "tags": [
+    "Authentication"
+    ],
+    "operationId": "confirm",
+    "parameters": [
+    {
+    "name": "token",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK"
+    }
+    }
+    }
+    },
+    "/acompte/all": {
+    "get": {
+    "tags": [
+    "AcompteController"
+    ],
+    "operationId": "findAll_5",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AcompteDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/TravailSup/all": {
+    "get": {
+    "tags": [
+    "AutorisationTravailSupController"
+    ],
+    "operationId": "findAll_6",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AutorisationTravailSupDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Teletravail/all": {
+    "get": {
+    "tags": [
+    "AutorisationTeletravailController"
+    ],
+    "operationId": "findAll_7",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AutorisationTeletravailDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Pret/all": {
+    "get": {
+    "tags": [
+    "PretController"
+    ],
+    "operationId": "findAll_8",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/PretDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/OrdreMission/all": {
+    "get": {
+    "tags": [
+    "OrdreMissionController"
+    ],
+    "operationId": "findAll_9",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/OrdreMissionDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Conge/all": {
+    "get": {
+    "tags": [
+    "CongeController"
+    ],
+    "operationId": "findAll_10",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/CongeDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/ChangementH/all": {
+    "get": {
+    "tags": [
+    "ChangementHoraireController"
+    ],
+    "operationId": "findAll_11",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/ChangementHoraireDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/AutorisationS/all": {
+    "get": {
+    "tags": [
+    "AutorisationSortieController"
+    ],
+    "operationId": "findAll_12",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AutorisationSortieDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "components": {
+    "schemas": {
+    "Departement": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "nom": {
+    "type": "string"
+    },
+    "manager": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "listEmploye": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Utilisateur"
+    }
+    }
+    }
+    },
+    "DepartementDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "nom": {
+    "type": "string"
+    },
+    "manager": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "listEmploye": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Utilisateur"
+    }
+    }
+    }
+    },
+    "Role": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "name": {
+    "type": "string"
+    }
+    }
+    },
+    "Utilisateur": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "nom": {
+    "type": "string"
+    },
+    "prenom": {
+    "type": "string"
+    },
+    "email": {
+    "type": "string"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
+    },
+    "cin": {
+    "type": "string"
+    },
+    "service": {
+    "type": "string"
+    },
+    "direction": {
+    "type": "string"
+    },
+    "sexe": {
+    "type": "string"
+    },
+    "adresse": {
+    "type": "string"
+    },
+    "telephone": {
+    "type": "string"
+    },
+    "img": {
+    "type": "string"
+    },
+    "ejuridic": {
+    "type": "string"
+    },
+    "dembauche": {
+    "type": "string",
+    "format": "date-time"
+    }
+    }
+    },
+    "UtilisateurDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "nom": {
+    "type": "string"
+    },
+    "prenom": {
+    "type": "string"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/DepartementDto"
+    },
+    "cin": {
+    "type": "string"
+    },
+    "service": {
+    "type": "string"
+    },
+    "direction": {
+    "type": "string"
+    },
+    "sexe": {
+    "type": "string"
+    },
+    "adresse": {
+    "type": "string"
+    },
+    "telephone": {
+    "type": "string"
+    },
+    "img": {
+    "type": "string"
+    },
+    "email": {
+    "type": "string"
+    },
+    "username": {
+    "type": "string"
+    },
+    "password": {
+    "type": "string"
+    },
+    "accountLocked": {
+    "type": "boolean"
+    },
+    "enabled": {
+    "type": "boolean"
+    },
+    "roles": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Role"
+    }
+    },
+    "ejuridic": {
+    "type": "string"
+    },
+    "dembauche": {
+    "type": "string",
+    "format": "date-time"
+    }
+    }
+    },
+    "PublicationDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "file": {
+    "type": "string"
+    },
+    "typeF": {
+    "type": "string"
+    },
+    "description": {
+    "type": "string"
+    }
+    }
+    },
+    "FormationDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateD": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateF": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "duree": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "lieu": {
+    "type": "string"
+    },
+    "nbrPlace": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "img": {
+    "type": "string"
+    },
+    "description": {
+    "type": "string"
+    }
+    }
+    },
+    "EventDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateD": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateF": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "duree": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "lieu": {
+    "type": "string"
+    },
+    "nbrPlace": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "img": {
+    "type": "string"
+    },
+    "description": {
+    "type": "string"
+    }
+    }
+    },
+    "AcompteDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "valid",
+    "pending",
+    "rejected",
+    "cancel"
+    ]
+    },
+    "employe": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "montant": {
+    "type": "integer",
+    "format": "int32"
+    }
+    }
+    },
+    "AutorisationTravailSupDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "valid",
+    "pending",
+    "rejected",
+    "cancel"
+    ]
+    },
+    "employe": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "date": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "motif": {
+    "type": "string"
+    },
+    "hsortie": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "hacces": {
+    "type": "string",
+    "format": "date-time"
+    }
+    }
+    },
+    "AutorisationTeletravailDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "valid",
+    "pending",
+    "rejected",
+    "cancel"
+    ]
+    },
+    "employe": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "debut": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "fin": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "contact": {
+    "type": "string"
+    },
+    "telephone": {
+    "type": "string"
+    },
+    "lieu": {
+    "type": "string"
+    },
+    "tache": {
+    "type": "string"
+    }
+    }
+    },
+    "PretDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "valid",
+    "pending",
+    "rejected",
+    "cancel"
+    ]
+    },
+    "employe": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "montant": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "motif": {
+    "type": "string"
+    },
+    "credit": {
+    "type": "string"
+    },
+    "remboursement": {
+    "type": "string"
+    }
+    }
+    },
+    "OrdreMissionDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "valid",
+    "pending",
+    "rejected",
+    "cancel"
+    ]
+    },
+    "employe": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "dateS": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateR": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "motif": {
+    "type": "string"
+    },
+    "hsortie": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "hretour": {
+    "type": "string",
+    "format": "date-time"
+    }
+    }
+    },
+    "CongeDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "valid",
+    "pending",
+    "rejected",
+    "cancel"
+    ]
+    },
+    "employe": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "duree": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "debut": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "fin": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "reprise": {
+    "type": "string",
+    "format": "date-time"
+    }
+    }
+    },
+    "ChangementHoraireDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "valid",
+    "pending",
+    "rejected",
+    "cancel"
+    ]
+    },
+    "employe": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "debut": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "fin": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "motif": {
+    "type": "string"
+    },
+    "ancienH": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "nouvelH": {
+    "type": "string",
+    "format": "date-time"
+    }
+    }
+    },
+    "AutorisationSortieDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "valid",
+    "pending",
+    "rejected",
+    "cancel"
+    ]
+    },
+    "employe": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "duree": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "dateS": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateR": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "motif": {
+    "type": "string"
+    },
+    "hsortie": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "hretour": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "temporaire": {
+    "type": "boolean"
+    }
+    }
+    },
+    "RegistrationRequest": {
+    "required": [
+    "cin",
+    "direction",
+    "email",
+    "firstname",
+    "lastname",
+    "password",
+    "service",
+    "sexe",
+    "telephone",
+    "username"
+    ],
+    "type": "object",
+    "properties": {
+    "firstname": {
+    "type": "string"
+    },
+    "lastname": {
+    "type": "string"
+    },
+    "email": {
+    "type": "string"
+    },
+    "password": {
+    "maxLength": 2147483647,
+    "minLength": 8,
+    "type": "string"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
+    },
+    "cin": {
+    "type": "string"
+    },
+    "service": {
+    "type": "string"
+    },
+    "direction": {
+    "type": "string"
+    },
+    "sexe": {
+    "type": "string"
+    },
+    "adresse": {
+    "type": "string"
+    },
+    "telephone": {
+    "type": "string"
+    },
+    "img": {
+    "type": "string"
+    },
+    "username": {
+    "type": "string"
+    },
+    "ejuridic": {
+    "type": "string"
+    },
+    "dembauche": {
+    "type": "string",
+    "format": "date-time"
+    }
+    }
+    },
+    "AuthenticationRequest": {
+    "required": [
+    "email",
+    "password"
+    ],
+    "type": "object",
+    "properties": {
+    "email": {
+    "type": "string"
+    },
+    "password": {
+    "maxLength": 2147483647,
+    "minLength": 8,
+    "type": "string"
+    }
+    }
+    },
+    "AuthenticationResponse": {
+    "type": "object",
+    "properties": {
+    "token": {
+    "type": "string"
+    }
+    }
+    },
+    "GrantedAuthority": {
+    "type": "object",
+    "properties": {
+    "authority": {
+    "type": "string"
+    }
+    }
+    },
+    "UserDetails": {
+    "type": "object",
+    "properties": {
+    "enabled": {
+    "type": "boolean"
+    },
+    "password": {
+    "type": "string"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "accountNonLocked": {
+    "type": "boolean"
+    },
+    "authorities": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/GrantedAuthority"
+    }
+    },
+    "username": {
+    "type": "string"
+    }
+    }
+    }
+    },
+    "securitySchemes": {
+    "bearerAuth": {
+    "type": "http",
+    "description": "JWT auth description",
+    "in": "header",
+    "scheme": "bearer",
+    "bearerFormat": "JWT"
+    }
+    }
+    }
+    }
+    

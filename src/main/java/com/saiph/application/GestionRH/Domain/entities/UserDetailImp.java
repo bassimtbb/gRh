@@ -1,11 +1,11 @@
-package com.saiph.application.GestionRH.services;
+package com.saiph.application.GestionRH.Domain.entities;
 
 import com.saiph.application.GestionRH.Domain.entities.GenericEntity;
 import com.saiph.application.GestionRH.Domain.entities.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,25 +16,22 @@ import java.util.stream.Collectors;
 import static jakarta.persistence.FetchType.EAGER;
 
 
-@Entity
-@Data
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDetailImp extends GenericEntity implements UserDetails, Principal {
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
+@Entity
+@Table(name = "_user")
+@EntityListeners(AuditingEntityListener.class)
+public class UserDetailImp implements UserDetails, Principal {
+  @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
-
+    @Column(nullable = false, unique = true)
     private String email;
+
     private String password;
     private String username;
     private boolean accountLocked;
@@ -58,7 +55,7 @@ public class UserDetailImp extends GenericEntity implements UserDetails, Princip
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override

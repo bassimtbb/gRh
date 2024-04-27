@@ -18,6 +18,7 @@ import { CongeControllerService } from './services/conge-controller.service';
 import { ChangementHoraireControllerService } from './services/changement-horaire-controller.service';
 import { AutorisationSortieControllerService } from './services/autorisation-sortie-controller.service';
 import { AuthenticationService } from './services/authentication.service';
+import { UserDetailImpControllerService } from './services/user-detail-imp-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -41,6 +42,7 @@ import { AuthenticationService } from './services/authentication.service';
     ChangementHoraireControllerService,
     AutorisationSortieControllerService,
     AuthenticationService,
+    UserDetailImpControllerService,
     ApiConfiguration
   ],
 })

@@ -1,6 +1,7 @@
 package com.saiph.application.GestionRH.security;
 
 
+import com.saiph.application.GestionRH.services.UserDetailImpService;
 import com.saiph.application.GestionRH.services.UtilisateurCrudService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +25,7 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter{
 
     private final JwtService jwtService;
-    private final UtilisateurCrudService userDetailsService;
+    private final UserDetailImpService userDetailsService;
 
     @Override
     protected void doFilterInternal(

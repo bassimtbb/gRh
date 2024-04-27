@@ -18,5 +18,6 @@ export { PretDto } from './models/pret-dto';
 export { PublicationDto } from './models/publication-dto';
 export { RegistrationRequest } from './models/registration-request';
 export { Role } from './models/role';
+export { UserDetails } from './models/user-details';
 export { Utilisateur } from './models/utilisateur';
 export { UtilisateurDto } from './models/utilisateur-dto';

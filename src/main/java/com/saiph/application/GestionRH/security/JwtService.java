@@ -1,4 +1,6 @@
 package com.saiph.application.GestionRH.security;
+
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -16,7 +18,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-  @Value("${application.security.jwt.secret-key}")
+    @Value("${application.security.jwt.secret-key}")
     private String secretKey;
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
@@ -59,6 +61,7 @@ public class JwtService {
                 .claim("authorities", authorities)
                 .signWith(getSignInKey())
                 .compact();
+
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -68,6 +71,7 @@ public class JwtService {
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
+
     }
 
     private Date extractExpiration(String token) {

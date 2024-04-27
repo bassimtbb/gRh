@@ -30,6 +30,8 @@ public class Formation extends GenericEntity {
     private Integer nbrPlace;
     @NonNull
     private String img;
+        @NonNull
+    private String titre;
     @NonNull
     private String description;
 

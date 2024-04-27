@@ -117,7 +117,7 @@
                 <div class="item">
                     <p class=" fw-bolder mb-0 fs-5 titre"> Username</p>    
                     <div class="input-group mb-3">                        
-                        <input type="text" class="form-control"  disabled="true" placeholder=" {{ user.username }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <input type="text" class="form-control"  disabled="true" placeholder=" " aria-label="Recipient's username" aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#username" id="button-addon2"><i class="bi bi-pencil-square"></i></button>
                     </div>
                 </div>          
@@ -137,7 +137,7 @@
                 <div class="item">
                     <p class=" fw-bolder mb-0 fs-5 titre"> Mot de passe</p>          
                     <div class="input-group mb-3">                        
-                        <input type="password" class="form-control" disabled="true"  value=" {{ user.password }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <input type="password" class="form-control" disabled="true"  value=" " aria-label="Recipient's username" aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#mdp" id="button-addon2"><i class="bi bi-pencil-square"></i></button>
 
                     </div>                  
@@ -169,7 +169,7 @@
             <div class="modal-body m-3 ">
                 <div class="item">
                 <p class=" fw-bolder mb-0 fs-5 titre"> Username</p>    
-                <input type="text" class="form-control" [(ngModel)]="updatedUserInfo.username"  placeholder=" {{ user.username }}" aria-label="Recipient's username" >
+                <input type="text" class="form-control" placeholder=" " aria-label="Recipient's username" >
                 </div>
             </div>
             <div class="modal-footer">
@@ -218,7 +218,7 @@
                 <div class="item">
                     <p class=" fw-bolder mb-0 fs-5 titre"> Mot de passe</p>          
                     <div class="input-group mb-3">                        
-                        <input type="password" class="form-control"  [(ngModel)]="updatedUserInfo.password"  value=" {{ user.password }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <input type="password" class="form-control"  [(ngModel)]="updatedUserInfo.password"  value=" " aria-label="Recipient's username" aria-describedby="button-addon2">
                     </div>  
                     <div class="item">
                         <p class=" fw-bolder mb-0 fs-5 titre"> Confirmer le nouveau mot de passe</p>          
@@ -249,12 +249,12 @@
                 <div class="modal-body m-3 "> 
                     <div class="item">
                         <p class=" fw-bolder mb-0 fs-5 titre"> Email</p>    
-                        <input type="text" class="form-control" [(ngModel)]="updatedUserInfo.email"  placeholder=" {{ user.email }}" aria-label="Recipient's username" >
+                        <input type="text" class="form-control"   placeholder=" " aria-label="Recipient's username" >
                     </div>
                 </div>
                 <div class="modal-footer">
                   <button  data-bs-dismiss="modal" type="button" class="btn btn-secondary" >Close</button>
-                  <button type="submit" class="btn btn-primary"  (click)=" updateemail() " data-bs-dismiss="modal" >Modifier</button>
+                  <!-- <button type="submit" class="btn btn-primary"  (click)=" updateemail() " data-bs-dismiss="modal" >Modifier</button> -->
                 </div>
               </div>
             </div>

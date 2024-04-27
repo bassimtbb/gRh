@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -33,9 +34,9 @@ public class UtilisateurController extends GenericCrudController<Utilisateur, Ut
         return utilisateurCrudService;
     }
 
-
-    @GetMapping("email/{email}")
-    public Utilisateur loadUserByUsername(String username) throws UsernameNotFoundException {
-        return utilisateurCrudService.loadUserByUsername(username);
+ @GetMapping("/email/{email}")
+    public Utilisateur loadUserByUsername(@PathVariable String email) throws UsernameNotFoundException {
+        return utilisateurCrudService.loadUserByEmail(email);
     }
+
 }

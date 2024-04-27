@@ -1,14 +1,17 @@
 package com.saiph.application.GestionRH.auth;
 
-
 import com.saiph.application.GestionRH.Domain.entities.Token;
+import com.saiph.application.GestionRH.Domain.entities.UserDetailImp;
+
 import com.saiph.application.GestionRH.Domain.entities.Utilisateur;
 import com.saiph.application.GestionRH.Enum.EmailTemplateName;
 import com.saiph.application.GestionRH.repository.RoleRepository;
 import com.saiph.application.GestionRH.repository.TokenRepository;
+import com.saiph.application.GestionRH.repository.UserDetailImpRepository;
 import com.saiph.application.GestionRH.repository.UtilisateurRepository;
 import com.saiph.application.GestionRH.security.JwtService;
 import com.saiph.application.GestionRH.services.EmailService;
+import com.saiph.application.GestionRH.services.UtilisateurCrudService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,12 +27,13 @@ import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final UtilisateurRepository userRepository;
+    private final UserDetailImpRepository userRepository;
+    private final UtilisateurRepository utilisateurRepository;
+
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -41,10 +45,13 @@ public class AuthenticationService {
     private String activationUrl;
 
     public void register(RegistrationRequest request) throws MessagingException {
+
+
         var userRole = roleRepository.findByName("USER")
                 // todo - better exception handling
                 .orElseThrow(() -> new IllegalStateException("ROLE USER was not initiated"));
-        var user = Utilisateur.builder()
+        var userdetail = UserDetailImp.builder()
+                .username(request.getEmail())
                 .nom(request.getFirstname())
                 .prenom(request.getLastname())
                 .email(request.getEmail())
@@ -53,12 +60,29 @@ public class AuthenticationService {
                 .enabled(true)
                 .roles(List.of(userRole))
                 .build();
-        userRepository.save(user);
-        sendValidationEmail(user);
+
+        var utilsateur = Utilisateur.builder()
+                .DEmbauche(request.getDEmbauche())
+                .nom(request.getFirstname())
+                .prenom(request.getLastname())
+                .email(request.getEmail())
+                .cin(request.getCin())
+                .img(request.getImg())
+                .adresse(request.getAdresse())
+                .service(request.getService())
+                .sexe(request.getSexe())
+                .departement(request.getDepartement())
+                .direction(request.getDirection())
+                .EJuridic(request.getEJuridic())
+                .telephone(request.getTelephone())
+                .build();
+
+        utilisateurRepository.save(utilsateur);
+        userRepository.save(userdetail);
+        sendValidationEmail(userdetail);
+
+
     }
-public String codeMdp( String mdp){
-       return passwordEncoder.encode(mdp);
-}
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var auth = authenticationManager.authenticate(
@@ -69,10 +93,10 @@ public String codeMdp( String mdp){
         );
 
         var claims = new HashMap<String, Object>();
-        var user = ((Utilisateur) auth.getPrincipal());
+        var user = ((UserDetailImp) auth.getPrincipal());
         claims.put("fullName", user.getFullName());
 
-        var jwtToken = jwtService.generateToken(claims, (Utilisateur) auth.getPrincipal());
+        var jwtToken = jwtService.generateToken(claims, (UserDetailImp) auth.getPrincipal());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -88,7 +112,7 @@ public String codeMdp( String mdp){
             throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
         }
 
-        var user = userRepository.findById(savedToken.getUser().getId())
+        var user = userRepository.findByEmail(savedToken.getUser().getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         user.setEnabled(true);
         userRepository.save(user);
@@ -97,13 +121,13 @@ public String codeMdp( String mdp){
         tokenRepository.save(savedToken);
     }
 
-    private String generateAndSaveActivationToken(Utilisateur user) {
+    private String generateAndSaveActivationToken(UserDetailImp user) {
         // Generate a token
         String generatedToken = generateActivationCode(6);
         var token = Token.builder()
                 .token(generatedToken)
                 .createdAt(LocalDateTime.now())
-                .expiresAt(LocalDateTime.now().plusMinutes(15))
+                .expiresAt(LocalDateTime.now().plusMinutes(90))
                 .user(user)
                 .build();
         tokenRepository.save(token);
@@ -111,7 +135,7 @@ public String codeMdp( String mdp){
         return generatedToken;
     }
 
-    private void sendValidationEmail(Utilisateur user) throws MessagingException {
+    private void sendValidationEmail(UserDetailImp user) throws MessagingException {
         var newToken = generateAndSaveActivationToken(user);
 
         emailService.sendEmail(

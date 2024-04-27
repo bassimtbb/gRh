@@ -9,13 +9,13 @@ import { RequestBuilder } from '../../request-builder';
 import { Utilisateur } from '../../models/utilisateur';
 
 export interface LoadUserByUsername$Params {
-  username: string;
+  email: string;
 }
 
 export function loadUserByUsername(http: HttpClient, rootUrl: string, params: LoadUserByUsername$Params, context?: HttpContext): Observable<StrictHttpResponse<Utilisateur>> {
   const rb = new RequestBuilder(rootUrl, loadUserByUsername.PATH, 'get');
   if (params) {
-    rb.query('username', params.username, {});
+    rb.path('email', params.email, {});
   }
 
   return http.request(

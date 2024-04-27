@@ -6,17 +6,18 @@
     </div>
     <div class="body">
 
-          <div  class="card mb-3" style="max-width: 540px;">
+          <div  *ngFor="let formation of formations"  class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
               <div style="width: 44%;" class="col-md-4">
                 <img  src="https://thinkthyme.com/wp-content/uploads/2017/11/Scrum-Management-Explained.png" class="img-fluid rounded-start" alt="...">
+                <!-- <img  src={{formation.img}} class="img-fluid rounded-start" alt="..."> -->
             </div>
-              <div style="width: 56%;" class="col-md-8">
+              <div  style="width: 56%;" class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title">Scrum</h5>
-                  <p  style="max-height: 200px; overflow: clip;" class=" d-block card-text">Scrum est un cadre de travail agile qui aide les équipes à travailler ensemble. Il encourage les équipes à apprendre par l’expérience, à s’auto-organiser tout en travaillant sur un problème, et à réfléchir sur leurs victoires et leurs défaites pour améliorer continuellement. Cette formation vous fournira une compréhension approfondie des principes et des pratiques de Scrum et vous préparera à devenir un membre efficace de votre équipe Scrum. Ne manquez pas cette opportunité d’améliorer vos compétences et de contribuer encore plus à notre succès commun. Inscrivez-vous dès maintenant !</p>
+                  <h5 class="card-title">{{formation.titre}}</h5>
+                  <p  style="max-height: 200px; overflow: clip;" class=" d-block card-text">{{formation.description}}</p>
                   <div class="d-flex justify-content-between align-items-center">
-                  <p class="mb-0 card-text"><small class="text-body-secondary">11/04/2024</small></p>
+                  <p class="mb-0 card-text"><small class="text-body-secondary">{{formation.dateD}}</small></p>
                   <div class="d-flex   justify-content-around" style="gap:1rem;">
                   <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#FormationD"><i class="bi bi-eye-fill"></i></button>
                   <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#formationAdd"><i class="bi bi-people-fill"></i>                  </button>
@@ -31,9 +32,8 @@
 </div>
 
 
+<!-- 
 
-
-<!-- Modal  FormationD -->
 <div class="modal  fade" id="FormationD" tabindex="-1" aria-labelledby="FormationD" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -86,7 +86,6 @@
 
 
    
-    <!-- Modal Ajouter une formation -->
     <div class="modal  fade" id="formationAdd" tabindex="-1" aria-labelledby="formationAdd" aria-hidden="true">
           <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -141,4 +140,4 @@
         </div>
       </div>
     </div>
-
+ -->

@@ -13,4 +13,5 @@ export interface FormationDto {
   lastModifiedDate?: string;
   lieu?: string;
   nbrPlace?: number;
+  titre?:string;
 }

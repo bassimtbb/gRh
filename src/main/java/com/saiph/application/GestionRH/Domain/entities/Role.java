@@ -20,6 +20,6 @@ public class Role extends GenericEntity{
     private String name;
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
-    private List<Utilisateur> user;
+    private List<UserDetailImp> user;
 
 }

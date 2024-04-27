@@ -12,3 +12,4 @@ export { CongeControllerService } from './services/conge-controller.service';
 export { ChangementHoraireControllerService } from './services/changement-horaire-controller.service';
 export { AutorisationSortieControllerService } from './services/autorisation-sortie-controller.service';
 export { AuthenticationService } from './services/authentication.service';
+export { UserDetailImpControllerService } from './services/user-detail-imp-controller.service';

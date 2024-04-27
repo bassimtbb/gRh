@@ -1,6 +1,5 @@
 package com.saiph.application.GestionRH.services;
 
-import ch.qos.logback.classic.encoder.JsonEncoder;
 import com.saiph.application.GestionRH.Domain.dto.DepartementDto;
 import com.saiph.application.GestionRH.Domain.dto.UtilisateurDto;
 import com.saiph.application.GestionRH.Domain.entities.Utilisateur;
@@ -8,17 +7,18 @@ import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import com.saiph.application.GestionRH.repository.DepartementRepository;
 import com.saiph.application.GestionRH.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.awt.print.Pageable;
+import java.util.List;
 
 @Service
 @Transactional
-public  class UtilisateurCrudService extends GenericCrudService<Utilisateur, UtilisateurDto> implements UserDetailsService {
+public  class UtilisateurCrudService extends GenericCrudService<Utilisateur, UtilisateurDto> {
     private UtilisateurRepository utilisateurRepository;
     private DepartementRepository departementRepository;
 
@@ -55,11 +55,13 @@ public  class UtilisateurCrudService extends GenericCrudService<Utilisateur, Uti
         return super.update(id, entityDto);
     }
 
-    @Override
+
     @Transactional
-    public Utilisateur loadUserByUsername(String username) throws UsernameNotFoundException {
-        return utilisateurRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    public Utilisateur loadUserByEmail(String email) throws UsernameNotFoundException {
+        return utilisateurRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + email));
     }
+
+
 }
 

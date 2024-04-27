@@ -2,6 +2,7 @@ package com.saiph.application.GestionRH.services;
 
 
 import com.saiph.application.GestionRH.Domain.dto.GenericDto;
+import com.saiph.application.GestionRH.Domain.dto.UtilisateurDto;
 import com.saiph.application.GestionRH.Domain.entities.GenericEntity;
 import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -48,6 +49,8 @@ public abstract class GenericCrudService<T extends GenericEntity, U extends Gene
                 .map(elt -> this.convertToDto((T) elt))
                 .collect(Collectors.toList());
     }
+
+
 
     /**
      * Ask the database to create the given entity.

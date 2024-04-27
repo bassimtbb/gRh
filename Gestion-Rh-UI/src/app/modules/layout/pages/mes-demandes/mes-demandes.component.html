@@ -1,1 +1,835 @@
-<p>mes-demandes works!</p>
+<div class="containe">
+    <div class="entete">
+        <h3>Mes demandes</h3>
+        <div class="btn-group  dropdown">
+            <button type="button" id="typeDemande" class="btn btn-success dropdown-toggle" data-toggle="dropdown" >Déposer une demande</button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#conge">Congé </a></li>
+                <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#congEx">Congé exceptionnel</a></li>
+                <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#ADS">Autorisation de sortie </a></li>
+                <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#teleTra">Autorisation de télétravail </a></li>
+                <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#TraSup">Autorisation de travail supplémentaire </a></li>
+                <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#chH">Changement Horaire de travail</a></li>
+                <!-- <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#ADS">Autorisation de travail le dimanche </a></li> -->
+                <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#acompte">Acompte sur Salaire/prime </a></li>
+                <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#pret">Prêt</a></li>
+            </ul> </div>
+    </div>
+
+  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <label class="btn btn-outline-success" for="btnradio1">Toutes les Demandes</label>
+      
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-success" for="btnradio2">Demande Valider</label>
+      
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <label class="btn btn-outline-success" for="btnradio3">Demande en attente</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+        <label class="btn btn-outline-success" for="btnradio4">Demande refuse</label>
+    </div>
+
+    <div class="data">
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <th>Type</th>
+            <th>Statut</th>
+            <th>Date</th>
+            <th></th>
+         </thead>
+        <tbody>
+            <tr *ngFor="let demande of demandes">
+                <td>{{ demande.Type }}</td>
+                
+                <td ><i [ngClass]="getStatusClass(demande.Statut)"  class="bi  "></i>{{ demande.Statut }}</td>
+                <td>{{ demande.Date }}</td>
+                <td style="display: flex; justify-content: space-around;">
+                    <button type="button" class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
+                    <button type="button" class="btn btn-danger"><i class="bi bi-trash-fill"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-light"><i class="bi bi-pencil"></i>
+                    </button>
+                </td>
+              </tr>
+        </tbody>
+      </table>
+      <!-- <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
+      </div>
+</div>
+
+
+
+
+    <!-- Modal AUTORISATION DE SORTIE -->
+    <!-- <div class="modal  fade" id="ADS" tabindex="-1" aria-labelledby="ADS" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">AUTORISATION DE SORTIE</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                    <div class="E-Ju ">
+                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="saiph" value="saiph" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="saiph">Société SAIPH</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="steripharm" value="steripharm" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="steripharm">Société STERIPHARM</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="ifrikia-S" value="ifrikia-S" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="ifrikia-S">Société IFRIKIA SANTE</label>                
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+            
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="nom_prenom"  value={{prenom_prenom}} disabled>
+                        <input type="Text" class="form-control " id="nom_prenom" *ngIf="0" [(ngModel)]="demande.nom_prenom" value="Bassim Tabbeb" >
+                        <label for="nom_prenom">Nom et prénom</label>
+                    </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="qualite"  value={{qualite}}  disabled>
+                            <input type="Text" class="form-control " id="qualite" *ngIf="0" [(ngModel)]="demande.qualite" value="Qualité" >
+                            <label for="qualite">Employé en Qualité de</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="matricule" value={{matricule}}  disabled>
+                            <input type="Text" class="form-control " id="matricule" *ngIf="0" [(ngModel)]="demande.matricule" value="FT23TG" >
+                            <label for="matricule">Matricule</label>
+                        </div>
+              
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="direction"  value={{direction}}  disabled>
+                            <input type="Text" class="form-control " id="direction" *ngIf="0" [(ngModel)]="demande.direction" value="direction" >
+                            <label for="direction">Direction</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="Service"  value={{Service}}  disabled>
+                            <input type="Text" class="form-control " id="Service" *ngIf="0" [(ngModel)]="demande.Service" value="Service" >
+                            <label for="Service">Service</label>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-around;">
+                        <div class="row g-4 align-items-center">
+                            <div class="col-auto">
+                                <label for="duree" class="col-form-label">Durée </label>
+                            </div>
+                            <div class="col-auto">
+                                <div class="input-group mb-2">
+                                    <input style="max-width: 4.7rem;" id="duree" type="number" class="form-control" placeholder="00" [(ngModel)]="demande.duree">
+                                    <span class="input-group-text" id="basic-addon2">Heure</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-4 align-items-center">
+                            <div class="col-auto">
+                                <label for="date" class="col-form-label">Date </label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" class="form-control form-icon-trailing" id="date" [(ngModel)]="demande.date">
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div style="display: flex; justify-content: space-around;">
+                        <div class="row g-4 align-items-center">
+                            <div class="col-auto">
+                                <label for="Hsortie" class="col-form-label">Heure de Sortie </label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="time" class="form-control form-icon-trailing" id="Hsortie" [(ngModel)]="demande.heureSortie">
+                            </div>
+                        </div>
+                        <div class="row g-4 align-items-center">
+                            <div class="col-auto">
+                                <label for="Hretour" class="col-form-label">Heure de Retour </label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="time" class="form-control form-icon-trailing" id="Hretour" [(ngModel)]="demande.heureRetour">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <textarea class="form-control" id="motif" [(ngModel)]="demande.motif"></textarea>
+                        <label for="motif">Motif</label>
+                    </div>
+                </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ -->
+
+
+      
+    <!-- Modal DEMANDE D'AUTORISATION DE TELETRAVAIL -->
+    <!-- <div class="modal  fade" id="teleTra" tabindex="-1" aria-labelledby="teleTra" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'AUTORISATION DE TELETRAVAIL</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                    <div class="E-Ju ">
+                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="saiph" value="saiph" >
+                            <label class="form-check-label" for="saiph">Société SAIPH</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="steripharm" value="steripharm" >
+                            <label class="form-check-label" for="steripharm">Société STERIPHARM</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="ifrikia-S" value="ifrikia-S" >
+                            <label class="form-check-label" for="ifrikia-S">Société IFRIKIA SANTE</label>                
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+            
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="nom_prenom"  value={{prenom_prenom}} disabled>
+                        <input type="Text" class="form-control " id="nom_prenom" *ngIf="0" [(ngModel)]="demande.nomprenom" value="Bassim Tabbeb" >
+                        <label for="nom_prenom">Nom et prénom</label>
+                    </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="qualite"  value={{qualite}}  disabled>
+                            <input type="Text" class="form-control " id="qualite" *ngIf="0" [(ngModel)]="demande.qualite" value="Qualité" >
+                            <label for="qualite">Employé en Qualité de</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="matricule" value={{matricule}}  disabled>
+                            <input type="Text" class="form-control " id="matricule" *ngIf="0" [(ngModel)]="demande.matricule" value="FT23TG" >
+                            <label for="matricule">Matricule</label>
+                        </div>
+              
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="direction"  value={{direction}}  disabled>
+                            <input type="Text" class="form-control " id="direction" *ngIf="0" [(ngModel)]="demande.direction" value="direction" >
+                            <label for="direction">Direction</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="Service"  value={{Service}}  disabled>
+                            <input type="Text" class="form-control " id="Service" *ngIf="0" [(ngModel)]="demande.Service" value="Service" >
+                            <label for="Service">Service</label>
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-wrap: wrap; justify-content: space-around;">
+                   
+                        <div class="form-floating w-25 mb-2">
+                          <input type="email" class="form-control  inputF" id="email-employe" value="Bassim.tabbeb@gmail.com" disabled>
+                          <label for="email-employe">Adresse Email</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                          <input type="number" class="form-control inputF" id="telephone-employe" value="58208705" disabled>
+                          <label for="telephone-employe">Téléphone</label>
+                        </div>
+                      </div>
+                      <div class="row g-4 align-items-center">
+                        <div class="col-auto">
+                          <label for="personne-contact">Personne à contacter en cas de non joignabilité </label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" class="form-control form-icon-trailing" id="personne-contact-nom">
+                        </div>
+                        <div class="col-auto">
+                          <label for="personne-contact-telephone">Téléphone</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="number" class="form-control" id="personne-contact-telephone">
+                        </div>
+                      </div>
+                      <div class="row g-4 align-items-center">
+                        <div class="col-auto">
+                          <label for="lieu-teletravail">Lieu du télétravail </label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="text" class="form-control form-icon-trailing" id="lieu-teletravail">
+                        </div>
+                      </div>
+                      
+                      <div class="row g-4 align-items-center">
+                        <div class="col-auto">
+                          <label for="periode-debut">Pour la periode</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="date" class="form-control form-icon-trailing" id="periode-debut">
+                        </div>
+                        <div class="col-auto">
+                          <label for="periode-fin">Au</label>
+                        </div>
+                        <div class="col-auto">
+                          <input type="date" class="form-control" id="periode-fin">
+                        </div>
+                      </div>
+                      <label for="taches">Tout en assurant les tâches suivantes :</label>
+                      <textarea class="form-control" id="taches" value="Qualité"></textarea>
+            </div> 
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ -->
+
+
+       <!-- Modal DEMANDE  DE PRET -->
+    <!-- <div class="modal  fade" id="pret" tabindex="-1" aria-labelledby="pret" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE PRET</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body ">
+                  <div class="E-Ju ">
+                      <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="entiteJuridique" id="saiph" value="saiph" [(ngModel)]="demande.entiteJuridique">
+                          <label class="form-check-label" for="saiph">Société SAIPH</label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="entiteJuridique" id="steripharm" value="steripharm" [(ngModel)]="demande.entiteJuridique">
+                          <label class="form-check-label" for="steripharm">Société STERIPHARM</label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="entiteJuridique" id="ifrikia-S" value="ifrikia-S" [(ngModel)]="demande.entiteJuridique">
+                          <label class="form-check-label" for="ifrikia-S">Société IFRIKIA SANTE</label>                
+                      </div>
+                  </div>
+                  <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+          
+                  <div class="form-floating formD mb-2">
+                      <input type="Text" class="form-control " id="nom_prenom"  value={{prenom_prenom}} disabled>
+                      <input type="Text" class="form-control " id="nom_prenom" *ngIf="0" [(ngModel)]="demande.nom_prenom" value="Bassim Tabbeb" >
+                      <label for="nom_prenom">Nom et prénom</label>
+                  </div>
+                      <div class="form-floating formD mb-2">
+                          <input type="Text" class="form-control " id="qualite"  value={{qualite}}  disabled>
+                          <input type="Text" class="form-control " id="qualite" *ngIf="0" [(ngModel)]="demande.qualite" value="Qualité" >
+                          <label for="qualite">Employé en Qualité de</label>
+                      </div>
+                      <div class="form-floating formD mb-2">
+                          <input type="Text" class="form-control " id="matricule" value={{matricule}}  disabled>
+                          <input type="Text" class="form-control " id="matricule" *ngIf="0" [(ngModel)]="demande.matricule" value="FT23TG" >
+                          <label for="matricule">Matricule</label>
+                      </div>
+                      <div class="form-floating formD mb-2">
+                          <input type="Text" class="form-control " id="direction"  value={{direction}}  disabled>
+                          <input type="Text" class="form-control " id="direction" *ngIf="0" [(ngModel)]="demande.direction" value="direction" >
+                          <label for="direction">Direction</label>
+                      </div>
+                      <div class="form-floating formD mb-2">
+                          <input type="Text" class="form-control " id="Service"  value={{Service}}  disabled>
+                          <input type="Text" class="form-control " id="Service" *ngIf="0" [(ngModel)]="demande.Service" value="Service" >
+                          <label for="Service">Service</label>
+                      </div>
+                  </div>
+                  <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                    <p >Montant du prêt </p>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group mb-2">
+                            <input style="max-width: 4.7rem;" type="number" class="form-control" placeholder="00" >
+                            <span class="input-group-text" id="basic-addon2">DT</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Motif & pièce(s) justificative(s)</label>
+                    </div>
+                    <div class="col-auto">
+                        <textarea type="text" class="form-control form-icon-trailing" id="date" ></textarea>
+                    </div>
+                  </div>
+                  <div>
+                    <p>Crédit bancaire en cours :</p> 
+                    <div class="ml-5 form-check">
+                        <input class="form-check-input" type="radio" name="E-Juridique" id="Oui" value="Oui">
+                        <label class="form-check-label" for="Oui">Oui</label>
+                        <div class="input-group mb-2">
+                            <input style="max-width:12rem;" type="number" class="form-control" placeholder="Retenues Mensuelle" >
+                            <span class="input-group-text" id="basic-addon2">DT</span>
+                        </div>
+                        </div>
+                        <div class="ml-5 form-check">
+                            <input class="form-check-input" type="radio" name="E-Juridique" id="Non" value="Non">
+                            <label class="form-check-label" for="Non">Non</label>
+                        </div>  	 
+                </div>
+                <div>
+                    <p>Rembourser la dite somme sur :</p> 
+                    <div class="ml-5 form-check">
+                        <input class="form-check-input" type="radio" name="E-Juridique" id="Oui" value="Oui">
+                        <label class="form-check-label" for="Oui">Salaire par tranches mensuels de </label>
+                        <div class="input-group mb-2">
+                            <input style="max-width:12rem;" type="number" class="form-control" placeholder="Retenues Mensuelle" >
+                            <span class="input-group-text" id="basic-addon2">DT/mois</span>
+                        </div>
+                        </div>
+                        <div class="ml-5 form-check">
+                            <input class="form-check-input" type="radio" name="E-Juridique" id="Non" value="Non">
+                            <label class="form-check-label" for="Non">13 ème mois</label>
+                        </div>  	 
+                </div>
+          </div> 
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+    
+       <!-- Modal DEMANDE DE CONGE -->
+       <!-- <div class="modal  fade" id="conge" tabindex="-1" aria-labelledby="conge" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE CONGE</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                    <div class="E-Ju ">
+                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="saiph" value="saiph" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="saiph">Société SAIPH</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="steripharm" value="steripharm" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="steripharm">Société STERIPHARM</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="ifrikia-S" value="ifrikia-S" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="ifrikia-S">Société IFRIKIA SANTE</label>                
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+            
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="nom_prenom"  value={{prenom_prenom}} disabled>
+                        <input type="Text" class="form-control " id="nom_prenom" *ngIf="0" [(ngModel)]="demande.nom_prenom" value="Bassim Tabbeb" >
+                        <label for="nom_prenom">Nom et prénom</label>
+                    </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="qualite"  value={{qualite}}  disabled>
+                            <input type="Text" class="form-control " id="qualite" *ngIf="0" [(ngModel)]="demande.qualite" value="Qualité" >
+                            <label for="qualite">Employé en Qualité de</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="matricule" value={{matricule}}  disabled>
+                            <input type="Text" class="form-control " id="matricule" *ngIf="0" [(ngModel)]="demande.matricule" value="FT23TG" >
+                            <label for="matricule">Matricule</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="direction"  value={{direction}}  disabled>
+                            <input type="Text" class="form-control " id="direction" *ngIf="0" [(ngModel)]="demande.direction" value="direction" >
+                            <label for="direction">Direction</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="Service"  value={{Service}}  disabled>
+                            <input type="Text" class="form-control " id="Service" *ngIf="0" [(ngModel)]="demande.Service" value="Service" >
+                            <label for="Service">Service</label>
+                        </div>
+                    </div>
+                    <div class="row g-4 align-items-center">
+                      <div class="col-auto">
+                      <p >Durée de congé </p>
+                      </div>
+                      <div class="col-auto">
+                          <div class="input-group mb-2">
+                              <input style="max-width: 4.7rem;" type="number" class="form-control" placeholder="00" >
+                              <span class="input-group-text" id="basic-addon2">Jour</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row g-4 align-items-center">
+                      <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Pour la periode</label>
+                      </div>
+                      <div class="col-auto">
+                          <input type="date" class="form-control form-icon-trailing" id="date" >
+                      </div>
+                      <div class="col-auto">
+                          <label for="inputPassword6" class="col-form-label">Au</label>
+                      </div>
+                      <div class="col-auto">
+                          <input type="date" class="form-control " id="date" control-id="ControlID-18">
+                      </div>
+                    </div>
+                    <div class="row g-4 align-items-center">
+                      <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Date de reprise prévue</label>
+                      </div>
+                      <div class="col-auto">
+                          <input type="date" class="form-control form-icon-trailing" id="date" >
+                      </div>
+                    </div>
+          
+            </div> 
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ -->
+
+       <!-- Modal CHANGEMENT HORAIRE DE TRAVAIL-->
+       <!-- <div class="modal  fade" id="chH" tabindex="-1" aria-labelledby="chH" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE CHANGEMENT HORAIRE DE TRAVAIL</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                    <div class="E-Ju ">
+                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="saiph" value="saiph" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="saiph">Société SAIPH</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="steripharm" value="steripharm" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="steripharm">Société STERIPHARM</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="ifrikia-S" value="ifrikia-S" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="ifrikia-S">Société IFRIKIA SANTE</label>                
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+            
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="nom_prenom"  value={{prenom_prenom}} disabled>
+                        <input type="Text" class="form-control " id="nom_prenom" *ngIf="0" [(ngModel)]="demande.nom_prenom" value="Bassim Tabbeb" >
+                        <label for="nom_prenom">Nom et prénom</label>
+                    </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="qualite"  value={{qualite}}  disabled>
+                            <input type="Text" class="form-control " id="qualite" *ngIf="0" [(ngModel)]="demande.qualite" value="Qualité" >
+                            <label for="qualite">Employé en Qualité de</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="matricule" value={{matricule}}  disabled>
+                            <input type="Text" class="form-control " id="matricule" *ngIf="0" [(ngModel)]="demande.matricule" value="FT23TG" >
+                            <label for="matricule">Matricule</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="direction"  value={{direction}}  disabled>
+                            <input type="Text" class="form-control " id="direction" *ngIf="0" [(ngModel)]="demande.direction" value="direction" >
+                            <label for="direction">Direction</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="Service"  value={{Service}}  disabled>
+                            <input type="Text" class="form-control " id="Service" *ngIf="0" [(ngModel)]="demande.Service" value="Service" >
+                            <label for="Service">Service</label>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-around;">
+                      <div class="row g-4 align-items-center">
+                          <div class="col-auto">
+                              <label for="inputPassword6" class="col-form-label">Changement envisagé du </label>
+                          </div>
+                          <div class="col-auto">
+                              <input type="date" class="form-control form-icon-trailing" id="date" >
+                          </div>
+                      </div>
+                      <div class="row g-4 align-items-center">
+                          <div class="col-auto">
+                            <label for="inputPassword6" class="col-form-label">Au </label>
+                          </div>
+                          <div class="col-auto">
+                              <input type="date" class="form-control form-icon-trailing" id="date" >
+                          </div>
+                        </div>
+              
+                  </div>
+          
+                  <div style="display: flex; justify-content: space-around;">
+                      <div class="row g-4 align-items-center">
+                          <div class="col-auto">
+                              <label for="inputPassword6" class="col-form-label">Ancien Horaire </label>
+                          </div>
+                          <div class="col-auto">
+                              <input type="time" class="form-control form-icon-trailing" id="date" >
+          
+                          </div>
+                      </div>
+                      <div class="row g-4 align-items-center">
+                          <div class="col-auto">
+                            <label for="inputPassword6" class="col-form-label">Nouvel Horaire </label>
+                          </div>
+                          <div class="col-auto">
+                              <input type="time" class="form-control form-icon-trailing" id="date" >
+                          </div>
+                        </div>
+                  </div>
+                  <div class="form-floating mb-2">
+                      <textarea class="form-control" id="qualite"  value="Qualité" ></textarea>
+                      <label for="qualite">Motif du changement</label>
+                  </div>
+            </div> 
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>      
+
+ -->
+
+       <!-- Modal DEMANDE  DE PRET -->
+       <!-- <div class="modal  fade" id="pret" tabindex="-1" aria-labelledby="pret" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE PRET</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                    <div class="E-Ju ">
+                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="saiph" value="saiph" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="saiph">Société SAIPH</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="steripharm" value="steripharm" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="steripharm">Société STERIPHARM</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="ifrikia-S" value="ifrikia-S" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="ifrikia-S">Société IFRIKIA SANTE</label>                
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+            
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="nom_prenom"  value={{prenom_prenom}} disabled>
+                        <input type="Text" class="form-control " id="nom_prenom" *ngIf="0" [(ngModel)]="demande.nom_prenom" value="Bassim Tabbeb" >
+                        <label for="nom_prenom">Nom et prénom</label>
+                    </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="qualite"  value={{qualite}}  disabled>
+                            <input type="Text" class="form-control " id="qualite" *ngIf="0" [(ngModel)]="demande.qualite" value="Qualité" >
+                            <label for="qualite">Employé en Qualité de</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="matricule" value={{matricule}}  disabled>
+                            <input type="Text" class="form-control " id="matricule" *ngIf="0" [(ngModel)]="demande.matricule" value="FT23TG" >
+                            <label for="matricule">Matricule</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="direction"  value={{direction}}  disabled>
+                            <input type="Text" class="form-control " id="direction" *ngIf="0" [(ngModel)]="demande.direction" value="direction" >
+                            <label for="direction">Direction</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="Service"  value={{Service}}  disabled>
+                            <input type="Text" class="form-control " id="Service" *ngIf="0" [(ngModel)]="demande.Service" value="Service" >
+                            <label for="Service">Service</label>
+                        </div>
+                    </div>
+            </div> 
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+       <!-- Modal DEMANDE  D'ACOMPTE' -->
+       <!-- <div class="modal  fade" id="acompte" tabindex="-1" aria-labelledby="acompte" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'ACOMPTE</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                    <div class="E-Ju ">
+                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="saiph" value="saiph" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="saiph">Société SAIPH</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="steripharm" value="steripharm" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="steripharm">Société STERIPHARM</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="entiteJuridique" id="ifrikia-S" value="ifrikia-S" [(ngModel)]="demande.entiteJuridique">
+                            <label class="form-check-label" for="ifrikia-S">Société IFRIKIA SANTE</label>                
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+            
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="nom_prenom"  value={{prenom_prenom}} disabled>
+                        <input type="Text" class="form-control " id="nom_prenom" *ngIf="0" [(ngModel)]="demande.nom_prenom" value="Bassim Tabbeb" >
+                        <label for="nom_prenom">Nom et prénom</label>
+                    </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="qualite"  value={{qualite}}  disabled>
+                            <input type="Text" class="form-control " id="qualite" *ngIf="0" [(ngModel)]="demande.qualite" value="Qualité" >
+                            <label for="qualite">Employé en Qualité de</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="matricule" value={{matricule}}  disabled>
+                            <input type="Text" class="form-control " id="matricule" *ngIf="0" [(ngModel)]="demande.matricule" value="FT23TG" >
+                            <label for="matricule">Matricule</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="direction"  value={{direction}}  disabled>
+                            <input type="Text" class="form-control " id="direction" *ngIf="0" [(ngModel)]="demande.direction" value="direction" >
+                            <label for="direction">Direction</label>
+                        </div>
+                        <div class="form-floating formD mb-2">
+                            <input type="Text" class="form-control " id="Service"  value={{Service}}  disabled>
+                            <input type="Text" class="form-control " id="Service" *ngIf="0" [(ngModel)]="demande.Service" value="Service" >
+                            <label for="Service">Service</label>
+                        </div>
+                    </div>
+                  
+            </div> 
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>      
+
+
+             <!-- Modal DEMANDE DE CONGE EXCEPTIONNEL' -->
+             <!-- <div class="modal  fade" id="congEx" tabindex="-1" aria-labelledby="congEx" aria-hidden="true">
+                  <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'ACOMPTE</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body ">
+                          <div class="E-Ju ">
+                              <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="entiteJuridique" id="saiph" value="saiph" [(ngModel)]="demande.entiteJuridique">
+                                  <label class="form-check-label" for="saiph">Société SAIPH</label>
+                              </div>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="entiteJuridique" id="steripharm" value="steripharm" [(ngModel)]="demande.entiteJuridique">
+                                  <label class="form-check-label" for="steripharm">Société STERIPHARM</label>
+                              </div>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="entiteJuridique" id="ifrikia-S" value="ifrikia-S" [(ngModel)]="demande.entiteJuridique">
+                                  <label class="form-check-label" for="ifrikia-S">Société IFRIKIA SANTE</label>                
+                              </div>
+                          </div>
+                          <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+                  
+                          <div class="form-floating formD mb-2">
+                              <input type="Text" class="form-control " id="nom_prenom"  value={{prenom_prenom}} disabled>
+                              <input type="Text" class="form-control " id="nom_prenom" *ngIf="0" [(ngModel)]="demande.nom_prenom" value="Bassim Tabbeb" >
+                              <label for="nom_prenom">Nom et prénom</label>
+                          </div>
+                              <div class="form-floating formD mb-2">
+                                  <input type="Text" class="form-control " id="qualite"  value={{qualite}}  disabled>
+                                  <input type="Text" class="form-control " id="qualite" *ngIf="0" [(ngModel)]="demande.qualite" value="Qualité" >
+                                  <label for="qualite">Employé en Qualité de</label>
+                              </div>
+                              <div class="form-floating formD mb-2">
+                                  <input type="Text" class="form-control " id="matricule" value={{matricule}}  disabled>
+                                  <input type="Text" class="form-control " id="matricule" *ngIf="0" [(ngModel)]="demande.matricule" value="FT23TG" >
+                                  <label for="matricule">Matricule</label>
+                              </div>
+                              <div class="form-floating formD mb-2">
+                                  <input type="Text" class="form-control " id="direction"  value={{direction}}  disabled>
+                                  <input type="Text" class="form-control " id="direction" *ngIf="0" [(ngModel)]="demande.direction" value="direction" >
+                                  <label for="direction">Direction</label>
+                              </div>
+                              <div class="form-floating formD mb-2">
+                                  <input type="Text" class="form-control " id="Service"  value={{Service}}  disabled>
+                                  <input type="Text" class="form-control " id="Service" *ngIf="0" [(ngModel)]="demande.Service" value="Service" >
+                                  <label for="Service">Service</label>
+                              </div>
+                          </div>
+                          <p style="margin-bottom: 0%;">Motif de :</p>
+                          <div class="E-Ju ">
+                              <div class="form-check">
+                              <input class="form-check-input" type="radio" name="MotifC" id="motif1" value="motif1">
+                              <label class="form-check-label" for="motif1">Mon mariage(3 jours)</label>
+                              </div>
+                              <div class="form-check">
+                              <input class="form-check-input" type="radio" name="MotifC" id="motif2" value="motif2">
+                              <label class="form-check-label" for="motif2">Naissance de mon enfant (2 jours)</label>
+                              </div>
+                              <div class="form-check">
+                              <input class="form-check-input" type="radio" name="MotifC" id="motif3" value="motif3">
+                              <label class="form-check-label" for="motif3">Circoncision de mon enfant (1 jour)</label>                
+                              </div>
+                              <div class="form-check">
+                              <input class="form-check-input" type="radio" name="MotifC" id="motif4" value="motif4">
+                              <label class="form-check-label" for="motif4">Décès d'un frère, d'une sœur, d'un petit enfant, d'une petite fille, d'un grand-père ou d'une grand-mère (2 jours)</label>
+                              </div>
+                              <div class="form-check">
+                              <input class="form-check-input" type="radio" name="MotifC" id="motif5" value="motif5">
+                              <label class="form-check-label" for="motif5">Décès de mon conjoint (3 jours)</label>
+                              </div>
+                              <div class="form-check">
+                              <input class="form-check-input" type="radio" name="MotifC" id="motif6" value="motif6">
+                              <label class="form-check-label" for="motif6">Décès de mon père/ de ma mère/ de mon enfant (3 jours)</label>                
+                              </div>
+                          </div>
+                          <div class="row g-4 align-items-center">
+                              <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label">Pour la periode</label>
+                              </div>
+                              <div class="col-auto">
+                                  <input type="date" class="form-control form-icon-trailing" id="date" >
+                              </div>
+                              <div class="col-auto">
+                                  <label for="inputPassword6" class="col-form-label">Au</label>
+                              </div>
+                              <div class="col-auto">
+                                  <input type="date" class="form-control " id="date" control-id="ControlID-18">
+                              </div>
+                            </div>
+                            <div class="row g-4 align-items-center">
+                              <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label">Date de reprise prévue</label>
+                              </div>
+                              <div class="col-auto">
+                                  <input type="date" class="form-control form-icon-trailing" id="date" >
+                              </div>
+                            </div>
+                  </div> 
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+                  </div>
+                </div>
+              </div>
+            </div>       -->

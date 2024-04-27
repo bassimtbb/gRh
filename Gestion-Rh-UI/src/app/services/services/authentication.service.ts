@@ -12,8 +12,6 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { authenticate } from '../fn/authentication/authenticate';
 import { Authenticate$Params } from '../fn/authentication/authenticate';
 import { AuthenticationResponse } from '../models/authentication-response';
-import { codeMdp } from '../fn/authentication/code-mdp';
-import { CodeMdp$Params } from '../fn/authentication/code-mdp';
 import { confirm } from '../fn/authentication/confirm';
 import { Confirm$Params } from '../fn/authentication/confirm';
 import { register } from '../fn/authentication/register';
@@ -101,31 +99,6 @@ export class AuthenticationService extends BaseService {
   confirm(params: Confirm$Params, context?: HttpContext): Observable<void> {
     return this.confirm$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /** Path part for operation `codeMdp()` */
-  static readonly CodeMdpPath = '/auth/Encode';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `codeMdp()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  codeMdp$Response(params: CodeMdp$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return codeMdp(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `codeMdp$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  codeMdp(params: CodeMdp$Params, context?: HttpContext): Observable<string> {
-    return this.codeMdp$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 

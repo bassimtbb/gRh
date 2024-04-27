@@ -1,7 +1,8 @@
- <div class="containe">
+<div class="containe">
 
     <div class="entete">
         <h3>Liste des employés</h3>
+        
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter un employée</button>
     </div>
 
@@ -11,10 +12,10 @@
           <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
           <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
         </div>
-      <!-- </div>
+       </div>
         <div [ngClass]=alert role="alert">
-      L'employé {{employer.value.nom}} {{employer.value.prenom}} est ajouté 
-    </div> -->
+    {{Msg}}
+    </div>  
 
       <div class="data">
 
@@ -31,7 +32,7 @@
                 <th></th>
              </thead>
             <tbody>
-                <tr *ngFor="let employee of this.employes">
+                <tr *ngFor="let employee of this.employes; let i = index">
                     <td>{{ employee.id }}</td>
                     <td ><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="border-radius: 50%;" width="40rem" height="40rem"></td>
                     <td>{{ employee.nom }}</td>
@@ -46,10 +47,18 @@
                   </tr>
             </tbody>
           </table>
-          <!-- <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
+          <!-- &lt;!&ndash; <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator> &ndash;&gt; -->
          </div>
+         <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav>
     </div>
-  </div>
 
 
 
@@ -57,17 +66,13 @@
 
 
 <div class="modal  fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un employé</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body ">
-
-      
-   
+      <div class="modal-body ">   
         <div class="E-Ju ">
                   <label  style="font-weight: 600;" >Entité Juridique :</label>
               <div class="form-check" *ngFor="let entity of ['SAIPH', 'STERIPHARM', 'IFRIKIA']">
@@ -78,13 +83,13 @@
       
               <div class="cl d-flex " >
                   <div class="form-floating mb-2">
-                      <input required type="Text" [(ngModel)]="addUtilisateur.nom"  class="form-control inputF" id="nom"   >
-                      <label for="nom">Nom</label>
+                      <input required type="Text" [(ngModel)]="addUtilisateur.firstname"  class="form-control inputF" id="firstname"   >
+                      <label for="firstname">Nom</label>
                   </div>
        
                   <div class="form-floating mb-2">
-                      <input required type="Text" [(ngModel)]="addUtilisateur.prenom"  class="form-control inputF" id="Prenom"  >
-                      <label for="Prenom">Prénom</label>
+                      <input required type="Text" [(ngModel)]="addUtilisateur.lastname"  class="form-control inputF" id="lastname"  >
+                      <label for="lastname">Prénom</label>
                   </div>
                    </div>
                   <div class="cl d-flex" >
@@ -101,7 +106,7 @@
               </div>      
               <div class="cl d-flex" >
                   <div class="form-floating mb-2">
-                      <input required type="date" [(ngModel)]="addUtilisateur.createdDate"  class="form-control inputF" id="Dembauche"   >
+                      <input required type="date"  [(ngModel)]="addUtilisateur.dembauche" class="form-control inputF" id="Dembauche"   >
                       <label for="Dembauche">Date embauche</label>
                   </div>
                   <div class="form-floating mb-2">
@@ -111,14 +116,14 @@
               </div>      
               <div class="cl d-flex" >
                   <div class="form-floating mb-2">
-                      <input required type="Text" [(ngModel)]="addUtilisateur.direction"  class="form-control inputF" id="direction"   >
+                      <input required type="Text"   [(ngModel)]="addUtilisateur.direction" class="form-control inputF" id="direction"   >
                       <label for="direction">Direction</label>
                   </div>           
                   <div class="form-floating mb-2">
                       <select class="form-select inputF"  [(ngModel)]="addUtilisateur.sexe"  required aria-label="Default select example">
-                          <option value="" selected>--</option>
-                          <option value="1">Homme</option>
-                          <option value="0">Femme</option>
+                          <option value="" selected>&#45;&#45;</option>
+                          <option value="H">Homme</option>
+                          <option value="F">Femme</option>
                       </select>
                       <label for="sexe">Sexe</label>
                   </div>
@@ -144,8 +149,8 @@
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" >Close</button>
-        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+        <button type="button" class="btn btn-primary" (click)="addUser()" data-bs-dismiss="modal" >Ajouter</button>
       </div>
     </div>
   </div>
-</div> 
+</div>

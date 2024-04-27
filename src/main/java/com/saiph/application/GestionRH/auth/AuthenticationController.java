@@ -46,9 +46,4 @@ public class AuthenticationController {
     ) throws MessagingException {
         service.activateAccount(token);
     }
-
-    @GetMapping("/Encode")
-    public String codeMdp( @RequestParam String mdp){
-       return passwordEncoder.encode(mdp);
-}
 }

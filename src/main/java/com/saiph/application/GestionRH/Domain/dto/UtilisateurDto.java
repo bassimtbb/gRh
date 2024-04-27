@@ -2,6 +2,7 @@ package com.saiph.application.GestionRH.Domain.dto;
 
 import com.saiph.application.GestionRH.Domain.entities.Departement;
 import com.saiph.application.GestionRH.Domain.entities.Role;
+import com.saiph.application.GestionRH.Domain.entities.Utilisateur;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +21,11 @@ import static jakarta.persistence.FetchType.EAGER;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UtilisateurDto extends GenericDto  implements UserDetails,Principal {
+public class UtilisateurDto extends GenericDto  {
+
+    public UtilisateurDto(Utilisateur utilisateur) {
+
+    }
 
     @Override
     public Long getId() {
@@ -38,7 +43,6 @@ public class UtilisateurDto extends GenericDto  implements UserDetails,Principal
 
     private String prenom;
 
-    @JoinColumn(name = "Departement_id")
     private DepartementDto departement;
 
     private String cin;
@@ -54,47 +58,15 @@ public class UtilisateurDto extends GenericDto  implements UserDetails,Principal
     private String telephone;
 
     private String img;
+    private String email;
 
     private String username;
 
-    @Column(unique = true)
-    private String email;
     private String password;
     private boolean accountLocked;
     private boolean enabled;
 
     private Date DEmbauche = new Date();
 
-    @ManyToMany(fetch = EAGER)
     private List<Role> roles;
-
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return this.roles
-                .stream()
-                .map(r ->new SimpleGrantedAuthority(r.getName()))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
 }

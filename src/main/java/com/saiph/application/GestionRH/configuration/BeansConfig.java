@@ -1,5 +1,6 @@
 package com.saiph.application.GestionRH.configuration;
 
+import com.saiph.application.GestionRH.services.UserDetailImpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +24,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class BeansConfig {
 
-    private final UserDetailsService userDetailsService;
+    private final UserDetailImpService userDetailsService;
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

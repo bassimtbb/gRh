@@ -16,6 +16,8 @@ public class FormationDto extends GenericDto {
 
     @NonNull
     private Date dateD;
+          @NonNull
+    private String titre;
     @NonNull
     private Date dateF;
     @NonNull

@@ -1,18 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
 import { DepartementDto } from '../models/departement-dto';
-import { GrantedAuthority } from '../models/granted-authority';
 import { Role } from '../models/role';
 export interface UtilisateurDto {
   accountLocked?: boolean;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
   adresse?: string;
-  authorities?: Array<GrantedAuthority>;
   cin?: string;
   createdBy?: string;
   createdDate?: string;
-  credentialsNonExpired?: boolean;
   dembauche?: string;
   departement?: DepartementDto;
   direction?: string;
@@ -23,7 +18,6 @@ export interface UtilisateurDto {
   img?: string;
   lastModifiedBy?: string;
   lastModifiedDate?: string;
-  name?: string;
   nom?: string;
   password?: string;
   prenom?: string;

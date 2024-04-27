@@ -1,6 +1,6 @@
 package com.saiph.application.GestionRH.Domain.entities;
 
-import jakarta.persistence.Column;
+ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -33,5 +33,5 @@ public class Token {
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
-    private Utilisateur user;
+    private UserDetailImp user;
 }
