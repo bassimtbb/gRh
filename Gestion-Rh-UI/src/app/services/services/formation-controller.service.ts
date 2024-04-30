@@ -11,6 +11,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { add2 } from '../fn/formation-controller/add-2';
 import { Add2$Params } from '../fn/formation-controller/add-2';
+import { addEmployeToFormation } from '../fn/formation-controller/add-employe-to-formation';
+import { AddEmployeToFormation$Params } from '../fn/formation-controller/add-employe-to-formation';
 import { delete2 } from '../fn/formation-controller/delete-2';
 import { Delete2$Params } from '../fn/formation-controller/delete-2';
 import { findAll2 } from '../fn/formation-controller/find-all-2';
@@ -124,6 +126,31 @@ export class FormationControllerService extends BaseService {
   add2(params: Add2$Params, context?: HttpContext): Observable<FormationDto> {
     return this.add2$Response(params, context).pipe(
       map((r: StrictHttpResponse<FormationDto>): FormationDto => r.body)
+    );
+  }
+
+  /** Path part for operation `addEmployeToFormation()` */
+  static readonly AddEmployeToFormationPath = '/formation/addEmploye/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addEmployeToFormation()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEmployeToFormation$Response(params: AddEmployeToFormation$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return addEmployeToFormation(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addEmployeToFormation$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEmployeToFormation(params: AddEmployeToFormation$Params, context?: HttpContext): Observable<void> {
+    return this.addEmployeToFormation$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

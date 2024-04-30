@@ -1,6 +1,7 @@
 package com.saiph.application.GestionRH.Domain.dto;
 
 import com.saiph.application.GestionRH.Domain.entities.Utilisateur;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class EventDto extends GenericDto {
 
     @NonNull
@@ -26,11 +26,28 @@ public class EventDto extends GenericDto {
     private Integer nbrPlace;
     @NonNull
     private String img;
+        @NonNull
+    private String titre;
     @NonNull
     private String description;
 
+    public String getTitre() {
+        return titre;
+    }
 
-    @OneToMany
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public List<Utilisateur> getListEmploye() {
+        return ListEmploye;
+    }
+
+    public void setListEmploye(List<Utilisateur> listEmploye) {
+        ListEmploye = listEmploye;
+    }
+
+    @ManyToMany
     private List<Utilisateur> ListEmploye = new ArrayList<>();
 
     public Date getDateD() {

@@ -1408,6 +1408,41 @@
     }
     }
     },
+    "/formation/addEmploye/{id}": {
+    "post": {
+    "tags": [
+    "FormationController"
+    ],
+    "operationId": "addEmployeToFormation",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "OK"
+    }
+    }
+    }
+    },
     "/event": {
     "post": {
     "tags": [
@@ -1434,6 +1469,41 @@
     }
     }
     }
+    }
+    }
+    }
+    },
+    "/event/addEmploye/{id}": {
+    "post": {
+    "tags": [
+    "EventController"
+    ],
+    "operationId": "addEmployeToEvent",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "OK"
     }
     }
     }
@@ -2291,12 +2361,12 @@
     "img": {
     "type": "string"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -2372,12 +2442,12 @@
     "$ref": "#/components/schemas/Role"
     }
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -2438,6 +2508,9 @@
     "type": "string",
     "format": "date-time"
     },
+    "titre": {
+    "type": "string"
+    },
     "dateF": {
     "type": "string",
     "format": "date-time"
@@ -2458,6 +2531,12 @@
     },
     "description": {
     "type": "string"
+    },
+    "listEmploye": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Utilisateur"
+    }
     }
     }
     },
@@ -2504,8 +2583,17 @@
     "img": {
     "type": "string"
     },
+    "titre": {
+    "type": "string"
+    },
     "description": {
     "type": "string"
+    },
+    "listEmploye": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Utilisateur"
+    }
     }
     }
     },
@@ -2850,11 +2938,11 @@
     "motif": {
     "type": "string"
     },
-    "ancienH": {
+    "nouvelH": {
     "type": "string",
     "format": "date-time"
     },
-    "nouvelH": {
+    "ancienH": {
     "type": "string",
     "format": "date-time"
     }
@@ -2926,7 +3014,6 @@
     "cin",
     "direction",
     "email",
-    "firstname",
     "lastname",
     "password",
     "service",
@@ -2977,12 +3064,12 @@
     "username": {
     "type": "string"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -3034,9 +3121,6 @@
     "accountNonExpired": {
     "type": "boolean"
     },
-    "accountNonLocked": {
-    "type": "boolean"
-    },
     "authorities": {
     "type": "array",
     "items": {
@@ -3045,6 +3129,9 @@
     },
     "username": {
     "type": "string"
+    },
+    "accountNonLocked": {
+    "type": "boolean"
     }
     }
     }

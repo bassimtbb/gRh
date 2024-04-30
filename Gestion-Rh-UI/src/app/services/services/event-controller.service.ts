@@ -11,6 +11,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { add3 } from '../fn/event-controller/add-3';
 import { Add3$Params } from '../fn/event-controller/add-3';
+import { addEmployeToEvent } from '../fn/event-controller/add-employe-to-event';
+import { AddEmployeToEvent$Params } from '../fn/event-controller/add-employe-to-event';
 import { delete3 } from '../fn/event-controller/delete-3';
 import { Delete3$Params } from '../fn/event-controller/delete-3';
 import { EventDto } from '../models/event-dto';
@@ -124,6 +126,31 @@ export class EventControllerService extends BaseService {
   add3(params: Add3$Params, context?: HttpContext): Observable<EventDto> {
     return this.add3$Response(params, context).pipe(
       map((r: StrictHttpResponse<EventDto>): EventDto => r.body)
+    );
+  }
+
+  /** Path part for operation `addEmployeToEvent()` */
+  static readonly AddEmployeToEventPath = '/event/addEmploye/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addEmployeToEvent()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEmployeToEvent$Response(params: AddEmployeToEvent$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return addEmployeToEvent(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addEmployeToEvent$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEmployeToEvent(params: AddEmployeToEvent$Params, context?: HttpContext): Observable<void> {
+    return this.addEmployeToEvent$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

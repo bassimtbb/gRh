@@ -1,6 +1,8 @@
 package com.saiph.application.GestionRH.Domain.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +38,7 @@ public class Formation extends GenericEntity {
     private String description;
 
 
-    @OneToMany
+    @ManyToMany
     private List<Utilisateur> ListEmploye = new ArrayList<>();
 
     public Date getDateD() {

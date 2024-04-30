@@ -1,14 +1,150 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EventControllerService, UtilisateurControllerService } from '../../../../services/services';
+import { EventDto, Utilisateur } from '../../../../services/models';
+import { TokenService } from '../../../../services/token/token.service';
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrl: './event.component.scss'
 })
-export class EventComponent {
-eventAdd: any;
-Addevent() {
-throw new Error('Method not implemented.');
-}
+export class EventComponent implements OnInit {
+  selectedEvent!: EventDto ;
+   user!: Utilisateur;
+  events:EventDto[]=[];
+  ispostuler!:boolean;
+  listeEmpl:Utilisateur[]=[];
+  alert: string = "d-none";
+  Msg:String="";
+
+  ngOnInit() {
+    this.eventService.findAll3()
+      .subscribe(events => {
+        this.events = events;
+        console.log(this.events);
+      }, error => {
+        console.error('Error retrieving events:', error);
+      });
+      console.log(this.listeEmpl.length);
+      const email = this.tokenService.email;
+      this.utilisateurService.loadUserByUsername({ email: email as string })
+      .subscribe(utilisateur => {  this.user = utilisateur;});
+  
+  }
+  
+  eventClicked(event: EventDto) {
+    if (!event.listEmploye) {
+      console.error("'listeEmpl' is undefined. event data might be incomplete.");
+      return; 
+    }
+    console.log(this.listeEmpl.length);
+
+    this.listeEmpl = event.listEmploye;
+    this.selectedEvent = event;
+    this.ispostuler=this.isInList(this.listeEmpl, this.user)
+    console.log(this.ispostuler);
+  }
+
+  constructor(
+    private  utilisateurService:UtilisateurControllerService,
+    private tokenService: TokenService,
+   private  eventService:EventControllerService
+  ){}
+
+  eventAdd :EventDto={
+    dateD: '',
+    dateF: '',
+    description: '',
+    duree: 0,
+    img: '',
+    lieu: '',
+    titre:'',
+    nbrPlace: 0
+  }
+  addevent() {
+    console.log("this.eventAdd", this.eventAdd);
+  
+    // Validate event data before sending to the server
+    // (Optional, but recommended for robustness)
+    const validationErrors = this.validateEvent(this.eventAdd);
+    if (validationErrors.length > 0) {
+      this.alert = 'alert alert-danger';
+      this.Msg = `Événement non ajouté. Erreurs de validation : ${validationErrors.join(', ')}`;
+      return;  // Exit the function if validation fails
+    }
+  
+    this.eventService.add3({ body: this.eventAdd })
+      .subscribe(event => {
+        console.log("event", event);
+        this.ngOnInit(); // Refresh the event list (potentially inefficient)
+        this.alert = 'alert alert-success';
+        this.Msg = `Événement "${event.titre}" est ajouté avec succès!`;
+  
+        setTimeout(() => {
+          this.alert = 'd-none';
+          this.Msg = "";
+        }, 5000); // Display success message for 5 seconds
+      }, error => {
+        console.error('Error adding event:', error);
+        this.alert = 'alert alert-danger';
+        setTimeout(() => {
+          this.alert = 'd-none';
+        this.Msg = `Événement non ajouté. Une erreur est survenue : ${error.message || error}`; // Provide a more informative error message
+      }, 5000); // Display success message for 5 seconds
+
+      });
+  }
+  
+  // Optional validation function (replace with your specific validation logic)
+  validateEvent(event: any): string[] {
+    const errors = [];
+    if (!event.titre) {
+      errors.push('Le titre est obligatoire.');
+    }
+    if (!event.lieu) {
+      errors.push('Le lieu est obligatoire.');
+    }
+    if (!event.description) {
+      errors.push('Le description est obligatoire.');
+    }
+    return errors;
+  }
+
+  get EventCover(): string {
+    if (0) {
+      return 'data:image/jpg;base64,' ;
+    }
+    return 'https://cdni.iconscout.com/illustration/premium/thumb/event-management-service-5631302-4693331.png?f=webp';
+  }
+
+  isInList(listeEmpl: Utilisateur[], utilisateur: Utilisateur): boolean {
+    this.listeEmpl=listeEmpl;
+
+    for (const empl of listeEmpl) {
+      if (empl.id === utilisateur.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  postuler(event: EventDto) {
+          this.eventService.addEmployeToEvent({
+            id: event.id as number,
+            body: this.user.id as number
+          })
+          .subscribe(response => {
+            
+            this.ngOnInit();
+
+            console.log('Successfully added user to event:', response);
+          }, error => {
+            console.error('Error adding user to event:', error);
+          });
+   
+  }
+  
+  
 
 }

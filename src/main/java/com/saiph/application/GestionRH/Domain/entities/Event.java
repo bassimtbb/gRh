@@ -2,6 +2,7 @@ package com.saiph.application.GestionRH.Domain.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,9 +36,26 @@ public class Event extends GenericEntity {
     private String img;
     @NonNull
     private String description;
+    @NonNull
+    private String titre;
 
+    public String getTitre() {
+        return titre;
+    }
 
-    @OneToMany
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public List<Utilisateur> getListEmploye() {
+        return ListEmploye;
+    }
+
+    public void setListEmploye(List<Utilisateur> listEmploye) {
+        ListEmploye = listEmploye;
+    }
+
+    @ManyToMany()
     private List<Utilisateur> ListEmploye = new ArrayList<>();
 
     public Date getDateD() {

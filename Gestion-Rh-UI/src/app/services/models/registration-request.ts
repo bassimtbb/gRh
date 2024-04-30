@@ -9,7 +9,7 @@ export interface RegistrationRequest {
   direction: string;
   ejuridic?: string;
   email: string;
-  firstname: string;
+  firstname?: string;
   img?: string;
   lastname: string;
   password: string;

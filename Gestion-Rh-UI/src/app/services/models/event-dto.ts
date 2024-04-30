@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+import { Utilisateur } from '../models/utilisateur';
 export interface EventDto {
   createdBy?: string;
   createdDate?: string;
@@ -12,5 +13,7 @@ export interface EventDto {
   lastModifiedBy?: string;
   lastModifiedDate?: string;
   lieu?: string;
+  listEmploye?: Array<Utilisateur>;
   nbrPlace?: number;
+  titre?: string;
 }

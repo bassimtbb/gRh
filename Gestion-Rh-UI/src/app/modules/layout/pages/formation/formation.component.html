@@ -4,37 +4,33 @@
         <button type="button" data-bs-toggle="modal" data-bs-target="#formationAdd" class="btn btn-success " >Ajouter une formation</button>
 
     </div>
-    <div class="body">
+    <div [ngClass]=alert role="alert">    {{Msg}}    </div>
 
-          <div  *ngFor="let formation of formations"  class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-              <div style="width: 44%;" class="col-md-4">
-                <img  src="https://thinkthyme.com/wp-content/uploads/2017/11/Scrum-Management-Explained.png" class="img-fluid rounded-start" alt="...">
-                <!-- <img  src={{formation.img}} class="img-fluid rounded-start" alt="..."> -->
-            </div>
-              <div  style="width: 56%;" class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">{{formation.titre}}</h5>
-                  <p  style="max-height: 200px; overflow: clip;" class=" d-block card-text">{{formation.description}}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                  <p class="mb-0 card-text"><small class="text-body-secondary">{{formation.dateD}}</small></p>
-                  <div class="d-flex   justify-content-around" style="gap:1rem;">
-                  <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#FormationD"><i class="bi bi-eye-fill"></i></button>
-                  <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#formationAdd"><i class="bi bi-people-fill"></i>                  </button>
-</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div class="body">
+      <div class="card"   *ngFor="let formation of formations" style="height: 30rem; width: 18rem;">
+        <img  [src]="fromationCover" class="card-img-top" alt="...">
+
+        <div style="min-height:40px; overflow: clip;" class=" d-block card-body">
+          <h5 class="card-title">{{formation.titre}}</h5>
+          <p  class=" card-text" >{{formation.description}}</p>
+        </div> 
+        <div class="card-footer d-flex  align-items-center justify-content-between">
+          <p class="mb-0 "><small class="text-body-secondary">{{formation.dateD | date:'dd/MM/yyyy'}}</small></p>
+
+          <div class="d-flex   " style="gap:1rem;">
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#FormationD" (click)="formationClicked(formation)"><i class="bi bi-eye-fill"></i></button>                  
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#listeEmp" (click)="formationClicked(formation)"><i class="bi bi-people-fill"></i>                  </button>
           </div>
+        </div>
+      </div>
+        
     </div>
 
 </div>
 
 
-<!-- 
 
-<div class="modal  fade" id="FormationD" tabindex="-1" aria-labelledby="FormationD" aria-hidden="true">
+<div class="modal  fade" *ngIf="selectedFormation" id="FormationD" tabindex="-1" aria-labelledby="FormationD" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -43,39 +39,41 @@
       </div>
       <div class="modal-body d-flex">
         <div class="col1">
-          <img class="img"href="#" src="https://thinkthyme.com/wp-content/uploads/2017/11/Scrum-Management-Explained.png" alt="SAIPH" id="logo">
-          <div class="detail">
-            <h5 class="card-title">Scrum</h5>
-            <hr>
-            <p class="card-text">Scrum est un cadre de travail agile qui aide les équipes à travailler ensemble. Il encourage les équipes à apprendre par l’expérience, à s’auto-organiser tout en travaillant sur un problème, et à réfléchir sur leurs victoires et leurs défaites pour améliorer continuellement. Cette formation vous fournira une compréhension approfondie des principes et des pratiques de Scrum et vous préparera à devenir un membre efficace de votre équipe Scrum. Ne manquez pas cette opportunité d’améliorer vos compétences et de contribuer encore plus à notre succès commun. Inscrivez-vous dès maintenant !</p>     
-        </div>      </div>        
-      <div class="col2">
-          <div class="cara">
-                 <p class="titre">Durée</p>
-                 <p class="reponse">4 mois</p>
-          </div>
-          <div class="cara">
-                 <p class="titre">Date de debut</p>
-                 <p class="reponse">11/02/2024</p>
-          </div>
-          <div class="cara">
-                 <p class="titre">Date de fin</p>
-                 <p class="reponse">11/06/2024</p>
-          </div>
-          <div class="cara">
-                 <p class="titre">Lieu</p>
-                 <p class="reponse">Sousse</p>
-          </div>
 
+          <img class="img" [src]="fromationCover" alt="formation" id="logo">
+          <div class="detail">
+            <h5 class="card-title">{{selectedFormation.titre}}</h5>
+            <hr>
+            <p class="card-text">{{selectedFormation.description}}</p>
+          </div>
+        </div>
+        <div class="col2">
           <div class="cara">
-                 <p class="titre">Nombre des Places</p>
-                 <p class="reponse">10</p>
+            <p class="titre">Durée</p>
+            <p class="reponse">{{selectedFormation.duree}} mois</p>
+          </div>
+          <div class="cara">
+            <p class="titre">Date de debut</p>
+            <p class="reponse">{{selectedFormation.dateD | date:'dd/MM/yyyy'}}</p>
+          </div>
+          <div class="cara">
+            <p class="titre">Date de fin</p>
+            <p class="reponse">{{selectedFormation.dateF | date:'dd/MM/yyyy'}}</p>
+          </div>
+          <div class="cara">
+            <p class="titre">Lieu</p>
+            <p class="reponse">{{selectedFormation.lieu}}</p>
+          </div>
+          <div class="cara">
+            <p class="titre">Nombre des Places</p>
+            <p class="reponse">{{selectedFormation.nbrPlace}}</p>
           </div>
         </div>
       </div>
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Postuler</button>
+        <button type="button" (click)="postuler(selectedFormation)" data-bs-dismiss="modal" [disabled]="ispostuler" class="btn btn-primary">Postuler</button>
       </div>
     </div>
   </div>
@@ -84,9 +82,8 @@
 
 
 
-
    
-    <div class="modal  fade" id="formationAdd" tabindex="-1" aria-labelledby="formationAdd" aria-hidden="true">
+ <div class="modal  fade" id="formationAdd" tabindex="-1" aria-labelledby="formationAdd" aria-hidden="true">
           <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
@@ -99,7 +96,7 @@
                   <input required type="Text"  [(ngModel)]="formationAdd.titre"  class="form-control inputF" id="titre"   >
                   <label for="titre">Titre</label>
               </div>
-   
+
               <div class="form-floating mb-2">
                   <input required type="Text"  [(ngModel)]="formationAdd.lieu"  class="form-control inputF" id="lieu"  >
                   <label for="lieu">Lieu</label>
@@ -108,36 +105,90 @@
 
           <div class="cl d-flex" >
             <div class="form-floating mb-2">
-              <input required type="date"  [(ngModel)]="formationAdd.Ddebut"  class="form-control inputF" id="Ddebut"   >
+              <input required type="date"  [(ngModel)]="formationAdd.dateD"  class="form-control inputF" id="Ddebut"   >
               <label for="Ddebut">Date Debut</label>
           </div>
           <div class="form-floating mb-2">
-            <input required type="date"  [(ngModel)]="formationAdd.Dfin"  class="form-control inputF" id="Dfin"   >
+            <input required type="date"  [(ngModel)]="formationAdd.dateF"  class="form-control inputF" id="Dfin"   >
             <label for="Dfin">Date Fin</label>
         </div>
           </div>      
           <div class="cl d-flex" >
               <div class="form-floating mb-2">
-                  <input required type="number"  [(ngModel)]="formationAdd.nbrplace"  class="form-control inputF" id="nbrplace"   >
+                  <input required type="number"  [(ngModel)]="formationAdd.nbrPlace"  class="form-control inputF" id="nbrplace"   >
                   <label for="nbrplace">Nombre des Places</label>
               </div>           
-              <div class="form-floating mb-2">
-                <textarea class="form-control inputF" id="description"  value="description" ></textarea>
-                <label for="description">Description</label>
-            </div>
+       <div class="form-floating mb-2">
+              <input required type="number"  [(ngModel)]="formationAdd.duree"  class="form-control inputF" id="duree"   >
+              <label for="Duree">Duree</label>
+          </div> 
           </div>
+        
+     
+          <div class="form-floating mb-2">
+            <textarea class="form-control "  [(ngModel)]="formationAdd.description" id="description"  value="description" ></textarea>
+            <label for="description">Description</label>
+        </div>
+          
           <div class="input-group mb-3">
-            <input type="file" class="form-control" [(ngModel)]="formationAdd.image"  id="image" accept="image/*">
+            <input (change)="onInputFile($event)" type="file" class="form-control" [(ngModel)]="formationAdd.img"  id="image" accept="image/*">
             <label class="input-group-text" for="image">Photo</label>
           </div>  
-          
-      
-  </div>
+        </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+            <button type="submit" class="btn btn-primary" (click)="addformation()" data-bs-dismiss="modal" >Ajouter</button>
           </div>
         </div>
       </div>
     </div>
- -->
+
+
+
+    <div   *ngIf="listeEmpl.length" class="modal  fade" id="listeEmp" tabindex="-1" aria-labelledby="listeEmp" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Liste des employes</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+        
+  <div class="data">
+
+    <table class="table table-striped table-hover">
+      <thead>
+      <th>Matricule</th>
+      <th>Image</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Poste</th>
+      <th>Email</th>
+      <th>Téléphone</th>
+      <th></th>
+      </thead>
+      <tbody >
+      <tr  *ngFor="let employee of selectedFormation.listEmploye;   ">
+        
+        <td>{{ employee.id }}</td>
+        <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="border-radius: 50%;" width="40rem" height="40rem"></td>
+        <td>{{ employee.nom }}</td>
+        <td>{{ employee.prenom }}</td>
+        <td>{{ employee.service }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.telephone }}</td>
+        <td style="display: flex; justify-content: space-around;">
+          <button  type="button"  class="btn btn-primary"><i class="bi bi-pencil"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" ><i class="bi bi-file-arrow-down-fill"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
