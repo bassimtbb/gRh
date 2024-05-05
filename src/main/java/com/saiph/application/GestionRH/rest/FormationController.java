@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/formation")
-@Tag(name = "FormationController")
+@Tag(name = "Formation")
 public class FormationController extends GenericCrudController<Formation, FormationDto> {
     public final FormationCrudService formationCrudService;
     public final UtilisateurCrudService utilisateurCrudService;

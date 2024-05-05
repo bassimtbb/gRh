@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventControllerService, UtilisateurControllerService } from '../../../../services/services';
+import { EventService, UtilisateurService } from '../../../../services/services';
 import { EventDto, Utilisateur } from '../../../../services/models';
 import { TokenService } from '../../../../services/token/token.service';
 
@@ -18,7 +18,7 @@ export class EventComponent implements OnInit {
   Msg:String="";
 
   ngOnInit() {
-    this.eventService.findAll3()
+    this.eventService.findAll2()
       .subscribe(events => {
         this.events = events;
         console.log(this.events);
@@ -46,9 +46,9 @@ export class EventComponent implements OnInit {
   }
 
   constructor(
-    private  utilisateurService:UtilisateurControllerService,
+    private  utilisateurService:UtilisateurService,
     private tokenService: TokenService,
-   private  eventService:EventControllerService
+   private  eventService:EventService
   ){}
 
   eventAdd :EventDto={
@@ -73,7 +73,7 @@ export class EventComponent implements OnInit {
       return;  // Exit the function if validation fails
     }
   
-    this.eventService.add3({ body: this.eventAdd })
+    this.eventService.add2({ body: this.eventAdd })
       .subscribe(event => {
         console.log("event", event);
         this.ngOnInit(); // Refresh the event list (potentially inefficient)

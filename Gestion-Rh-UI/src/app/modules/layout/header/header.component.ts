@@ -2,7 +2,7 @@ import { Component ,OnInit} from '@angular/core';
 import { TokenService } from '../../../services/token/token.service';
 import { Utilisateur } from '../../../services/models';
 import {Router} from '@angular/router';
-import { UtilisateurControllerService } from '../../../services/services';
+import { UtilisateurService } from '../../../services/services';
 
 
 @Component({
@@ -28,7 +28,7 @@ emailcon() {
   }
   constructor(
     public tokenService: TokenService,
-      private utilisateur: UtilisateurControllerService,
+      private utilisateur: UtilisateurService,
       private router: Router
   ) {}
 

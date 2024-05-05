@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormationDto, Utilisateur } from '../../../../services/models';
-import { FormationControllerService, UtilisateurControllerService } from '../../../../services/services';
+import { FormationService, UtilisateurService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { Long } from 'mongodb';
 
@@ -30,8 +30,8 @@ export class FormationComponent implements OnInit {
   }
 
   constructor(
-   private  formationService:FormationControllerService,
-   private  utilisateurService:UtilisateurControllerService,
+   private  formationService:FormationService,
+   private  utilisateurService:UtilisateurService,
    private tokenService: TokenService
 
   ){}
@@ -63,7 +63,7 @@ export class FormationComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.formationService.findAll2() 
+    this.formationService.findAll1() 
     .subscribe(formation => {
       this.formations=formation;
         console.log(this.formations)   
@@ -138,7 +138,7 @@ postuler(formation: FormationDto) {
       ...this.formationAdd,
     }
 
-    this.formationService.add2({body :this.formationAdd}) 
+    this.formationService.add1({body :this.formationAdd}) 
     .subscribe(formation => {
        console.log("formation",formation);
        this.ngOnInit();

@@ -4,21 +4,21 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { UtilisateurControllerService } from './services/utilisateur-controller.service';
-import { PublicationControllerService } from './services/publication-controller.service';
-import { FormationControllerService } from './services/formation-controller.service';
-import { EventControllerService } from './services/event-controller.service';
-import { DepartementControllerService } from './services/departement-controller.service';
-import { AcompteControllerService } from './services/acompte-controller.service';
-import { AutorisationTravailSupControllerService } from './services/autorisation-travail-sup-controller.service';
-import { AutorisationTeletravailControllerService } from './services/autorisation-teletravail-controller.service';
-import { PretControllerService } from './services/pret-controller.service';
-import { OrdreMissionControllerService } from './services/ordre-mission-controller.service';
-import { CongeControllerService } from './services/conge-controller.service';
-import { ChangementHoraireControllerService } from './services/changement-horaire-controller.service';
-import { AutorisationSortieControllerService } from './services/autorisation-sortie-controller.service';
+import { UtilisateurService } from './services/utilisateur.service';
+import { FormationService } from './services/formation.service';
+import { EventService } from './services/event.service';
+import { DepartementService } from './services/departement.service';
+import { DemandeService } from './services/demande.service';
+import { AcompteService } from './services/acompte.service';
+import { AutorisationTravailSupService } from './services/autorisation-travail-sup.service';
+import { AutorisationTeletravailService } from './services/autorisation-teletravail.service';
+import { PretService } from './services/pret.service';
+import { OrdreMissionService } from './services/ordre-mission.service';
+import { CongeService } from './services/conge.service';
+import { ChangementHoraireService } from './services/changement-horaire.service';
+import { AutorisationSortieService } from './services/autorisation-sortie.service';
 import { AuthenticationService } from './services/authentication.service';
-import { UserDetailImpControllerService } from './services/user-detail-imp-controller.service';
+import { UserDetailImpService } from './services/user-detail-imp.service';
 
 /**
  * Module that provides all services and configuration.
@@ -28,21 +28,21 @@ import { UserDetailImpControllerService } from './services/user-detail-imp-contr
   exports: [],
   declarations: [],
   providers: [
-    UtilisateurControllerService,
-    PublicationControllerService,
-    FormationControllerService,
-    EventControllerService,
-    DepartementControllerService,
-    AcompteControllerService,
-    AutorisationTravailSupControllerService,
-    AutorisationTeletravailControllerService,
-    PretControllerService,
-    OrdreMissionControllerService,
-    CongeControllerService,
-    ChangementHoraireControllerService,
-    AutorisationSortieControllerService,
+    UtilisateurService,
+    FormationService,
+    EventService,
+    DepartementService,
+    DemandeService,
+    AcompteService,
+    AutorisationTravailSupService,
+    AutorisationTeletravailService,
+    PretService,
+    OrdreMissionService,
+    CongeService,
+    ChangementHoraireService,
+    AutorisationSortieService,
     AuthenticationService,
-    UserDetailImpControllerService,
+    UserDetailImpService,
     ApiConfiguration
   ],
 })

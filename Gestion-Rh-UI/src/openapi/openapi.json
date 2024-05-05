@@ -34,7 +34,7 @@
     "/utilisateur/{id}": {
     "get": {
     "tags": [
-    "UtilisateurController"
+    "Utilisateur"
     ],
     "operationId": "findById",
     "parameters": [
@@ -63,7 +63,7 @@
     },
     "put": {
     "tags": [
-    "UtilisateurController"
+    "Utilisateur"
     ],
     "operationId": "update",
     "parameters": [
@@ -102,108 +102,9 @@
     },
     "delete": {
     "tags": [
-    "UtilisateurController"
+    "Utilisateur"
     ],
     "operationId": "delete",
-    "parameters": [
-    {
-    "name": "id",
-    "in": "path",
-    "required": true,
-    "schema": {
-    "type": "integer",
-    "format": "int64"
-    }
-    }
-    ],
-    "responses": {
-    "200": {
-    "description": "Successfully delete entity",
-    "content": {
-    "application/json": {
-    "schema": {
-    "type": "string"
-    }
-    }
-    }
-    }
-    }
-    }
-    },
-    "/pub/{id}": {
-    "get": {
-    "tags": [
-    "PublicationController"
-    ],
-    "operationId": "findById_1",
-    "parameters": [
-    {
-    "name": "id",
-    "in": "path",
-    "required": true,
-    "schema": {
-    "type": "integer",
-    "format": "int64"
-    }
-    }
-    ],
-    "responses": {
-    "200": {
-    "description": "Successfully retrieve entity",
-    "content": {
-    "application/json": {
-    "schema": {
-    "$ref": "#/components/schemas/PublicationDto"
-    }
-    }
-    }
-    }
-    }
-    },
-    "put": {
-    "tags": [
-    "PublicationController"
-    ],
-    "operationId": "update_1",
-    "parameters": [
-    {
-    "name": "id",
-    "in": "path",
-    "required": true,
-    "schema": {
-    "type": "integer",
-    "format": "int64"
-    }
-    }
-    ],
-    "requestBody": {
-    "content": {
-    "application/json": {
-    "schema": {
-    "$ref": "#/components/schemas/PublicationDto"
-    }
-    }
-    },
-    "required": true
-    },
-    "responses": {
-    "200": {
-    "description": "Successfully updated entity",
-    "content": {
-    "application/json": {
-    "schema": {
-    "$ref": "#/components/schemas/PublicationDto"
-    }
-    }
-    }
-    }
-    }
-    },
-    "delete": {
-    "tags": [
-    "PublicationController"
-    ],
-    "operationId": "delete_1",
     "parameters": [
     {
     "name": "id",
@@ -232,9 +133,9 @@
     "/formation/{id}": {
     "get": {
     "tags": [
-    "FormationController"
+    "Formation"
     ],
-    "operationId": "findById_2",
+    "operationId": "findById_1",
     "parameters": [
     {
     "name": "id",
@@ -261,9 +162,9 @@
     },
     "put": {
     "tags": [
-    "FormationController"
+    "Formation"
     ],
-    "operationId": "update_2",
+    "operationId": "update_1",
     "parameters": [
     {
     "name": "id",
@@ -300,9 +201,9 @@
     },
     "delete": {
     "tags": [
-    "FormationController"
+    "Formation"
     ],
-    "operationId": "delete_2",
+    "operationId": "delete_1",
     "parameters": [
     {
     "name": "id",
@@ -331,9 +232,9 @@
     "/event/{id}": {
     "get": {
     "tags": [
-    "EventController"
+    "Event"
     ],
-    "operationId": "findById_3",
+    "operationId": "findById_2",
     "parameters": [
     {
     "name": "id",
@@ -360,9 +261,9 @@
     },
     "put": {
     "tags": [
-    "EventController"
+    "Event"
     ],
-    "operationId": "update_3",
+    "operationId": "update_2",
     "parameters": [
     {
     "name": "id",
@@ -399,9 +300,9 @@
     },
     "delete": {
     "tags": [
-    "EventController"
+    "Event"
     ],
-    "operationId": "delete_3",
+    "operationId": "delete_2",
     "parameters": [
     {
     "name": "id",
@@ -430,9 +331,9 @@
     "/department/{id}": {
     "get": {
     "tags": [
-    "DepartementController"
+    "Departement"
     ],
-    "operationId": "findById_4",
+    "operationId": "findById_3",
     "parameters": [
     {
     "name": "id",
@@ -459,9 +360,9 @@
     },
     "put": {
     "tags": [
-    "DepartementController"
+    "Departement"
     ],
-    "operationId": "update_4",
+    "operationId": "update_3",
     "parameters": [
     {
     "name": "id",
@@ -498,7 +399,106 @@
     },
     "delete": {
     "tags": [
-    "DepartementController"
+    "Departement"
+    ],
+    "operationId": "delete_3",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/demande/{id}": {
+    "get": {
+    "tags": [
+    "Demande"
+    ],
+    "operationId": "findById_4",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DemandeDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "Demande"
+    ],
+    "operationId": "update_4",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DemandeDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DemandeDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "Demande"
     ],
     "operationId": "delete_4",
     "parameters": [
@@ -529,7 +529,7 @@
     "/acompte/{id}": {
     "get": {
     "tags": [
-    "AcompteController"
+    "Acompte"
     ],
     "operationId": "findById_5",
     "parameters": [
@@ -558,7 +558,7 @@
     },
     "put": {
     "tags": [
-    "AcompteController"
+    "Acompte"
     ],
     "operationId": "update_5",
     "parameters": [
@@ -597,7 +597,7 @@
     },
     "delete": {
     "tags": [
-    "AcompteController"
+    "Acompte"
     ],
     "operationId": "delete_5",
     "parameters": [
@@ -628,7 +628,7 @@
     "/TravailSup/{id}": {
     "get": {
     "tags": [
-    "AutorisationTravailSupController"
+    "AutorisationTravailSup"
     ],
     "operationId": "findById_6",
     "parameters": [
@@ -657,7 +657,7 @@
     },
     "put": {
     "tags": [
-    "AutorisationTravailSupController"
+    "AutorisationTravailSup"
     ],
     "operationId": "update_6",
     "parameters": [
@@ -696,7 +696,7 @@
     },
     "delete": {
     "tags": [
-    "AutorisationTravailSupController"
+    "AutorisationTravailSup"
     ],
     "operationId": "delete_6",
     "parameters": [
@@ -727,7 +727,7 @@
     "/Teletravail/{id}": {
     "get": {
     "tags": [
-    "AutorisationTeletravailController"
+    "AutorisationTeletravail"
     ],
     "operationId": "findById_7",
     "parameters": [
@@ -756,7 +756,7 @@
     },
     "put": {
     "tags": [
-    "AutorisationTeletravailController"
+    "AutorisationTeletravail"
     ],
     "operationId": "update_7",
     "parameters": [
@@ -795,7 +795,7 @@
     },
     "delete": {
     "tags": [
-    "AutorisationTeletravailController"
+    "AutorisationTeletravail"
     ],
     "operationId": "delete_7",
     "parameters": [
@@ -826,7 +826,7 @@
     "/Pret/{id}": {
     "get": {
     "tags": [
-    "PretController"
+    "Pret"
     ],
     "operationId": "findById_8",
     "parameters": [
@@ -855,7 +855,7 @@
     },
     "put": {
     "tags": [
-    "PretController"
+    "Pret"
     ],
     "operationId": "update_8",
     "parameters": [
@@ -894,7 +894,7 @@
     },
     "delete": {
     "tags": [
-    "PretController"
+    "Pret"
     ],
     "operationId": "delete_8",
     "parameters": [
@@ -925,7 +925,7 @@
     "/OrdreMission/{id}": {
     "get": {
     "tags": [
-    "OrdreMissionController"
+    "OrdreMission"
     ],
     "operationId": "findById_9",
     "parameters": [
@@ -954,7 +954,7 @@
     },
     "put": {
     "tags": [
-    "OrdreMissionController"
+    "OrdreMission"
     ],
     "operationId": "update_9",
     "parameters": [
@@ -993,7 +993,7 @@
     },
     "delete": {
     "tags": [
-    "OrdreMissionController"
+    "OrdreMission"
     ],
     "operationId": "delete_9",
     "parameters": [
@@ -1024,7 +1024,7 @@
     "/Conge/{id}": {
     "get": {
     "tags": [
-    "CongeController"
+    "Conge"
     ],
     "operationId": "findById_10",
     "parameters": [
@@ -1053,7 +1053,7 @@
     },
     "put": {
     "tags": [
-    "CongeController"
+    "Conge"
     ],
     "operationId": "update_10",
     "parameters": [
@@ -1092,7 +1092,7 @@
     },
     "delete": {
     "tags": [
-    "CongeController"
+    "Conge"
     ],
     "operationId": "delete_10",
     "parameters": [
@@ -1123,7 +1123,7 @@
     "/ChangementH/{id}": {
     "get": {
     "tags": [
-    "ChangementHoraireController"
+    "ChangementHoraire"
     ],
     "operationId": "findById_11",
     "parameters": [
@@ -1152,7 +1152,7 @@
     },
     "put": {
     "tags": [
-    "ChangementHoraireController"
+    "ChangementHoraire"
     ],
     "operationId": "update_11",
     "parameters": [
@@ -1191,7 +1191,7 @@
     },
     "delete": {
     "tags": [
-    "ChangementHoraireController"
+    "ChangementHoraire"
     ],
     "operationId": "delete_11",
     "parameters": [
@@ -1222,7 +1222,7 @@
     "/AutorisationS/{id}": {
     "get": {
     "tags": [
-    "AutorisationSortieController"
+    "AutorisationSortie"
     ],
     "operationId": "findById_12",
     "parameters": [
@@ -1251,7 +1251,7 @@
     },
     "put": {
     "tags": [
-    "AutorisationSortieController"
+    "AutorisationSortie"
     ],
     "operationId": "update_12",
     "parameters": [
@@ -1290,7 +1290,7 @@
     },
     "delete": {
     "tags": [
-    "AutorisationSortieController"
+    "AutorisationSortie"
     ],
     "operationId": "delete_12",
     "parameters": [
@@ -1321,7 +1321,7 @@
     "/utilisateur": {
     "post": {
     "tags": [
-    "UtilisateurController"
+    "Utilisateur"
     ],
     "operationId": "add",
     "requestBody": {
@@ -1348,42 +1348,12 @@
     }
     }
     },
-    "/pub": {
-    "post": {
-    "tags": [
-    "PublicationController"
-    ],
-    "operationId": "add_1",
-    "requestBody": {
-    "content": {
-    "application/json": {
-    "schema": {
-    "$ref": "#/components/schemas/PublicationDto"
-    }
-    }
-    },
-    "required": true
-    },
-    "responses": {
-    "201": {
-    "description": "Successfully created entity",
-    "content": {
-    "application/json": {
-    "schema": {
-    "$ref": "#/components/schemas/PublicationDto"
-    }
-    }
-    }
-    }
-    }
-    }
-    },
     "/formation": {
     "post": {
     "tags": [
-    "FormationController"
+    "Formation"
     ],
-    "operationId": "add_2",
+    "operationId": "add_1",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1411,7 +1381,7 @@
     "/formation/addEmploye/{id}": {
     "post": {
     "tags": [
-    "FormationController"
+    "Formation"
     ],
     "operationId": "addEmployeToFormation",
     "parameters": [
@@ -1446,9 +1416,9 @@
     "/event": {
     "post": {
     "tags": [
-    "EventController"
+    "Event"
     ],
-    "operationId": "add_3",
+    "operationId": "add_2",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1476,7 +1446,7 @@
     "/event/addEmploye/{id}": {
     "post": {
     "tags": [
-    "EventController"
+    "Event"
     ],
     "operationId": "addEmployeToEvent",
     "parameters": [
@@ -1511,9 +1481,9 @@
     "/department": {
     "post": {
     "tags": [
-    "DepartementController"
+    "Departement"
     ],
-    "operationId": "add_4",
+    "operationId": "add_3",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1531,6 +1501,36 @@
     "application/json": {
     "schema": {
     "$ref": "#/components/schemas/DepartementDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/demande": {
+    "post": {
+    "tags": [
+    "Demande"
+    ],
+    "operationId": "add_4",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DemandeDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DemandeDto"
     }
     }
     }
@@ -1601,7 +1601,7 @@
     "/acompte": {
     "post": {
     "tags": [
-    "AcompteController"
+    "Acompte"
     ],
     "operationId": "add_5",
     "requestBody": {
@@ -1631,7 +1631,7 @@
     "/TravailSup": {
     "post": {
     "tags": [
-    "AutorisationTravailSupController"
+    "AutorisationTravailSup"
     ],
     "operationId": "add_6",
     "requestBody": {
@@ -1661,7 +1661,7 @@
     "/Teletravail": {
     "post": {
     "tags": [
-    "AutorisationTeletravailController"
+    "AutorisationTeletravail"
     ],
     "operationId": "add_7",
     "requestBody": {
@@ -1691,7 +1691,7 @@
     "/Pret": {
     "post": {
     "tags": [
-    "PretController"
+    "Pret"
     ],
     "operationId": "add_8",
     "requestBody": {
@@ -1721,7 +1721,7 @@
     "/OrdreMission": {
     "post": {
     "tags": [
-    "OrdreMissionController"
+    "OrdreMission"
     ],
     "operationId": "add_9",
     "requestBody": {
@@ -1751,7 +1751,7 @@
     "/Conge": {
     "post": {
     "tags": [
-    "CongeController"
+    "Conge"
     ],
     "operationId": "add_10",
     "requestBody": {
@@ -1781,7 +1781,7 @@
     "/ChangementH": {
     "post": {
     "tags": [
-    "ChangementHoraireController"
+    "ChangementHoraire"
     ],
     "operationId": "add_11",
     "requestBody": {
@@ -1811,7 +1811,7 @@
     "/AutorisationS": {
     "post": {
     "tags": [
-    "AutorisationSortieController"
+    "AutorisationSortie"
     ],
     "operationId": "add_12",
     "requestBody": {
@@ -1841,7 +1841,7 @@
     "/utilisateur/email/{email}": {
     "get": {
     "tags": [
-    "UtilisateurController"
+    "Utilisateur"
     ],
     "operationId": "loadUserByUsername",
     "parameters": [
@@ -1871,7 +1871,7 @@
     "/utilisateur/all": {
     "get": {
     "tags": [
-    "UtilisateurController"
+    "Utilisateur"
     ],
     "operationId": "findAll",
     "responses": {
@@ -1894,7 +1894,7 @@
     "/userD/username/{username}": {
     "get": {
     "tags": [
-    "user-detail-imp-controller"
+    "UserDetailImp"
     ],
     "operationId": "loadUserByUsername_1",
     "parameters": [
@@ -1921,35 +1921,12 @@
     }
     }
     },
-    "/pub/all": {
-    "get": {
-    "tags": [
-    "PublicationController"
-    ],
-    "operationId": "findAll_1",
-    "responses": {
-    "200": {
-    "description": "Successfully retrieve list",
-    "content": {
-    "application/json": {
-    "schema": {
-    "type": "array",
-    "items": {
-    "$ref": "#/components/schemas/PublicationDto"
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    },
     "/formation/all": {
     "get": {
     "tags": [
-    "FormationController"
+    "Formation"
     ],
-    "operationId": "findAll_2",
+    "operationId": "findAll_1",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -1970,9 +1947,9 @@
     "/event/all": {
     "get": {
     "tags": [
-    "EventController"
+    "Event"
     ],
-    "operationId": "findAll_3",
+    "operationId": "findAll_2",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -1993,7 +1970,30 @@
     "/department/all": {
     "get": {
     "tags": [
-    "DepartementController"
+    "Departement"
+    ],
+    "operationId": "findAll_3",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/DepartementDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/demande/all": {
+    "get": {
+    "tags": [
+    "Demande"
     ],
     "operationId": "findAll_4",
     "responses": {
@@ -2004,7 +2004,75 @@
     "schema": {
     "type": "array",
     "items": {
-    "$ref": "#/components/schemas/DepartementDto"
+    "$ref": "#/components/schemas/DemandeDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/demande/Utilisateur/{userId}": {
+    "get": {
+    "tags": [
+    "Demande"
+    ],
+    "operationId": "getDemandeByUtilisateurId",
+    "parameters": [
+    {
+    "name": "userId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Demande"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/demande/Departement/{departementId}": {
+    "get": {
+    "tags": [
+    "Demande"
+    ],
+    "operationId": "getDemandeById",
+    "parameters": [
+    {
+    "name": "departementId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Demande"
     }
     }
     }
@@ -2039,7 +2107,7 @@
     "/acompte/all": {
     "get": {
     "tags": [
-    "AcompteController"
+    "Acompte"
     ],
     "operationId": "findAll_5",
     "responses": {
@@ -2062,7 +2130,7 @@
     "/TravailSup/all": {
     "get": {
     "tags": [
-    "AutorisationTravailSupController"
+    "AutorisationTravailSup"
     ],
     "operationId": "findAll_6",
     "responses": {
@@ -2085,7 +2153,7 @@
     "/Teletravail/all": {
     "get": {
     "tags": [
-    "AutorisationTeletravailController"
+    "AutorisationTeletravail"
     ],
     "operationId": "findAll_7",
     "responses": {
@@ -2108,7 +2176,7 @@
     "/Pret/all": {
     "get": {
     "tags": [
-    "PretController"
+    "Pret"
     ],
     "operationId": "findAll_8",
     "responses": {
@@ -2131,7 +2199,7 @@
     "/OrdreMission/all": {
     "get": {
     "tags": [
-    "OrdreMissionController"
+    "OrdreMission"
     ],
     "operationId": "findAll_9",
     "responses": {
@@ -2154,7 +2222,7 @@
     "/Conge/all": {
     "get": {
     "tags": [
-    "CongeController"
+    "Conge"
     ],
     "operationId": "findAll_10",
     "responses": {
@@ -2177,7 +2245,7 @@
     "/ChangementH/all": {
     "get": {
     "tags": [
-    "ChangementHoraireController"
+    "ChangementHoraire"
     ],
     "operationId": "findAll_11",
     "responses": {
@@ -2200,7 +2268,7 @@
     "/AutorisationS/all": {
     "get": {
     "tags": [
-    "AutorisationSortieController"
+    "AutorisationSortie"
     ],
     "operationId": "findAll_12",
     "responses": {
@@ -2451,38 +2519,6 @@
     }
     }
     },
-    "PublicationDto": {
-    "type": "object",
-    "properties": {
-    "id": {
-    "type": "integer",
-    "format": "int64"
-    },
-    "createdBy": {
-    "type": "string"
-    },
-    "lastModifiedBy": {
-    "type": "string"
-    },
-    "createdDate": {
-    "type": "string",
-    "format": "date-time"
-    },
-    "lastModifiedDate": {
-    "type": "string",
-    "format": "date-time"
-    },
-    "file": {
-    "type": "string"
-    },
-    "typeF": {
-    "type": "string"
-    },
-    "description": {
-    "type": "string"
-    }
-    }
-    },
     "FormationDto": {
     "type": "object",
     "properties": {
@@ -2597,6 +2633,47 @@
     }
     }
     },
+    "DemandeDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
+    ]
+    },
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
+    }
+    }
+    },
     "AcompteDto": {
     "type": "object",
     "properties": {
@@ -2621,14 +2698,20 @@
     "statut": {
     "type": "string",
     "enum": [
-    "valid",
-    "pending",
-    "rejected",
-    "cancel"
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
     ]
     },
-    "employe": {
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
     "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
     },
     "montant": {
     "type": "integer",
@@ -2660,14 +2743,20 @@
     "statut": {
     "type": "string",
     "enum": [
-    "valid",
-    "pending",
-    "rejected",
-    "cancel"
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
     ]
     },
-    "employe": {
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
     "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
     },
     "date": {
     "type": "string",
@@ -2676,11 +2765,11 @@
     "motif": {
     "type": "string"
     },
-    "hsortie": {
+    "hacces": {
     "type": "string",
     "format": "date-time"
     },
-    "hacces": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     }
@@ -2710,14 +2799,20 @@
     "statut": {
     "type": "string",
     "enum": [
-    "valid",
-    "pending",
-    "rejected",
-    "cancel"
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
     ]
     },
-    "employe": {
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
     "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
     },
     "debut": {
     "type": "string",
@@ -2765,14 +2860,20 @@
     "statut": {
     "type": "string",
     "enum": [
-    "valid",
-    "pending",
-    "rejected",
-    "cancel"
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
     ]
     },
-    "employe": {
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
     "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
     },
     "montant": {
     "type": "integer",
@@ -2813,14 +2914,20 @@
     "statut": {
     "type": "string",
     "enum": [
-    "valid",
-    "pending",
-    "rejected",
-    "cancel"
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
     ]
     },
-    "employe": {
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
     "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
     },
     "dateS": {
     "type": "string",
@@ -2867,14 +2974,20 @@
     "statut": {
     "type": "string",
     "enum": [
-    "valid",
-    "pending",
-    "rejected",
-    "cancel"
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
     ]
     },
-    "employe": {
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
     "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
     },
     "duree": {
     "type": "integer",
@@ -2918,14 +3031,20 @@
     "statut": {
     "type": "string",
     "enum": [
-    "valid",
-    "pending",
-    "rejected",
-    "cancel"
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
     ]
     },
-    "employe": {
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
     "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
     },
     "debut": {
     "type": "string",
@@ -2938,11 +3057,11 @@
     "motif": {
     "type": "string"
     },
-    "nouvelH": {
+    "ancienH": {
     "type": "string",
     "format": "date-time"
     },
-    "ancienH": {
+    "nouvelH": {
     "type": "string",
     "format": "date-time"
     }
@@ -2972,14 +3091,20 @@
     "statut": {
     "type": "string",
     "enum": [
-    "valid",
-    "pending",
-    "rejected",
-    "cancel"
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
     ]
     },
-    "employe": {
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
     "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
     },
     "duree": {
     "type": "integer",
@@ -3115,11 +3240,14 @@
     "password": {
     "type": "string"
     },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
     "credentialsNonExpired": {
     "type": "boolean"
     },
-    "accountNonExpired": {
-    "type": "boolean"
+    "username": {
+    "type": "string"
     },
     "authorities": {
     "type": "array",
@@ -3127,11 +3255,45 @@
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "username": {
-    "type": "string"
-    },
     "accountNonLocked": {
     "type": "boolean"
+    }
+    }
+    },
+    "Demande": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "Validee",
+    "En_attente",
+    "Refusée",
+    "Annuler"
+    ]
+    },
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
+    "$ref": "#/components/schemas/Utilisateur"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
     }
     }
     }

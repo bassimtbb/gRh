@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/ChangementH")
-@Tag(name = "ChangementHoraireController")
+@Tag(name = "ChangementHoraire")
 public class ChangementHoraireController  extends GenericCrudController<ChangementHoraire, ChangementHoraireDto> {
 
     private ChangementHoraireCrudService changementHoraireCrudService;

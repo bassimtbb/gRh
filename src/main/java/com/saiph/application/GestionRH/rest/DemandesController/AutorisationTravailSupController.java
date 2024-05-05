@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/TravailSup")
-@Tag(name = "AutorisationTravailSupController")
+@Tag(name = "AutorisationTravailSup")
 public class AutorisationTravailSupController  extends GenericCrudController<AutorisationTravailSup, AutorisationTravailSupDto> {
 
     private AutorisationTravailSupCrudService autorisationTravailSupCrudService;

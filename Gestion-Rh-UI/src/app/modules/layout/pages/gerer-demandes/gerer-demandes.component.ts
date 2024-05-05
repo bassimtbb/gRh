@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Demande } from '../../../../services/models';
+import { DemandeService, UtilisateurService } from '../../../../services/services';
+import { TokenService } from '../../../../services/token/token.service';
 
 @Component({
   selector: 'app-gerer-demandes',
@@ -6,32 +9,32 @@ import { Component } from '@angular/core';
   styleUrl: './gerer-demandes.component.scss'
 })
 export class GererDemandesComponent {
-  demandes = [
-    { id:"1234AC",nom:"Bassim",prenom:"Tabbeb",Type: "Demande de congé", Statut: "Validée", Date: "2024-02-20", File: "" },
-    { id:"1234AC",nom:"Bassim",prenom:"Tabbeb",Type: "Demande de D’autorisation de télétravail", Statut: "En attente", Date: "2024-02-21", File: "" },
-    { id:"1234AC",nom:"Bassim",prenom:"Tabbeb",Type: "Demande de changement Horaire de travail", Statut: "Refusée", Date: "2024-02-22", File: "" },
-    { id:"1234AC",nom:"Bassim",prenom:"Tabbeb",Type: "Demande D’acompte sur Salaire/prime", Statut: "En attente", Date: "2024-02-23", File: "" },
-    { id:"1234AC",nom:"Bassim",prenom:"Tabbeb",Type: "Demande de D’autorisation de sortie", Statut: "Validée", Date: "2024-02-24", File: "" },
-  ];
-  length = 100; // Total number of items
-  pageSize = 10; // Items per page
-  pageSizeOptions = [5, 10, 25, 100]; // Available page sizes
+constructor(
+  private   demandeService:DemandeService,
+  private utilisateurService:UtilisateurService,
+  private tokenService :TokenService
+){}
 
-  // Handle page change event
-//   onPageChange(event: PageEvent): void {
-//     const pageIndex = event.pageIndex;
-//     const pageSize = event.pageSize;
-//     // Fetch data based on pageIndex and pageSize
-//     // Update your table data accordingly
-  
-// }
-getStatusClass(statut: string): string {
+  demandes:Demande[]=[];
+  ngOnInit(): void {
+      const email = this.tokenService.email;
+      this.utilisateurService.loadUserByUsername({ email: email as string })
+      .subscribe(user => { 
+        this.demandeService.findAll4().subscribe(
+           demandes =>{ 
+            this.demandes=demandes;
+          }
+        )
+
+      });
+  }
+getStatusClass(statut: any): string {
   switch (statut) {
-    case 'Validée':
+    case 'Validee':
       return 'valid bi-check-circle-fill';
-    case 'En attente':
+    case 'En_attente':
       return 'pending bi-dash-circle-fill';
-    case 'Refusée':
+    case 'Refusee':
       return 'rejected bi-x-circle-fill';
     default:
       return '';

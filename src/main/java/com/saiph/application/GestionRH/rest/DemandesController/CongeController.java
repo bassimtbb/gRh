@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/Conge")
-@Tag(name = "CongeController")
+@Tag(name = "Conge")
 public class CongeController  extends GenericCrudController<Conge, CongeDto> {
 
     private CongeCrudService congeCrudService;

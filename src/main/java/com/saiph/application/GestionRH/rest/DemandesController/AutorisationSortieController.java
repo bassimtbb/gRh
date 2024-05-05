@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/AutorisationS")
-@Tag(name = "AutorisationSortieController")
+@Tag(name = "AutorisationSortie")
 public class AutorisationSortieController extends GenericCrudController<AutorisationSortie, AutorisationSortieDto> {
 
     private AutorisationSortieCrudService autorisationSortieCrudService ;

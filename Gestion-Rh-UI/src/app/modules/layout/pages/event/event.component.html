@@ -4,9 +4,11 @@
         <button type="button"  class="btn btn-success " data-bs-toggle="modal" data-bs-target="#eventAdd" >Ajouter un Événement</button>
     </div>
     <div [ngClass]=alert role="alert">    {{Msg}}    </div>
-  
-<div class="body">
-  <div class="card"  *ngFor="let event of events" style="height: 30rem; width: 18rem;">
+  <div *ngIf="events.length==0 || events==null" class="body">
+    <p class="mb-0 "><small class="text-body-secondary">Aucune Événement</small></p>
+  </div>
+  <div *ngIf="events.length" class="body">
+    <div class="card"  *ngFor="let event of events" style="height: 30rem; width: 18rem;">
     <img  [src]="EventCover" class="card-img-top" alt="...">
 
     <div style="min-height:40px; overflow: clip;" class=" d-block card-body">

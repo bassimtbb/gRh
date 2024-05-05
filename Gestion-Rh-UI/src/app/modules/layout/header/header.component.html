@@ -15,23 +15,28 @@
             <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="dashboard">
               <i class=""></i>&nbsp;Dashboard
             </a>
-          </li>            
-          <li class="nav-item navbar-nav dropdown">
-            <a class="nav-link mx-lg-2 dropdown-toggle" id="navbarDropdown" routerLinkActive="List-item-active" routerLink="mesdemande" role="button" data-toggle="dropdown" aria-expanded="false">
-                <i class=""></i>&nbsp;Mes Demandes
-            </a>
-    
-        </li>
-        <li class="nav-item navbar-nav dropdown">
-          <a class="nav-link mx-lg-2 dropdown-toggle" id="navbarDropdown" routerLinkActive="List-item-active" routerLink="gererdemande" role="button" data-toggle="dropdown" aria-expanded="false">
-              <i class=""></i>&nbsp;Gérer Demandes
-          </a>
-  
-      </li>
+          </li>       
+          <div class="btn-group  dropdown">
+            <button class="nav-link mx-lg-2 dropdown-toggle" type="button" id="typeDemande" data-bs-toggle="dropdown" aria-expanded="false">
+       Demande</button>
+            <ul class="dropdown-menu">
+              <li class="nav-item navbar-nav ">
+                <a class="nav-link mx-lg-2 " id="navbarDropdown" routerLinkActive="List-item-active" routerLink="mesdemande" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class=""></i>&nbsp;Mes Demandes
+                </a>
+            </li>   
+        
+            <li class="nav-item navbar-nav ">
+              <a class="nav-link " id="navbarDropdown" routerLinkActive="List-item-active" routerLink="gererdemande" role="button" data-toggle="dropdown" aria-expanded="false">
+                  <i class=""></i>&nbsp;Traiter Demandes
+              </a>
+          </li>          
+          </ul> </div>     
+
           
           <li class="nav-item">
             <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="formations">
-              <i class=""></i>&nbsp;Formations
+              <i class=""></i>&nbsp;Formation
             </a>
           </li>         
           

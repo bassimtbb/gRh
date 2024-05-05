@@ -1,8 +1,8 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UtilisateurControllerService } from '../../../../services/services/utilisateur-controller.service';
+import { UtilisateurService } from '../../../../services/services/utilisateur.service';
 import { TokenService } from '../../../../services/token/token.service';
 import { AuthenticationRequest, RegistrationRequest, Utilisateur } from '../../../../services/models';
 import { AuthenticationService } from '../../../../services/services/authentication.service';
@@ -12,7 +12,7 @@ import { AuthenticationService } from '../../../../services/services/authenticat
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent {
+export class UsersComponent  implements OnInit {
   utilisateur: any;
   employes: Utilisateur[] = [];
   totalPages: number = 0;
@@ -20,7 +20,7 @@ export class UsersComponent {
 
   constructor(
     private registre: AuthenticationService,
-    private utilisateurService: UtilisateurControllerService,
+    private utilisateurService: UtilisateurService,
     private tokenService: TokenService
   ) {}
 

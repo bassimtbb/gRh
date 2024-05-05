@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/event")
-@Tag(name = "EventController")
+@Tag(name = "Event")
 public class EventController extends GenericCrudController<Event, EventDto> {
     public final EventCrudService eventCrudService;
     private final UtilisateurCrudService utilisateurCrudService;

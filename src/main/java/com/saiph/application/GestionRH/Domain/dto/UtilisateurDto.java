@@ -23,9 +23,7 @@ import static jakarta.persistence.FetchType.EAGER;
 @AllArgsConstructor
 public class UtilisateurDto extends GenericDto  {
 
-    public UtilisateurDto(Utilisateur utilisateur) {
 
-    }
 
     @Override
     public Long getId() {

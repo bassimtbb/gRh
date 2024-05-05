@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/Teletravail")
-@Tag(name = "AutorisationTeletravailController")
+@Tag(name = "AutorisationTeletravail")
 public class AutorisationTeletravailController  extends GenericCrudController<AutorisationTeletravail, AutorisationTeletravailDto> {
 
     private AutorisationTeletravailCrudService autorisationTeletravailCrudService;

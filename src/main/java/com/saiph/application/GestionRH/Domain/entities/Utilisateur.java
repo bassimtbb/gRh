@@ -1,6 +1,8 @@
 package com.saiph.application.GestionRH.Domain.entities;
 
-
+import com.saiph.application.GestionRH.Domain.entities.Demande;
+import com.saiph.application.GestionRH.Domain.entities.Departement;
+import com.saiph.application.GestionRH.Domain.entities.GenericEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -9,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -29,16 +32,6 @@ import static jakarta.persistence.FetchType.LAZY;
 public class Utilisateur  extends GenericEntity {
 
 
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
 
     private String EJuridic;
 
@@ -66,8 +59,6 @@ public class Utilisateur  extends GenericEntity {
     private String telephone;
 
     private String img;
-
-
 
 
     private Date DEmbauche=new Date();

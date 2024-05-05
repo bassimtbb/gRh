@@ -39,12 +39,12 @@
             "styles": [
               "bootstrap/dist/css/bootstrap.min.css",
               "bootstrap-icons/font/bootstrap-icons.min.css",
-
-              "@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
-            "scripts": [         "node_modules/popper.js/dist/umd/popper.min.js",   
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            "scripts": [  
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/bootstrap/js/dist/dropdown.js"
+
       ]
           },
           "configurations": {

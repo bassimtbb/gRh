@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/utilisateur")
-@Tag(name = "UtilisateurController")
+@Tag(name = "Utilisateur")
 public class UtilisateurController extends GenericCrudController<Utilisateur, UtilisateurDto> {
     public UtilisateurCrudService utilisateurCrudService;
 

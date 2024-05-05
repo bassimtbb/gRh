@@ -6,7 +6,10 @@
     </div>
     <div [ngClass]=alert role="alert">    {{Msg}}    </div>
 
-    <div class="body">
+    <div *ngIf="formations.length==0 || formations==null" class="body">
+      <p class="mb-0 "><small class="text-body-secondary">Aucune Formation</small></p>
+    </div>
+    <div *ngIf="formations.length" class="body">
       <div class="card"   *ngFor="let formation of formations" style="height: 30rem; width: 18rem;">
         <img  [src]="fromationCover" class="card-img-top" alt="...">
 

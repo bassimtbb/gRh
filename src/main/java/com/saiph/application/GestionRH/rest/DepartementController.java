@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/department")
-@Tag(name = "DepartementController")
+@Tag(name = "Departement")
 public class DepartementController extends GenericCrudController<Departement, DepartementDto>{
 
 

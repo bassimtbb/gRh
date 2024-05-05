@@ -9,7 +9,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@Tag(name = "ChatController")
+@Tag(name = "Chat")
 public class ChatController {
 
     @MessageMapping("/chat.sendMessage")

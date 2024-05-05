@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserDetails, Utilisateur, UtilisateurDto } from '../../../../services/models';
-import { AuthenticationService, UserDetailImpControllerService, UtilisateurControllerService } from '../../../../services/services';
+import { AuthenticationService, UserDetailImpService, UtilisateurService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { Router } from '@angular/router';
 import {OnInit} from '@angular/core';
@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authenticationService : AuthenticationService,
-    private utilisateurService: UtilisateurControllerService,
+    private utilisateurService: UtilisateurService,
     private tokenService: TokenService
   ) {}
   ngOnInit(): void {

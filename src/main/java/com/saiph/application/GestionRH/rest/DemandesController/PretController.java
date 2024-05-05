@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/Pret")
-@Tag(name = "PretController")
+@Tag(name = "Pret")
 public class PretController  extends GenericCrudController<Pret, PretDto> {
 
     private PretCrudService pretCrudService;
