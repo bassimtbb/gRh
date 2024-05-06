@@ -7,12 +7,12 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface Delete10$Params {
+export interface Delete11$Params {
   id: number;
 }
 
-export function delete10(http: HttpClient, rootUrl: string, params: Delete10$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-  const rb = new RequestBuilder(rootUrl, delete10.PATH, 'delete');
+export function delete11(http: HttpClient, rootUrl: string, params: Delete11$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  const rb = new RequestBuilder(rootUrl, delete11.PATH, 'delete');
   if (params) {
     rb.path('id', params.id, {});
   }
@@ -27,4 +27,4 @@ export function delete10(http: HttpClient, rootUrl: string, params: Delete10$Par
   );
 }
 
-delete10.PATH = '/Conge/{id}';
+delete11.PATH = '/AutorisationS/{id}';

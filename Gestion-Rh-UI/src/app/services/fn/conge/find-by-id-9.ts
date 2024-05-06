@@ -6,14 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AutorisationSortieDto } from '../../models/autorisation-sortie-dto';
+import { CongeDto } from '../../models/conge-dto';
 
-export interface FindById12$Params {
+export interface FindById9$Params {
   id: number;
 }
 
-export function findById12(http: HttpClient, rootUrl: string, params: FindById12$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationSortieDto>> {
-  const rb = new RequestBuilder(rootUrl, findById12.PATH, 'get');
+export function findById9(http: HttpClient, rootUrl: string, params: FindById9$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
+  const rb = new RequestBuilder(rootUrl, findById9.PATH, 'get');
   if (params) {
     rb.path('id', params.id, {});
   }
@@ -23,9 +23,9 @@ export function findById12(http: HttpClient, rootUrl: string, params: FindById12
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<AutorisationSortieDto>;
+      return r as StrictHttpResponse<CongeDto>;
     })
   );
 }
 
-findById12.PATH = '/AutorisationS/{id}';
+findById9.PATH = '/Conge/{id}';

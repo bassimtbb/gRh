@@ -6,16 +6,18 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CongeDto } from '../../models/conge-dto';
+import { AutorisationSortieDto } from '../../models/autorisation-sortie-dto';
 
-export interface FindById10$Params {
+export interface Update11$Params {
   id: number;
+      body: AutorisationSortieDto
 }
 
-export function findById10(http: HttpClient, rootUrl: string, params: FindById10$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
-  const rb = new RequestBuilder(rootUrl, findById10.PATH, 'get');
+export function update11(http: HttpClient, rootUrl: string, params: Update11$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationSortieDto>> {
+  const rb = new RequestBuilder(rootUrl, update11.PATH, 'put');
   if (params) {
     rb.path('id', params.id, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -23,9 +25,9 @@ export function findById10(http: HttpClient, rootUrl: string, params: FindById10
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<CongeDto>;
+      return r as StrictHttpResponse<AutorisationSortieDto>;
     })
   );
 }
 
-findById10.PATH = '/Conge/{id}';
+update11.PATH = '/AutorisationS/{id}';

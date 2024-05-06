@@ -6,13 +6,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ChangementHoraireDto } from '../../models/changement-horaire-dto';
+import { AutorisationSortieDto } from '../../models/autorisation-sortie-dto';
 
 export interface Add11$Params {
-      body: ChangementHoraireDto
+      body: AutorisationSortieDto
 }
 
-export function add11(http: HttpClient, rootUrl: string, params: Add11$Params, context?: HttpContext): Observable<StrictHttpResponse<ChangementHoraireDto>> {
+export function add11(http: HttpClient, rootUrl: string, params: Add11$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationSortieDto>> {
   const rb = new RequestBuilder(rootUrl, add11.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -23,9 +23,9 @@ export function add11(http: HttpClient, rootUrl: string, params: Add11$Params, c
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<ChangementHoraireDto>;
+      return r as StrictHttpResponse<AutorisationSortieDto>;
     })
   );
 }
 
-add11.PATH = '/ChangementH';
+add11.PATH = '/AutorisationS';

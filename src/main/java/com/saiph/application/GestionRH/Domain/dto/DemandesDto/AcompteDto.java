@@ -2,15 +2,13 @@ package com.saiph.application.GestionRH.Domain.dto.DemandesDto;
 
 
 import com.saiph.application.GestionRH.Domain.dto.DemandeDto;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class AcompteDto extends DemandeDto {
     private Integer montant;
+    private String typeA;
 
-    public Integer getMontant() {
-        return montant;
-    }
-
-    public void setMontant(Integer montant) {
-        this.montant = montant;
-    }
 }

@@ -6,14 +6,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AutorisationSortieDto } from '../../models/autorisation-sortie-dto';
 
-export interface FindAll12$Params {
+export interface Delete10$Params {
+  id: number;
 }
 
-export function findAll12(http: HttpClient, rootUrl: string, params?: FindAll12$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AutorisationSortieDto>>> {
-  const rb = new RequestBuilder(rootUrl, findAll12.PATH, 'get');
+export function delete10(http: HttpClient, rootUrl: string, params: Delete10$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  const rb = new RequestBuilder(rootUrl, delete10.PATH, 'delete');
   if (params) {
+    rb.path('id', params.id, {});
   }
 
   return http.request(
@@ -21,9 +22,9 @@ export function findAll12(http: HttpClient, rootUrl: string, params?: FindAll12$
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<AutorisationSortieDto>>;
+      return r as StrictHttpResponse<string>;
     })
   );
 }
 
-findAll12.PATH = '/AutorisationS/all';
+delete10.PATH = '/ChangementH/{id}';

@@ -6,16 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CongeDto } from '../../models/conge-dto';
+import { AutorisationSortieDto } from '../../models/autorisation-sortie-dto';
 
-export interface Add10$Params {
-      body: CongeDto
+export interface FindAll11$Params {
 }
 
-export function add10(http: HttpClient, rootUrl: string, params: Add10$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
-  const rb = new RequestBuilder(rootUrl, add10.PATH, 'post');
+export function findAll11(http: HttpClient, rootUrl: string, params?: FindAll11$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AutorisationSortieDto>>> {
+  const rb = new RequestBuilder(rootUrl, findAll11.PATH, 'get');
   if (params) {
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -23,9 +21,9 @@ export function add10(http: HttpClient, rootUrl: string, params: Add10$Params, c
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<CongeDto>;
+      return r as StrictHttpResponse<Array<AutorisationSortieDto>>;
     })
   );
 }
 
-add10.PATH = '/Conge';
+findAll11.PATH = '/AutorisationS/all';

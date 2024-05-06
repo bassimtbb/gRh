@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormationDto, Utilisateur } from '../../../../services/models';
 import { FormationService, UtilisateurService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
-import { Long } from 'mongodb';
 
 @Component({
   selector: 'app-formation',

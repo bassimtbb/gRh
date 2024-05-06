@@ -6,18 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CongeDto } from '../../models/conge-dto';
+import { ChangementHoraireDto } from '../../models/changement-horaire-dto';
 
-export interface Update10$Params {
+export interface FindById10$Params {
   id: number;
-      body: CongeDto
 }
 
-export function update10(http: HttpClient, rootUrl: string, params: Update10$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
-  const rb = new RequestBuilder(rootUrl, update10.PATH, 'put');
+export function findById10(http: HttpClient, rootUrl: string, params: FindById10$Params, context?: HttpContext): Observable<StrictHttpResponse<ChangementHoraireDto>> {
+  const rb = new RequestBuilder(rootUrl, findById10.PATH, 'get');
   if (params) {
     rb.path('id', params.id, {});
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -25,9 +23,9 @@ export function update10(http: HttpClient, rootUrl: string, params: Update10$Par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<CongeDto>;
+      return r as StrictHttpResponse<ChangementHoraireDto>;
     })
   );
 }
 
-update10.PATH = '/Conge/{id}';
+findById10.PATH = '/ChangementH/{id}';

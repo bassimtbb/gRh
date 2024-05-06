@@ -6,13 +6,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ChangementHoraireDto } from '../../models/changement-horaire-dto';
+import { AutorisationSortieDto } from '../../models/autorisation-sortie-dto';
 
 export interface FindById11$Params {
   id: number;
 }
 
-export function findById11(http: HttpClient, rootUrl: string, params: FindById11$Params, context?: HttpContext): Observable<StrictHttpResponse<ChangementHoraireDto>> {
+export function findById11(http: HttpClient, rootUrl: string, params: FindById11$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationSortieDto>> {
   const rb = new RequestBuilder(rootUrl, findById11.PATH, 'get');
   if (params) {
     rb.path('id', params.id, {});
@@ -23,9 +23,9 @@ export function findById11(http: HttpClient, rootUrl: string, params: FindById11
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<ChangementHoraireDto>;
+      return r as StrictHttpResponse<AutorisationSortieDto>;
     })
   );
 }
 
-findById11.PATH = '/ChangementH/{id}';
+findById11.PATH = '/AutorisationS/{id}';

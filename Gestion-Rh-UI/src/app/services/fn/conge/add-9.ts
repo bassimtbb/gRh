@@ -6,17 +6,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ChangementHoraireDto } from '../../models/changement-horaire-dto';
+import { CongeDto } from '../../models/conge-dto';
 
-export interface Update11$Params {
-  id: number;
-      body: ChangementHoraireDto
+export interface Add9$Params {
+      body: CongeDto
 }
 
-export function update11(http: HttpClient, rootUrl: string, params: Update11$Params, context?: HttpContext): Observable<StrictHttpResponse<ChangementHoraireDto>> {
-  const rb = new RequestBuilder(rootUrl, update11.PATH, 'put');
+export function add9(http: HttpClient, rootUrl: string, params: Add9$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
+  const rb = new RequestBuilder(rootUrl, add9.PATH, 'post');
   if (params) {
-    rb.path('id', params.id, {});
     rb.body(params.body, 'application/json');
   }
 
@@ -25,9 +23,9 @@ export function update11(http: HttpClient, rootUrl: string, params: Update11$Par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<ChangementHoraireDto>;
+      return r as StrictHttpResponse<CongeDto>;
     })
   );
 }
 
-update11.PATH = '/ChangementH/{id}';
+add9.PATH = '/Conge';

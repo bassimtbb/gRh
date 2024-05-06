@@ -9,17 +9,17 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { add10 } from '../fn/conge/add-10';
-import { Add10$Params } from '../fn/conge/add-10';
+import { add9 } from '../fn/conge/add-9';
+import { Add9$Params } from '../fn/conge/add-9';
 import { CongeDto } from '../models/conge-dto';
-import { delete10 } from '../fn/conge/delete-10';
-import { Delete10$Params } from '../fn/conge/delete-10';
-import { findAll10 } from '../fn/conge/find-all-10';
-import { FindAll10$Params } from '../fn/conge/find-all-10';
-import { findById10 } from '../fn/conge/find-by-id-10';
-import { FindById10$Params } from '../fn/conge/find-by-id-10';
-import { update10 } from '../fn/conge/update-10';
-import { Update10$Params } from '../fn/conge/update-10';
+import { delete9 } from '../fn/conge/delete-9';
+import { Delete9$Params } from '../fn/conge/delete-9';
+import { findAll9 } from '../fn/conge/find-all-9';
+import { FindAll9$Params } from '../fn/conge/find-all-9';
+import { findById9 } from '../fn/conge/find-by-id-9';
+import { FindById9$Params } from '../fn/conge/find-by-id-9';
+import { update9 } from '../fn/conge/update-9';
+import { Update9$Params } from '../fn/conge/update-9';
 
 @Injectable({ providedIn: 'root' })
 export class CongeService extends BaseService {
@@ -27,127 +27,127 @@ export class CongeService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `findById10()` */
-  static readonly FindById10Path = '/Conge/{id}';
+  /** Path part for operation `findById9()` */
+  static readonly FindById9Path = '/Conge/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findById10()` instead.
+   * To access only the response body, use `findById9()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById10$Response(params: FindById10$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
-    return findById10(this.http, this.rootUrl, params, context);
+  findById9$Response(params: FindById9$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
+    return findById9(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findById10$Response()` instead.
+   * To access the full response (for headers, for example), `findById9$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById10(params: FindById10$Params, context?: HttpContext): Observable<CongeDto> {
-    return this.findById10$Response(params, context).pipe(
+  findById9(params: FindById9$Params, context?: HttpContext): Observable<CongeDto> {
+    return this.findById9$Response(params, context).pipe(
       map((r: StrictHttpResponse<CongeDto>): CongeDto => r.body)
     );
   }
 
-  /** Path part for operation `update10()` */
-  static readonly Update10Path = '/Conge/{id}';
+  /** Path part for operation `update9()` */
+  static readonly Update9Path = '/Conge/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `update10()` instead.
+   * To access only the response body, use `update9()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update10$Response(params: Update10$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
-    return update10(this.http, this.rootUrl, params, context);
+  update9$Response(params: Update9$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
+    return update9(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `update10$Response()` instead.
+   * To access the full response (for headers, for example), `update9$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update10(params: Update10$Params, context?: HttpContext): Observable<CongeDto> {
-    return this.update10$Response(params, context).pipe(
+  update9(params: Update9$Params, context?: HttpContext): Observable<CongeDto> {
+    return this.update9$Response(params, context).pipe(
       map((r: StrictHttpResponse<CongeDto>): CongeDto => r.body)
     );
   }
 
-  /** Path part for operation `delete10()` */
-  static readonly Delete10Path = '/Conge/{id}';
+  /** Path part for operation `delete9()` */
+  static readonly Delete9Path = '/Conge/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `delete10()` instead.
+   * To access only the response body, use `delete9()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete10$Response(params: Delete10$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return delete10(this.http, this.rootUrl, params, context);
+  delete9$Response(params: Delete9$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return delete9(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `delete10$Response()` instead.
+   * To access the full response (for headers, for example), `delete9$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete10(params: Delete10$Params, context?: HttpContext): Observable<string> {
-    return this.delete10$Response(params, context).pipe(
+  delete9(params: Delete9$Params, context?: HttpContext): Observable<string> {
+    return this.delete9$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
-  /** Path part for operation `add10()` */
-  static readonly Add10Path = '/Conge';
+  /** Path part for operation `add9()` */
+  static readonly Add9Path = '/Conge';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `add10()` instead.
+   * To access only the response body, use `add9()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add10$Response(params: Add10$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
-    return add10(this.http, this.rootUrl, params, context);
+  add9$Response(params: Add9$Params, context?: HttpContext): Observable<StrictHttpResponse<CongeDto>> {
+    return add9(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `add10$Response()` instead.
+   * To access the full response (for headers, for example), `add9$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add10(params: Add10$Params, context?: HttpContext): Observable<CongeDto> {
-    return this.add10$Response(params, context).pipe(
+  add9(params: Add9$Params, context?: HttpContext): Observable<CongeDto> {
+    return this.add9$Response(params, context).pipe(
       map((r: StrictHttpResponse<CongeDto>): CongeDto => r.body)
     );
   }
 
-  /** Path part for operation `findAll10()` */
-  static readonly FindAll10Path = '/Conge/all';
+  /** Path part for operation `findAll9()` */
+  static readonly FindAll9Path = '/Conge/all';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAll10()` instead.
+   * To access only the response body, use `findAll9()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll10$Response(params?: FindAll10$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CongeDto>>> {
-    return findAll10(this.http, this.rootUrl, params, context);
+  findAll9$Response(params?: FindAll9$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CongeDto>>> {
+    return findAll9(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAll10$Response()` instead.
+   * To access the full response (for headers, for example), `findAll9$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll10(params?: FindAll10$Params, context?: HttpContext): Observable<Array<CongeDto>> {
-    return this.findAll10$Response(params, context).pipe(
+  findAll9(params?: FindAll9$Params, context?: HttpContext): Observable<Array<CongeDto>> {
+    return this.findAll9$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<CongeDto>>): Array<CongeDto> => r.body)
     );
   }

@@ -6,15 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { CongeDto } from '../../models/conge-dto';
 
-export interface Delete11$Params {
-  id: number;
+export interface FindAll9$Params {
 }
 
-export function delete11(http: HttpClient, rootUrl: string, params: Delete11$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-  const rb = new RequestBuilder(rootUrl, delete11.PATH, 'delete');
+export function findAll9(http: HttpClient, rootUrl: string, params?: FindAll9$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CongeDto>>> {
+  const rb = new RequestBuilder(rootUrl, findAll9.PATH, 'get');
   if (params) {
-    rb.path('id', params.id, {});
   }
 
   return http.request(
@@ -22,9 +21,9 @@ export function delete11(http: HttpClient, rootUrl: string, params: Delete11$Par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<string>;
+      return r as StrictHttpResponse<Array<CongeDto>>;
     })
   );
 }
 
-delete11.PATH = '/ChangementH/{id}';
+findAll9.PATH = '/Conge/all';

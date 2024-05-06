@@ -3,6 +3,8 @@
 import { Departement } from '../models/departement';
 import { Utilisateur } from '../models/utilisateur';
 export interface ChangementHoraireDto {
+  AncienH?: string;
+  NouvelH?: string;
   ancienH?: string;
   createdBy?: string;
   createdDate?: string;

@@ -3,6 +3,8 @@
 import { Departement } from '../models/departement';
 import { Utilisateur } from '../models/utilisateur';
 export interface AutorisationTravailSupDto {
+  Hacces?: string;
+  Hsortie?: string;
   createdBy?: string;
   createdDate?: string;
   date?: string;

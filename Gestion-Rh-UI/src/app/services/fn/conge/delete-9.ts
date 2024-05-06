@@ -6,18 +6,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AutorisationSortieDto } from '../../models/autorisation-sortie-dto';
 
-export interface Update12$Params {
+export interface Delete9$Params {
   id: number;
-      body: AutorisationSortieDto
 }
 
-export function update12(http: HttpClient, rootUrl: string, params: Update12$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationSortieDto>> {
-  const rb = new RequestBuilder(rootUrl, update12.PATH, 'put');
+export function delete9(http: HttpClient, rootUrl: string, params: Delete9$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  const rb = new RequestBuilder(rootUrl, delete9.PATH, 'delete');
   if (params) {
     rb.path('id', params.id, {});
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -25,9 +22,9 @@ export function update12(http: HttpClient, rootUrl: string, params: Update12$Par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<AutorisationSortieDto>;
+      return r as StrictHttpResponse<string>;
     })
   );
 }
 
-update12.PATH = '/AutorisationS/{id}';
+delete9.PATH = '/Conge/{id}';

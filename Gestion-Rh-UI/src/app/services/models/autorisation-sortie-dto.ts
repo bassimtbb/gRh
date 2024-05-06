@@ -3,6 +3,8 @@
 import { Departement } from '../models/departement';
 import { Utilisateur } from '../models/utilisateur';
 export interface AutorisationSortieDto {
+  Hretour?: string;
+  Hsortie?: string;
   createdBy?: string;
   createdDate?: string;
   dateR?: string;
@@ -12,11 +14,11 @@ export interface AutorisationSortieDto {
   hretour?: string;
   hsortie?: string;
   id?: number;
+  isTemporaire?: boolean;
   lastModifiedBy?: string;
   lastModifiedDate?: string;
   motif?: string;
   statut?: 'Validee' | 'En_attente' | 'Refus\xE9e' | 'Annuler';
-  temporaire?: boolean;
   type?: string;
   utilisateur?: Utilisateur;
 }

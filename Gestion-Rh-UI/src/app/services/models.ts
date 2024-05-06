@@ -15,7 +15,6 @@ export { DepartementDto } from './models/departement-dto';
 export { EventDto } from './models/event-dto';
 export { FormationDto } from './models/formation-dto';
 export { GrantedAuthority } from './models/granted-authority';
-export { OrdreMissionDto } from './models/ordre-mission-dto';
 export { PretDto } from './models/pret-dto';
 export { RegistrationRequest } from './models/registration-request';
 export { Role } from './models/role';

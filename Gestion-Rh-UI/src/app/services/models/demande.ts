@@ -7,6 +7,7 @@ export interface Demande {
   createdDate?: string;
   departement?: Departement;
   id?: number;
+  isValidee?: number;
   lastModifiedBy?: string;
   statut?: 'Validee' | 'En_attente' | 'Refus\xE9e' | 'Annuler';
   type?: string;

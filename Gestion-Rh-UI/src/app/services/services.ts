@@ -7,7 +7,6 @@ export { AcompteService } from './services/acompte.service';
 export { AutorisationTravailSupService } from './services/autorisation-travail-sup.service';
 export { AutorisationTeletravailService } from './services/autorisation-teletravail.service';
 export { PretService } from './services/pret.service';
-export { OrdreMissionService } from './services/ordre-mission.service';
 export { CongeService } from './services/conge.service';
 export { ChangementHoraireService } from './services/changement-horaire.service';
 export { AutorisationSortieService } from './services/autorisation-sortie.service';

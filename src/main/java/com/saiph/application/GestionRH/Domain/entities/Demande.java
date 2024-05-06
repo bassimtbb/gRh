@@ -15,8 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 public class Demande extends GenericEntity{
 
-      private Statut statut;
+    private Statut statut;
 
+    private Integer isValidee;
 
     @Column(name = "dtype", insertable = false, updatable = false)
     private String type;

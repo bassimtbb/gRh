@@ -7,7 +7,6 @@
        Déposer une demande</button>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#conge">Congé </a></li>
-                <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#congEx">Congé exceptionnel</a></li>
                 <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#ADS">Autorisation de sortie </a></li>
                 <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#teleTra">Autorisation de télétravail </a></li>
                 <li><a class="dropdown-item" type="button"  data-bs-toggle="modal" data-bs-target="#TraSup">Autorisation de travail supplémentaire </a></li>
@@ -34,13 +33,12 @@
         <div [ngClass]=alert role="alert">
             {{Msg}}
           </div>
-            <div  *ngIf="!demandes.length" class=" data d-flex justify-content-center m-5" >
+            <div *ngIf="!demandes"  class=" data d-flex justify-content-center m-5" >
                 <p class="mb-0 "><small class="text-body-secondary">Aucune Demande </small></p>
               </div>
         
-        <table *ngIf="demandes.length" class="table table-striped table-hover">
+        <table *ngIf="demandes"  class="table table-striped table-hover">
         <thead>
-
             <th>ID</th>
             <th>Type</th>
             <th>Statut</th>
@@ -51,19 +49,395 @@
             <tr *ngFor="let demande of demandes">
                 <td>{{ demande.id }}</td>
                 <td>{{ demande.type }}</td>
-                
                 <td ><i [ngClass]="getStatusClass(demande.statut)"  class="bi  "></i>{{ demande.statut }}</td>
                 <td>{{ demande.createdDate | date:'dd/MM/yyyy' }}</td>
                 <td style="display: flex; justify-content: space-around;">
                     <button type="button" *ngIf="demande.statut!=='En_attente'" class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
-                    <button type="button" *ngIf="demande.statut==='En_attente'"  class="btn btn-light"><i class="bi bi-pencil"></i>
+                    <button type="button" *ngIf="demande.statut==='En_attente'" data-bs-toggle="modal" data-bs-target="#update" (click)="DemandeClicked(demande)" class="btn btn-light"><i class="bi bi-pencil"></i>
                     </button>
                 </td>
               </tr>
         </tbody>
       </table>
-      <!-- <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
       </div>
+</div>
+
+    <!-- Modal UPDATE-->
+    <div class="modal  fade" id="update" tabindex="-1" aria-labelledby="update" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier {{this.typeDSelect}} </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+          <!-- Modal AUTORISATION DE SORTIE -->
+      <div class="modal-body "*ngIf="this.typeDSelect=='Autorisation de sortie'">
+          <div class="d-flex justify-content-between align-items-center">
+              <div class="E-Ju d-flex align-items-center">
+                  <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                  <label class="form-check-label" for="ifrikia-S"></label>                
+              </div>
+              <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="modifADS.isTemporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
+                  <label class="form-check-label" for="flexSwitchCheckChecked">Temporaire</label>
+                </div>
+          </div>
+              <div style="display: flex; justify-content: space-around;">
+                  <div class="row g-4 align-items-center">
+                      <div class="col-auto">
+                          <label for="duree" class="col-form-label">Durée </label>
+                      </div>
+                      <div class="col-auto">
+                          <div class="input-group mb-2">
+                              <input [disabled]="modifADS.isTemporaire!"  style="max-width: 4.7rem;" id="duree" type="number" class="form-control" placeholder="00" [(ngModel)]="modifADS.duree">
+                              <span class="input-group-text" id="basic-addon2">Heure</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row g-4 align-items-center">
+                      <div class="col-auto">
+                          <label for="date" class="col-form-label">Date </label>
+                      </div>
+                      <div class="col-auto">
+                          <input type="date" class="form-control form-icon-trailing" id="date" [(ngModel)]="modifADS.dateS">
+                      </div>
+                  </div>
+              </div>
+      
+              <div style="display: flex; justify-content: space-around;">
+                  <div class="row g-4 align-items-center">
+                      <div class="col-auto">
+                          <label for="Hsortie" class="col-form-label">Heure de Sortie </label>
+                      </div>
+                      <div class="col-auto">
+                          <input type="time" class="form-control form-icon-trailing" id="Hsortie" [(ngModel)]="modifADS.hsortie">
+                      </div>
+                  </div>
+                  <div   class="row g-4 align-items-center">
+                      <div class="col-auto">
+                          <label for="Hretour" class="col-form-label">Heure de Retour </label>
+                      </div>
+                      <div class="col-auto">
+                          <input [disabled]="modifADS.isTemporaire!" type="time"  class="form-control form-icon-trailing" id="Hretour" [(ngModel)]="modifADS.hretour">
+                      </div>
+                  </div>
+              </div>
+              <div class="form-floating mb-2">
+                  <textarea class="form-control" id="motif" [(ngModel)]="modifADS.motif"></textarea>
+                  <label for="motif">Motif</label>
+              </div>
+          </div>
+
+    <!-- Modal DEMANDE D'AUTORISATION DE TELETRAVAIL -->
+          <div class="modal-body "  *ngIf="this.typeDSelect=='Autorisation de télétravail'"> 
+              <div class="row g-4 align-items-center">
+                <div class="col-auto">
+                  <label for="personne-contact">Personne à contacter en cas de non joignabilité </label>
+                </div>
+                <div class="col-auto">
+                  <input [(ngModel)]="modifAutTeletravail.contact" type="text" class="form-control form-icon-trailing" id="personne-contact-nom">
+                </div>
+                <div class="col-auto">
+                  <label for="personne-contact-telephone">Téléphone</label>
+                </div>
+                <div class="col-auto">
+                  <input [(ngModel)]="modifAutTeletravail.telephone" type="number" class="form-control" id="personne-contact-telephone">
+                </div>
+              </div>
+              <div class="row g-4 align-items-center">
+                <div class="col-auto">
+                  <label for="lieu-teletravail">Lieu du télétravail </label>
+                </div>
+                <div class="col-auto">
+                  <input [(ngModel)]="modifAutTeletravail.lieu" type="text" class="form-control form-icon-trailing" id="lieu-teletravail">
+                </div>
+              </div>
+              
+              <div class="row g-4 align-items-center">
+                <div class="col-auto">
+                  <label for="periode-debut">Pour la periode</label>
+                </div>
+                <div class="col-auto">
+                  <input [(ngModel)]="modifAutTeletravail.debut" type="date" class="form-control form-icon-trailing" id="periode-debut">
+                </div>
+                <div class="col-auto">
+                  <label for="periode-fin">Au</label>
+                </div>
+                <div class="col-auto">
+                  <input [(ngModel)]="modifAutTeletravail.fin" type="date" class="form-control" id="periode-fin">
+                </div>
+              </div>
+              <label for="taches">Tout en assurant les tâches suivantes :</label>
+              <textarea  [(ngModel)]="modifAutTeletravail.tache"  class="form-control" id="taches" value=""></textarea>
+    </div> 
+
+       <!-- Modal DEMANDE  DE PRET -->
+        <div class="modal-body " *ngIf="this.typeDSelect=='Prêt'">
+            <div class="row g-4 align-items-center">
+              <div class="col-auto">
+              <p class="col-form-label">Montant du prêt </p>
+              </div>
+              <div class="col-auto">
+                  <div class="input-group mb-2">
+                      <input style="max-width: 4.7rem;"  [(ngModel)]="modifPret.montant" type="number" class="form-control" placeholder="00" >
+                      <span class="input-group-text" id="basic-addon2">DT</span>
+                  </div>
+              </div>
+          </div>
+
+        <div class="d-flex justify-content-around align-items-center">
+            <div>
+              <p class="col-form-label">Crédit bancaire en cours :</p>
+              <div class="ml-5 form-check">
+                <input  type="radio"  id="Oui"  name="creditBancaire"  [(ngModel)]="credit"  value="oui"  class="form-check-input"/>
+                <label class="form-check-label" for="Oui">Oui</label>
+              <div class="input-group mb-2" >
+                <input [disabled]="credit !== 'oui'"  [(ngModel)]="modifPret.credit"   style="max-width:12rem;" type="number" class="form-control" placeholder="Retenues Mensuelle"/>
+                <span class="input-group-text" id="basic-addon2">DT</span>
+              </div>
+            </div>
+              <div class="ml-5 form-check">
+                <input  type="radio"  id="Non"  name="creditBancaire"  [(ngModel)]="credit"  value="non"  class="form-check-input"/>
+                <label class="form-check-label" for="Non">Non</label>
+              </div>
+      
+            </div>
+            
+          <div>
+              <p class="col-form-label">Rembourser par :</p> 
+              <div class="ml-5 form-check">
+                  <input class="form-check-input" [(ngModel)]="rembourser"  type="radio" name="E-Juridique" id="Ouir" value="oui">
+                  <label class="form-check-label" for="Ouir"> tranches mensuels  </label>
+                  <div class="input-group mb-2">
+                      <input style="max-width:12rem; "  [(ngModel)]="modifPret.remboursement"   [disabled]="rembourser !== 'oui'" type="number" class="form-control" placeholder="Retenues Mensuelle" >
+                      <span class="input-group-text" id="basic-addon2">DT/mois</span>
+                  </div>
+                  </div>
+                  <div class="ml-5 form-check">
+                      <input class="form-check-input"  [(ngModel)]="rembourser"  type="radio" name="E-Juridique" id="NonR" value="non">
+                      <label class="form-check-label" for="NonR">13 ème mois</label>
+                  </div>  	 
+          </div>
+        </div>
+          <label  class="col-form-label" for="MotifP">Motif </label>
+          <textarea  [(ngModel)]="modifPret.motif"  class="form-control" id="MotifP" value=""></textarea>
+
+    </div> 
+
+       <!-- Modal DEMANDE DE CONGE -->
+       <div class="modal-body " *ngIf="this.typeDSelect=='Congé'" >
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="E-Ju d-flex align-items-center">
+                <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="congeEx" (ngModelChange)="isEXCEPTIONNELListener($event)"   role="switch" id="EXCEPTIONNE" >
+                <label class="form-check-label" for="EXCEPTIONNE">CONGE EXCEPTIONNEL</label>
+              </div>
+        </div>
+
+            <div *ngIf="!isEXCEPTIONNEL" class="row g-4 align-items-center">
+              <div class="col-auto">
+              <p class="col-form-label" >Durée de congé </p>
+              </div>
+              <div class="col-auto">
+                  <div class="input-group mb-2">
+                      <input style="max-width: 4.7rem;" [(ngModel)]="modifConge.duree" type="number" class="form-control" placeholder="00" >
+                      <span class="input-group-text" id="basic-addon2">Jour</span>
+                  </div>
+              </div>
+          </div>
+          <div class="row g-4 align-items-center">
+              <div class="col-auto">
+                <label class="col-form-label" for="inputPassword6">Pour la periode</label>
+              </div>
+              <div class="col-auto">
+                  <input type="date" [(ngModel)]="modifConge.debut" class="form-control form-icon-trailing" id="date" >
+              </div>
+              <div class="col-auto">
+                  <label for="inputPassword6" class="col-form-label">Au</label>
+              </div>
+              <div class="col-auto">
+                  <input type="date" [(ngModel)]="modifConge.fin" class="form-control " id="date" control-id="ControlID-18">
+              </div>
+            </div>
+            <div class="row g-4 align-items-center">
+              <div class="col-auto">
+                <label for="inputPassword6" class="col-form-label">Date de reprise prévue</label>
+              </div>
+              <div class="col-auto">
+                  <input type="date" [(ngModel)]="modifConge.reprise" class="form-control form-icon-trailing" id="date" >
+              </div>
+            </div>
+            <div  *ngIf="isEXCEPTIONNEL" >
+              <p style="margin-bottom: 0%;">Motif de :</p>
+                  <div class="E-Ju ">
+                      <div class="form-check">
+                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif1" value="motif1">
+                      <label class="form-check-label"  for="motif1">Mon mariage(3 jours)</label>
+                      </div>
+                      <div class="form-check">
+                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif2" value="motif2">
+                      <label class="form-check-label"  for="motif2">Naissance de mon enfant (2 jours)</label>
+                      </div>
+                      <div class="form-check">
+                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif3" value="motif3">
+                      <label class="form-check-label"  for="motif3">Circoncision de mon enfant (1 jour)</label>                
+                      </div>
+                      <div class="form-check">
+                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif4" value="motif4">
+                      <label class="form-check-label"  for="motif4">Décès d'un frère, d'une sœur, d'un petit enfant, d'une petite fille, d'un grand-père ou d'une grand-mère (2 jours)</label>
+                      </div>
+                      <div class="form-check">
+                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif5" value="motif5">
+                      <label class="form-check-label"  for="motif5">Décès de mon conjoint (3 jours)</label>
+                      </div>
+                      <div class="form-check">
+                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif6" value="motif6">
+                      <label class="form-check-label"  for="motif6">Décès de mon père/ de ma mère/ de mon enfant (3 jours)</label>                
+                      </div>
+            </div>
+    </div> 
+    <div  *ngIf="!isEXCEPTIONNEL" > 
+      <label  class="col-form-label"  for="MotifP">Motif </label>
+      <textarea  [(ngModel)]="modifConge.motif"  class="form-control" id="MotifP" value=""></textarea>
+    </div>
+  </div> 
+
+         <!-- Modal CHANGEMENT HORAIRE DE TRAVAIL-->
+            <div class="modal-body " *ngIf="this.typeDSelect=='Changement Horaire de travail'" >
+              <div style="display: flex; justify-content: space-around;">
+                <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Changement envisagé du </label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="date"  [(ngModel)]="modifChHoraire.debut" class="form-control form-icon-trailing" id="date" >
+                    </div>
+                </div>
+                <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Au </label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="date" [(ngModel)]="modifChHoraire.fin" class="form-control form-icon-trailing" id="date" >
+                    </div>
+                  </div>
+        
+            </div>
+
+            <div style="display: flex; justify-content: space-around;">
+                <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Ancien Horaire </label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="time" [(ngModel)]="modifChHoraire.AncienH"class="form-control form-icon-trailing" id="date" >
+
+                    </div>
+                </div>
+                <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Nouvel Horaire </label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="time" [(ngModel)]="modifChHoraire.NouvelH" class="form-control form-icon-trailing" id="date" >
+                    </div>
+                  </div>
+            </div>
+            <div class="form-floating mb-2">
+                <textarea class="form-control" [(ngModel)]="modifChHoraire.motif" id="motif"  value="motif" ></textarea>
+                <label for="motif">Motif du changement</label>
+            </div>
+      </div> 
+
+         <!-- Modal DEMANDE  D'ACOMPTE' -->
+            <div class="modal-body " *ngIf="this.typeDSelect=='Acompte sur Salaire/prime'" >
+              <div class="d-flex justify-content-around align-items-center">
+                <div>
+                  <p class="col-form-label">Acompte </p>
+                  <div class="ml-5 form-check">
+                    <input  type="radio"  id="Oui"  name="Acompte"  [(ngModel)]="acompteR"  value="oui"  class="form-check-input"/>
+                    <label class="form-check-label" for="Oui">Sur mois de</label>
+                  <div class="input-group mb-2" >
+                    <input [disabled]="acompteR !== 'oui'"  [(ngModel)]="modifAcompte.typeA"   style="max-width:12rem;" type="text" class="form-control" placeholder="Mois"/>
+                  </div>
+                </div>
+                  <div class="ml-5 form-check">
+                    <input  type="radio"  id="Non"  name="Acompte"  [(ngModel)]="acompteR"  value="non"  class="form-check-input"/>
+                    <label class="form-check-label" for="Non">Sur prime</label>
+                  </div>
+          
+                </div>
+                <div class="row g-4 align-items-center">
+                  <div class="col-auto">
+                  <p class="col-form-label">Montant  </p>
+                  </div>
+                  <div class="col-auto">
+                      <div class="input-group mb-2">
+                          <input style="max-width: 4.7rem;" [(ngModel)]="modifAcompte.montant" type="number" class="form-control" placeholder="00" >
+                          <span class="input-group-text" id="basic-addon2">DT</span>
+                      </div>
+                  </div>
+              </div>
+              </div>
+            
+      </div> 
+
+      <!-- Modal TRAVAIL SUP -->
+          <div class="modal-body " *ngIf="this.typeDSelect=='Autorisation de travail supplémentaire'">
+            <div style="display: flex; justify-content: space-around;">
+              <div class="row g-4 align-items-center">
+                  <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label">Date </label>
+                  </div>
+                  <div class="col-auto">
+                      <input type="date" [(ngModel)]="modifAutTravailSupp.date" class="form-control form-icon-trailing" id="date" >
+                  </div>
+                </div>
+      
+          </div>
+
+          <div style="display: flex; justify-content: space-around;">
+              <div class="row g-4 align-items-center">
+                  <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Heure de accès </label>
+                  </div>
+                  <div class="col-auto">
+                      <input type="time" [(ngModel)]="modifAutTravailSupp.hacces"class="form-control form-icon-trailing" id="date" >
+
+                  </div>
+              </div>
+              <div class="row g-4 align-items-center">
+                  <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label">Heure de sortie</label>
+                  </div>
+                  <div class="col-auto">
+                      <input type="time" [(ngModel)]="modifAutTravailSupp.hsortie" class="form-control form-icon-trailing" id="date" >
+                  </div>
+                </div>
+          </div>
+          <div class="form-floating mb-2">
+              <textarea class="form-control" [(ngModel)]="modifAutTravailSupp.motif" id="motif"  value="motif" ></textarea>
+              <label for="motif">Motif du changement</label>
+          </div>
+          
+    </div> 
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="submit " *ngIf="this.typeDSelect=='Congé'"   class="btn btn-primary" (click)="updateconge()" data-bs-dismiss="modal" >Modifier</button>
+        <button type="submit " *ngIf="this.typeDSelect=='Autorisation de sortie'"  class="btn btn-primary" (click)="updateAutorSortie()" data-bs-dismiss="modal" >Modifier</button>
+        <button type="submit " *ngIf="this.typeDSelect=='Autorisation de télétravail'"  class="btn btn-primary" (click)="updateautTeletravail()" data-bs-dismiss="modal" >Modifier</button>
+        <button type="submit " *ngIf="this.typeDSelect=='Autorisation de travail supplémentaire'"   class="btn btn-primary" (click)="updateautTravailSupp()" data-bs-dismiss="modal" >Modifier</button>
+        <button type="submit " *ngIf="this.typeDSelect=='Changement Horaire de travail'"  class="btn btn-primary" (click)="updatechHoraire()" data-bs-dismiss="modal" >Modifier</button>
+        <button type="submit " *ngIf="this.typeDSelect=='Acompte sur Salaire/prime'"  class="btn btn-primary" (click)="updateacompte()" data-bs-dismiss="modal" >Modifier</button>
+        <button type="submit " *ngIf="this.typeDSelect=='Prêt'"  class="btn btn-primary" (click)="updatepret()" data-bs-dismiss="modal" >Modifier</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -71,217 +445,20 @@
 
     <!-- Modal AUTORISATION DE SORTIE -->
     <div class="modal  fade" id="ADS" tabindex="-1" aria-labelledby="ADS" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">AUTORISATION DE SORTIE</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="E-Ju d-flex align-items-center">
-                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                        <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.temporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Temporaire</label>
-                      </div>
-                </div>
-                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
-            
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
-                        <label for="nom_prenom">Nom et prénom</label>
-                    </div>
-                       
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
-                            <label for="matricule">Matricule</label>
-                        </div>
-              
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                            <label for="direction">Direction</label>
-                        </div>
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
-                            <label for="Service">Service</label>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: space-around;">
-                        <div class="row g-4 align-items-center">
-                            <div class="col-auto">
-                                <label for="duree" class="col-form-label">Durée </label>
-                            </div>
-                            <div class="col-auto">
-                                <div class="input-group mb-2">
-                                    <input style="max-width: 4.7rem;" id="duree" type="number" class="form-control" placeholder="00" [(ngModel)]="addADS.duree">
-                                    <span class="input-group-text" id="basic-addon2">Heure</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row g-4 align-items-center">
-                            <div class="col-auto">
-                                <label for="date" class="col-form-label">Date </label>
-                            </div>
-                            <div class="col-auto">
-                                <input type="date" class="form-control form-icon-trailing" id="date" [(ngModel)]="addADS.dateS">
-                            </div>
-                        </div>
-                    </div>
-            
-                    <div style="display: flex; justify-content: space-around;">
-                        <div class="row g-4 align-items-center">
-                            <div class="col-auto">
-                                <label for="Hsortie" class="col-form-label">Heure de Sortie </label>
-                            </div>
-                            <div class="col-auto">
-                                <input type="time" class="form-control form-icon-trailing" id="Hsortie" [(ngModel)]="addADS.hsortie">
-                            </div>
-                        </div>
-                        <div   class="row g-4 align-items-center">
-                            <div class="col-auto">
-                                <label for="Hretour" class="col-form-label">Heure de Retour </label>
-                            </div>
-                            <div class="col-auto">
-                                <input [disabled]="this.addADS.temporaire!" type="time"  class="form-control form-icon-trailing" id="Hretour" [(ngModel)]="addADS.duree">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <textarea class="form-control" id="motif" [(ngModel)]="addADS.motif"></textarea>
-                        <label for="motif">Motif</label>
-                    </div>
-                </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-              <button type="submit" class="btn btn-primary" (click)="AddAutorSortie()" data-bs-dismiss="modal" >Ajouter</button>
-            </div>
-          </div>
+        <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">AUTORISATION DE SORTIE</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
-
-
-
-      
-    <!-- Modal DEMANDE D'AUTORISATION DE TELETRAVAIL -->
-    <div class="modal  fade" id="teleTra" tabindex="-1" aria-labelledby="teleTra" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'AUTORISATION DE TELETRAVAIL</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="E-Ju d-flex align-items-center">
-                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                        <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.temporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Temporaire</label>
-                      </div>
-                </div>
-                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
-            
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
-                        <label for="nom_prenom">Nom et prénom</label>
-                    </div>
-                       
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
-                            <label for="matricule">Matricule</label>
-                        </div>
-              
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                            <label for="direction">Direction</label>
-                        </div>
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
-                            <label for="Service">Service</label>
-                        </div>
-                    </div>
-                    <div style="display: flex;flex-wrap: wrap; justify-content: space-around;">
-                   
-                        <div class="form-floating w-25 mb-2">
-                          <input [(ngModel)]="autTeletravail" type="email" class="form-control  inputF" id="email-employe" value="Bassim.tabbeb@gmail.com" disabled>
-                          <label for="email-employe">Adresse Email</label>
-                        </div>
-                        <div class="form-floating formD mb-2">
-                          <input [(ngModel)]="autTeletravail" type="number" class="form-control inputF" id="telephone-employe" value="58208705" disabled>
-                          <label for="telephone-employe">Téléphone</label>
-                        </div>
-                      </div>
-                      <div class="row g-4 align-items-center">
-                        <div class="col-auto">
-                          <label for="personne-contact">Personne à contacter en cas de non joignabilité </label>
-                        </div>
-                        <div class="col-auto">
-                          <input [(ngModel)]="autTeletravail" type="text" class="form-control form-icon-trailing" id="personne-contact-nom">
-                        </div>
-                        <div class="col-auto">
-                          <label for="personne-contact-telephone">Téléphone</label>
-                        </div>
-                        <div class="col-auto">
-                          <input [(ngModel)]="autTeletravail" type="number" class="form-control" id="personne-contact-telephone">
-                        </div>
-                      </div>
-                      <div class="row g-4 align-items-center">
-                        <div class="col-auto">
-                          <label for="lieu-teletravail">Lieu du télétravail </label>
-                        </div>
-                        <div class="col-auto">
-                          <input [(ngModel)]="autTeletravail" type="text" class="form-control form-icon-trailing" id="lieu-teletravail">
-                        </div>
-                      </div>
-                      
-                      <div class="row g-4 align-items-center">
-                        <div class="col-auto">
-                          <label for="periode-debut">Pour la periode</label>
-                        </div>
-                        <div class="col-auto">
-                          <input [(ngModel)]="autTeletravail" type="date" class="form-control form-icon-trailing" id="periode-debut">
-                        </div>
-                        <div class="col-auto">
-                          <label for="periode-fin">Au</label>
-                        </div>
-                        <div class="col-auto">
-                          <input [(ngModel)]="autTeletravail" type="date" class="form-control" id="periode-fin">
-                        </div>
-                      </div>
-                      <label for="taches">Tout en assurant les tâches suivantes :</label>
-                      <textarea class="form-control" id="taches" value="Qualité"></textarea>
-            </div> 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-       <!-- Modal DEMANDE  DE PRET -->
-    <div class="modal  fade" id="pret" tabindex="-1" aria-labelledby="pret" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE PRET</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body ">
+        <div class="modal-body ">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="E-Ju d-flex align-items-center">
                     <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
                     <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.temporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.isTemporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
                     <label class="form-check-label" for="flexSwitchCheckChecked">Temporaire</label>
                   </div>
             </div>
@@ -306,438 +483,596 @@
                         <label for="Service">Service</label>
                     </div>
                 </div>
-                  <div class="row g-4 align-items-center">
-                    <div class="col-auto">
-                    <p >Montant du prêt </p>
+                <div style="display: flex; justify-content: space-around;">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-auto">
+                            <label for="duree" class="col-form-label">Durée </label>
+                        </div>
+                        <div class="col-auto">
+                            <div class="input-group mb-2">
+                                <input [disabled]="addADS.isTemporaire!"  style="max-width: 4.7rem;" id="duree" type="number" class="form-control" placeholder="00" [(ngModel)]="addADS.duree">
+                                <span class="input-group-text" id="basic-addon2">Heure</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <div class="input-group mb-2">
-                            <input style="max-width: 4.7rem;" type="number" class="form-control" placeholder="00" >
-                            <span class="input-group-text" id="basic-addon2">DT</span>
+                    <div class="row g-4 align-items-center">
+                        <div class="col-auto">
+                            <label for="date" class="col-form-label">Date </label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" class="form-control form-icon-trailing" id="date" [(ngModel)]="addADS.dateS">
                         </div>
                     </div>
                 </div>
-                <div class="row g-4 align-items-center">
-                    <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Motif & pièce(s) justificative(s)</label>
+        
+                <div style="display: flex; justify-content: space-around;">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-auto">
+                            <label for="Hsortie" class="col-form-label">Heure de Sortie </label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="time" class="form-control form-icon-trailing" id="Hsortie" [(ngModel)]="addADS.hsortie">
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <textarea type="text" class="form-control form-icon-trailing" id="date" ></textarea>
+                    <div   class="row g-4 align-items-center">
+                        <div class="col-auto">
+                            <label for="Hretour" class="col-form-label">Heure de Retour </label>
+                        </div>
+                        <div class="col-auto">
+                            <input [disabled]="addADS.isTemporaire!" type="time"  class="form-control form-icon-trailing" id="Hretour" [(ngModel)]="addADS.hretour">
+                        </div>
                     </div>
-                  </div>
-                  <div>
-                    <p>Crédit bancaire en cours :</p> 
-                    <div class="ml-5 form-check">
-                        <input class="form-check-input" type="radio" name="E-Juridique" id="Oui" value="Oui">
-                        <label class="form-check-label" for="Oui">Oui</label>
-                        <div class="input-group mb-2">
-                            <input style="max-width:12rem;" type="number" class="form-control" placeholder="Retenues Mensuelle" >
-                            <span class="input-group-text" id="basic-addon2">DT</span>
-                        </div>
-                        </div>
-                        <div class="ml-5 form-check">
-                            <input class="form-check-input" type="radio" name="E-Juridique" id="Non" value="Non">
-                            <label class="form-check-label" for="Non">Non</label>
-                        </div>  	 
                 </div>
-                <div>
-                    <p>Rembourser la dite somme sur :</p> 
-                    <div class="ml-5 form-check">
-                        <input class="form-check-input" type="radio" name="E-Juridique" id="Oui" value="Oui">
-                        <label class="form-check-label" for="Oui">Salaire par tranches mensuels de </label>
-                        <div class="input-group mb-2">
-                            <input style="max-width:12rem;" type="number" class="form-control" placeholder="Retenues Mensuelle" >
-                            <span class="input-group-text" id="basic-addon2">DT/mois</span>
-                        </div>
-                        </div>
-                        <div class="ml-5 form-check">
-                            <input class="form-check-input" type="radio" name="E-Juridique" id="Non" value="Non">
-                            <label class="form-check-label" for="Non">13 ème mois</label>
-                        </div>  	 
+                <div class="form-floating mb-2">
+                    <textarea class="form-control" id="motif" [(ngModel)]="addADS.motif"></textarea>
+                    <label for="motif">Motif</label>
                 </div>
-          </div> 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
-          </div>
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+          <button type="submit" class="btn btn-primary" (click)="AddAutorSortie()" data-bs-dismiss="modal" >Ajouter</button>
         </div>
       </div>
     </div>
-
-
-    
-       <!-- Modal DEMANDE DE CONGE -->
-       <div class="modal  fade" id="conge" tabindex="-1" aria-labelledby="conge" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE CONGE</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="E-Ju d-flex align-items-center">
-                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                        <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.temporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Temporaire</label>
-                      </div>
+  </div>
+  
+<!-- Modal DEMANDE D'AUTORISATION DE TELETRAVAIL -->
+<div class="modal  fade" id="teleTra" tabindex="-1" aria-labelledby="teleTra" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'AUTORISATION DE TELETRAVAIL</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+                <div class="E-Ju d-flex align-items-center">
+                    <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                    <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
                 </div>
-                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
-            
+           
+                <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+        
+                <div class="form-floating formD mb-2">
+                    <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                    <label for="nom_prenom">Nom et prénom</label>
+                </div>
+                   
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
-                        <label for="nom_prenom">Nom et prénom</label>
+                        <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                        <label for="matricule">Matricule</label>
                     </div>
-                       
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
-                            <label for="matricule">Matricule</label>
-                        </div>
+          
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
+                        <label for="direction">Direction</label>
+                    </div>
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                        <label for="Service">Service</label>
+                    </div>
+                </div>
+                <div style="display: flex;flex-wrap: wrap; justify-content: space-around;">
+               
+                    <div class="form-floating w-25 mb-2">
+                      <input  type="email"  [value]="Utilisateur.email"  class="form-control  inputF" id="email-employe" value="Bassim.tabbeb@gmail.com" disabled>
+                      <label for="email-employe">Adresse Email</label>
+                    </div>
+                    <div class="form-floating formD mb-2">
+                      <input type="number" class="form-control inputF"   [value]="Utilisateur.telephone" id="telephone-employe" value="58208705" disabled>
+                      <label for="telephone-employe">Téléphone</label>
+                    </div>
+                  </div>
+                  <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                      <label for="personne-contact">Personne à contacter en cas de non joignabilité </label>
+                    </div>
+                    <div class="col-auto">
+                      <input [(ngModel)]="autTeletravail.contact" type="text" class="form-control form-icon-trailing" id="personne-contact-nom">
+                    </div>
+                    <div class="col-auto">
+                      <label for="personne-contact-telephone">Téléphone</label>
+                    </div>
+                    <div class="col-auto">
+                      <input [(ngModel)]="autTeletravail.telephone" type="number" class="form-control" id="personne-contact-telephone">
+                    </div>
+                  </div>
+                  <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                      <label for="lieu-teletravail">Lieu du télétravail </label>
+                    </div>
+                    <div class="col-auto">
+                      <input [(ngModel)]="autTeletravail.lieu" type="text" class="form-control form-icon-trailing" id="lieu-teletravail">
+                    </div>
+                  </div>
+                  
+                  <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                      <label for="periode-debut">Pour la periode</label>
+                    </div>
+                    <div class="col-auto">
+                      <input [(ngModel)]="autTeletravail.debut" type="date" class="form-control form-icon-trailing" id="periode-debut">
+                    </div>
+                    <div class="col-auto">
+                      <label for="periode-fin">Au</label>
+                    </div>
+                    <div class="col-auto">
+                      <input [(ngModel)]="autTeletravail.fin" type="date" class="form-control" id="periode-fin">
+                    </div>
+                  </div>
+                  <label for="taches">Tout en assurant les tâches suivantes :</label>
+                  <textarea  [(ngModel)]="autTeletravail.tache"  class="form-control" id="taches" value=""></textarea>
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+          <button type="submit" class="btn btn-primary" (click)="AddautTeletravail()" data-bs-dismiss="modal" >Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Modal DEMANDE  DE PRET -->
+<div class="modal  fade" id="pret" tabindex="-1" aria-labelledby="pret" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE PRET</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+            <div class="E-Ju d-flex align-items-center">
+                <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+            </div>
+                          <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+    
+            <div class="form-floating formD mb-2">
+                <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                <label for="nom_prenom">Nom et prénom</label>
+            </div>
+               
+                <div class="form-floating formD mb-2">
+                    <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                    <label for="matricule">Matricule</label>
+                </div>
+      
+                <div class="form-floating formD mb-2">
+                    <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
+                    <label for="direction">Direction</label>
+                </div>
+                <div class="form-floating formD mb-2">
+                    <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                    <label for="Service">Service</label>
+                </div>
+            </div>
+              <div class="row g-4 align-items-center">
+                <div class="col-auto">
+                <p class="col-form-label">Montant du prêt </p>
+                </div>
+                <div class="col-auto">
+                    <div class="input-group mb-2">
+                        <input style="max-width: 4.7rem;" type="number" class="form-control" placeholder="00" >
+                        <span class="input-group-text" id="basic-addon2">DT</span>
+                    </div>
+                </div>
+            </div>
+
+          <div class="d-flex justify-content-around align-items-center">
+              <div>
+                <p class="col-form-label">Crédit bancaire en cours :</p>
+                <div class="ml-5 form-check">
+                  <input  type="radio"  id="Oui"  name="creditBancaire"  [(ngModel)]="credit"  value="oui"  class="form-check-input"/>
+                  <label class="form-check-label" for="Oui">Oui</label>
+                <div class="input-group mb-2" >
+                  <input [disabled]="credit !== 'oui'"  [(ngModel)]="pret.credit"   style="max-width:12rem;" type="number" class="form-control" placeholder="Retenues Mensuelle"/>
+                  <span class="input-group-text" id="basic-addon2">DT</span>
+                </div>
+              </div>
+                <div class="ml-5 form-check">
+                  <input  type="radio"  id="Non"  name="creditBancaire"  [(ngModel)]="credit"  value="non"  class="form-check-input"/>
+                  <label class="form-check-label" for="Non">Non</label>
+                </div>
+         
+              </div>
               
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                            <label for="direction">Direction</label>
-                        </div>
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
-                            <label for="Service">Service</label>
-                        </div>
+            <div>
+                <p class="col-form-label">Rembourser par :</p> 
+                <div class="ml-5 form-check">
+                    <input class="form-check-input" [(ngModel)]="rembourser"  type="radio" name="E-Juridique" id="Ouir" value="oui">
+                    <label class="form-check-label" for="Ouir"> tranches mensuels  </label>
+                    <div class="input-group mb-2">
+                        <input style="max-width:12rem; "  [(ngModel)]="pret.remboursement"   [disabled]="rembourser !== 'oui'" type="number" class="form-control" placeholder="Retenues Mensuelle" >
+                        <span class="input-group-text" id="basic-addon2">DT/mois</span>
                     </div>
-                    <div class="row g-4 align-items-center">
+                    </div>
+                    <div class="ml-5 form-check">
+                        <input class="form-check-input"  [(ngModel)]="rembourser"  type="radio" name="E-Juridique" id="NonR" value="non">
+                        <label class="form-check-label" for="NonR">13 ème mois</label>
+                    </div>  	 
+            </div>
+          </div>
+            <label  class="col-form-label" for="MotifP">Motif </label>
+            <textarea  [(ngModel)]="pret.motif"  class="form-control" id="MotifP" value=""></textarea>
+   
+      </div> 
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="submit" (click)="Addpret()" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+   <!-- Modal DEMANDE DE CONGE -->
+  <div class="modal  fade" id="conge" tabindex="-1" aria-labelledby="conge" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE CONGE</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="E-Ju d-flex align-items-center">
+                    <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                    <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="congeEx" (ngModelChange)="isEXCEPTIONNELListener($event)"   role="switch" id="EXCEPTIONNE" >
+                    <label class="form-check-label" for="EXCEPTIONNE">CONGE EXCEPTIONNEL</label>
+                  </div>
+            </div>
+                <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+        
+                <div class="form-floating formD mb-2">
+                    <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                    <label for="nom_prenom">Nom et prénom</label>
+                </div>
+                   
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                        <label for="matricule">Matricule</label>
+                    </div>
+          
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
+                        <label for="direction">Direction</label>
+                    </div>
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                        <label for="Service">Service</label>
+                    </div>
+                </div>
+                <div *ngIf="!isEXCEPTIONNEL" class="row g-4 align-items-center">
+                  <div class="col-auto">
+                  <p class="col-form-label" >Durée de congé </p>
+                  </div>
+                  <div class="col-auto">
+                      <div class="input-group mb-2">
+                          <input style="max-width: 4.7rem;" [(ngModel)]="conge.duree" type="number" class="form-control" placeholder="00" >
+                          <span class="input-group-text" id="basic-addon2">Jour</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="row g-4 align-items-center">
+                  <div class="col-auto">
+                    <label class="col-form-label" for="inputPassword6">Pour la periode</label>
+                  </div>
+                  <div class="col-auto">
+                      <input type="date" [(ngModel)]="conge.debut" class="form-control form-icon-trailing" id="date" >
+                  </div>
+                  <div class="col-auto">
+                      <label for="inputPassword6" class="col-form-label">Au</label>
+                  </div>
+                  <div class="col-auto">
+                      <input type="date" [(ngModel)]="conge.fin" class="form-control " id="date" control-id="ControlID-18">
+                  </div>
+                </div>
+                <div class="row g-4 align-items-center">
+                  <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label">Date de reprise prévue</label>
+                  </div>
+                  <div class="col-auto">
+                      <input type="date" [(ngModel)]="conge.reprise" class="form-control form-icon-trailing" id="date" >
+                  </div>
+                </div>
+                <div  *ngIf="isEXCEPTIONNEL" >
+                  <p style="margin-bottom: 0%;">Motif de :</p>
+                      <div class="E-Ju ">
+                          <div class="form-check">
+                          <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif1" value="motif1">
+                          <label class="form-check-label"  for="motif1">Mon mariage(3 jours)</label>
+                          </div>
+                          <div class="form-check">
+                          <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif2" value="motif2">
+                          <label class="form-check-label"  for="motif2">Naissance de mon enfant (2 jours)</label>
+                          </div>
+                          <div class="form-check">
+                          <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif3" value="motif3">
+                          <label class="form-check-label"  for="motif3">Circoncision de mon enfant (1 jour)</label>                
+                          </div>
+                          <div class="form-check">
+                          <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif4" value="motif4">
+                          <label class="form-check-label"  for="motif4">Décès d'un frère, d'une sœur, d'un petit enfant, d'une petite fille, d'un grand-père ou d'une grand-mère (2 jours)</label>
+                          </div>
+                          <div class="form-check">
+                          <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif5" value="motif5">
+                          <label class="form-check-label"  for="motif5">Décès de mon conjoint (3 jours)</label>
+                          </div>
+                          <div class="form-check">
+                          <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif6" value="motif6">
+                          <label class="form-check-label"  for="motif6">Décès de mon père/ de ma mère/ de mon enfant (3 jours)</label>                
+                          </div>
+                </div>
+        </div> 
+        <div  *ngIf="!isEXCEPTIONNEL" > 
+          <label  class="col-form-label"  for="MotifP">Motif </label>
+          <textarea  [(ngModel)]="conge.motif"  class="form-control" id="MotifP" value=""></textarea>
+        </div>
+      </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+          <button type="submit" class="btn btn-primary" (click)="Addconge()" data-bs-dismiss="modal" >Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Modal CHANGEMENT HORAIRE DE TRAVAIL-->
+  <div class="modal  fade" id="chH" tabindex="-1" aria-labelledby="chH" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE CHANGEMENT HORAIRE DE TRAVAIL</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+                <div class="E-Ju d-flex align-items-center">
+                    <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                    <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                </div>
+                 <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+        
+                <div class="form-floating formD mb-2">
+                    <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                    <label for="nom_prenom">Nom et prénom</label>
+                </div>
+                   
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                        <label for="matricule">Matricule</label>
+                    </div>
+          
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
+                        <label for="direction">Direction</label>
+                    </div>
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                        <label for="Service">Service</label>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-around;">
+                  <div class="row g-4 align-items-center">
                       <div class="col-auto">
-                      <p >Durée de congé </p>
+                          <label for="inputPassword6" class="col-form-label">Changement envisagé du </label>
                       </div>
                       <div class="col-auto">
-                          <div class="input-group mb-2">
-                              <input style="max-width: 4.7rem;" type="number" class="form-control" placeholder="00" >
-                              <span class="input-group-text" id="basic-addon2">Jour</span>
-                          </div>
+                          <input type="date"  [(ngModel)]="chHoraire.debut" class="form-control form-icon-trailing" id="date" >
                       </div>
                   </div>
                   <div class="row g-4 align-items-center">
                       <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label">Pour la periode</label>
+                        <label for="inputPassword6" class="col-form-label">Au </label>
                       </div>
                       <div class="col-auto">
-                          <input type="date" class="form-control form-icon-trailing" id="date" >
+                          <input type="date" [(ngModel)]="chHoraire.fin" class="form-control form-icon-trailing" id="date" >
+                      </div>
+                    </div>
+          
+              </div>
+      
+              <div style="display: flex; justify-content: space-around;">
+                  <div class="row g-4 align-items-center">
+                      <div class="col-auto">
+                          <label for="inputPassword6" class="col-form-label">Ancien Horaire </label>
                       </div>
                       <div class="col-auto">
-                          <label for="inputPassword6" class="col-form-label">Au</label>
+                          <input type="time" [(ngModel)]="chHoraire.AncienH"class="form-control form-icon-trailing" id="date" >
+      
+                      </div>
+                  </div>
+                  <div class="row g-4 align-items-center">
+                      <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Nouvel Horaire </label>
                       </div>
                       <div class="col-auto">
-                          <input type="date" class="form-control " id="date" control-id="ControlID-18">
+                          <input type="time" [(ngModel)]="chHoraire.NouvelH" class="form-control form-icon-trailing" id="date" >
                       </div>
+                    </div>
+              </div>
+              <div class="form-floating mb-2">
+                  <textarea class="form-control" [(ngModel)]="chHoraire.motif" id="motif"  value="motif" ></textarea>
+                  <label for="motif">Motif du changement</label>
+              </div>
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+          <button type="submit" (click)="AddchHoraire()" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>      
+  
+   <!-- Modal DEMANDE  D'ACOMPTE' -->
+  <div class="modal  fade" id="acompte" tabindex="-1" aria-labelledby="acompte" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'ACOMPTE</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+                <div class="E-Ju d-flex align-items-center">
+                    <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                    <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                </div>
+     
+                <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+        
+                <div class="form-floating formD mb-2">
+                    <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                    <label for="nom_prenom">Nom et prénom</label>
+                </div>
+                   
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                        <label for="matricule">Matricule</label>
+                    </div>
+          
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
+                        <label for="direction">Direction</label>
+                    </div>
+                    <div class="form-floating formD mb-2">
+                        <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                        <label for="Service">Service</label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-around align-items-center">
+                  <div>
+                    <p class="col-form-label">Acompte </p>
+                    <div class="ml-5 form-check">
+                      <input  type="radio"  id="Oui"  name="Acompte"  [(ngModel)]="acompteR"  value="oui"  class="form-check-input"/>
+                      <label class="form-check-label" for="Oui">Sur mois de</label>
+                    <div class="input-group mb-2" >
+                      <input [disabled]="acompteR !== 'oui'"  [(ngModel)]="acompte.typeA"   style="max-width:12rem;" type="text" class="form-control" placeholder="Mois"/>
+                    </div>
+                  </div>
+                    <div class="ml-5 form-check">
+                      <input  type="radio"  id="Non"  name="Acompte"  [(ngModel)]="acompteR"  value="non"  class="form-check-input"/>
+                      <label class="form-check-label" for="Non">Sur prime</label>
+                    </div>
+             
+                  </div>
+                  <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                    <p class="col-form-label">Montant  </p>
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group mb-2">
+                            <input style="max-width: 4.7rem;" [(ngModel)]="acompte.montant" type="number" class="form-control" placeholder="00" >
+                            <span class="input-group-text" id="basic-addon2">DT</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+              
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+          <button type="submit" class="btn btn-primary" (click)="Addacompte()" data-bs-dismiss="modal" >Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal TRAVAIL SUP -->
+  <div class="modal  fade" id="TraSup" tabindex="-1" aria-labelledby="TraSup" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'ACOMPTE</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body ">
+                  <div class="E-Ju d-flex align-items-center">
+                      <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
+                      <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                  </div>
+       
+                  <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
+          
+                  <div class="form-floating formD mb-2">
+                      <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                      <label for="nom_prenom">Nom et prénom</label>
+                  </div>
+                     
+                      <div class="form-floating formD mb-2">
+                          <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                          <label for="matricule">Matricule</label>
+                      </div>
+            
+                      <div class="form-floating formD mb-2">
+                          <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
+                          <label for="direction">Direction</label>
+                      </div>
+                      <div class="form-floating formD mb-2">
+                          <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                          <label for="Service">Service</label>
+                      </div>
+                  </div>
+                  <div style="display: flex; justify-content: space-around;">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-auto">
+                          <label for="inputPassword6" class="col-form-label">Date </label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" [(ngModel)]="autTravailSupp.date" class="form-control form-icon-trailing" id="date" >
+                        </div>
+                      </div>
+            
+                </div>
+        
+                <div style="display: flex; justify-content: space-around;">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-auto">
+                            <label for="inputPassword6" class="col-form-label">Heure de accès </label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="time" [(ngModel)]="autTravailSupp.hacces"class="form-control form-icon-trailing" id="date" >
+        
+                        </div>
                     </div>
                     <div class="row g-4 align-items-center">
-                      <div class="col-auto">
-                        <label for="inputPassword6" class="col-form-label">Date de reprise prévue</label>
-                      </div>
-                      <div class="col-auto">
-                          <input type="date" class="form-control form-icon-trailing" id="date" >
-                      </div>
-                    </div>
-          
-            </div> 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-       <!-- Modal CHANGEMENT HORAIRE DE TRAVAIL-->
-       <div class="modal  fade" id="chH" tabindex="-1" aria-labelledby="chH" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE CHANGEMENT HORAIRE DE TRAVAIL</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="E-Ju d-flex align-items-center">
-                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                        <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.temporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Temporaire</label>
+                        <div class="col-auto">
+                          <label for="inputPassword6" class="col-form-label">Heure de sortie</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="time" [(ngModel)]="autTravailSupp.hsortie" class="form-control form-icon-trailing" id="date" >
+                        </div>
                       </div>
                 </div>
-                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
-            
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
-                        <label for="nom_prenom">Nom et prénom</label>
-                    </div>
-                       
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
-                            <label for="matricule">Matricule</label>
-                        </div>
-              
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                            <label for="direction">Direction</label>
-                        </div>
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
-                            <label for="Service">Service</label>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: space-around;">
-                      <div class="row g-4 align-items-center">
-                          <div class="col-auto">
-                              <label for="inputPassword6" class="col-form-label">Changement envisagé du </label>
-                          </div>
-                          <div class="col-auto">
-                              <input type="date" class="form-control form-icon-trailing" id="date" >
-                          </div>
-                      </div>
-                      <div class="row g-4 align-items-center">
-                          <div class="col-auto">
-                            <label for="inputPassword6" class="col-form-label">Au </label>
-                          </div>
-                          <div class="col-auto">
-                              <input type="date" class="form-control form-icon-trailing" id="date" >
-                          </div>
-                        </div>
-              
-                  </div>
-          
-                  <div style="display: flex; justify-content: space-around;">
-                      <div class="row g-4 align-items-center">
-                          <div class="col-auto">
-                              <label for="inputPassword6" class="col-form-label">Ancien Horaire </label>
-                          </div>
-                          <div class="col-auto">
-                              <input type="time" class="form-control form-icon-trailing" id="date" >
-          
-                          </div>
-                      </div>
-                      <div class="row g-4 align-items-center">
-                          <div class="col-auto">
-                            <label for="inputPassword6" class="col-form-label">Nouvel Horaire </label>
-                          </div>
-                          <div class="col-auto">
-                              <input type="time" class="form-control form-icon-trailing" id="date" >
-                          </div>
-                        </div>
-                  </div>
-                  <div class="form-floating mb-2">
-                      <textarea class="form-control" id="qualite"  value="Qualité" ></textarea>
-                      <label for="qualite">Motif du changement</label>
-                  </div>
-            </div> 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
-            </div>
-          </div>
-        </div>
-      </div>      
-
-
-
-       <!-- Modal DEMANDE  DE PRET -->
-       <div class="modal  fade" id="pret" tabindex="-1" aria-labelledby="pret" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE PRET</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="E-Ju d-flex align-items-center">
-                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                        <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.temporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Temporaire</label>
-                      </div>
+                <div class="form-floating mb-2">
+                    <textarea class="form-control" [(ngModel)]="autTravailSupp.motif" id="motif"  value="motif" ></textarea>
+                    <label for="motif">Motif du changement</label>
                 </div>
-                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
-            
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
-                        <label for="nom_prenom">Nom et prénom</label>
-                    </div>
-                       
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
-                            <label for="matricule">Matricule</label>
-                        </div>
-              
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                            <label for="direction">Direction</label>
-                        </div>
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
-                            <label for="Service">Service</label>
-                        </div>
-                    </div>
-            </div> 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-       <!-- Modal DEMANDE  D'ACOMPTE' -->
-       <div class="modal  fade" id="acompte" tabindex="-1" aria-labelledby="acompte" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'ACOMPTE</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="E-Ju d-flex align-items-center">
-                        <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                        <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.temporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Temporaire</label>
-                      </div>
-                </div>
-                    <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
-            
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
-                        <label for="nom_prenom">Nom et prénom</label>
-                    </div>
-                       
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
-                            <label for="matricule">Matricule</label>
-                        </div>
-              
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                            <label for="direction">Direction</label>
-                        </div>
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
-                            <label for="Service">Service</label>
-                        </div>
-                    </div>
-                  
-            </div> 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
-            </div>
-          </div>
-        </div>
-      </div>      
-
-
-             <!-- Modal DEMANDE DE CONGE EXCEPTIONNEL' -->
-             <div class="modal  fade" id="congEx" tabindex="-1" aria-labelledby="congEx" aria-hidden="true">
-                  <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'ACOMPTE</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body ">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="E-Ju d-flex align-items-center">
-                            <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                            <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
-                        </div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.temporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Temporaire</label>
-                          </div>
-                    </div>
-                        <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
                 
-                        <div class="form-floating formD mb-2">
-                            <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
-                            <label for="nom_prenom">Nom et prénom</label>
-                        </div>
-                           
-                            <div class="form-floating formD mb-2">
-                                <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
-                                <label for="matricule">Matricule</label>
-                            </div>
-                  
-                            <div class="form-floating formD mb-2">
-                                <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                                <label for="direction">Direction</label>
-                            </div>
-                            <div class="form-floating formD mb-2">
-                                <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
-                                <label for="Service">Service</label>
-                            </div>
-                        </div>
-                          <p style="margin-bottom: 0%;">Motif de :</p>
-                          <div class="E-Ju ">
-                              <div class="form-check">
-                              <input class="form-check-input" type="radio" name="MotifC" id="motif1" value="motif1">
-                              <label class="form-check-label" for="motif1">Mon mariage(3 jours)</label>
-                              </div>
-                              <div class="form-check">
-                              <input class="form-check-input" type="radio" name="MotifC" id="motif2" value="motif2">
-                              <label class="form-check-label" for="motif2">Naissance de mon enfant (2 jours)</label>
-                              </div>
-                              <div class="form-check">
-                              <input class="form-check-input" type="radio" name="MotifC" id="motif3" value="motif3">
-                              <label class="form-check-label" for="motif3">Circoncision de mon enfant (1 jour)</label>                
-                              </div>
-                              <div class="form-check">
-                              <input class="form-check-input" type="radio" name="MotifC" id="motif4" value="motif4">
-                              <label class="form-check-label" for="motif4">Décès d'un frère, d'une sœur, d'un petit enfant, d'une petite fille, d'un grand-père ou d'une grand-mère (2 jours)</label>
-                              </div>
-                              <div class="form-check">
-                              <input class="form-check-input" type="radio" name="MotifC" id="motif5" value="motif5">
-                              <label class="form-check-label" for="motif5">Décès de mon conjoint (3 jours)</label>
-                              </div>
-                              <div class="form-check">
-                              <input class="form-check-input" type="radio" name="MotifC" id="motif6" value="motif6">
-                              <label class="form-check-label" for="motif6">Décès de mon père/ de ma mère/ de mon enfant (3 jours)</label>                
-                              </div>
-                          </div>
-                          <div class="row g-4 align-items-center">
-                              <div class="col-auto">
-                                <label for="inputPassword6" class="col-form-label">Pour la periode</label>
-                              </div>
-                              <div class="col-auto">
-                                  <input type="date" class="form-control form-icon-trailing" id="date" >
-                              </div>
-                              <div class="col-auto">
-                                  <label for="inputPassword6" class="col-form-label">Au</label>
-                              </div>
-                              <div class="col-auto">
-                                  <input type="date" class="form-control " id="date" control-id="ControlID-18">
-                              </div>
-                            </div>
-                            <div class="row g-4 align-items-center">
-                              <div class="col-auto">
-                                <label for="inputPassword6" class="col-form-label">Date de reprise prévue</label>
-                              </div>
-                              <div class="col-auto">
-                                  <input type="date" class="form-control form-icon-trailing" id="date" >
-                              </div>
-                            </div>
-                  </div> 
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Ajouter</button>
-                  </div>
-                </div>
-              </div>
-            </div>      
+          </div> 
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+            <button type="submit" class="btn btn-primary" (click)="AddautTravailSupp()" data-bs-dismiss="modal" >Ajouter</button>
+          </div>
+        </div>
+      </div>
+  </div>       
+

@@ -6,15 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { ChangementHoraireDto } from '../../models/changement-horaire-dto';
 
-export interface Delete12$Params {
-  id: number;
+export interface Add10$Params {
+      body: ChangementHoraireDto
 }
 
-export function delete12(http: HttpClient, rootUrl: string, params: Delete12$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-  const rb = new RequestBuilder(rootUrl, delete12.PATH, 'delete');
+export function add10(http: HttpClient, rootUrl: string, params: Add10$Params, context?: HttpContext): Observable<StrictHttpResponse<ChangementHoraireDto>> {
+  const rb = new RequestBuilder(rootUrl, add10.PATH, 'post');
   if (params) {
-    rb.path('id', params.id, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -22,9 +23,9 @@ export function delete12(http: HttpClient, rootUrl: string, params: Delete12$Par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<string>;
+      return r as StrictHttpResponse<ChangementHoraireDto>;
     })
   );
 }
 
-delete12.PATH = '/AutorisationS/{id}';
+add10.PATH = '/ChangementH';

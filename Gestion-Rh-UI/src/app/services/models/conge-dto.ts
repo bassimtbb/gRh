@@ -12,6 +12,7 @@ export interface CongeDto {
   id?: number;
   lastModifiedBy?: string;
   lastModifiedDate?: string;
+  motif?: string;
   reprise?: string;
   statut?: 'Validee' | 'En_attente' | 'Refus\xE9e' | 'Annuler';
   type?: string;

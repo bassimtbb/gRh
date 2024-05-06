@@ -12,5 +12,6 @@ export interface AcompteDto {
   montant?: number;
   statut?: 'Validee' | 'En_attente' | 'Refus\xE9e' | 'Annuler';
   type?: string;
+  typeA?: string;
   utilisateur?: Utilisateur;
 }

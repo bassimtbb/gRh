@@ -6,16 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AutorisationSortieDto } from '../../models/autorisation-sortie-dto';
+import { ChangementHoraireDto } from '../../models/changement-horaire-dto';
 
-export interface Add12$Params {
-      body: AutorisationSortieDto
+export interface FindAll10$Params {
 }
 
-export function add12(http: HttpClient, rootUrl: string, params: Add12$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationSortieDto>> {
-  const rb = new RequestBuilder(rootUrl, add12.PATH, 'post');
+export function findAll10(http: HttpClient, rootUrl: string, params?: FindAll10$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ChangementHoraireDto>>> {
+  const rb = new RequestBuilder(rootUrl, findAll10.PATH, 'get');
   if (params) {
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -23,9 +21,9 @@ export function add12(http: HttpClient, rootUrl: string, params: Add12$Params, c
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<AutorisationSortieDto>;
+      return r as StrictHttpResponse<Array<ChangementHoraireDto>>;
     })
   );
 }
 
-add12.PATH = '/AutorisationS';
+findAll10.PATH = '/ChangementH/all';

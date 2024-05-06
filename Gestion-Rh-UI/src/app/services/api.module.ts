@@ -13,7 +13,6 @@ import { AcompteService } from './services/acompte.service';
 import { AutorisationTravailSupService } from './services/autorisation-travail-sup.service';
 import { AutorisationTeletravailService } from './services/autorisation-teletravail.service';
 import { PretService } from './services/pret.service';
-import { OrdreMissionService } from './services/ordre-mission.service';
 import { CongeService } from './services/conge.service';
 import { ChangementHoraireService } from './services/changement-horaire.service';
 import { AutorisationSortieService } from './services/autorisation-sortie.service';
@@ -37,7 +36,6 @@ import { UserDetailImpService } from './services/user-detail-imp.service';
     AutorisationTravailSupService,
     AutorisationTeletravailService,
     PretService,
-    OrdreMissionService,
     CongeService,
     ChangementHoraireService,
     AutorisationSortieService,
