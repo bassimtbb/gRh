@@ -1,6 +1,6 @@
 package com.saiph.application.GestionRH.rest;
 
-import com.saiph.application.GestionRH.services.UserDetailImpService;
+import com.saiph.application.GestionRH.security.UserDetailImpService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/userD")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Tag(name = "UserDetailImp")
+@Tag(name = "Users")
 public class UserDetailImpController {
 
     private final UserDetailImpService userDetailImpService;

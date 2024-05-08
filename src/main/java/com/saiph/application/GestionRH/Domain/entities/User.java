@@ -1,19 +1,17 @@
 package com.saiph.application.GestionRH.Domain.entities;
 
-import com.saiph.application.GestionRH.Domain.entities.GenericEntity;
-import com.saiph.application.GestionRH.Domain.entities.Role;
+import com.saiph.application.GestionRH.Enum.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-import static jakarta.persistence.FetchType.EAGER;
+import java.util.Collections;
+import java.util.Date;
 
 
 @Builder
@@ -24,28 +22,33 @@ import static jakarta.persistence.FetchType.EAGER;
 @Entity
 @Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
-public class UserDetailImp implements UserDetails, Principal {
-  @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserDetailImp extends GenericEntity implements UserDetails, Principal {
+
 
     @Column(nullable = false, unique = true)
     private String email;
-
     private String password;
-    private String username;
     private boolean accountLocked;
     private boolean enabled;
-    @ManyToMany(fetch = EAGER)
-    private List<Role> roles;
-    private String nom;
-    private String prenom;
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
+    private String firstname;
+    private String EJuridic;
+    private String lastname;
+    @JoinColumn(name="Departement_id")
+    private Departement departement;
+    private String cin;
+    private String service;
+    private String sexe;
+    private String addreds;
+    private String phonenumber;
+    private String img;
+    private Date DEmbauche=new Date();
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       return this.roles
-                .stream()
-                .map(r ->new SimpleGrantedAuthority(r.getName()))
-                .collect(Collectors.toList());
+       return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
@@ -80,15 +83,11 @@ public class UserDetailImp implements UserDetails, Principal {
 
     @Override
     public String getName() {
-        return username;
+        return email;
     }
-        public String fullName() {
-        return getNom() + " " + getPrenom();
+    public String fullName() {
+        return getFirstname() + " " + getLastname();
     }
 
 
-
-    public String getFullName() {
-        return getNom() + " " + getPrenom();
-    }
 }
