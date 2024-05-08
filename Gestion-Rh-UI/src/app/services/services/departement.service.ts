@@ -11,6 +11,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { add3 } from '../fn/departement/add-3';
 import { Add3$Params } from '../fn/departement/add-3';
+import { addEmployeToDepartement } from '../fn/departement/add-employe-to-departement';
+import { AddEmployeToDepartement$Params } from '../fn/departement/add-employe-to-departement';
 import { delete3 } from '../fn/departement/delete-3';
 import { Delete3$Params } from '../fn/departement/delete-3';
 import { DepartementDto } from '../models/departement-dto';
@@ -18,6 +20,8 @@ import { findAll3 } from '../fn/departement/find-all-3';
 import { FindAll3$Params } from '../fn/departement/find-all-3';
 import { findById3 } from '../fn/departement/find-by-id-3';
 import { FindById3$Params } from '../fn/departement/find-by-id-3';
+import { setSup } from '../fn/departement/set-sup';
+import { SetSup$Params } from '../fn/departement/set-sup';
 import { update3 } from '../fn/departement/update-3';
 import { Update3$Params } from '../fn/departement/update-3';
 
@@ -124,6 +128,56 @@ export class DepartementService extends BaseService {
   add3(params: Add3$Params, context?: HttpContext): Observable<DepartementDto> {
     return this.add3$Response(params, context).pipe(
       map((r: StrictHttpResponse<DepartementDto>): DepartementDto => r.body)
+    );
+  }
+
+  /** Path part for operation `addEmployeToDepartement()` */
+  static readonly AddEmployeToDepartementPath = '/department/addEmploye/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addEmployeToDepartement()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEmployeToDepartement$Response(params: AddEmployeToDepartement$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return addEmployeToDepartement(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addEmployeToDepartement$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addEmployeToDepartement(params: AddEmployeToDepartement$Params, context?: HttpContext): Observable<void> {
+    return this.addEmployeToDepartement$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `setSup()` */
+  static readonly SetSupPath = '/department/SetSup/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `setSup()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  setSup$Response(params: SetSup$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return setSup(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `setSup$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  setSup(params: SetSup$Params, context?: HttpContext): Observable<void> {
+    return this.setSup$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

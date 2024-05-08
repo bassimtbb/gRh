@@ -34,16 +34,17 @@ export class TokenService {
     return !this.isTokenValid();
   }
 
-  get userRoles(): string[] {
+   userRole() {
     const token = this.token;
     if (token) {
       const jwtHelper = new JwtHelperService();
       const decodedToken = jwtHelper.decodeToken(token);
-      console.log(decodedToken.authorities);
-      return decodedToken.authorities;
+      if (decodedToken && decodedToken.authorities && Array.isArray(decodedToken.authorities)) {
+        return decodedToken.authorities[0];
+      }
     }
-    return [];
-  }
+    return null;
+ } 
   get fullName(): string | null {
     const token = this.token;
     if (token) {
@@ -54,7 +55,16 @@ export class TokenService {
     }
     return null;
   }
-
+  get Id(): number | null {
+    const token = this.token;
+    if (token) {
+      const jwtHelper = new JwtHelperService();
+      const decodedToken = jwtHelper.decodeToken(token);
+      // Assuming 'fullName' is the claim containing the user's full name
+      return decodedToken.Id;
+    }
+    return null;
+  }
   get email(): string | null {
     const token = this.token;
     if (token) {

@@ -39,89 +39,9 @@ public class Event extends GenericEntity {
     @NonNull
     private String titre;
 
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public List<Utilisateur> getListEmploye() {
-        return ListEmploye;
-    }
-
-    public void setListEmploye(List<Utilisateur> listEmploye) {
-        ListEmploye = listEmploye;
-    }
-
     @ManyToMany()
-    private List<Utilisateur> ListEmploye = new ArrayList<>();
+    private List<User> ListEmploye = new ArrayList<>();
 
-    public Date getDateD() {
-        return dateD;
-    }
 
-    public void setDateD(Date dateD) {
-        this.dateD = dateD;
-    }
-
-    public Date getDateF() {
-        return dateF;
-    }
-
-    public void setDateF(Date dateF) {
-        this.dateF = dateF;
-    }
-
-    public Integer getDuree() {
-        return duree;
-    }
-
-    public void setDuree(Integer duree) {
-        this.duree = duree;
-    }
-
-    public String getLieu() {
-        return lieu;
-    }
-
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
-    }
-
-    public Integer getNbrPlace() {
-        return nbrPlace;
-    }
-
-    public void setNbrPlace(Integer nbrPlace) {
-        this.nbrPlace = nbrPlace;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
 
 }

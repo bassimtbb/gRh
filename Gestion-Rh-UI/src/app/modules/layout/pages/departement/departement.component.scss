@@ -1,0 +1,52 @@
+.containe{
+    border-radius:20px ;
+    margin: .7rem;
+    padding: 1rem;
+    padding-bottom: 0rem;
+    display: grid;
+    gap: 0rem;
+}
+
+
+.entete{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom:1rem;
+    justify-content: space-between;
+}
+
+  .body{
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border-radius: 30px;
+    padding: 1rem;
+    background-color: white;
+  }
+
+  .entete{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+@media screen and (max-width:600px){  
+        .containe{
+        margin-top: .2rem;
+        margin-left: 0rem;
+        margin-right: 0rem;
+        padding: .5rem;
+        border-radius: 0%; 
+        width: 100%;   
+    }
+  }
+ @media screen and (max-width:400px){  
+    .entete{
+        display: grid;   
+    }
+
+}
+
+
+
+

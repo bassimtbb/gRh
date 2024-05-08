@@ -35,5 +35,4 @@ public class DemandeCrudService extends GenericCrudService<Demande, DemandeDto> 
       public List<Demande> getDemandeByDepartementId(Long departementId) {
         return demandeRepository.findByDepartementId(departementId);
     }
-
-            }
+}

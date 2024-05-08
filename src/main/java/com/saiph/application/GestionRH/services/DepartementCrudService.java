@@ -1,9 +1,13 @@
 package com.saiph.application.GestionRH.services;
 
 import com.saiph.application.GestionRH.Domain.dto.DepartementDto;
+import com.saiph.application.GestionRH.Domain.dto.UserDto;
 import com.saiph.application.GestionRH.Domain.entities.Departement;
+import com.saiph.application.GestionRH.Domain.entities.User;
 import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import com.saiph.application.GestionRH.repository.DepartementRepository;
+import com.saiph.application.GestionRH.security.UserDetailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
@@ -12,34 +16,40 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class DepartementCrudService extends GenericCrudService<Departement, DepartementDto> {
 
-    private DepartementRepository departementRepository;
+    private final DepartementRepository departementRepository;
+    private final UserDetailService userService;
 
-    @Autowired
-    public DepartementCrudService(DepartementRepository departementRepository) {
-        this.departementRepository = departementRepository;
+    public void SetSupH(Long departementId , Long userID) {
+        UserDto userDto = userService.findById( userID);
+        DepartementDto deaprtementDto=findById(departementId);
+        User utilisateur=userService.convertToEntity(userDto);
+        Departement departement= convertToEntity(deaprtementDto);
+        departement.setManager( utilisateur);
+     departementRepository.save(departement);
     }
-
-    @Override
-    public DepartementDto update(Long id, DepartementDto entityDto) throws ResourceNotFoundException {
-        return super.update(id, entityDto);
+    public void addEmpl(Long departementId , Long userID) {
+        UserDto userDto = userService.findById( userID);
+        DepartementDto deaprtementDto=findById(departementId);
+        User utilisateur=userService.convertToEntity(userDto);
+        Departement departement= convertToEntity(deaprtementDto);
+        departement.getListEmploye().add(utilisateur);
+     departementRepository.save(departement);
     }
-
-    @Override
-    public DepartementDto findById(Long id) {
-        return super.findById(id);
+    public void deleteEmpl(Long departementId , Long userID) {
+        UserDto userDto = userService.findById( userID);
+        DepartementDto deaprtementDto=findById(departementId);
+        User utilisateur=userService.convertToEntity(userDto);
+        Departement departement= convertToEntity(deaprtementDto);
+        departement.getListEmploye().remove(utilisateur);
+     departementRepository.save(departement);
     }
-
 
     @Override
     protected CrudRepository getRepository() {
         return departementRepository;
-    }
-
-    @Override
-    public List<DepartementDto> findAll() {
-        return super.findAll();
     }
 }

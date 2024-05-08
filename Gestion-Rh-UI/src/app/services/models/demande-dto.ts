@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Departement } from '../models/departement';
-import { Utilisateur } from '../models/utilisateur';
+import { User } from '../models/user';
 export interface DemandeDto {
   createdBy?: string;
   createdDate?: string;
@@ -11,5 +11,5 @@ export interface DemandeDto {
   lastModifiedDate?: string;
   statut?: 'Validee' | 'En_attente' | 'Refus\xE9e' | 'Annuler';
   type?: string;
-  utilisateur?: Utilisateur;
+  utilisateur?: User;
 }

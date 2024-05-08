@@ -1,4 +1,4 @@
-<div *ngIf="utilisateur as user" class="containe">
+<div *ngIf="user as user" class="containe">
     <!-- <div class="entete">
         <h3>Profile</h3>
     </div> -->
@@ -37,13 +37,13 @@
             <div class="col order-5">  
                   <div class="item">
                       <p class=" fw-bolder mb-0 fs-5 titre"> Nom</p>          
-                      <p class=" fs-7 titre">{{ user.nom }}</p>
+                      <p class=" fs-7 titre">{{ user.firstname }}</p>
                   </div>          
               </div>
             <div class="col order-1">
                   <div class="item">
                       <p class=" fw-bolder mb-0 fs-5 titre"> Prénom</p>       
-                      <p class=" fs-7 titre"> {{ user.prenom }}</p>
+                      <p class=" fs-7 titre"> {{ user.lastname }}</p>
                   </div>          
               </div>
           </div>
@@ -62,10 +62,7 @@
                     </div>          
                 </div>
               <div class="col order-1">
-                    <div class="item">
-                      <p class=" fw-bolder mb-0 fs-5 titre"> Direction</p>    
-                      <p class=" fs-7 titre"> {{ user.direction }}</p>
-                    </div>          
+                         
                 </div>
             </div>
   
@@ -79,7 +76,7 @@
               <div class="col order-5">  
                     <div class="item">
                       <p class=" fw-bolder mb-0 fs-5 titre"> Adresse </p>     
-                      <p class=" fs-7 titre"> {{ user.adresse }} </p>   
+                      <p class=" fs-7 titre"> {{ user.address }} </p>   
                     </div>          
                 </div>
               <div class="col order-1">
@@ -108,20 +105,14 @@
 
 
 <div class="infoP" *ngIf="show">
+  <div [ngClass]=alert role="alert">    {{Msg}}    </div>
+
     <div class="ml-3 mt-3 mb-5 d-flex justify-content-between">
     <h3 class="   fw-bolder">Informations confidentiel</h3 >
     </div>
     <div class="container ">
         <div class="row mb-4 pl-7 ">
-          <div class="col">
-                <div class="item">
-                    <p class=" fw-bolder mb-0 fs-5 titre"> Username</p>    
-                    <div class="input-group mb-3">                        
-                        <input type="text" class="form-control"  disabled="true" placeholder=" " aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#username" id="button-addon2"><i class="bi bi-pencil-square"></i></button>
-                    </div>
-                </div>          
-            </div>
+      
           <div class="col order-5">  
                 <div class="item">
                     <p class=" fw-bolder mb-0 fs-5 titre"> Email</p>          
@@ -147,7 +138,7 @@
                 <div class="item">
                     <p class=" fw-bolder mb-0 fs-5 titre"> Numéro de téléphone</p>      
                     <div class="input-group mb-3">                        
-                        <input type="text" class="form-control" disabled   value=" {{ user.telephone }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <input type="text" class="form-control" disabled   value=" {{ user.phonenumber }}"  aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#telephone" id="button-addon2"><i class="bi bi-pencil-square"></i></button>
                     </div>                  
                 </div>          
@@ -174,7 +165,7 @@
             </div>
             <div class="modal-footer">
               <button  data-bs-dismiss="modal" type="button" class="btn btn-secondary" >Close</button>
-              <button type="submit" (click)="updateUsername()" class="btn btn-primary" data-bs-dismiss="modal" >Modifier</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Modifier</button>
             </div>
           </div>
         </div>
@@ -193,7 +184,7 @@
                 <div class="item">
                     <p class=" fw-bolder mb-0 fs-5 titre"> Numéro de téléphone</p>      
                     <div class="input-group mb-3">                        
-                        <input type="text" class="form-control" autocomplete="off"   [(ngModel)]="updatedUserInfo.telephone" placeholder=" {{ user.telephone }}" >
+                        <input type="text" class="form-control"  [(ngModel)]="updatedUserInfo.phonenumber" placeholder=" {{ user.phonenumber }}" >
                     </div>                  
                 </div> 
             </div>
@@ -249,12 +240,12 @@
                 <div class="modal-body m-3 "> 
                     <div class="item">
                         <p class=" fw-bolder mb-0 fs-5 titre"> Email</p>    
-                        <input type="text" class="form-control"   placeholder=" " aria-label="Recipient's username" >
+                        <input type="text" class="form-control" [(ngModel)]="updatedUserInfo.email"  placeholder="{{user.email }}" aria-label="Recipient's username" >
                     </div>
                 </div>
                 <div class="modal-footer">
                   <button  data-bs-dismiss="modal" type="button" class="btn btn-secondary" >Close</button>
-                  <!-- <button type="submit" class="btn btn-primary"  (click)=" updateemail() " data-bs-dismiss="modal" >Modifier</button> -->
+                  <button type="submit" class="btn btn-primary"  (click)=" updateemail() " data-bs-dismiss="modal" >Modifier</button>
                 </div>
               </div>
             </div>

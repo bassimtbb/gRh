@@ -2,9 +2,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UtilisateurService } from '../../../../services/services/utilisateur.service';
+import { UserService } from '../../../../services/services/user.service';
 import { TokenService } from '../../../../services/token/token.service';
-import { AuthenticationRequest, RegistrationRequest, Utilisateur } from '../../../../services/models';
+import { AuthenticationRequest, RegistrationRequest, User} from '../../../../services/models';
 import { AuthenticationService } from '../../../../services/services/authentication.service';
 
 @Component({
@@ -14,13 +14,13 @@ import { AuthenticationService } from '../../../../services/services/authenticat
 })
 export class UsersComponent  implements OnInit {
   utilisateur: any;
-  employes: Utilisateur[] = [];
+  employes: User[] = [];
   totalPages: number = 0;
   error: string = '';
 
   constructor(
     private registre: AuthenticationService,
-    private utilisateurService: UtilisateurService,
+    private usersService: UserService,
     private tokenService: TokenService
   ) {}
 
@@ -32,9 +32,9 @@ export class UsersComponent  implements OnInit {
   size = 5;
 
   fetchUsers() {
-    this.utilisateurService.findAll()
-      .subscribe(utilisateur => {
-   this.employes=utilisateur;
+    this.usersService.findAll()
+     .subscribe(users => {
+   this.employes=users;
         this.error = '';
       }, error => {
         this.error = 'Error retrieving user information.';
@@ -64,13 +64,11 @@ getStatusClass(statut: string): string {
     lastname: '',
     cin: '',
     password: 'password',
-    direction: '',
     email: '',
     service: '',
     sexe: '',
-    telephone: '',
-    username: '',
-    adresse: '',
+    phonenumber: '',
+    address: '',
     ejuridic: '',
     img: '',
     dembauche: ''
@@ -85,7 +83,6 @@ getStatusClass(statut: string): string {
       ...this.addUtilisateur,
       password: 'password',
 
-      username:this.addUtilisateur.email,
 
     };
     this.registre.register({ body: this.addUtilisateur })

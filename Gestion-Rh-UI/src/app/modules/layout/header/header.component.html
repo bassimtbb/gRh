@@ -9,60 +9,64 @@
         </div>
         <div class="offcanvas-body">
 
-          <ul *ngIf="1" class="navbar-nav justify-content-center flex-grow-1 pe-3">
-
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="dashboard">
-              <i class=""></i>&nbsp;Dashboard
-            </a>
-          </li>       
-          <div class="btn-group  dropdown">
-            <button class="nav-link mx-lg-2 dropdown-toggle" type="button" id="typeDemande" data-bs-toggle="dropdown" aria-expanded="false">
-       Demande</button>
-            <ul class="dropdown-menu">
-              <li class="nav-item navbar-nav ">
-                <a class="nav-link mx-lg-2 " id="navbarDropdown" routerLinkActive="List-item-active" routerLink="mesdemande" role="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class=""></i>&nbsp;Mes Demandes
-                </a>
-            </li>   
-        
-            <li class="nav-item navbar-nav ">
-              <a class="nav-link " id="navbarDropdown" routerLinkActive="List-item-active" routerLink="gererdemande" role="button" data-toggle="dropdown" aria-expanded="false">
-                  <i class=""></i>&nbsp;Traiter Demandes
+          <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+<!-- 
+            <li *ngFor="let menuItem of menuItems1" class="{{menuItem.class}} nav-item">
+              <a routerLinkActive="List-item-active" [routerLink]="[menuItem.path]" class="nav-link">
+                  <i class="ni {{menuItem.icon}}"></i>
+                  {{menuItem.title}}
               </a>
-          </li>          
-          </ul> </div>     
+          </li>  -->
+        
+          
+          
+          <div *ngFor="let menuItem of menuItems1" class="btn-group  dropdown">
+            <button *ngIf="menuItem.path!==''" class="nav-link mx-lg-2 {{menuItem.class}}" target="_blank" type="button" id="typeDemande" data-bs-toggle="dropdown" [routerLink]="[menuItem.path]" aria-expanded="false">{{menuItem.title}}</button>
+            <button *ngIf="menuItem.path==''" class="nav-link mx-lg-2 {{menuItem.class}}" target="_blank" type="button" id="typeDemande" data-bs-toggle="dropdown"  aria-expanded="false">{{menuItem.title}}</button>
+            <ul *ngIf=" menuItem.submenu.length>0" class="dropdown-menu">
+              <li *ngFor="let subMenuItem of menuItem.submenu" class="nav-item navbar-nav ">
+                <a class="nav-link " id="navbarDropdown" routerLinkActive="List-item-active"[routerLink]="[subMenuItem.path]" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class=""></i> {{subMenuItem.title}}
+                </a>
+            </li>            
+          </ul> 
+        </div>     
 
+<!-- 
+          <div class="btn-group  dropdown">
+            <button class="nav-link dropdown-toggle" type="button" id="typeDemande" data-bs-toggle="dropdown" aria-expanded="false">  Departement</button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let departement of this.departements;" class="nav-item navbar-nav ">
+                <a class="nav-link " id="navbarDropdown" routerLinkActive="List-item-active" routerLink="departement/{{departement.id}}" role="button" data-toggle="dropdown" aria-expanded="false">
+                    {{departement.name}}</a>
+            </li>     
+          </ul> </div>     
           
           <li class="nav-item">
             <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="formations">
-              <i class=""></i>&nbsp;Formation
+              <i class=""></i>Formation
             </a>
           </li>         
           
           <li class="nav-item">
             <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="event">
-              <i class=""></i>&nbsp;Événement
+              <i class=""></i>Événement
             </a>
           </li>         
           
           <li class="nav-item">
             <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="chat">
-              <i class=""></i>&nbsp;Messagerie
+              <i class=""></i>Messagerie
             </a>
           </li>         
           
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="users">
-              <i class=""></i>&nbsp;Employé
-            </a>
-          </li>         
+          
           
           <li class="nav-item">
-            <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="Conge">
-              <i class="fas fa-book"></i>&nbsp;Congé
+            <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="calendrier">
+              <i class="fas fa-book"></i>Calendrier
             </a>
-          </li>
+          </li> -->
           </ul>
         </div>
     </div>

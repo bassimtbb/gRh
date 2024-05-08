@@ -4,65 +4,28 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-
+import lombok.*;
+import com.saiph.application.GestionRH.Domain.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class Departement extends GenericEntity{
 
 
     @NonNull
-    @Column(nullable = false, length = 20)
-    private String nom;
-
+    @Column(nullable = false, unique = true)
+    private DepartementName name;
 
     @OneToOne
-    private Utilisateur manager;
+    private User manager;
 
     @OneToMany
-    private List<Utilisateur> ListEmploye = new ArrayList<>();
+    private List<User> ListEmploye = new ArrayList<>();
 
 
-    public String getNom() {
-        return nom;
-    }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public Utilisateur getManager() {
-        return manager;
-    }
-
-    public void setManager(Utilisateur manager) {
-        this.manager = manager;
-    }
-
-    public List<Utilisateur> getListEmploye() {
-        return ListEmploye;
-    }
-
-    public void setListEmploye(List<Utilisateur> listEmploye) {
-        ListEmploye = listEmploye;
-    }
-
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
 }

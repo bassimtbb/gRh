@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Demande } from '../../../../services/models';
-import { DemandeService, UtilisateurService } from '../../../../services/services';
+import { DemandeService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 
 @Component({
@@ -11,14 +11,14 @@ import { TokenService } from '../../../../services/token/token.service';
 export class GererDemandesComponent {
 constructor(
   private   demandeService:DemandeService,
-  private utilisateurService:UtilisateurService,
+  private userService:UserService,
   private tokenService :TokenService
 ){}
 
   demandes:Demande[]=[];
   ngOnInit(): void {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+    const Id = this.tokenService.Id;
+    this.userService.findById({id: Id as number  })
       .subscribe(user => { 
         this.demandeService.findAll4().subscribe(
            demandes =>{ 

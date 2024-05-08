@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Departement } from '../models/departement';
-import { Utilisateur } from '../models/utilisateur';
+import { User } from '../models/user';
 export interface AutorisationTeletravailDto {
   contact?: string;
   createdBy?: string;
@@ -17,5 +17,5 @@ export interface AutorisationTeletravailDto {
   tache?: string;
   telephone?: string;
   type?: string;
-  utilisateur?: Utilisateur;
+  utilisateur?: User;
 }

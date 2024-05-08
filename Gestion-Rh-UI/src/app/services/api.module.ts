@@ -4,7 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { UtilisateurService } from './services/utilisateur.service';
+import { UserService } from './services/user.service';
 import { FormationService } from './services/formation.service';
 import { EventService } from './services/event.service';
 import { DepartementService } from './services/departement.service';
@@ -17,7 +17,6 @@ import { CongeService } from './services/conge.service';
 import { ChangementHoraireService } from './services/changement-horaire.service';
 import { AutorisationSortieService } from './services/autorisation-sortie.service';
 import { AuthenticationService } from './services/authentication.service';
-import { UserDetailImpService } from './services/user-detail-imp.service';
 
 /**
  * Module that provides all services and configuration.
@@ -27,7 +26,7 @@ import { UserDetailImpService } from './services/user-detail-imp.service';
   exports: [],
   declarations: [],
   providers: [
-    UtilisateurService,
+    UserService,
     FormationService,
     EventService,
     DepartementService,
@@ -40,7 +39,6 @@ import { UserDetailImpService } from './services/user-detail-imp.service';
     ChangementHoraireService,
     AutorisationSortieService,
     AuthenticationService,
-    UserDetailImpService,
     ApiConfiguration
   ],
 })

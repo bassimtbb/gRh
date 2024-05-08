@@ -1,6 +1,8 @@
 package com.saiph.application.GestionRH.Domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.saiph.application.GestionRH.Enum.RoleType;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,7 +24,8 @@ import java.util.Date;
 @Entity
 @Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
-public class UserDetailImp extends GenericEntity implements UserDetails, Principal {
+@Tag(name = "User")
+public class User extends GenericEntity implements UserDetails, Principal {
 
 
     @Column(nullable = false, unique = true)
@@ -40,10 +43,11 @@ public class UserDetailImp extends GenericEntity implements UserDetails, Princip
     private String cin;
     private String service;
     private String sexe;
-    private String addreds;
+    private String address;
     private String phonenumber;
     private String img;
-    private Date DEmbauche=new Date();
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    private Date DEmbauche;
 
 
     @Override

@@ -55,7 +55,7 @@
             <tr *ngFor="let demande of demandes">
                 <td>{{ demande.id }}</td>
                 <td>{{ demande.type }}</td>
-                <td>{{ demande.utilisateur?.nom }} {{ demande.utilisateur?.prenom}}</td>
+                <td>{{ demande.utilisateur?.firstname }} {{ demande.utilisateur?.lastname}}</td>
                 <td ><i [ngClass]="getStatusClass(demande.statut)"  class="bi  "></i>{{ demande.statut }}</td>
                 <td>{{ demande.createdDate | date:'dd/MM/yyyy'}}</td>
                 <td style="display: flex; justify-content: space-around;">

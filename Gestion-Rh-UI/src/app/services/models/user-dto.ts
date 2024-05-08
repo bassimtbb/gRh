@@ -1,22 +1,27 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Departement } from '../models/departement';
-export interface Utilisateur {
-  adresse?: string;
+export interface UserDto {
+  DEmbauche?: string;
+  accountLocked?: boolean;
+  address?: string;
   cin?: string;
   createdBy?: string;
   createdDate?: string;
   dembauche?: string;
   departement?: Departement;
-  direction?: string;
   ejuridic?: string;
   email?: string;
+  enabled?: boolean;
+  firstname?: string;
   id?: number;
   img?: string;
   lastModifiedBy?: string;
-  nom?: string;
-  prenom?: string;
+  lastModifiedDate?: string;
+  lastname?: string;
+  password?: string;
+  phonenumber?: string;
+  role?: 'EMPLOYE' | 'RRH' | 'SUP_H';
   service?: string;
   sexe?: string;
-  telephone?: string;
 }

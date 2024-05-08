@@ -38,11 +38,11 @@
         <td>{{ employee.id }}</td>
         <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="border-radius: 50%;"
                  width="40rem" height="40rem"></td>
-        <td>{{ employee.nom }}</td>
-        <td>{{ employee.prenom }}</td>
+        <td>{{ employee.firstname }}</td>
+        <td>{{ employee.lastname }}</td>
         <td>{{ employee.service }}</td>
         <td>{{ employee.email }}</td>
-        <td>{{ employee.telephone }}</td>
+        <td>{{ employee.phonenumber }}</td>
         <td>{{ employee.dembauche | date:'dd/MM/yyyy' }}</td>
         <td style="display: flex; justify-content: space-around;">
           <button routerLinkActive="List-item-active" routerLink="/layout/UserDetails/" type="button"
@@ -118,11 +118,7 @@
           </div>
         </div>
         <div class="cl d-flex">
-          <div class="form-floating mb-2">
-            <input required type="Text" [(ngModel)]="addUtilisateur.direction" class="form-control inputF"
-                   id="direction">
-            <label for="direction">Direction</label>
-          </div>
+     
           <div class="form-floating mb-2">
             <select class="form-select inputF" [(ngModel)]="addUtilisateur.sexe" required
                     aria-label="Default select example">
@@ -135,13 +131,13 @@
         </div>
         <div class="cl d-flex">
           <div class="form-floating mb-2">
-            <input required type="Text" [(ngModel)]="addUtilisateur.adresse" class="form-control inputF" id="Adresse">
+            <input required type="Text" [(ngModel)]="addUtilisateur.address" class="form-control inputF" id="Adresse">
             <label for="Adresse">Adresse</label>
           </div>
 
 
           <div class="form-floating mb-2">
-            <input required type="number" [(ngModel)]="addUtilisateur.telephone" class="form-control inputF"
+            <input required type="number" [(ngModel)]="addUtilisateur.phonenumber" class="form-control inputF"
                    id="telephone">
             <label for="telephone">Téléphone</label>
           </div>

@@ -1,8 +1,7 @@
 package com.saiph.application.GestionRH.Domain.dto;
 
-import com.saiph.application.GestionRH.Domain.entities.Utilisateur;
+import com.saiph.application.GestionRH.Domain.entities.User;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -30,5 +29,5 @@ public class FormationDto extends GenericDto {
     private String description;
 
     @ManyToMany
-    private List<Utilisateur> ListEmploye = new ArrayList<>();
+    private List<User> ListEmploye = new ArrayList<>();
 }

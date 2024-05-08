@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Utilisateur } from '../models/utilisateur';
+import { User } from '../models/user';
 export interface FormationDto {
   createdBy?: string;
   createdDate?: string;
@@ -13,7 +13,7 @@ export interface FormationDto {
   lastModifiedBy?: string;
   lastModifiedDate?: string;
   lieu?: string;
-  listEmploye?: Array<Utilisateur>;
+  listEmploye?: Array<User>;
   nbrPlace?: number;
   titre?: string;
 }

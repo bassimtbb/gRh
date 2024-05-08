@@ -6,7 +6,7 @@
     </div>
     <div [ngClass]=alert role="alert">    {{Msg}}    </div>
 
-    <div *ngIf="formations.length==0 || formations==null" class="body">
+    <div *ngIf="!formations.length" class="body">
       <p class="mb-0 "><small class="text-body-secondary">Aucune Formation</small></p>
     </div>
     <div *ngIf="formations.length" class="body">
@@ -148,7 +148,7 @@
 
 
 
-    <div   *ngIf="listeEmpl.length" class="modal  fade" id="listeEmp" tabindex="-1" aria-labelledby="listeEmp" aria-hidden="true">
+    <div  *ngIf="listeEmpl.length"  class="modal  fade" id="listeEmp" tabindex="-1" aria-labelledby="listeEmp" aria-hidden="true">
       <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -175,11 +175,11 @@
         
         <td>{{ employee.id }}</td>
         <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="border-radius: 50%;" width="40rem" height="40rem"></td>
-        <td>{{ employee.nom }}</td>
-        <td>{{ employee.prenom }}</td>
+        <td>{{ employee.firstname }}</td>
+        <td>{{ employee.lastname }}</td>
         <td>{{ employee.service }}</td>
         <td>{{ employee.email }}</td>
-        <td>{{ employee.telephone }}</td>
+        <td>{{ employee.phonenumber }}</td>
         <td style="display: flex; justify-content: space-around;">
           <button  type="button"  class="btn btn-primary"><i class="bi bi-pencil"></i></button>
         </td>

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class UserDetailImpService extends GenericCrudService<User, UserDto> implements UserDetailsService {
+public class UserDetailService extends GenericCrudService<User, UserDto> implements UserDetailsService {
 
 
     private final UserRepository userRepository;

@@ -32,14 +32,14 @@ public class Formation extends GenericEntity {
     private Integer nbrPlace;
     @NonNull
     private String img;
-        @NonNull
+    @NonNull
     private String titre;
     @NonNull
     private String description;
 
 
     @ManyToMany
-    private List<Utilisateur> ListEmploye = new ArrayList<>();
+    private List<User> ListEmploye = new ArrayList<>();
 
     public Date getDateD() {
         return dateD;

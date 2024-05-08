@@ -6,16 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { UserDetails } from '../../models/user-details';
+import { UserDto } from '../../models/user-dto';
 
-export interface LoadUserByUsername1$Params {
-  username: string;
+export interface FindById$Params {
+  id: number;
 }
 
-export function loadUserByUsername1(http: HttpClient, rootUrl: string, params: LoadUserByUsername1$Params, context?: HttpContext): Observable<StrictHttpResponse<UserDetails>> {
-  const rb = new RequestBuilder(rootUrl, loadUserByUsername1.PATH, 'get');
+export function findById(http: HttpClient, rootUrl: string, params: FindById$Params, context?: HttpContext): Observable<StrictHttpResponse<UserDto>> {
+  const rb = new RequestBuilder(rootUrl, findById.PATH, 'get');
   if (params) {
-    rb.path('username', params.username, {});
+    rb.path('id', params.id, {});
   }
 
   return http.request(
@@ -23,9 +23,9 @@ export function loadUserByUsername1(http: HttpClient, rootUrl: string, params: L
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<UserDetails>;
+      return r as StrictHttpResponse<UserDto>;
     })
   );
 }
 
-loadUserByUsername1.PATH = '/userD/username/{username}';
+findById.PATH = '/userD/{id}';

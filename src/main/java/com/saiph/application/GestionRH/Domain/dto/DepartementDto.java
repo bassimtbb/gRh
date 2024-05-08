@@ -1,62 +1,32 @@
 package com.saiph.application.GestionRH.Domain.dto;
 
 
-import com.saiph.application.GestionRH.Domain.entities.Utilisateur;
+import com.saiph.application.GestionRH.Domain.entities.User;
 import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class DepartementDto extends GenericDto {
 
 
     @NonNull
-    @Column(nullable = false, length = 20)
-    private String nom;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @NonNull
-    private Utilisateur manager;
+    @OneToOne
+    private User manager;
 
+    @OneToMany
+    private List<User> ListEmploye = new ArrayList<>();
 
-    private List<Utilisateur> ListEmploye = new ArrayList<>();
-
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-
-    public Utilisateur getManager() {
-        return manager;
-    }
-
-    public void setManager(Utilisateur manager) {
-        this.manager = manager;
-    }
-
-    public List<Utilisateur> getListEmploye() {
-        return ListEmploye;
-    }
-
-    public void setListEmploye(List<Utilisateur> listEmploye) {
-        ListEmploye = listEmploye;
-    }
 }

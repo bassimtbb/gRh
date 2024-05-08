@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormationDto, Utilisateur } from '../../../../services/models';
-import { FormationService, UtilisateurService } from '../../../../services/services';
+import { FormationDto, User } from '../../../../services/models';
+import { FormationService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 
 @Component({
@@ -9,11 +9,11 @@ import { TokenService } from '../../../../services/token/token.service';
   styleUrl: './formation.component.scss'
 })
 export class FormationComponent implements OnInit {
-  private user!: Utilisateur;
+  private user!: User;
   selectedFormation!: FormationDto ;
   formations:FormationDto[]=[];
   private img64 !:string;
-  listeEmpl:Utilisateur[]=[];
+  listeEmpl:User[]=[];
   alert: string = "d-none";
   Msg:String="";
    ispostuler!:boolean;
@@ -30,7 +30,7 @@ export class FormationComponent implements OnInit {
 
   constructor(
    private  formationService:FormationService,
-   private  utilisateurService:UtilisateurService,
+   private  usersService:UserService,
    private tokenService: TokenService
 
   ){}
@@ -70,7 +70,7 @@ export class FormationComponent implements OnInit {
         console.error('Error retrieving user information:', error);
       });
       const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      this.usersService.loadUserByUsername({ username: email as string })
       .subscribe(utilisateur => {  this.user = utilisateur;});
   }
 
@@ -90,7 +90,6 @@ formationClicked(formation: FormationDto) {
     return; // Exit the function if listeEmpl is missing
   }
   this.listeEmpl = formation.listEmploye;
-
   this.selectedFormation = formation;
   this.ispostuler=this.isInList(this.listeEmpl, this.user)
   console.log(this.ispostuler);
@@ -99,10 +98,10 @@ formationClicked(formation: FormationDto) {
 
 
 
- isInList(listeEmpl: Utilisateur[], utilisateur: Utilisateur): boolean {
+ isInList(listeEmpl: User[], user: User): boolean {
   this.listeEmpl=listeEmpl;
   for (const empl of this.listeEmpl) {
-    if (empl.id === utilisateur.id) {
+    if (empl.id === user.id) {
       return true;
     }
   }
@@ -110,6 +109,8 @@ formationClicked(formation: FormationDto) {
 }
 
 postuler(formation: FormationDto) {
+  console.log( this.user.id);
+  console.log(formation.id);
         this.formationService.addEmployeToFormation({
           id: formation.id as number,
           body: this.user.id as number
@@ -142,6 +143,7 @@ postuler(formation: FormationDto) {
        console.log("formation",formation);
        this.ngOnInit();
        this.Msg = `Formation "${formation.titre}" est ajouté avec succès!`;
+       this.alert = 'alert alert-success';
 
        setTimeout(() => {
         this.alert = 'd-none';

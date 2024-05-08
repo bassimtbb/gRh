@@ -16,6 +16,8 @@ import { ManageUserComponent } from './pages/manage-user/manage-user.component';
 
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpTokenInterceptor } from '../../services/interceptor/http-token.interceptor';
+import { DepartementComponent } from './pages/departement/departement.component';
+import { CalendrierComponent } from './pages/calendrier/calendrier.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { HttpTokenInterceptor } from '../../services/interceptor/http-token.inte
     GererDemandesComponent,
     ProfileComponent,
     UsersComponent,
-    ManageUserComponent
+    ManageUserComponent,
+    DepartementComponent,
+    CalendrierComponent
   ],
   imports: [
     CommonModule,

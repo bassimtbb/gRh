@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService, UtilisateurService } from '../../../../services/services';
-import { EventDto, Utilisateur } from '../../../../services/models';
+import { EventService, UserService } from '../../../../services/services';
+import { EventDto, User } from '../../../../services/models';
 import { TokenService } from '../../../../services/token/token.service';
 
 @Component({
@@ -10,10 +10,10 @@ import { TokenService } from '../../../../services/token/token.service';
 })
 export class EventComponent implements OnInit {
   selectedEvent!: EventDto ;
-   user!: Utilisateur;
+   user!: User;
   events:EventDto[]=[];
   ispostuler!:boolean;
-  listeEmpl:Utilisateur[]=[];
+  listeEmpl:User[]=[];
   alert: string = "d-none";
   Msg:String="";
 
@@ -27,13 +27,13 @@ export class EventComponent implements OnInit {
       });
       console.log(this.listeEmpl.length);
       const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
-      .subscribe(utilisateur => {  this.user = utilisateur;});
+      this.userService.loadUserByUsername({ username: email as string })
+      .subscribe((utilisateur: User) => {  this.user = utilisateur;});
   
   }
   
-  eventClicked(event: EventDto) {
-    if (!event.listEmploye) {
+  eventClicked(event :any) {
+    if (event) {
       console.error("'listeEmpl' is undefined. event data might be incomplete.");
       return; 
     }
@@ -46,7 +46,7 @@ export class EventComponent implements OnInit {
   }
 
   constructor(
-    private  utilisateurService:UtilisateurService,
+    private  userService:UserService,
     private tokenService: TokenService,
    private  eventService:EventService
   ){}
@@ -76,10 +76,10 @@ export class EventComponent implements OnInit {
     this.eventService.add2({ body: this.eventAdd })
       .subscribe(event => {
         console.log("event", event);
-        this.ngOnInit(); // Refresh the event list (potentially inefficient)
+        this.ngOnInit(); 
         this.alert = 'alert alert-success';
         this.Msg = `Événement "${event.titre}" est ajouté avec succès!`;
-  
+
         setTimeout(() => {
           this.alert = 'd-none';
           this.Msg = "";
@@ -117,7 +117,7 @@ export class EventComponent implements OnInit {
     return 'https://cdni.iconscout.com/illustration/premium/thumb/event-management-service-5631302-4693331.png?f=webp';
   }
 
-  isInList(listeEmpl: Utilisateur[], utilisateur: Utilisateur): boolean {
+  isInList(listeEmpl: User[], utilisateur: User): boolean {
     this.listeEmpl=listeEmpl;
 
     for (const empl of listeEmpl) {

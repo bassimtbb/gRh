@@ -9,29 +9,29 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { add } from '../fn/utilisateur/add';
-import { Add$Params } from '../fn/utilisateur/add';
-import { delete$ } from '../fn/utilisateur/delete';
-import { Delete$Params } from '../fn/utilisateur/delete';
-import { findAll } from '../fn/utilisateur/find-all';
-import { FindAll$Params } from '../fn/utilisateur/find-all';
-import { findById } from '../fn/utilisateur/find-by-id';
-import { FindById$Params } from '../fn/utilisateur/find-by-id';
-import { loadUserByUsername } from '../fn/utilisateur/load-user-by-username';
-import { LoadUserByUsername$Params } from '../fn/utilisateur/load-user-by-username';
-import { update } from '../fn/utilisateur/update';
-import { Update$Params } from '../fn/utilisateur/update';
-import { Utilisateur } from '../models/utilisateur';
-import { UtilisateurDto } from '../models/utilisateur-dto';
+import { add } from '../fn/user/add';
+import { Add$Params } from '../fn/user/add';
+import { delete$ } from '../fn/user/delete';
+import { Delete$Params } from '../fn/user/delete';
+import { findAll } from '../fn/user/find-all';
+import { FindAll$Params } from '../fn/user/find-all';
+import { findById } from '../fn/user/find-by-id';
+import { FindById$Params } from '../fn/user/find-by-id';
+import { loadUserByUsername } from '../fn/user/load-user-by-username';
+import { LoadUserByUsername$Params } from '../fn/user/load-user-by-username';
+import { update } from '../fn/user/update';
+import { Update$Params } from '../fn/user/update';
+import { UserDetails } from '../models/user-details';
+import { UserDto } from '../models/user-dto';
 
 @Injectable({ providedIn: 'root' })
-export class UtilisateurService extends BaseService {
+export class UserService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
   /** Path part for operation `findById()` */
-  static readonly FindByIdPath = '/utilisateur/{id}';
+  static readonly FindByIdPath = '/userD/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -39,7 +39,7 @@ export class UtilisateurService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findById$Response(params: FindById$Params, context?: HttpContext): Observable<StrictHttpResponse<UtilisateurDto>> {
+  findById$Response(params: FindById$Params, context?: HttpContext): Observable<StrictHttpResponse<UserDto>> {
     return findById(this.http, this.rootUrl, params, context);
   }
 
@@ -49,14 +49,14 @@ export class UtilisateurService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findById(params: FindById$Params, context?: HttpContext): Observable<UtilisateurDto> {
+  findById(params: FindById$Params, context?: HttpContext): Observable<UserDto> {
     return this.findById$Response(params, context).pipe(
-      map((r: StrictHttpResponse<UtilisateurDto>): UtilisateurDto => r.body)
+      map((r: StrictHttpResponse<UserDto>): UserDto => r.body)
     );
   }
 
   /** Path part for operation `update()` */
-  static readonly UpdatePath = '/utilisateur/{id}';
+  static readonly UpdatePath = '/userD/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -64,7 +64,7 @@ export class UtilisateurService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update$Response(params: Update$Params, context?: HttpContext): Observable<StrictHttpResponse<UtilisateurDto>> {
+  update$Response(params: Update$Params, context?: HttpContext): Observable<StrictHttpResponse<UserDto>> {
     return update(this.http, this.rootUrl, params, context);
   }
 
@@ -74,14 +74,14 @@ export class UtilisateurService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update(params: Update$Params, context?: HttpContext): Observable<UtilisateurDto> {
+  update(params: Update$Params, context?: HttpContext): Observable<UserDto> {
     return this.update$Response(params, context).pipe(
-      map((r: StrictHttpResponse<UtilisateurDto>): UtilisateurDto => r.body)
+      map((r: StrictHttpResponse<UserDto>): UserDto => r.body)
     );
   }
 
   /** Path part for operation `delete()` */
-  static readonly DeletePath = '/utilisateur/{id}';
+  static readonly DeletePath = '/userD/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -106,7 +106,7 @@ export class UtilisateurService extends BaseService {
   }
 
   /** Path part for operation `add()` */
-  static readonly AddPath = '/utilisateur';
+  static readonly AddPath = '/userD';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -114,7 +114,7 @@ export class UtilisateurService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add$Response(params: Add$Params, context?: HttpContext): Observable<StrictHttpResponse<UtilisateurDto>> {
+  add$Response(params: Add$Params, context?: HttpContext): Observable<StrictHttpResponse<UserDto>> {
     return add(this.http, this.rootUrl, params, context);
   }
 
@@ -124,14 +124,14 @@ export class UtilisateurService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add(params: Add$Params, context?: HttpContext): Observable<UtilisateurDto> {
+  add(params: Add$Params, context?: HttpContext): Observable<UserDto> {
     return this.add$Response(params, context).pipe(
-      map((r: StrictHttpResponse<UtilisateurDto>): UtilisateurDto => r.body)
+      map((r: StrictHttpResponse<UserDto>): UserDto => r.body)
     );
   }
 
   /** Path part for operation `loadUserByUsername()` */
-  static readonly LoadUserByUsernamePath = '/utilisateur/email/{email}';
+  static readonly LoadUserByUsernamePath = '/userD/username/{username}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -139,7 +139,7 @@ export class UtilisateurService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  loadUserByUsername$Response(params: LoadUserByUsername$Params, context?: HttpContext): Observable<StrictHttpResponse<Utilisateur>> {
+  loadUserByUsername$Response(params: LoadUserByUsername$Params, context?: HttpContext): Observable<StrictHttpResponse<UserDetails>> {
     return loadUserByUsername(this.http, this.rootUrl, params, context);
   }
 
@@ -149,14 +149,14 @@ export class UtilisateurService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  loadUserByUsername(params: LoadUserByUsername$Params, context?: HttpContext): Observable<Utilisateur> {
+  loadUserByUsername(params: LoadUserByUsername$Params, context?: HttpContext): Observable<UserDetails> {
     return this.loadUserByUsername$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Utilisateur>): Utilisateur => r.body)
+      map((r: StrictHttpResponse<UserDetails>): UserDetails => r.body)
     );
   }
 
   /** Path part for operation `findAll()` */
-  static readonly FindAllPath = '/utilisateur/all';
+  static readonly FindAllPath = '/userD/all';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -164,7 +164,7 @@ export class UtilisateurService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAll$Response(params?: FindAll$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UtilisateurDto>>> {
+  findAll$Response(params?: FindAll$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UserDto>>> {
     return findAll(this.http, this.rootUrl, params, context);
   }
 
@@ -174,9 +174,9 @@ export class UtilisateurService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAll(params?: FindAll$Params, context?: HttpContext): Observable<Array<UtilisateurDto>> {
+  findAll(params?: FindAll$Params, context?: HttpContext): Observable<Array<UserDto>> {
     return this.findAll$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<UtilisateurDto>>): Array<UtilisateurDto> => r.body)
+      map((r: StrictHttpResponse<Array<UserDto>>): Array<UserDto> => r.body)
     );
   }
 

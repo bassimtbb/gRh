@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UserDetails, Utilisateur, UtilisateurDto } from '../../../../services/models';
-import { AuthenticationService, UserDetailImpService, UtilisateurService } from '../../../../services/services';
+import { UserDetails, User } from '../../../../services/models';
+import { AuthenticationService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { Router } from '@angular/router';
 import {OnInit} from '@angular/core';
@@ -15,23 +15,25 @@ import {ActivatedRoute} from '@angular/router';
 export class ProfileComponent implements OnInit {
   show: boolean = false;
   inputsDisabled = true; 
-  utilisateur: Utilisateur | null = null;
-  updatedUserInfo: any ={};
-  userUp: Utilisateur | null = null;
+  user: User = {};
+  updatedUserInfo: User ={};
+  userUp: User | null = null;
+  alert: string = "d-none";
+  Msg: string="";
 
 
   constructor(
     private authenticationService : AuthenticationService,
-    private utilisateurService: UtilisateurService,
+    private userService: UserService,
     private tokenService: TokenService
   ) {}
   ngOnInit(): void {
-    const email = this.tokenService.email;
-    this.utilisateurService.loadUserByUsername({ email: email as string })
-    .subscribe(utilisateur => {
+    const Id = this.tokenService.Id;
+    this.userService.findById({id: Id as number  })
+    .subscribe(user => {
       console.log('token retrieved:', this.tokenService.token);
-      this.utilisateur = utilisateur;
-      console.log('Utilisateur retrieved:', utilisateur);
+      this.user = user;
+      console.log('User retrieved:', user);
     }, error => {
       console.error('Error retrieving user information:', error);
       // Handle error (e.g., display error message)
@@ -52,86 +54,90 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  updateUsername() {
-    if (!this.utilisateur || !this.updatedUserInfo.username) {
-      console.error('Missing user data or updated username. Update cannot proceed.');
-      return;
-    }
-    // // Prepare the updated user object
-    // const updatedUser = {
-    //   ...this.utilisateur, 
-    //   username: this.updatedUserInfo.username // Update the username with the value from updatedUserInfo
-    // };
-    // console.log('Username updated updatedUser:', updatedUser);
+  // updateUsername() {
+  //   if (!this.user || !this.updatedUserInfo.username) {
+  //     console.error('Missing user data or updated username. Update cannot proceed.');
+  //     return;
+  //   }
+  //   // Prepare the updated user object
+  //   const updatedUser = {
+  //     ...this.user, 
+  //     username: this.updatedUserInfo.username // Update the username with the value from updatedUserInfo
+  //   };
+  //   console.log('Username updated updatedUser:', updatedUser);
   
-    // // Call the update user service method (assuming it exists)
-    // this.utilisateurService.update({id :updatedUser.id as number, body: updatedUser})
-    //   .subscribe(response => {
-    //     console.log('Username updated successfully:', response);
-    //     // Update the local utilisateur object with the updated information
-    //     this.utilisateur =response;
-    //     // Optionally, display a success message to the user
-    //   }, error => {
-    //     console.error('Error updating username:', error);
-    //     // Handle the error (e.g., display an error message to the user)
-    //   });
+  //   // Call the update user service method (assuming it exists)
+  //   this.userService.update({id :updatedUser.id as number, body: updatedUser})
+  //     .subscribe(response => {
+  //       console.log('Username updated successfully:', response);
+  //       // Update the local user object with the updated information
+  //       this.user =response;
+  //       // Optionally, display a success message to the user
+  //     }, error => {
+  //       console.error('Error updating username:', error);
+  //       // Handle the error (e.g., display an error message to the user)
+  //     });
 
-  }
+  // }
   
   updatetelephone() {
-    if (!this.utilisateur || !this.updatedUserInfo.telephone) {
-      console.error('Missing user data or updated telephone. Update cannot proceed.');
+    if (!this.user || !this.updatedUserInfo.phonenumber) {
+      console.error('Missing user data or updated phonenumber. Update cannot proceed.');
       return;
     }
-    // // Prepare the updated user object
-    // const updatedUser = {
-    //   ...this.utilisateur, 
-    //   telephone: this.updatedUserInfo.telephone // Update the telephone with the value from updatedUserInfo
-    // };
-    // console.log('telephone updated updatedUser:', updatedUser);
+    // Prepare the updated user object
+    const updatedUser = {
+      ...this.user, 
+      phonenumber: this.updatedUserInfo.phonenumber // Update the telephone with the value from updatedUserInfo
+    };
+    console.log('telephone updated updatedUser:', updatedUser);
   
-    // // Call the update user service method (assuming it exists)
-    // this.utilisateurService.update({id :updatedUser.id as number, body: updatedUser})
-    //   .subscribe(response => {
-    //     console.log('telephone updated successfully:', response);
-    //     // Update the local utilisateur object with the updated information
-    //     this.utilisateur =response;
-    //     // Optionally, display a success message to the user
-    //   }, error => {
-    //     console.error('Error updating telephone:', error);
-    //     // Handle the error (e.g., display an error message to the user)
-    //   });
+    // Call the update user service method (assuming it exists)
+    this.userService.update({id :updatedUser.id as number, body: updatedUser})
+      .subscribe(response => {
+        console.log('telephone updated successfully:', response);
+        this.user =response;
+        this.Msg = ` Numéro de téléphone a été modifiée avec succès!`;
+        this.alert ="alert alert-success" ;
+        this.ngOnInit();
+        setTimeout(() => {
+        this.alert = 'd-none';
+        }, 5000); 
+      }, error => {
+        console.error('Error updating telephone:', error);
+        this.Msg = ` Numéro de téléphone a été modifiée avec succès!`;
+        this.alert ="alert alert-success" ;
+      });
 
   }
 
   updateemail() {
-    if (!this.utilisateur || !this.updatedUserInfo.email) {
+    if (!this.user || !this.updatedUserInfo.email) {
       console.error('Missing user data or updated email. Update cannot proceed.');
       return;
     }
-    // // Prepare the updated user object
-    // const updatedUser = {
-    //   ...this.utilisateur, 
-    //   email: this.updatedUserInfo.email // Update the email with the value from updatedUserInfo
-    // };
-    // console.log('email updated updatedUser:', updatedUser);
+    // Prepare the updated user object
+    const updatedUser = {
+      ...this.user, 
+      email: this.updatedUserInfo.email // Update the email with the value from updatedUserInfo
+    };
+    console.log('email updated updatedUser:', updatedUser);
   
-    // // Call the update user service method (assuming it exists)
-    // this.utilisateurService.update({id :updatedUser.id as number, body: updatedUser})
-    //   .subscribe(response => {
-    //     console.log('email updated successfully:', response);
-    //     // Update the local utilisateur object with the updated information
-    //     this.utilisateur =response;
-    //     // Optionally, display a success message to the user
-    //   }, error => {
-    //     console.error('Error updating email:', error);
-    //     // Handle the error (e.g., display an error message to the user)
-    //   });
+    // Call the update user service method (assuming it exists)
+    this.userService.update({id :updatedUser.id as number, body: updatedUser})
+      .subscribe(response => {
+        console.log('email updated successfully:', response);
+        this.user =response;
+        
+      }, error => {
+        console.error('Error updating email:', error);
+        // Handle the error (e.g., display an error message to the user)
+      });
 
   }
 
   updatePassword() {
-    if (!this.utilisateur || !this.updatedUserInfo.password) {
+    if (!this.user || !this.updatedUserInfo.password) {
       console.error('Missing user data or updated password. Update cannot proceed.');
       return;
     }
@@ -144,16 +150,16 @@ export class ProfileComponent implements OnInit {
   //   })
 
   //   const updatedUser = {
-  //     ...this.utilisateur,
+  //     ...this.user,
   //     password: this.updatedUserInfo.password 
   //   };
   
   //   console.log('Password updated in updatedUser:', updatedUser);
-  //   this.utilisateurService.update({ id: updatedUser.id as number, body: updatedUser })
+  //   this.userService.update({ id: updatedUser.id as number, body: updatedUser })
   //     .subscribe(
   //       (response) => {
   //         console.log('Password updated successfully:', response);
-  //         this.utilisateur = response;
+  //         this.user = response;
   //       },
   //       (error) => {
   //         console.error('Error updating password:', error);

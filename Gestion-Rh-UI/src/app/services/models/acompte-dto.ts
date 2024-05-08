@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Departement } from '../models/departement';
-import { Utilisateur } from '../models/utilisateur';
+import { User } from '../models/user';
 export interface AcompteDto {
   createdBy?: string;
   createdDate?: string;
@@ -13,5 +13,5 @@ export interface AcompteDto {
   statut?: 'Validee' | 'En_attente' | 'Refus\xE9e' | 'Annuler';
   type?: string;
   typeA?: string;
-  utilisateur?: Utilisateur;
+  utilisateur?: User;
 }

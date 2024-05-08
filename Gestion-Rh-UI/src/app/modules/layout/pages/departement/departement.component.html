@@ -1,0 +1,53 @@
+<div class="containe">
+    <div class="entete">
+        <h3>Département {{departement.name}}</h3>
+    </div>
+    <div [ngClass]=alert role="alert">{{Msg}}</div>
+  <div  class="body">
+    <div style="width: 100%">
+        <div class="entete">
+            <h4 style="padding: 0%;">Superieure Hi</h4>
+            <button type="button"  class="btn btn-success " data-bs-toggle="modal" data-bs-target="#" >Modifier</button>
+        </div>
+
+        <div *ngIf="!manager" class="">
+            <p class="mb-0 "><small class="text-body-secondary">Aucune Superieure Hi</small></p>
+        </div>
+
+        <div *ngIf="manager" class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{departement.manager?.lastname}}{{departement.manager?.firstname}}</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 100%">
+        <div class="entete">
+            <h4 style="padding: 0%;">Liste des employes</h4>
+            <button type="button"  class="btn btn-success " data-bs-toggle="modal" data-bs-target="#" >Modifier</button>
+        </div>
+
+        <div *ngIf="!ListeEmpl?.length" class="">
+            <p class="mb-0 "><small class="text-body-secondary">Aucune employe</small></p>
+        </div>
+
+        <div *ngIf="ListeEmpl">
+        <div  *ngFor="let employe of ListeEmpl" class="card" style="width: 18rem;">
+            <img src="https://www.pikpng.com/pngl/m/16-168770_user-iconset-no-profile-picture-icon-circle-clipart.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{employe.lastname}}{{employe.firstname}}</h5>
+              <p class="card-text">{{employe.service}}</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div></div>
+    </div>
+  </div>
+ 
+
+
+</div>
+
+

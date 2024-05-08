@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Departement } from '../models/departement';
-import { Utilisateur } from '../models/utilisateur';
+import { User } from '../models/user';
 export interface AutorisationSortieDto {
   Hretour?: string;
   Hsortie?: string;
@@ -20,5 +20,5 @@ export interface AutorisationSortieDto {
   motif?: string;
   statut?: 'Validee' | 'En_attente' | 'Refus\xE9e' | 'Annuler';
   type?: string;
-  utilisateur?: Utilisateur;
+  utilisateur?: User;
 }

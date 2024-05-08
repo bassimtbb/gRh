@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AcompteService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, PretService, UtilisateurService } from '../../../../services/services';
+import { AcompteService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, PretService, UserService} from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
-import { AcompteDto, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, PretDto, Utilisateur } from '../../../../services/models';
+import { AcompteDto, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, PretDto, User} from '../../../../services/models';
 
 @Component({
   selector: 'app-mes-demandes',
@@ -11,10 +11,9 @@ import { AcompteDto, AutorisationSortieDto, AutorisationTeletravailDto, Autorisa
 export class MesDemandesComponent  implements OnInit {
   isTemporaire: boolean=true;
   addADS:AutorisationSortieDto={};
-  user!:Utilisateur;
   alert!: string;  
   Msg: String="";
-  Utilisateur: Utilisateur={};
+  user: User={};
   conge:CongeDto={};
   autTeletravail:AutorisationTeletravailDto={};
   autTravailSupp:  AutorisationTravailSupDto={}
@@ -44,17 +43,17 @@ export class MesDemandesComponent  implements OnInit {
     private acompteService: AcompteService,
     private pretService: PretService,
     private demandeService:DemandeService,
-    private utilisateurService:UtilisateurService,
+    private userService:UserService,
     private tokenService :TokenService,
     private autorisationSortieService :AutorisationSortieService
   ){}
  
     demandes:Demande[]=[];
     ngOnInit(): void {
-        const email = this.tokenService.email;
-        this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
         .subscribe(user => { 
-          this.Utilisateur=user;
+          this.user=user;
           this.demandeService.getDemandeByUtilisateurId({userId: user.id as number})
           .subscribe(
              demandes =>{ 
@@ -71,37 +70,68 @@ export class MesDemandesComponent  implements OnInit {
    switch (this.demandeSelected.type) {
     case "Conge":
     this.typeDSelect="Congé"
+    this.congeService.findById9({id : this.demandeSelected.id as number}).
+    subscribe(demande=>{
+      this.modifConge=demande;
+      console.log(demande);
+    })
       break; 
     case "AutorisationSortie":
           this.typeDSelect="Autorisation de sortie"
           this.autorisationSortieService.findById11({id : this.demandeSelected.id as number}).
           subscribe(demande=>{
             this.modifADS=demande;
+            console.log(demande);
           })
       break;
     case "AutorisationTeletravail":
           this.typeDSelect="Autorisation de télétravail"
-      break;
+               this.autTeletravailService.findById7({id : this.demandeSelected.id as number}).
+          subscribe(demande=>{
+            this.modifAutTeletravail=demande;
+            console.log(demande);
+          })
+          break;
     case "AutorisationTravailSup":
           this.typeDSelect="Autorisation de travail supplémentaire"
-      break;
+          this.autTravailSuppService.findById6({id : this.demandeSelected.id as number}).
+          subscribe(demande=>{
+            this.modifAutTravailSupp=demande;
+            console.log(demande);
+          })
+          break;
     case "ChangementHoraire":
           this.typeDSelect="Changement Horaire de travail"
-      break;
+          this.chHoraireService.findById10({id : this.demandeSelected.id as number}).
+          subscribe(demande=>{
+            this.modifChHoraire=demande;
+            console.log(demande);
+          })
+          break;
     case "Acompte":
           this.typeDSelect="Acompte sur Salaire/prime"
-      break;
+          this.acompteService.findById5({id : this.demandeSelected.id as number}).
+          subscribe(demande=>{
+            this.modifAcompte=demande;
+            console.log(demande);
+          })
+          break;
     case "Pret":
           this.typeDSelect="Prêt"
-      break;
+          this.pretService.findById8({id : this.demandeSelected.id as number}).
+          subscribe(demande=>{
+            this.modifPret=demande;
+            console.log(demande);
+          })
+          break;
     }
-
+     
     }
     
 
     updateAutorSortie() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.modifADS={
           ...this.modifADS,
@@ -123,8 +153,8 @@ export class MesDemandesComponent  implements OnInit {
 
 
     updateconge() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.conge={
           ...this.conge,
@@ -193,13 +223,13 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     updateautTeletravail() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.autTeletravail={
           ...this.autTeletravail,
           utilisateur:user,
-          statut:'En_attente',
+           statut:'En_attente',
           departement:user.departement
         }
       this.autTeletravailService.update7({id:this.autTeletravail.id as number, body :this.autTeletravail as AutorisationTeletravailDto})
@@ -215,8 +245,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     updateautTravailSupp() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.autTravailSupp={
           ...this.autTravailSupp,
@@ -237,8 +267,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     updatechHoraire() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.chHoraire={
           ...this.chHoraire,
@@ -259,8 +289,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     updateacompte() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.acompte={
           ...this.acompte,
@@ -288,8 +318,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     updatepret() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.pret={
           ...this.pret,
@@ -348,8 +378,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
      AddAutorSortie() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.addADS={
           ...this.addADS,
@@ -377,8 +407,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     Addconge() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.conge={
           ...this.conge,
@@ -447,8 +477,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     AddautTeletravail() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.autTeletravail={
           ...this.autTeletravail,
@@ -469,8 +499,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     AddautTravailSupp() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.autTravailSupp={
           ...this.autTravailSupp,
@@ -491,8 +521,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     AddchHoraire() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.chHoraire={
           ...this.chHoraire,
@@ -513,8 +543,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     Addacompte() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.acompte={
           ...this.acompte,
@@ -542,8 +572,8 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     Addpret() {
-      const email = this.tokenService.email;
-      this.utilisateurService.loadUserByUsername({ email: email as string })
+      const Id = this.tokenService.Id;
+      this.userService.findById({id: Id as number  })
       .subscribe(user => {
         this.pret={
           ...this.pret,

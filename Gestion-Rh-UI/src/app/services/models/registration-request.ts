@@ -2,19 +2,18 @@
 /* eslint-disable */
 import { Departement } from '../models/departement';
 export interface RegistrationRequest {
-  adresse?: string;
+  address?: string;
   cin: string;
   dembauche?: string;
   departement?: Departement;
-  direction: string;
   ejuridic?: string;
   email: string;
   firstname?: string;
   img?: string;
   lastname: string;
   password: string;
+  phonenumber: string;
+  role?: 'EMPLOYE' | 'RRH' | 'SUP_H';
   service: string;
   sexe: string;
-  telephone: string;
-  username: string;
 }

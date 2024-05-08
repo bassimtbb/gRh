@@ -230,7 +230,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="E-Ju d-flex align-items-center">
                 <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                <label class="form-check-label" for="ifrikia-S">{{this.user.ejuridic}}</label>                
             </div>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" [(ngModel)]="congeEx" (ngModelChange)="isEXCEPTIONNELListener($event)"   role="switch" id="EXCEPTIONNE" >
@@ -455,7 +455,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="E-Ju d-flex align-items-center">
                     <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                    <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                    <label class="form-check-label" for="ifrikia-S">{{this.user.ejuridic}}</label>                
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" [(ngModel)]="addADS.isTemporaire" (ngModelChange)="isTemporaireListener($event)"   role="switch" id="flexSwitchCheckChecked" >
@@ -465,21 +465,17 @@
                 <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
         
                 <div class="form-floating formD mb-2">
-                    <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                    <input type="Text" class="form-control " id="nom_prenom"  [value]="user.firstname+' '+user.lastname" disabled>
                     <label for="nom_prenom">Nom et prénom</label>
                 </div>
                    
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                        <input type="Text" class="form-control " id="matricule" [value]="user.id"  disabled>
                         <label for="matricule">Matricule</label>
                     </div>
           
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                        <label for="direction">Direction</label>
-                    </div>
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                        <input type="Text" class="form-control " id="Service"  [value]="user.service"   disabled>
                         <label for="Service">Service</label>
                     </div>
                 </div>
@@ -547,38 +543,34 @@
         <div class="modal-body ">
                 <div class="E-Ju d-flex align-items-center">
                     <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                    <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                    <label class="form-check-label" for="ifrikia-S">{{this.user.ejuridic}}</label>                
                 </div>
            
                 <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
         
                 <div class="form-floating formD mb-2">
-                    <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                    <input type="Text" class="form-control " id="nom_prenom"  [value]="user.firstname+' '+user.lastname" disabled>
                     <label for="nom_prenom">Nom et prénom</label>
                 </div>
                    
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                        <input type="Text" class="form-control " id="matricule" [value]="user.id"  disabled>
                         <label for="matricule">Matricule</label>
                     </div>
           
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                        <label for="direction">Direction</label>
-                    </div>
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                        <input type="Text" class="form-control " id="Service"  [value]="user.service"   disabled>
                         <label for="Service">Service</label>
                     </div>
                 </div>
                 <div style="display: flex;flex-wrap: wrap; justify-content: space-around;">
                
                     <div class="form-floating w-25 mb-2">
-                      <input  type="email"  [value]="Utilisateur.email"  class="form-control  inputF" id="email-employe" value="Bassim.tabbeb@gmail.com" disabled>
+                      <input  type="email"  [value]="user.email"  class="form-control  inputF" id="email-employe" value="Bassim.tabbeb@gmail.com" disabled>
                       <label for="email-employe">Adresse Email</label>
                     </div>
                     <div class="form-floating formD mb-2">
-                      <input type="number" class="form-control inputF"   [value]="Utilisateur.telephone" id="telephone-employe" value="58208705" disabled>
+                      <input type="number" class="form-control inputF"   [value]="user.phonenumber" id="telephone-employe" value="58208705" disabled>
                       <label for="telephone-employe">Téléphone</label>
                     </div>
                   </div>
@@ -641,26 +633,23 @@
       <div class="modal-body ">
             <div class="E-Ju d-flex align-items-center">
                 <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                <label class="form-check-label" for="ifrikia-S">{{this.user.ejuridic}}</label>                
             </div>
                           <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
     
             <div class="form-floating formD mb-2">
-                <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                <input type="Text" class="form-control " id="nom_prenom"  [value]="user.firstname+' '+user.lastname" disabled>
                 <label for="nom_prenom">Nom et prénom</label>
             </div>
                
                 <div class="form-floating formD mb-2">
-                    <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                    <input type="Text" class="form-control " id="matricule" [value]="user.id"  disabled>
                     <label for="matricule">Matricule</label>
                 </div>
       
+                
                 <div class="form-floating formD mb-2">
-                    <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                    <label for="direction">Direction</label>
-                </div>
-                <div class="form-floating formD mb-2">
-                    <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                    <input type="Text" class="form-control " id="Service"  [value]="user.service"   disabled>
                     <label for="Service">Service</label>
                 </div>
             </div>
@@ -734,7 +723,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="E-Ju d-flex align-items-center">
                     <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                    <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                    <label class="form-check-label" for="ifrikia-S">{{this.user.ejuridic}}</label>                
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" [(ngModel)]="congeEx" (ngModelChange)="isEXCEPTIONNELListener($event)"   role="switch" id="EXCEPTIONNE" >
@@ -744,21 +733,18 @@
                 <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
         
                 <div class="form-floating formD mb-2">
-                    <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                    <input type="Text" class="form-control " id="nom_prenom"  [value]="user.firstname+' '+user.lastname" disabled>
                     <label for="nom_prenom">Nom et prénom</label>
                 </div>
                    
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                        <input type="Text" class="form-control " id="matricule" [value]="user.id"  disabled>
                         <label for="matricule">Matricule</label>
                     </div>
           
+
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                        <label for="direction">Direction</label>
-                    </div>
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                        <input type="Text" class="form-control " id="Service"  [value]="user.service"   disabled>
                         <label for="Service">Service</label>
                     </div>
                 </div>
@@ -848,26 +834,23 @@
         <div class="modal-body ">
                 <div class="E-Ju d-flex align-items-center">
                     <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                    <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                    <label class="form-check-label" for="ifrikia-S">{{this.user.ejuridic}}</label>                
                 </div>
                  <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
         
                 <div class="form-floating formD mb-2">
-                    <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                    <input type="Text" class="form-control " id="nom_prenom"  [value]="user.lastname+' '+user.firstname" disabled>
                     <label for="nom_prenom">Nom et prénom</label>
                 </div>
                    
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                        <input type="Text" class="form-control " id="matricule" [value]="user.id"  disabled>
                         <label for="matricule">Matricule</label>
                     </div>
           
+
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                        <label for="direction">Direction</label>
-                    </div>
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                        <input type="Text" class="form-control " id="Service"  [value]="user.service"   disabled>
                         <label for="Service">Service</label>
                     </div>
                 </div>
@@ -934,27 +917,24 @@
         <div class="modal-body ">
                 <div class="E-Ju d-flex align-items-center">
                     <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                    <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                    <label class="form-check-label" for="ifrikia-S">{{this.user.ejuridic}}</label>                
                 </div>
      
                 <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
         
                 <div class="form-floating formD mb-2">
-                    <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                    <input type="Text" class="form-control " id="nom_prenom"  [value]="user.firstname+' '+user.lastname" disabled>
                     <label for="nom_prenom">Nom et prénom</label>
                 </div>
                    
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                        <input type="Text" class="form-control " id="matricule" [value]="user.id"  disabled>
                         <label for="matricule">Matricule</label>
                     </div>
           
+                
                     <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                        <label for="direction">Direction</label>
-                    </div>
-                    <div class="form-floating formD mb-2">
-                        <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                        <input type="Text" class="form-control " id="Service"  [value]="user.service"   disabled>
                         <label for="Service">Service</label>
                     </div>
                 </div>
@@ -1007,27 +987,24 @@
           <div class="modal-body ">
                   <div class="E-Ju d-flex align-items-center">
                       <label  class="col-form-label"for="entiteJuridique">Entité Juridique :</label>
-                      <label class="form-check-label" for="ifrikia-S">{{this.Utilisateur.ejuridic}}</label>                
+                      <label class="form-check-label" for="ifrikia-S">{{this.user.ejuridic}}</label>                
                   </div>
        
                   <div style="display: flex;flex-wrap: wrap; justify-content: space-evenly; ">
           
                   <div class="form-floating formD mb-2">
-                      <input type="Text" class="form-control " id="nom_prenom"  [value]="Utilisateur.nom+' '+Utilisateur.prenom" disabled>
+                      <input type="Text" class="form-control " id="nom_prenom"  [value]="user.firstname+' '+user.lastname" disabled>
                       <label for="nom_prenom">Nom et prénom</label>
                   </div>
                      
                       <div class="form-floating formD mb-2">
-                          <input type="Text" class="form-control " id="matricule" [value]="Utilisateur.id"  disabled>
+                          <input type="Text" class="form-control " id="matricule" [value]="user.id"  disabled>
                           <label for="matricule">Matricule</label>
                       </div>
             
+
                       <div class="form-floating formD mb-2">
-                          <input type="Text" class="form-control " id="direction"  [value]="Utilisateur.direction"   disabled>
-                          <label for="direction">Direction</label>
-                      </div>
-                      <div class="form-floating formD mb-2">
-                          <input type="Text" class="form-control " id="Service"  [value]="Utilisateur.service"   disabled>
+                          <input type="Text" class="form-control " id="Service"  [value]="user.service"   disabled>
                           <label for="Service">Service</label>
                       </div>
                   </div>

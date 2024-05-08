@@ -1,13 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Utilisateur } from '../models/utilisateur';
+import { User } from '../models/user';
 export interface DepartementDto {
   createdBy?: string;
   createdDate?: string;
   id?: number;
   lastModifiedBy?: string;
   lastModifiedDate?: string;
-  listEmploye?: Array<Utilisateur>;
-  manager?: Utilisateur;
-  nom?: string;
+  listEmploye?: Array<User>;
+  manager?: User;
+  name?: string;
 }

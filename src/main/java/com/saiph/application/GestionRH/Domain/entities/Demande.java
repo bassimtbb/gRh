@@ -24,7 +24,7 @@ public class Demande extends GenericEntity{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "utilisateur_id")
-    private Utilisateur utilisateur;
+    private User utilisateur;
 
 
 

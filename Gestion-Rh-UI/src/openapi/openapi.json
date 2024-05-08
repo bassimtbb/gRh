@@ -31,10 +31,10 @@
     }
     ],
     "paths": {
-    "/utilisateur/{id}": {
+    "/userD/{id}": {
     "get": {
     "tags": [
-    "Utilisateur"
+    "User"
     ],
     "operationId": "findById",
     "parameters": [
@@ -54,7 +54,7 @@
     "content": {
     "application/json": {
     "schema": {
-    "$ref": "#/components/schemas/UtilisateurDto"
+    "$ref": "#/components/schemas/UserDto"
     }
     }
     }
@@ -63,7 +63,7 @@
     },
     "put": {
     "tags": [
-    "Utilisateur"
+    "User"
     ],
     "operationId": "update",
     "parameters": [
@@ -81,7 +81,7 @@
     "content": {
     "application/json": {
     "schema": {
-    "$ref": "#/components/schemas/UtilisateurDto"
+    "$ref": "#/components/schemas/UserDto"
     }
     }
     },
@@ -93,7 +93,7 @@
     "content": {
     "application/json": {
     "schema": {
-    "$ref": "#/components/schemas/UtilisateurDto"
+    "$ref": "#/components/schemas/UserDto"
     }
     }
     }
@@ -102,7 +102,7 @@
     },
     "delete": {
     "tags": [
-    "Utilisateur"
+    "User"
     ],
     "operationId": "delete",
     "parameters": [
@@ -1219,17 +1219,17 @@
     }
     }
     },
-    "/utilisateur": {
+    "/userD": {
     "post": {
     "tags": [
-    "Utilisateur"
+    "User"
     ],
     "operationId": "add",
     "requestBody": {
     "content": {
     "application/json": {
     "schema": {
-    "$ref": "#/components/schemas/UtilisateurDto"
+    "$ref": "#/components/schemas/UserDto"
     }
     }
     },
@@ -1241,7 +1241,7 @@
     "content": {
     "application/json": {
     "schema": {
-    "$ref": "#/components/schemas/UtilisateurDto"
+    "$ref": "#/components/schemas/UserDto"
     }
     }
     }
@@ -1405,6 +1405,76 @@
     }
     }
     }
+    }
+    }
+    }
+    },
+    "/department/addEmploye/{id}": {
+    "post": {
+    "tags": [
+    "Departement"
+    ],
+    "operationId": "addEmployeToDepartement",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "OK"
+    }
+    }
+    }
+    },
+    "/department/SetSup/{id}": {
+    "post": {
+    "tags": [
+    "Departement"
+    ],
+    "operationId": "SetSup",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "OK"
     }
     }
     }
@@ -1709,65 +1779,12 @@
     }
     }
     },
-    "/utilisateur/email/{email}": {
-    "get": {
-    "tags": [
-    "Utilisateur"
-    ],
-    "operationId": "loadUserByUsername",
-    "parameters": [
-    {
-    "name": "email",
-    "in": "path",
-    "required": true,
-    "schema": {
-    "type": "string"
-    }
-    }
-    ],
-    "responses": {
-    "200": {
-    "description": "OK",
-    "content": {
-    "application/json": {
-    "schema": {
-    "$ref": "#/components/schemas/Utilisateur"
-    }
-    }
-    }
-    }
-    }
-    }
-    },
-    "/utilisateur/all": {
-    "get": {
-    "tags": [
-    "Utilisateur"
-    ],
-    "operationId": "findAll",
-    "responses": {
-    "200": {
-    "description": "Successfully retrieve list",
-    "content": {
-    "application/json": {
-    "schema": {
-    "type": "array",
-    "items": {
-    "$ref": "#/components/schemas/UtilisateurDto"
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    },
     "/userD/username/{username}": {
     "get": {
     "tags": [
-    "UserDetailImp"
+    "User"
     ],
-    "operationId": "loadUserByUsername_1",
+    "operationId": "loadUserByUsername",
     "parameters": [
     {
     "name": "username",
@@ -1785,6 +1802,29 @@
     "application/json": {
     "schema": {
     "$ref": "#/components/schemas/UserDetails"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/userD/all": {
+    "get": {
+    "tags": [
+    "User"
+    ],
+    "operationId": "findAll",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/UserDto"
+    }
     }
     }
     }
@@ -1948,29 +1988,6 @@
     }
     }
     }
-    }
-    }
-    }
-    },
-    "/auth/activate-account": {
-    "get": {
-    "tags": [
-    "Authentication"
-    ],
-    "operationId": "confirm",
-    "parameters": [
-    {
-    "name": "token",
-    "in": "query",
-    "required": true,
-    "schema": {
-    "type": "string"
-    }
-    }
-    ],
-    "responses": {
-    "200": {
-    "description": "OK"
     }
     }
     }
@@ -2156,78 +2173,29 @@
     "type": "string",
     "format": "date-time"
     },
-    "nom": {
-    "type": "string"
-    },
-    "manager": {
-    "$ref": "#/components/schemas/Utilisateur"
-    },
-    "listEmploye": {
-    "type": "array",
-    "items": {
-    "$ref": "#/components/schemas/Utilisateur"
-    }
-    }
-    }
-    },
-    "DepartementDto": {
-    "type": "object",
-    "properties": {
-    "id": {
-    "type": "integer",
-    "format": "int64"
-    },
-    "createdBy": {
-    "type": "string"
-    },
-    "lastModifiedBy": {
-    "type": "string"
-    },
-    "createdDate": {
-    "type": "string",
-    "format": "date-time"
-    },
-    "lastModifiedDate": {
-    "type": "string",
-    "format": "date-time"
-    },
-    "nom": {
-    "type": "string"
-    },
-    "manager": {
-    "$ref": "#/components/schemas/Utilisateur"
-    },
-    "listEmploye": {
-    "type": "array",
-    "items": {
-    "$ref": "#/components/schemas/Utilisateur"
-    }
-    }
-    }
-    },
-    "Role": {
-    "type": "object",
-    "properties": {
-    "id": {
-    "type": "integer",
-    "format": "int64"
-    },
-    "createdBy": {
-    "type": "string"
-    },
-    "lastModifiedBy": {
-    "type": "string"
-    },
-    "createdDate": {
-    "type": "string",
-    "format": "date-time"
-    },
     "name": {
     "type": "string"
+    },
+    "manager": {
+    "$ref": "#/components/schemas/User"
+    },
+    "listEmploye": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/User"
+    }
     }
     }
     },
-    "Utilisateur": {
+    "GrantedAuthority": {
+    "type": "object",
+    "properties": {
+    "authority": {
+    "type": "string"
+    }
+    }
+    },
+    "User": {
     "type": "object",
     "properties": {
     "id": {
@@ -2244,103 +2212,7 @@
     "type": "string",
     "format": "date-time"
     },
-    "nom": {
-    "type": "string"
-    },
-    "prenom": {
-    "type": "string"
-    },
     "email": {
-    "type": "string"
-    },
-    "departement": {
-    "$ref": "#/components/schemas/Departement"
-    },
-    "cin": {
-    "type": "string"
-    },
-    "service": {
-    "type": "string"
-    },
-    "direction": {
-    "type": "string"
-    },
-    "sexe": {
-    "type": "string"
-    },
-    "adresse": {
-    "type": "string"
-    },
-    "telephone": {
-    "type": "string"
-    },
-    "img": {
-    "type": "string"
-    },
-    "dembauche": {
-    "type": "string",
-    "format": "date-time"
-    },
-    "ejuridic": {
-    "type": "string"
-    }
-    }
-    },
-    "UtilisateurDto": {
-    "type": "object",
-    "properties": {
-    "id": {
-    "type": "integer",
-    "format": "int64"
-    },
-    "createdBy": {
-    "type": "string"
-    },
-    "lastModifiedBy": {
-    "type": "string"
-    },
-    "createdDate": {
-    "type": "string",
-    "format": "date-time"
-    },
-    "lastModifiedDate": {
-    "type": "string",
-    "format": "date-time"
-    },
-    "nom": {
-    "type": "string"
-    },
-    "prenom": {
-    "type": "string"
-    },
-    "departement": {
-    "$ref": "#/components/schemas/DepartementDto"
-    },
-    "cin": {
-    "type": "string"
-    },
-    "service": {
-    "type": "string"
-    },
-    "direction": {
-    "type": "string"
-    },
-    "sexe": {
-    "type": "string"
-    },
-    "adresse": {
-    "type": "string"
-    },
-    "telephone": {
-    "type": "string"
-    },
-    "img": {
-    "type": "string"
-    },
-    "email": {
-    "type": "string"
-    },
-    "username": {
     "type": "string"
     },
     "password": {
@@ -2352,11 +2224,146 @@
     "enabled": {
     "type": "boolean"
     },
-    "roles": {
+    "role": {
+    "type": "string",
+    "enum": [
+    "EMPLOYE",
+    "RRH",
+    "SUP_H"
+    ]
+    },
+    "firstname": {
+    "type": "string"
+    },
+    "lastname": {
+    "type": "string"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
+    },
+    "cin": {
+    "type": "string"
+    },
+    "service": {
+    "type": "string"
+    },
+    "sexe": {
+    "type": "string"
+    },
+    "address": {
+    "type": "string"
+    },
+    "phonenumber": {
+    "type": "string"
+    },
+    "img": {
+    "type": "string"
+    },
+    "DEmbauche": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "name": {
+    "type": "string"
+    },
+    "dembauche": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
+    },
+    "username": {
+    "type": "string"
+    },
+    "authorities": {
     "type": "array",
     "items": {
-    "$ref": "#/components/schemas/Role"
+    "$ref": "#/components/schemas/GrantedAuthority"
     }
+    },
+    "accountNonLocked": {
+    "type": "boolean"
+    },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    }
+    }
+    },
+    "UserDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "email": {
+    "type": "string"
+    },
+    "password": {
+    "type": "string"
+    },
+    "accountLocked": {
+    "type": "boolean"
+    },
+    "enabled": {
+    "type": "boolean"
+    },
+    "role": {
+    "type": "string",
+    "enum": [
+    "EMPLOYE",
+    "RRH",
+    "SUP_H"
+    ]
+    },
+    "firstname": {
+    "type": "string"
+    },
+    "lastname": {
+    "type": "string"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
+    },
+    "cin": {
+    "type": "string"
+    },
+    "service": {
+    "type": "string"
+    },
+    "sexe": {
+    "type": "string"
+    },
+    "address": {
+    "type": "string"
+    },
+    "phonenumber": {
+    "type": "string"
+    },
+    "img": {
+    "type": "string"
+    },
+    "DEmbauche": {
+    "type": "string",
+    "format": "date-time"
     },
     "dembauche": {
     "type": "string",
@@ -2419,7 +2426,7 @@
     "listEmploye": {
     "type": "array",
     "items": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     }
     }
     }
@@ -2476,7 +2483,42 @@
     "listEmploye": {
     "type": "array",
     "items": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
+    }
+    }
+    }
+    },
+    "DepartementDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "name": {
+    "type": "string"
+    },
+    "manager": {
+    "$ref": "#/components/schemas/User"
+    },
+    "listEmploye": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/User"
     }
     }
     }
@@ -2515,7 +2557,7 @@
     "type": "string"
     },
     "utilisateur": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"
@@ -2556,7 +2598,7 @@
     "type": "string"
     },
     "utilisateur": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"
@@ -2604,7 +2646,7 @@
     "type": "string"
     },
     "utilisateur": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"
@@ -2668,7 +2710,7 @@
     "type": "string"
     },
     "utilisateur": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"
@@ -2729,7 +2771,7 @@
     "type": "string"
     },
     "utilisateur": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"
@@ -2783,7 +2825,7 @@
     "type": "string"
     },
     "utilisateur": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"
@@ -2843,7 +2885,7 @@
     "type": "string"
     },
     "utilisateur": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"
@@ -2867,11 +2909,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "nouvelH": {
+    "ancienH": {
     "type": "string",
     "format": "date-time"
     },
-    "ancienH": {
+    "nouvelH": {
     "type": "string",
     "format": "date-time"
     }
@@ -2911,7 +2953,7 @@
     "type": "string"
     },
     "utilisateur": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"
@@ -2942,11 +2984,11 @@
     "isTemporaire": {
     "type": "boolean"
     },
-    "hsortie": {
+    "hretour": {
     "type": "string",
     "format": "date-time"
     },
-    "hretour": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     }
@@ -2955,17 +2997,23 @@
     "RegistrationRequest": {
     "required": [
     "cin",
-    "direction",
     "email",
     "lastname",
     "password",
+    "phonenumber",
     "service",
-    "sexe",
-    "telephone",
-    "username"
+    "sexe"
     ],
     "type": "object",
     "properties": {
+    "role": {
+    "type": "string",
+    "enum": [
+    "EMPLOYE",
+    "RRH",
+    "SUP_H"
+    ]
+    },
     "firstname": {
     "type": "string"
     },
@@ -2989,22 +3037,16 @@
     "service": {
     "type": "string"
     },
-    "direction": {
-    "type": "string"
-    },
     "sexe": {
     "type": "string"
     },
-    "adresse": {
+    "address": {
     "type": "string"
     },
-    "telephone": {
+    "phonenumber": {
     "type": "string"
     },
     "img": {
-    "type": "string"
-    },
-    "username": {
     "type": "string"
     },
     "dembauche": {
@@ -3041,14 +3083,6 @@
     }
     }
     },
-    "GrantedAuthority": {
-    "type": "object",
-    "properties": {
-    "authority": {
-    "type": "string"
-    }
-    }
-    },
     "UserDetails": {
     "type": "object",
     "properties": {
@@ -3058,15 +3092,6 @@
     "password": {
     "type": "string"
     },
-    "accountNonLocked": {
-    "type": "boolean"
-    },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
     "username": {
     "type": "string"
     },
@@ -3075,6 +3100,15 @@
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
+    },
+    "accountNonLocked": {
+    "type": "boolean"
+    },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
     }
     }
     },
@@ -3112,7 +3146,7 @@
     "type": "string"
     },
     "utilisateur": {
-    "$ref": "#/components/schemas/Utilisateur"
+    "$ref": "#/components/schemas/User"
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"

@@ -1,4 +1,4 @@
-export { UtilisateurService } from './services/utilisateur.service';
+export { UserService } from './services/user.service';
 export { FormationService } from './services/formation.service';
 export { EventService } from './services/event.service';
 export { DepartementService } from './services/departement.service';
@@ -11,4 +11,3 @@ export { CongeService } from './services/conge.service';
 export { ChangementHoraireService } from './services/changement-horaire.service';
 export { AutorisationSortieService } from './services/autorisation-sortie.service';
 export { AuthenticationService } from './services/authentication.service';
-export { UserDetailImpService } from './services/user-detail-imp.service';
