@@ -7,7 +7,6 @@ export interface AutorisationSortieDto {
   Hsortie?: string;
   createdBy?: string;
   createdDate?: string;
-  dateR?: string;
   dateS?: string;
   departement?: Departement;
   duree?: number;

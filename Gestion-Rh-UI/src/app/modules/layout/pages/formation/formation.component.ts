@@ -27,6 +27,7 @@ export class FormationComponent implements OnInit {
     titre:'',
     nbrPlace: 0
   }
+  Role: any;
 
   constructor(
    private  formationService:FormationService,
@@ -71,7 +72,10 @@ export class FormationComponent implements OnInit {
       });
       const email = this.tokenService.email;
       this.usersService.loadUserByUsername({ username: email as string })
-      .subscribe(utilisateur => {  this.user = utilisateur;});
+      .subscribe(utilisateur => {  
+        this.Role=this.tokenService.userRole(); 
+        console.log("Role: ",this.Role);
+        this.user = utilisateur;});
   }
 
    get fromationCover(): string {
@@ -83,18 +87,25 @@ export class FormationComponent implements OnInit {
 
 
 
+// formationClicked(formation: FormationDto) {
+//    // Check if listeEmpl exists before accessing it
+//    if (!formation.listEmploye) {
+//     console.error("'listeEmpl' is undefined. Formation data might be incomplete.");
+//     return; // Exit the function if listeEmpl is missing
+//   }
+//   this.listeEmpl = formation.listEmploye;
+//   this.selectedFormation = formation;
+//   this.ispostuler=this.isInList(this.listeEmpl, this.user)
+//   console.log(this.ispostuler);
+// }
 formationClicked(formation: FormationDto) {
-   // Check if listeEmpl exists before accessing it
-   if (!formation.listEmploye) {
-    console.error("'listeEmpl' is undefined. Formation data might be incomplete.");
-    return; // Exit the function if listeEmpl is missing
-  }
-  this.listeEmpl = formation.listEmploye;
+  this.listeEmpl = formation.listEmploye ?? [];
   this.selectedFormation = formation;
+  // Assign empty array if undefined
+  console.log(this.listeEmpl);
   this.ispostuler=this.isInList(this.listeEmpl, this.user)
-  console.log(this.ispostuler);
-}
 
+}
 
 
 

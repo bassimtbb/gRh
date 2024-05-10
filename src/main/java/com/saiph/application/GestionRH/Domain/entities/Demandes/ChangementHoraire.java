@@ -15,7 +15,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChangementHoraire extends Demande {
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date debut;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date fin;
     private String motif;
     @JsonFormat(pattern = "HH:mm")

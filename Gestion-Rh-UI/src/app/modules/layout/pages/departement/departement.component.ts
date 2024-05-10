@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Departement, User } from '../../../../services/models';
+import { Departement, DepartementDto, User } from '../../../../services/models';
 import { ActivatedRoute } from '@angular/router';
 import { DepartementService } from '../../../../services/services';
 
@@ -11,7 +11,7 @@ import { DepartementService } from '../../../../services/services';
 export class DepartementComponent {
   alert: string = "d-none";
   Msg:String="";
-  departement:Departement={};
+  departement:DepartementDto={};
   manager:User={};
   ListeEmpl:User[] =[];
   constructor(

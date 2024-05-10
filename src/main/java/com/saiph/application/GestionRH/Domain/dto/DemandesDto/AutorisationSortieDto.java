@@ -11,10 +11,9 @@ import java.util.Date;
 @Setter
 public class AutorisationSortieDto extends DemandeDto {
     private Integer duree;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd") // Using ISO 8601 standard for date serialization
     private Date dateS;
-        @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date dateR;
+
     @JsonFormat(pattern = "HH:MM")
     private Date Hsortie;
     @JsonFormat(pattern = "HH:MM")

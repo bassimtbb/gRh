@@ -11,6 +11,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ManageUserComponent } from './pages/manage-user/manage-user.component';
 import { DepartementComponent } from './pages/departement/departement.component';
+import { CalendrierComponent } from './pages/calendrier/calendrier.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,8 @@ const routes: Routes = [
       {path:'profile',component:ProfileComponent,canActivate: [authGuard]},
       {path:'users',component:UsersComponent,canActivate: [authGuard]},
       {path:'UserDetails',component:ManageUserComponent,canActivate: [authGuard]},
-      {path:'departement/:id',component:DepartementComponent,canActivate: [authGuard]}
+      {path:'departement/:id',component:DepartementComponent,canActivate: [authGuard]},
+      {path:'calendrier',component:CalendrierComponent,canActivate: [authGuard]},
     ]
   }
 ];

@@ -1,5 +1,6 @@
 package com.saiph.application.GestionRH.Domain.dto.DemandesDto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.saiph.application.GestionRH.Domain.dto.DemandeDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,9 +10,9 @@ import java.util.Date;
 @Getter
 @Setter
 public class CongeDto extends DemandeDto {
+
     private Integer duree;
-    private String motif;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date debut;
-    private Date fin;
-    private Date reprise;
+    private String motif;
 }

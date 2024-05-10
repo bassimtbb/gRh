@@ -1,6 +1,6 @@
 import { Component ,OnInit} from '@angular/core';
 import { TokenService } from '../../../services/token/token.service';
-import { Departement, User } from '../../../services/models';
+import { Departement, DepartementDto, User } from '../../../services/models';
 import {Router} from '@angular/router';
 import { DepartementService } from '../../../services/services';
 
@@ -14,19 +14,27 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
   {path: 'dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-primary', class: '', roles: ['RRH','SUP_H'], submenu: []},
+  
   {
+    path: 'mesdemande',
+    title: 'Mes demandes',
+    icon: 'fas fa-users text-yellow',
+    class: '',
+    roles: [ 'EMPLOYE']
+    , submenu: []
+  },{
     path: '',
     title: 'Demandes',
     icon: 'fas fa-users text-yellow',
     class: 'dropdown-toggle',
-    roles: [ 'EMPLOYE','RRH','SUP_H']
+    roles: [ 'RRH','SUP_H']
     , submenu: [
       {
         path: 'mesdemande',
         title: 'Mes demandes',
         icon: 'fas fa-users text-yellow',
         class: '',
-        roles: [ 'EMPLOYE','RRH','SUP_H']
+        roles: [ 'RRH','SUP_H']
         , submenu: []
       },
       {
@@ -47,37 +55,7 @@ export const ROUTES: RouteInfo[] = [
     roles: ['EMPLOYE','RRH','SUP_H']
     , submenu: []
   },
-  {
-    path: '',
-    title: 'Departements',
-    icon: 'ni-world text-blue',
-    class: 'dropdown-toggle',
-    roles: ['RRH','SUP_H']
-    , submenu: [
-      {
-        path: 'departement/:id',
-        title: 'Informatique',
-        icon: 'ni-world text-blue',
-        class: '',
-        roles: ['RRH','SUP_H']
-        , submenu: []
-      },  {
-        path: 'departement/:id',
-        title: 'Finance',
-        icon: 'ni-world text-blue',
-        class: '',
-        roles: ['RRH','SUP_H']
-        , submenu: []
-      },  {
-        path: 'departement/:id',
-        title: 'Ressources_Humaine',
-        icon: 'ni-world text-blue',
-        class: '',
-        roles: ['RRH','SUP_H']
-        , submenu: []
-      },
-    ]
-  },
+
   {
     path: 'event',
     title: 'Événement',
@@ -116,56 +94,69 @@ export const ROUTES: RouteInfo[] = [
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit{
-  public menuItems1!:any[];
+
+export class HeaderComponent implements OnInit {
+  public menuItems1!: RouteInfo[];
   public isCollapsed = true;
+  public departments: DepartementDto[] = [];
+  notifications: any;
+
   constructor(
     public tokenService: TokenService,
-    public departmentSevice: DepartementService,
-      private router: Router
+    public departmentService: DepartementService,
+    private router: Router
   ) {}
 
-departements:Departement[]=[];
-ngOnInit() {
-  const userRole = this.tokenService.userRole() ;
-  console.log("rs:",userRole);
+  ngOnInit() {
+    const userRole = this.tokenService.userRole();
+    console.log("rs:", userRole);
 
-  if (userRole) {
-    // const role = userRole.authority;
-    this.menuItems1 = ROUTES.filter(menuItem => {
-      console.log("mm:",menuItem);
-      console.log("mm1:",this.menuItems1);
-      if (menuItem.roles && menuItem.roles.includes(userRole)) {
-      
-        return true;
-      }
-      return false;
+    if (userRole) {
+      // Fetch departments from database using departmentService
+      this.departmentService.findAll3()
+        .subscribe(departments => {
+          this.departments = departments;
+
+          // Update ROUTES constant dynamically
+          const departmentRoutes: RouteInfo[] = [];
+          departmentRoutes.push({
+            path: '',
+            title: 'Départements',
+            icon: 'ni-world text-blue',
+            class: 'dropdown-toggle',
+            roles: ['RRH', 'SUP_H'],
+            submenu: [] // Initialize empty submenu
+          });
+
+          // Populate submenu with departments
+          for (const department of departments) {
+            departmentRoutes[0].submenu!.push({
+              path: `departement/${department.id}`, // Customize path based on department ID
+              title: department?.name ?? 'Départements',
+              icon: 'ni-world text-blue',
+              class: '',
+              roles: ['RRH', 'SUP_H'],
+              submenu: []
+            });
+          }
+
+          // Update menuItems with filtered and dynamically populated ROUTES
+          this.menuItems1 = ROUTES.filter(menuItem => menuItem.roles && menuItem.roles.includes(userRole))
+                                     .concat(departmentRoutes); // Concatenate with department routes
+        });
+
+    } else {
+      this.router.navigate(['login']);
+    }
+
+    this.router.events.subscribe((event) => {
+      this.isCollapsed = true;
     });
-  } else {
-   this.router.navigate(['login']);
+
+    // Notifications (unchanged)
+   
   }
-  this.router.events.subscribe((event) => {
-    this.isCollapsed = true;
-  });
+  isActive(route: string): boolean {
+    return true;
+  }
 }
-
-
-
-
-  // ngOnInit(): void {
-  //     this.departmentSevice.findAll3()
-  //     .subscribe(departements=>{
-  //       this.departements=departements;
-  //     })
-  // }
-  
-
-
-
-
-isActive(route: string): boolean {
-return true;
-}
-  notifications: string[] = ['notif1','notif2','notif3','notif4'];
-}
-

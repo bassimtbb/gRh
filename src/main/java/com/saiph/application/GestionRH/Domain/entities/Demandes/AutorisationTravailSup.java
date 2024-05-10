@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AutorisationTravailSup extends Demande {
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private String motif;
     @JsonFormat(pattern = "HH:mm")

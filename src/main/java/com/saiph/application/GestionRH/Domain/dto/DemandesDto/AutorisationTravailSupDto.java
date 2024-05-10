@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class AutorisationTravailSupDto extends DemandeDto {
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private String motif;
     @JsonFormat(pattern = "HH:mm")

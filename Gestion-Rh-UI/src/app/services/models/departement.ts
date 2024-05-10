@@ -8,5 +8,5 @@ export interface Departement {
   lastModifiedBy?: string;
   listEmploye?: Array<User>;
   manager?: User;
-  name?: string;
+  name?: 'Informatique' | 'Finance' | 'Ressources_Humaine';
 }

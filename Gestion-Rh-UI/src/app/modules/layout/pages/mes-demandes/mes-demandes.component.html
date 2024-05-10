@@ -90,7 +90,7 @@
                       </div>
                       <div class="col-auto">
                           <div class="input-group mb-2">
-                              <input [disabled]="modifADS.isTemporaire!"  style="max-width: 4.7rem;" id="duree" type="number" class="form-control" placeholder="00" [(ngModel)]="modifADS.duree">
+                              <input [disabled]="modifADS.isTemporaire!"  style="max-width: 4.7rem;" id="duree" type="number" min="0" class="form-control" placeholder="00" [(ngModel)]="modifADS.duree">
                               <span class="input-group-text" id="basic-addon2">Heure</span>
                           </div>
                       </div>
@@ -100,7 +100,7 @@
                           <label for="date" class="col-form-label">Date </label>
                       </div>
                       <div class="col-auto">
-                          <input type="date" class="form-control form-icon-trailing" id="date" [(ngModel)]="modifADS.dateS">
+                          <input type="date" min={{datePickerId}} min={{datePickerId}} class="form-control form-icon-trailing" id="date" [(ngModel)]="modifADS.dateS" [value]="modifADS.dateS">
                       </div>
                   </div>
               </div>
@@ -142,7 +142,7 @@
                   <label for="personne-contact-telephone">Téléphone</label>
                 </div>
                 <div class="col-auto">
-                  <input [(ngModel)]="modifAutTeletravail.telephone" type="number" class="form-control" id="personne-contact-telephone">
+                  <input [(ngModel)]="modifAutTeletravail.telephone" type="number" min="0" class="form-control" id="personne-contact-telephone">
                 </div>
               </div>
               <div class="row g-4 align-items-center">
@@ -159,13 +159,13 @@
                   <label for="periode-debut">Pour la periode</label>
                 </div>
                 <div class="col-auto">
-                  <input [(ngModel)]="modifAutTeletravail.debut" type="date" class="form-control form-icon-trailing" id="periode-debut">
+                  <input [(ngModel)]="modifAutTeletravail.debut" type="date" min={{datePickerId}} class="form-control form-icon-trailing" id="periode-debut">
                 </div>
                 <div class="col-auto">
                   <label for="periode-fin">Au</label>
                 </div>
                 <div class="col-auto">
-                  <input [(ngModel)]="modifAutTeletravail.fin" type="date" class="form-control" id="periode-fin">
+                  <input [(ngModel)]="modifAutTeletravail.fin" type="date" min={{modifAutTeletravail.debut}} min={{datePickerId}} class="form-control" id="periode-fin">
                 </div>
               </div>
               <label for="taches">Tout en assurant les tâches suivantes :</label>
@@ -180,7 +180,7 @@
               </div>
               <div class="col-auto">
                   <div class="input-group mb-2">
-                      <input style="max-width: 4.7rem;"  [(ngModel)]="modifPret.montant" type="number" class="form-control" placeholder="00" >
+                      <input style="max-width: 4.7rem;"  [(ngModel)]="modifPret.montant" type="number" min="0" class="form-control" placeholder="00" >
                       <span class="input-group-text" id="basic-addon2">DT</span>
                   </div>
               </div>
@@ -190,16 +190,19 @@
             <div>
               <p class="col-form-label">Crédit bancaire en cours :</p>
               <div class="ml-5 form-check">
-                <input  type="radio"  id="Oui"  name="creditBancaire"  [(ngModel)]="credit"  value="oui"  class="form-check-input"/>
-                <label class="form-check-label" for="Oui">Oui</label>
+                <input class="form-check-input" [(ngModel)]="credit" [checked]="credit=='oui'"  type="radio" name="UPcreditBancaire" id="UPOui" value="oui">
+                
+                <label class="form-check-label" for="UPOui">Oui</label>
               <div class="input-group mb-2" >
-                <input [disabled]="credit !== 'oui'"  [(ngModel)]="modifPret.credit"   style="max-width:12rem;" type="number" class="form-control" placeholder="Retenues Mensuelle"/>
+                <input [disabled]="credit !== 'oui'"  [(ngModel)]="modifPret.credit"   style="max-width:12rem;" type="number" min="0" class="form-control" placeholder="Retenues Mensuelle"/>
+                
                 <span class="input-group-text" id="basic-addon2">DT</span>
               </div>
             </div>
               <div class="ml-5 form-check">
-                <input  type="radio"  id="Non"  name="creditBancaire"  [(ngModel)]="credit"  value="non"  class="form-check-input"/>
-                <label class="form-check-label" for="Non">Non</label>
+                <input class="form-check-input" [(ngModel)]="credit"  [checked]="credit=='non'"  type="radio" name="UPcreditBancaire" id="UPNon" value="non">
+                
+                <label class="form-check-label" for="UPNon">Non</label>
               </div>
       
             </div>
@@ -207,15 +210,15 @@
           <div>
               <p class="col-form-label">Rembourser par :</p> 
               <div class="ml-5 form-check">
-                  <input class="form-check-input" [(ngModel)]="rembourser"  type="radio" name="E-Juridique" id="Ouir" value="oui">
+                  <input class="form-check-input" [(ngModel)]="rembourser" [checked]="rembourser=='oui'"  type="radio" name="UPrembourser" id="Ouir" value="oui">
                   <label class="form-check-label" for="Ouir"> tranches mensuels  </label>
                   <div class="input-group mb-2">
-                      <input style="max-width:12rem; "  [(ngModel)]="modifPret.remboursement"   [disabled]="rembourser !== 'oui'" type="number" class="form-control" placeholder="Retenues Mensuelle" >
+                      <input style="max-width:12rem; "  [(ngModel)]="modifPret.remboursement"   [disabled]="rembourser !== 'oui'" type="number" min="0" class="form-control" placeholder="Retenues Mensuelle" >
                       <span class="input-group-text" id="basic-addon2">DT/mois</span>
                   </div>
                   </div>
                   <div class="ml-5 form-check">
-                      <input class="form-check-input"  [(ngModel)]="rembourser"  type="radio" name="E-Juridique" id="NonR" value="non">
+                      <input class="form-check-input"  [(ngModel)]="rembourser" [checked]="rembourser=='non'"  type="radio" name="UPrembourser" id="NonR" value="non">
                       <label class="form-check-label" for="NonR">13 ème mois</label>
                   </div>  	 
           </div>
@@ -233,7 +236,7 @@
                 <label class="form-check-label" for="ifrikia-S">{{this.user.ejuridic}}</label>                
             </div>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" [(ngModel)]="congeEx" (ngModelChange)="isEXCEPTIONNELListener($event)"   role="switch" id="EXCEPTIONNE" >
+                <input class="form-check-input" [checked]="this.isEXCEPTIONNEL" type="checkbox" [(ngModel)]="isEXCEPTIONNEL" (ngModelChange)="isEXCEPTIONNELListener($event)"   role="switch" id="EXCEPTIONNE" >
                 <label class="form-check-label" for="EXCEPTIONNE">CONGE EXCEPTIONNEL</label>
               </div>
         </div>
@@ -244,8 +247,8 @@
               </div>
               <div class="col-auto">
                   <div class="input-group mb-2">
-                      <input style="max-width: 4.7rem;" [(ngModel)]="modifConge.duree" type="number" class="form-control" placeholder="00" >
-                      <span class="input-group-text" id="basic-addon2">Jour</span>
+                    <input style="max-width: 4.7rem;" [(ngModel)]="modifConge.duree" type="number" min="0" class="form-control" placeholder="00" >
+                    <span class="input-group-text" id="basic-addon2">Jour</span>
                   </div>
               </div>
           </div>
@@ -254,48 +257,41 @@
                 <label class="col-form-label" for="inputPassword6">Pour la periode</label>
               </div>
               <div class="col-auto">
-                  <input type="date" [(ngModel)]="modifConge.debut" class="form-control form-icon-trailing" id="date" >
+                  <input type="date" min={{datePickerId}}  [(ngModel)]="modifConge.debut"  class="form-control form-icon-trailing" id="date" >
+                  
               </div>
-              <div class="col-auto">
-                  <label for="inputPassword6" class="col-form-label">Au</label>
-              </div>
-              <div class="col-auto">
-                  <input type="date" [(ngModel)]="modifConge.fin" class="form-control " id="date" control-id="ControlID-18">
-              </div>
+             
             </div>
-            <div class="row g-4 align-items-center">
-              <div class="col-auto">
-                <label for="inputPassword6" class="col-form-label">Date de reprise prévue</label>
-              </div>
-              <div class="col-auto">
-                  <input type="date" [(ngModel)]="modifConge.reprise" class="form-control form-icon-trailing" id="date" >
-              </div>
-            </div>
+            
             <div  *ngIf="isEXCEPTIONNEL" >
               <p style="margin-bottom: 0%;">Motif de :</p>
                   <div class="E-Ju ">
                       <div class="form-check">
-                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif1" value="motif1">
+                      <input class="form-check-input" [checked]="motifC=='motif1'" [(ngModel)]="motifC" type="radio" name="UpMotifC" id="motif1" value="motif1">
                       <label class="form-check-label"  for="motif1">Mon mariage(3 jours)</label>
                       </div>
                       <div class="form-check">
-                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif2" value="motif2">
-                      <label class="form-check-label"  for="motif2">Naissance de mon enfant (2 jours)</label>
+                      <input class="form-check-input"  [checked]="motifC=='motif2'"  [(ngModel)]="motifC" type="radio" name="UpMotifC" id="motif2" value="motif2">
+                      <label class="form-check-label"  for="motif2">Naissance de mon enfant (Homme) (2 jours)</label>
                       </div>
                       <div class="form-check">
-                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif3" value="motif3">
+                        <input class="form-check-input"  [checked]="motifC=='motif7'"  [(ngModel)]="motifC" type="radio" name="UpMotifC" id="motif7" value="motif7">
+                        <label class="form-check-label"  for="motif7">Naissance de mon enfant (Femme) (40 jours)</label>
+                        </div>
+                      <div class="form-check">
+                      <input class="form-check-input"  [checked]="motifC=='motif3'"  [(ngModel)]="motifC" type="radio" name="UpMotifC" id="motif3" value="motif3">
                       <label class="form-check-label"  for="motif3">Circoncision de mon enfant (1 jour)</label>                
                       </div>
                       <div class="form-check">
-                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif4" value="motif4">
+                      <input class="form-check-input"  [checked]="motifC=='motif4'"  [(ngModel)]="motifC" type="radio" name="UpMotifC" id="motif4" value="motif4">
                       <label class="form-check-label"  for="motif4">Décès d'un frère, d'une sœur, d'un petit enfant, d'une petite fille, d'un grand-père ou d'une grand-mère (2 jours)</label>
                       </div>
                       <div class="form-check">
-                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif5" value="motif5">
+                      <input class="form-check-input"  [checked]="motifC=='motif5'"  [(ngModel)]="motifC" type="radio" name="UpMotifC" id="motif5" value="motif5">
                       <label class="form-check-label"  for="motif5">Décès de mon conjoint (3 jours)</label>
                       </div>
                       <div class="form-check">
-                      <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif6" value="motif6">
+                      <input class="form-check-input"  [checked]="motifC=='motif6'"  [(ngModel)]="motifC" type="radio" name="UpMotifC" id="motif6" value="motif6">
                       <label class="form-check-label"  for="motif6">Décès de mon père/ de ma mère/ de mon enfant (3 jours)</label>                
                       </div>
             </div>
@@ -314,7 +310,7 @@
                         <label for="inputPassword6" class="col-form-label">Changement envisagé du </label>
                     </div>
                     <div class="col-auto">
-                        <input type="date"  [(ngModel)]="modifChHoraire.debut" class="form-control form-icon-trailing" id="date" >
+                        <input type="date" min={{datePickerId}}  [(ngModel)]="modifChHoraire.debut" class="form-control form-icon-trailing" id="date" >
                     </div>
                 </div>
                 <div class="row g-4 align-items-center">
@@ -322,7 +318,7 @@
                       <label for="inputPassword6" class="col-form-label">Au </label>
                     </div>
                     <div class="col-auto">
-                        <input type="date" [(ngModel)]="modifChHoraire.fin" class="form-control form-icon-trailing" id="date" >
+                        <input type="date" min={{datePickerId}} [(ngModel)]="modifChHoraire.fin" class="form-control form-icon-trailing" id="date" >
                     </div>
                   </div>
         
@@ -334,7 +330,7 @@
                         <label for="inputPassword6" class="col-form-label">Ancien Horaire </label>
                     </div>
                     <div class="col-auto">
-                        <input type="time" [(ngModel)]="modifChHoraire.AncienH"class="form-control form-icon-trailing" id="date" >
+                        <input type="time" [(ngModel)]="modifChHoraire.ancienH"class="form-control form-icon-trailing" id="date" >
 
                     </div>
                 </div>
@@ -343,7 +339,7 @@
                       <label for="inputPassword6" class="col-form-label">Nouvel Horaire </label>
                     </div>
                     <div class="col-auto">
-                        <input type="time" [(ngModel)]="modifChHoraire.NouvelH" class="form-control form-icon-trailing" id="date" >
+                        <input type="time" [(ngModel)]="modifChHoraire.nouvelH" class="form-control form-icon-trailing" id="date" >
                     </div>
                   </div>
             </div>
@@ -359,14 +355,29 @@
                 <div>
                   <p class="col-form-label">Acompte </p>
                   <div class="ml-5 form-check">
-                    <input  type="radio"  id="Oui"  name="Acompte"  [(ngModel)]="acompteR"  value="oui"  class="form-check-input"/>
+                    <input [checked]="acompteR=='oui'" type="radio"  id="Oui"  name="UPAcompte"  [(ngModel)]="acompteR"  value="oui"  class="form-check-input"/>
                     <label class="form-check-label" for="Oui">Sur mois de</label>
                   <div class="input-group mb-2" >
-                    <input [disabled]="acompteR !== 'oui'"  [(ngModel)]="modifAcompte.typeA"   style="max-width:12rem;" type="text" class="form-control" placeholder="Mois"/>
+                    <select  [disabled]="acompteR !== 'oui'" [(ngModel)]="modifAcompte.typeA" class="form-select" aria-label="Mois">
+                      <option value=""></option>
+                      <option value="Janvier">Janvier</option>
+                      <option value="Février">Février</option>
+                      <option value="Mars">Mars</option>
+                      <option value="Avril">Avril</option>
+                      <option value="Mai">Mai</option>
+                      <option value="Juin">Juin</option>
+                      <option value="Juillet">Juillet</option>
+                      <option value="Août">Août</option>
+                      <option value="Septembre">Septembre</option>
+                      <option value="Octobre">Octobre</option>
+                      <option value="Novembre">Novembre</option>
+                      <option value="Décembre">Décembre</option>
+                    </select>
+                    
                   </div>
                 </div>
                   <div class="ml-5 form-check">
-                    <input  type="radio"  id="Non"  name="Acompte"  [(ngModel)]="acompteR"  value="non"  class="form-check-input"/>
+                    <input  type="radio"  id="Non" [checked]="acompteR=='non'"  name="UPAcompte"  [(ngModel)]="acompteR"  value="non"  class="form-check-input"/>
                     <label class="form-check-label" for="Non">Sur prime</label>
                   </div>
           
@@ -377,7 +388,7 @@
                   </div>
                   <div class="col-auto">
                       <div class="input-group mb-2">
-                          <input style="max-width: 4.7rem;" [(ngModel)]="modifAcompte.montant" type="number" class="form-control" placeholder="00" >
+                          <input style="max-width: 4.7rem;" [(ngModel)]="modifAcompte.montant" type="number" min="0" class="form-control" placeholder="00" >
                           <span class="input-group-text" id="basic-addon2">DT</span>
                       </div>
                   </div>
@@ -394,7 +405,7 @@
                     <label for="inputPassword6" class="col-form-label">Date </label>
                   </div>
                   <div class="col-auto">
-                      <input type="date" [(ngModel)]="modifAutTravailSupp.date" class="form-control form-icon-trailing" id="date" >
+                      <input type="date" min={{datePickerId}} [(ngModel)]="modifAutTravailSupp.date" class="form-control form-icon-trailing" id="date" >
                   </div>
                 </div>
       
@@ -435,6 +446,14 @@
         <button type="submit " *ngIf="this.typeDSelect=='Changement Horaire de travail'"  class="btn btn-primary" (click)="updatechHoraire()" data-bs-dismiss="modal" >Modifier</button>
         <button type="submit " *ngIf="this.typeDSelect=='Acompte sur Salaire/prime'"  class="btn btn-primary" (click)="updateacompte()" data-bs-dismiss="modal" >Modifier</button>
         <button type="submit " *ngIf="this.typeDSelect=='Prêt'"  class="btn btn-primary" (click)="updatepret()" data-bs-dismiss="modal" >Modifier</button>
+        
+        <button type="submit " *ngIf="this.typeDSelect=='Congé'"   class="btn btn-danger" (click)="deleteconge()" data-bs-dismiss="modal" ><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit " *ngIf="this.typeDSelect=='Autorisation de sortie'"  class="btn btn-danger" (click)="deleteAutorSortie()" data-bs-dismiss="modal" ><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit " *ngIf="this.typeDSelect=='Autorisation de télétravail'"  class="btn btn-danger" (click)="deleteautTeletravail()" data-bs-dismiss="modal" ><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit " *ngIf="this.typeDSelect=='Autorisation de travail supplémentaire'"   class="btn btn-danger" (click)="deleteautTravailSupp()" data-bs-dismiss="modal" ><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit " *ngIf="this.typeDSelect=='Changement Horaire de travail'"  class="btn btn-danger" (click)="deletechHoraire()" data-bs-dismiss="modal" ><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit " *ngIf="this.typeDSelect=='Acompte sur Salaire/prime'"  class="btn btn-danger" (click)="deleteacompte()" data-bs-dismiss="modal" ><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit " *ngIf="this.typeDSelect=='Prêt'"  class="btn btn-danger" (click)="deletepret()" data-bs-dismiss="modal" ><i class="bi bi-trash3-fill"></i></button>
       </div>
     </div>
   </div>
@@ -486,7 +505,7 @@
                         </div>
                         <div class="col-auto">
                             <div class="input-group mb-2">
-                                <input [disabled]="addADS.isTemporaire!"  style="max-width: 4.7rem;" id="duree" type="number" class="form-control" placeholder="00" [(ngModel)]="addADS.duree">
+                                <input [disabled]="addADS.isTemporaire!"  style="max-width: 4.7rem;" id="duree" type="number" min="0" class="form-control" placeholder="00" [(ngModel)]="addADS.duree">
                                 <span class="input-group-text" id="basic-addon2">Heure</span>
                             </div>
                         </div>
@@ -496,7 +515,7 @@
                             <label for="date" class="col-form-label">Date </label>
                         </div>
                         <div class="col-auto">
-                            <input type="date" class="form-control form-icon-trailing" id="date" [(ngModel)]="addADS.dateS">
+                            <input type="date" min={{datePickerId}} class="form-control form-icon-trailing" id="date" [(ngModel)]="addADS.dateS">
                         </div>
                     </div>
                 </div>
@@ -570,7 +589,7 @@
                       <label for="email-employe">Adresse Email</label>
                     </div>
                     <div class="form-floating formD mb-2">
-                      <input type="number" class="form-control inputF"   [value]="user.phonenumber" id="telephone-employe" value="58208705" disabled>
+                      <input type="number" min="0" class="form-control inputF"   [value]="user.phonenumber" id="telephone-employe" value="58208705" disabled>
                       <label for="telephone-employe">Téléphone</label>
                     </div>
                   </div>
@@ -585,7 +604,7 @@
                       <label for="personne-contact-telephone">Téléphone</label>
                     </div>
                     <div class="col-auto">
-                      <input [(ngModel)]="autTeletravail.telephone" type="number" class="form-control" id="personne-contact-telephone">
+                      <input [(ngModel)]="autTeletravail.telephone" type="number" min="0" class="form-control" id="personne-contact-telephone">
                     </div>
                   </div>
                   <div class="row g-4 align-items-center">
@@ -602,13 +621,13 @@
                       <label for="periode-debut">Pour la periode</label>
                     </div>
                     <div class="col-auto">
-                      <input [(ngModel)]="autTeletravail.debut" type="date" class="form-control form-icon-trailing" id="periode-debut">
+                      <input [(ngModel)]="autTeletravail.debut" min={{datePickerId}} type="date" class="form-control form-icon-trailing" id="periode-debut">
                     </div>
                     <div class="col-auto">
                       <label for="periode-fin">Au</label>
                     </div>
                     <div class="col-auto">
-                      <input [(ngModel)]="autTeletravail.fin" type="date" class="form-control" id="periode-fin">
+                      <input [(ngModel)]="autTeletravail.fin" min={{autTeletravail.debut}} type="date" class="form-control" id="periode-fin">
                     </div>
                   </div>
                   <label for="taches">Tout en assurant les tâches suivantes :</label>
@@ -659,7 +678,7 @@
                 </div>
                 <div class="col-auto">
                     <div class="input-group mb-2">
-                        <input style="max-width: 4.7rem;" type="number" class="form-control" placeholder="00" >
+                        <input style="max-width: 4.7rem;" type="number" min="0" class="form-control" placeholder="00" >
                         <span class="input-group-text" id="basic-addon2">DT</span>
                     </div>
                 </div>
@@ -672,7 +691,7 @@
                   <input  type="radio"  id="Oui"  name="creditBancaire"  [(ngModel)]="credit"  value="oui"  class="form-check-input"/>
                   <label class="form-check-label" for="Oui">Oui</label>
                 <div class="input-group mb-2" >
-                  <input [disabled]="credit !== 'oui'"  [(ngModel)]="pret.credit"   style="max-width:12rem;" type="number" class="form-control" placeholder="Retenues Mensuelle"/>
+                  <input [disabled]="credit !== 'oui'"  [(ngModel)]="pret.credit"   style="max-width:12rem;" type="number" min="0" class="form-control" placeholder="Retenues Mensuelle"/>
                   <span class="input-group-text" id="basic-addon2">DT</span>
                 </div>
               </div>
@@ -689,7 +708,7 @@
                     <input class="form-check-input" [(ngModel)]="rembourser"  type="radio" name="E-Juridique" id="Ouir" value="oui">
                     <label class="form-check-label" for="Ouir"> tranches mensuels  </label>
                     <div class="input-group mb-2">
-                        <input style="max-width:12rem; "  [(ngModel)]="pret.remboursement"   [disabled]="rembourser !== 'oui'" type="number" class="form-control" placeholder="Retenues Mensuelle" >
+                        <input style="max-width:12rem; "  [(ngModel)]="pret.remboursement"   [disabled]="rembourser !== 'oui'" type="number" min="0" class="form-control" placeholder="Retenues Mensuelle" >
                         <span class="input-group-text" id="basic-addon2">DT/mois</span>
                     </div>
                     </div>
@@ -754,7 +773,7 @@
                   </div>
                   <div class="col-auto">
                       <div class="input-group mb-2">
-                          <input style="max-width: 4.7rem;" [(ngModel)]="conge.duree" type="number" class="form-control" placeholder="00" >
+                          <input style="max-width: 4.7rem;" [(ngModel)]="conge.duree" type="number" min="0" class="form-control" placeholder="00" >
                           <span class="input-group-text" id="basic-addon2">Jour</span>
                       </div>
                   </div>
@@ -764,23 +783,11 @@
                     <label class="col-form-label" for="inputPassword6">Pour la periode</label>
                   </div>
                   <div class="col-auto">
-                      <input type="date" [(ngModel)]="conge.debut" class="form-control form-icon-trailing" id="date" >
+                      <input type="date" min={{datePickerId}} min={{datePickerId}} [(ngModel)]="conge.debut" class="form-control form-icon-trailing" id="date" >
                   </div>
-                  <div class="col-auto">
-                      <label for="inputPassword6" class="col-form-label">Au</label>
-                  </div>
-                  <div class="col-auto">
-                      <input type="date" [(ngModel)]="conge.fin" class="form-control " id="date" control-id="ControlID-18">
-                  </div>
+               
                 </div>
-                <div class="row g-4 align-items-center">
-                  <div class="col-auto">
-                    <label for="inputPassword6" class="col-form-label">Date de reprise prévue</label>
-                  </div>
-                  <div class="col-auto">
-                      <input type="date" [(ngModel)]="conge.reprise" class="form-control form-icon-trailing" id="date" >
-                  </div>
-                </div>
+                
                 <div  *ngIf="isEXCEPTIONNEL" >
                   <p style="margin-bottom: 0%;">Motif de :</p>
                       <div class="E-Ju ">
@@ -790,8 +797,12 @@
                           </div>
                           <div class="form-check">
                           <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif2" value="motif2">
-                          <label class="form-check-label"  for="motif2">Naissance de mon enfant (2 jours)</label>
+                          <label class="form-check-label"  for="motif2">Naissance de mon enfant (Homme) (2 jours)</label>
                           </div>
+                          <div class="form-check">
+                            <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif7" value="motif7">
+                            <label class="form-check-label"  for="motif7">Naissance de mon enfant (Femme) (40 jours)</label>
+                            </div>
                           <div class="form-check">
                           <input class="form-check-input"  [(ngModel)]="motifC" type="radio" name="MotifC" id="motif3" value="motif3">
                           <label class="form-check-label"  for="motif3">Circoncision de mon enfant (1 jour)</label>                
@@ -860,7 +871,7 @@
                           <label for="inputPassword6" class="col-form-label">Changement envisagé du </label>
                       </div>
                       <div class="col-auto">
-                          <input type="date"  [(ngModel)]="chHoraire.debut" class="form-control form-icon-trailing" id="date" >
+                          <input type="date" min={{datePickerId}}   [(ngModel)]="chHoraire.debut" class="form-control form-icon-trailing" id="date" >
                       </div>
                   </div>
                   <div class="row g-4 align-items-center">
@@ -868,7 +879,7 @@
                         <label for="inputPassword6" class="col-form-label">Au </label>
                       </div>
                       <div class="col-auto">
-                          <input type="date" [(ngModel)]="chHoraire.fin" class="form-control form-icon-trailing" id="date" >
+                          <input type="date" min={{chHoraire.debut}} [(ngModel)]="chHoraire.fin" class="form-control form-icon-trailing" id="date" >
                       </div>
                     </div>
           
@@ -880,7 +891,7 @@
                           <label for="inputPassword6" class="col-form-label">Ancien Horaire </label>
                       </div>
                       <div class="col-auto">
-                          <input type="time" [(ngModel)]="chHoraire.AncienH"class="form-control form-icon-trailing" id="date" >
+                          <input type="time" [(ngModel)]="chHoraire.ancienH"class="form-control form-icon-trailing" id="date" >
       
                       </div>
                   </div>
@@ -889,7 +900,7 @@
                         <label for="inputPassword6" class="col-form-label">Nouvel Horaire </label>
                       </div>
                       <div class="col-auto">
-                          <input type="time" [(ngModel)]="chHoraire.NouvelH" class="form-control form-icon-trailing" id="date" >
+                          <input type="time" [(ngModel)]="chHoraire.nouvelH"  min="chHoraire.ancienH" class="form-control form-icon-trailing" id="date" >
                       </div>
                     </div>
               </div>
@@ -960,7 +971,7 @@
                     </div>
                     <div class="col-auto">
                         <div class="input-group mb-2">
-                            <input style="max-width: 4.7rem;" [(ngModel)]="acompte.montant" type="number" class="form-control" placeholder="00" >
+                            <input style="max-width: 4.7rem;" [(ngModel)]="acompte.montant" type="number" min="0" class="form-control" placeholder="00" >
                             <span class="input-group-text" id="basic-addon2">DT</span>
                         </div>
                     </div>
@@ -981,7 +992,7 @@
           <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'ACOMPTE</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'AUTORISATION De TRAVAIL SUPPLÉMENTAIRE </h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body ">
@@ -1014,7 +1025,7 @@
                           <label for="inputPassword6" class="col-form-label">Date </label>
                         </div>
                         <div class="col-auto">
-                            <input type="date" [(ngModel)]="autTravailSupp.date" class="form-control form-icon-trailing" id="date" >
+                            <input type="date" min={{datePickerId}} min={{datePickerId}} [(ngModel)]="autTravailSupp.date" class="form-control form-icon-trailing" id="date" >
                         </div>
                       </div>
             

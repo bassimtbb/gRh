@@ -10,13 +10,13 @@ import { TokenService } from '../../../../services/token/token.service';
 })
 export class EventComponent implements OnInit {
   selectedEvent!: EventDto ;
-   user!: User;
+  user!: User;
   events:EventDto[]=[];
   ispostuler!:boolean;
   listeEmpl:User[]=[];
   alert: string = "d-none";
   Msg:String="";
-
+  Role:any="";
   ngOnInit() {
     this.eventService.findAll2()
       .subscribe(events => {
@@ -25,25 +25,36 @@ export class EventComponent implements OnInit {
       }, error => {
         console.error('Error retrieving events:', error);
       });
-      console.log(this.listeEmpl.length);
       const email = this.tokenService.email;
       this.userService.loadUserByUsername({ username: email as string })
-      .subscribe((utilisateur: User) => {  this.user = utilisateur;});
+      .subscribe((utilisateur: User) => { 
+        this.Role=this.tokenService.userRole(); 
+        console.log("Role: ",this.Role);
+        this.user = utilisateur;});
   
   }
   
-  eventClicked(event :any) {
-    if (event) {
-      console.error("'listeEmpl' is undefined. event data might be incomplete.");
-      return; 
-    }
-    console.log(this.listeEmpl.length);
+  // eventClicked(event :EventDto) {
+  //   if (event) {
+  //     console.error("'listeEmpl' is undefined. event data might be incomplete.");
+  //     return; 
+  //   }
+  //   console.log(event.listeEmpl.);
 
-    this.listeEmpl = event.listEmploye;
+  //   this.listeEmpl = event;
+  //   this.selectedEvent = event;
+  //   this.ispostuler=this.isInList(this.listeEmpl, this.user)
+  //   console.log(this.ispostuler);
+  // }
+  eventClicked(event: EventDto) {
+    this.listeEmpl = event.listEmploye ?? [];
     this.selectedEvent = event;
+    // Assign empty array if undefined
+    console.log(this.listeEmpl);
     this.ispostuler=this.isInList(this.listeEmpl, this.user)
-    console.log(this.ispostuler);
+
   }
+  
 
   constructor(
     private  userService:UserService,

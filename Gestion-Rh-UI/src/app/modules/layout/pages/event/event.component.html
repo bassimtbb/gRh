@@ -1,7 +1,7 @@
 <div class="containe">
     <div class="entete">
         <h3>Les événements</h3>
-        <button type="button"  class="btn btn-success " data-bs-toggle="modal" data-bs-target="#eventAdd" >Ajouter un Événement</button>
+        <button type="button"   *ngIf="this.Role=='RRH'" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#eventAdd" >Ajouter un Événement</button>
     </div>
     <div [ngClass]=alert role="alert">    {{Msg}}    </div>
   <div *ngIf="events.length==0 || events==null" class="body">
@@ -20,7 +20,7 @@
 
       <div class="d-flex   " style="gap:1rem;">
         <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eventD" (click)="eventClicked(event)"><i class="bi bi-eye-fill"></i></button>                  
-        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#listeEmp" (click)="eventClicked(event)"><i class="bi bi-people-fill"></i>                  </button>
+        <button type="button" *ngIf="this.Role=='RRH'" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#listeEmp" (click)="eventClicked(event)"><i class="bi bi-people-fill"></i>                  </button>
       </div>
     </div>
   </div>

@@ -7,13 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AutorisationTeletravail extends Demande {
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date debut;
+        @JsonFormat(pattern = "yyyy-MM-dd")
     private Date fin;
     private String contact;
     private String telephone;

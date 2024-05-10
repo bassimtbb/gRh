@@ -1,11 +1,14 @@
 package com.saiph.application.GestionRH.Domain.dto.DemandesDto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.saiph.application.GestionRH.Domain.dto.DemandeDto;
 
 import java.util.Date;
 
 public class AutorisationTeletravailDto extends DemandeDto {
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date debut;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date fin;
     private String contact;
     private String telephone;

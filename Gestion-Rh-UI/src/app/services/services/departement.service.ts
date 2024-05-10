@@ -15,6 +15,8 @@ import { addEmployeToDepartement } from '../fn/departement/add-employe-to-depart
 import { AddEmployeToDepartement$Params } from '../fn/departement/add-employe-to-departement';
 import { delete3 } from '../fn/departement/delete-3';
 import { Delete3$Params } from '../fn/departement/delete-3';
+import { deleteEmpl } from '../fn/departement/delete-empl';
+import { DeleteEmpl$Params } from '../fn/departement/delete-empl';
 import { DepartementDto } from '../models/departement-dto';
 import { findAll3 } from '../fn/departement/find-all-3';
 import { FindAll3$Params } from '../fn/departement/find-all-3';
@@ -128,6 +130,31 @@ export class DepartementService extends BaseService {
   add3(params: Add3$Params, context?: HttpContext): Observable<DepartementDto> {
     return this.add3$Response(params, context).pipe(
       map((r: StrictHttpResponse<DepartementDto>): DepartementDto => r.body)
+    );
+  }
+
+  /** Path part for operation `deleteEmpl()` */
+  static readonly DeleteEmplPath = '/department/removeEmpl/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteEmpl()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  deleteEmpl$Response(params: DeleteEmpl$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteEmpl(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteEmpl$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  deleteEmpl(params: DeleteEmpl$Params, context?: HttpContext): Observable<void> {
+    return this.deleteEmpl$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

@@ -1,7 +1,7 @@
 <div class="containe">
     <div class="entete">
         <h3>Les formations</h3>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#formationAdd" class="btn btn-success " >Ajouter une formation</button>
+        <button type="button"   *ngIf="this.Role=='RRH'"  data-bs-toggle="modal" data-bs-target="#formationAdd" class="btn btn-success " >Ajouter une formation</button>
 
     </div>
     <div [ngClass]=alert role="alert">    {{Msg}}    </div>
@@ -22,7 +22,7 @@
 
           <div class="d-flex   " style="gap:1rem;">
             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#FormationD" (click)="formationClicked(formation)"><i class="bi bi-eye-fill"></i></button>                  
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#listeEmp" (click)="formationClicked(formation)"><i class="bi bi-people-fill"></i>                  </button>
+            <button type="button"  class="btn btn-light"  *ngIf="this.Role=='RRH'" data-bs-toggle="modal" data-bs-target="#listeEmp" (click)="formationClicked(formation)"><i class="bi bi-people-fill"></i>                  </button>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@
 
 
 
-    <div  *ngIf="listeEmpl.length"  class="modal  fade" id="listeEmp" tabindex="-1" aria-labelledby="listeEmp" aria-hidden="true">
+    <div  *ngIf="listeEmpl"  class="modal  fade" id="listeEmp" tabindex="-1" aria-labelledby="listeEmp" aria-hidden="true">
       <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">

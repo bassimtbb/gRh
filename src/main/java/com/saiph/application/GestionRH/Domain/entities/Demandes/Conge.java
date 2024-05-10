@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Data
@@ -14,8 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Conge extends Demande {
     private Integer duree;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date debut;
-    private Date fin;
-    private Date reprise;
     private String motif;
 }
