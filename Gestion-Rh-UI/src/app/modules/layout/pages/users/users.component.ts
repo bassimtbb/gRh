@@ -4,8 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../../services/services/user.service';
 import { TokenService } from '../../../../services/token/token.service';
-import { AuthenticationRequest, RegistrationRequest, User} from '../../../../services/models';
+import { AuthenticationRequest, Departement, DepartementDto, RegistrationRequest, User} from '../../../../services/models';
 import { AuthenticationService } from '../../../../services/services/authentication.service';
+import { DepartementService } from '../../../../services/services';
 
 @Component({
   selector: 'app-users',
@@ -17,15 +18,21 @@ export class UsersComponent  implements OnInit {
   employes: User[] = [];
   totalPages: number = 0;
   error: string = '';
-
+  departements:DepartementDto[]=[];
+addUtilisateurdepartement: number|null=null;
   constructor(
     private registre: AuthenticationService,
     private usersService: UserService,
+    private departementService: DepartementService,
     private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
     this.fetchUsers(); // Fetch initial page on load
+    this.departementService.findAll3()
+    .subscribe(departement =>{
+      this.departements=departement;
+    })
   }
 
   page = 0;
@@ -71,28 +78,31 @@ getStatusClass(statut: string): string {
     address: '',
     ejuridic: '',
     img: '',
-    dembauche: ''
+    dembauche: '',
+    role:'EMPLOYE',
+    departement:{}
   };
 
   Msg:String="";
 
   addUser(){
-    console.log(this.addUtilisateur);
-    mesg :String;
+    console.log("departementid",this.addUtilisateurdepartement);
+
     this.addUtilisateur = {
       ...this.addUtilisateur,
       password: 'password',
-
+      departement:{"id":this.addUtilisateurdepartement as number},
 
     };
+  console.log("useradd",this.addUtilisateur);
     this.registre.register({ body: this.addUtilisateur })
     .subscribe(
-      () => {
-        // Handle success
+      (User) => {
+          this.ngOnInit();
         this.alert = 'alert alert-success';
-        console.log('User added successfully:', this.addUtilisateur);
+        console.log('User added successfully:', User);
         // Construct the success message outside of interpolation
-
+      
          this.Msg = `Employé(e) ${this.addUtilisateur.firstname} ${this.addUtilisateur.lastname} est ajouté(e) avec succès!`;
         setTimeout(() => {
           this.alert = 'd-none';

@@ -1,6 +1,8 @@
 package com.saiph.application.GestionRH.Domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.saiph.application.GestionRH.Domain.dto.DepartementDto;
 import com.saiph.application.GestionRH.Enum.RoleType;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
@@ -38,7 +40,8 @@ public class User extends GenericEntity implements UserDetails, Principal {
     private String firstname;
     private String EJuridic;
     private String lastname;
-    @JoinColumn(name="Departement_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "departement_id")
     private Departement departement;
     private String cin;
     private String service;
@@ -46,7 +49,7 @@ public class User extends GenericEntity implements UserDetails, Principal {
     private String address;
     private String phonenumber;
     private String img;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date DEmbauche;
 
 

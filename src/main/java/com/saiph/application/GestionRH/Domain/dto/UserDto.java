@@ -3,10 +3,7 @@ package com.saiph.application.GestionRH.Domain.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.saiph.application.GestionRH.Domain.entities.Departement;
 import com.saiph.application.GestionRH.Enum.RoleType;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -24,14 +21,14 @@ public class UserDto extends GenericDto{
     private String firstname;
     private String EJuridic;
     private String lastname;
-    @JoinColumn(name="Departement_id")
-    private Departement departement;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "departement_id")
     private String cin;
     private String service;
     private String sexe;
     private String address;
     private String phonenumber;
     private String img;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date DEmbauche;
 }

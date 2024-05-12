@@ -2,7 +2,7 @@ import { Component ,OnInit} from '@angular/core';
 import { TokenService } from '../../../services/token/token.service';
 import { Departement, DepartementDto, User } from '../../../services/models';
 import {Router} from '@angular/router';
-import { DepartementService } from '../../../services/services';
+import { DepartementService, UserService } from '../../../services/services';
 
 declare interface RouteInfo {
   path: string;
@@ -77,7 +77,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Employé',
     icon: 'ni-settings text-red',
     class: '',
-    roles: ['RRH','SUP_H']
+    roles: ['RRH']
     , submenu: []
   },
   {
@@ -87,8 +87,9 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     roles: ['RRH','SUP_H']
     , submenu: []
-  },
+  }
 ];
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -99,52 +100,72 @@ export class HeaderComponent implements OnInit {
   public menuItems1!: RouteInfo[];
   public isCollapsed = true;
   public departments: DepartementDto[] = [];
+  userDepartmentID: number=0 ;
   notifications: any;
+
 
   constructor(
     public tokenService: TokenService,
+    public userService: UserService,
     public departmentService: DepartementService,
     private router: Router
   ) {}
 
+  
   ngOnInit() {
     const userRole = this.tokenService.userRole();
     console.log("rs:", userRole);
 
     if (userRole) {
-      // Fetch departments from database using departmentService
       this.departmentService.findAll3()
         .subscribe(departments => {
           this.departments = departments;
 
-          // Update ROUTES constant dynamically
-          const departmentRoutes: RouteInfo[] = [];
-          departmentRoutes.push({
-            path: '',
-            title: 'Départements',
-            icon: 'ni-world text-blue',
-            class: 'dropdown-toggle',
-            roles: ['RRH', 'SUP_H'],
-            submenu: [] // Initialize empty submenu
-          });
+          const filteredRoutes =ROUTES.filter(menuItem => menuItem.roles && menuItem.roles.includes(userRole));
 
-          // Populate submenu with departments
-          for (const department of departments) {
-            departmentRoutes[0].submenu!.push({
-              path: `departement/${department.id}`, // Customize path based on department ID
-              title: department?.name ?? 'Départements',
+          const departmentRoutes: RouteInfo[] = [];
+          if (userRole === 'RRH') {
+            const departmentSubmenu: RouteInfo[] = [];
+            for (const department of departments) {
+              departmentSubmenu.push({
+                path: `departement/${department.id}`,
+                title: department?.name ?? 'Département',
+                icon: 'ni-world text-blue',
+                class: '',
+                roles: ['RRH'],
+                submenu: []
+              });
+            }
+            departmentRoutes.push({
+              path: '',
+              title: 'Départements',
               icon: 'ni-world text-blue',
-              class: '',
-              roles: ['RRH', 'SUP_H'],
-              submenu: []
+              class: 'dropdown-toggle',
+              roles: ['RRH'],
+              submenu: departmentSubmenu
             });
           }
 
-          // Update menuItems with filtered and dynamically populated ROUTES
-          this.menuItems1 = ROUTES.filter(menuItem => menuItem.roles && menuItem.roles.includes(userRole))
-                                     .concat(departmentRoutes); // Concatenate with department routes
-        });
+          const departmentRoutesSup: RouteInfo[] = [];
+          this.userService.findById({ id: this.tokenService.Id as number })
+            .subscribe(user => {
+              if (user.departement) {
+                departmentRoutesSup.push({
+                  path: `departement/${user.departement.id}`,
+                  title: "Département",
+                  icon: 'ni-world text-blue',
+                  class: '',
+                  roles: ['SUP_H', 'RRH'],
+                  submenu: []
+                });
+              }
 
+              this.menuItems1 = filteredRoutes.concat(departmentRoutesSup, departmentRoutes);
+              console.log(ROUTES);
+              console.log(userRole);
+              console.log(this.menuItems1);
+            });
+        });
     } else {
       this.router.navigate(['login']);
     }

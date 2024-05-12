@@ -2,9 +2,7 @@ package com.saiph.application.GestionRH.Domain.dto;
 
 
 import com.saiph.application.GestionRH.Domain.entities.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,10 +21,9 @@ public class DepartementDto extends GenericDto {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToOne
     private User manager;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<User> ListEmploye = new ArrayList<>();
 
 }

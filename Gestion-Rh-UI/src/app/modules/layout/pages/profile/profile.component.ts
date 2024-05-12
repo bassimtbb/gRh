@@ -53,33 +53,6 @@ export class ProfileComponent implements OnInit {
     window.location.reload();
   }
 
-
-  // updateUsername() {
-  //   if (!this.user || !this.updatedUserInfo.username) {
-  //     console.error('Missing user data or updated username. Update cannot proceed.');
-  //     return;
-  //   }
-  //   // Prepare the updated user object
-  //   const updatedUser = {
-  //     ...this.user, 
-  //     username: this.updatedUserInfo.username // Update the username with the value from updatedUserInfo
-  //   };
-  //   console.log('Username updated updatedUser:', updatedUser);
-  
-  //   // Call the update user service method (assuming it exists)
-  //   this.userService.update({id :updatedUser.id as number, body: updatedUser})
-  //     .subscribe(response => {
-  //       console.log('Username updated successfully:', response);
-  //       // Update the local user object with the updated information
-  //       this.user =response;
-  //       // Optionally, display a success message to the user
-  //     }, error => {
-  //       console.error('Error updating username:', error);
-  //       // Handle the error (e.g., display an error message to the user)
-  //     });
-
-  // }
-  
   updatetelephone() {
     if (!this.user || !this.updatedUserInfo.phonenumber) {
       console.error('Missing user data or updated phonenumber. Update cannot proceed.');

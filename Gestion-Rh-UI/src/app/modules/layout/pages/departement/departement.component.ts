@@ -26,24 +26,27 @@ export class DepartementComponent {
       if (id) {
         try {
           const departmentId = parseInt(id, 10); 
-          this.departmentService.findById3({ id: departmentId })
+          console.log(departmentId);
+          this.departmentService.findById3({ id: departmentId as number})
             .subscribe(data => {
               this.departement = data;
               this.manager=data.manager!;
               this.ListeEmpl=data.listEmploye!;
-
-              console.log(this.departement);
-              console.log(this.manager);
-              console.log(this.ListeEmpl);
+              console.log("this.departement ",     this.departement );
+              console.log("this.manager",     this.manager);
+              console.log("this.ListeEmpl",     this.ListeEmpl);
             });
-        } catch (error) {
-          this.alert = "alert alert-danger";
-          this.Msg = "Error: Invalid department ID format.";
-        }
+        } catch (error) { this.alert = "alert alert-danger";
+          this.Msg = "Error: Invalid department ID format."; 
+          setTimeout(() => {
+          this.alert = 'd-none';
+        }, 5000)}
       } else {
         this.alert = "alert alert-danger";
         this.Msg = "Error: No department ID found in the URL.";
-      }
+        setTimeout(() => {
+          this.alert = 'd-none';
+        }, 5000)}
     });
   }
   

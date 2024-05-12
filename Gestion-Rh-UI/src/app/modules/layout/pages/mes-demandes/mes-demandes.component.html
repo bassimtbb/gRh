@@ -956,8 +956,22 @@
                       <input  type="radio"  id="Oui"  name="Acompte"  [(ngModel)]="acompteR"  value="oui"  class="form-check-input"/>
                       <label class="form-check-label" for="Oui">Sur mois de</label>
                     <div class="input-group mb-2" >
-                      <input [disabled]="acompteR !== 'oui'"  [(ngModel)]="acompte.typeA"   style="max-width:12rem;" type="text" class="form-control" placeholder="Mois"/>
-                    </div>
+                    
+                      <select  [disabled]="acompteR !== 'oui'" [(ngModel)]="modifAcompte.typeA" class="form-select" aria-label="Mois">
+                        <option value=""></option>
+                        <option value="Janvier">Janvier</option>
+                        <option value="Février">Février</option>
+                        <option value="Mars">Mars</option>
+                        <option value="Avril">Avril</option>
+                        <option value="Mai">Mai</option>
+                        <option value="Juin">Juin</option>
+                        <option value="Juillet">Juillet</option>
+                        <option value="Août">Août</option>
+                        <option value="Septembre">Septembre</option>
+                        <option value="Octobre">Octobre</option>
+                        <option value="Novembre">Novembre</option>
+                        <option value="Décembre">Décembre</option>
+                      </select></div>
                   </div>
                     <div class="ml-5 form-check">
                       <input  type="radio"  id="Non"  name="Acompte"  [(ngModel)]="acompteR"  value="non"  class="form-check-input"/>

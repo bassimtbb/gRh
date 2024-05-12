@@ -28,6 +28,7 @@
       <th>Nom</th>
       <th>Prénom</th>
       <th>Poste</th>
+      <th>Département</th>
       <th>Email</th>
       <th>Téléphone</th>
       <th>Date d’embauche</th>
@@ -40,7 +41,12 @@
                  width="40rem" height="40rem"></td>
         <td>{{ employee.firstname }}</td>
         <td>{{ employee.lastname }}</td>
-        <td>{{ employee.service }}</td>
+        <td *ngIf="employee.role=='RRH'" >Responsable RH</td>
+        <td *ngIf="employee.role==null" >--</td>
+        <td *ngIf="employee.role=='SUP_H'" >Supérieur hiérarchique</td>
+        <td *ngIf="employee.role=='EMPLOYE'" >Employe</td>
+        <td *ngIf="employee.departement !=null">{{ employee.departement.name }}</td>
+        <td *ngIf="employee.departement ==null">--</td>
         <td>{{ employee.email }}</td>
         <td>{{ employee.phonenumber }}</td>
         <td>{{ employee.dembauche | date:'dd/MM/yyyy' }}</td>
@@ -113,12 +119,27 @@
             <label for="Dembauche">Date embauche</label>
           </div>
           <div class="form-floating mb-2">
-            <input required type="Text" [(ngModel)]="addUtilisateur.service" class="form-control inputF" id="Service">
-            <label for="Service">Service</label>
+            <select class="form-select inputF" [(ngModel)]="addUtilisateur.role" required
+                    aria-label="Default select example">
+              <option value="" selected>&#45;&#45;</option>
+              <option value="RRH">Responsable RH</option>
+              <option value="SUP_H">Supérieur hiérarchique</option>
+              <option value="EMPLOYE">Employe</option>
+            </select>
+            <label for="sexe">Poste</label>
           </div>
         </div>
         <div class="cl d-flex">
-     
+          <div class="form-floating mb-2">
+            <select  [(ngModel)]="addUtilisateurdepartement" required class="form-select inputF" aria-label="departement">
+
+              <option  *ngFor="let departement of this.departements;" [value]="departement.id">
+                {{ departement.name }}
+              </option>              
+            </select>
+            <label for="Departement">Departement</label>
+
+          </div>
           <div class="form-floating mb-2">
             <select class="form-select inputF" [(ngModel)]="addUtilisateur.sexe" required
                     aria-label="Default select example">

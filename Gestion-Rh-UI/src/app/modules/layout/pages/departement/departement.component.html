@@ -2,8 +2,8 @@
     <div class="entete">
         <h3>Département {{departement.name}}</h3>
     </div>
-    <div [ngClass]=alert role="alert">{{Msg}}</div>
-  <div  class="body">
+  <div  class="body">    <div [ngClass]=alert role="alert">{{Msg}}</div>
+
     <div style="width: 100%">
         <div class="entete">
             <h4 style="padding: 0%;">Superieure Hi</h4>
@@ -14,11 +14,12 @@
             <p class="mb-0 "><small class="text-body-secondary">Aucune Superieure Hi</small></p>
         </div>
 
-        <div *ngIf="manager" class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+        <div *ngIf="manager" class="card" style="width: 10rem; padding: 1rem;">
+            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="card-img-top"style="border-radius: 50%;">
+
             <div class="card-body">
-              <h5 class="card-title">{{departement.manager?.lastname}}{{departement.manager?.firstname}}</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h5 class="card-title">{{this.manager.lastname}}</h5>
+              <p class="card-text">Some quick example tex.</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
@@ -30,7 +31,7 @@
             <button type="button"  class="btn btn-success " data-bs-toggle="modal" data-bs-target="#" >Modifier</button>
         </div>
 
-        <div *ngIf="!ListeEmpl?.length" class="">
+        <div *ngIf="!ListeEmpl" class="">
             <p class="mb-0 "><small class="text-body-secondary">Aucune employe</small></p>
         </div>
 

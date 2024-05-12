@@ -12,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,27 +25,30 @@ public class DepartementController extends GenericCrudController<Departement, De
 
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     @PostMapping("/addEmploye/{id}")
-    public ResponseEntity<Void> addEmployeToDepartement(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
-            departementCrudService.addEmpl(IdDepartement,IdUser) ;
-            return new ResponseEntity<>(HttpStatus.OK);
+    public Departement addEmployeToDepartement(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
+             return departementCrudService.addEmpl(IdDepartement,IdUser) ;
 
     }
         @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     @PostMapping("/SetSup/{id}")
-    public ResponseEntity<Void> SetSup(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
-            departementCrudService.SetSupH(IdDepartement,IdUser); ;
-            return new ResponseEntity<>(HttpStatus.OK);
+    public Departement SetSup(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
+              return departementCrudService.SetSupH(IdDepartement,IdUser);
 
     }
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     @PostMapping("/removeEmpl/{id}")
-    public ResponseEntity<Void> deleteEmpl(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
-            departementCrudService.deleteEmpl(IdDepartement,IdUser); ;
-            return new ResponseEntity<>(HttpStatus.OK);
+    public Departement deleteEmpl(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
+        return departementCrudService.deleteEmpl(IdDepartement,IdUser);
+
 
     }
 
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
+    @GetMapping ("/findByIdE/{id}")
+    public Departement findByIdEn(@PathVariable("id") Long IdDepartement) {
+        return departementCrudService.findByIdEn(IdDepartement) ;
 
+    }
     @Override
     protected GenericCrudService<Departement, DepartementDto> getCrudService() {
         return departementCrudService;

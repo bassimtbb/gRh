@@ -23,29 +23,37 @@ public class DepartementCrudService extends GenericCrudService<Departement, Depa
     private final DepartementRepository departementRepository;
     private final UserDetailService userService;
 
-    public void SetSupH(Long departementId , Long userID) {
+    public Departement SetSupH(Long departementId , Long userID) {
         UserDto userDto = userService.findById( userID);
         DepartementDto deaprtementDto=findById(departementId);
         User utilisateur=userService.convertToEntity(userDto);
         Departement departement= convertToEntity(deaprtementDto);
         departement.setManager( utilisateur);
      departementRepository.save(departement);
+     return departement;
     }
-    public void addEmpl(Long departementId , Long userID) {
+    public Departement addEmpl(Long departementId , Long userID) {
         UserDto userDto = userService.findById( userID);
         DepartementDto deaprtementDto=findById(departementId);
         User utilisateur=userService.convertToEntity(userDto);
         Departement departement= convertToEntity(deaprtementDto);
         departement.getListEmploye().add(utilisateur);
      departementRepository.save(departement);
+     return departement;
     }
-    public void deleteEmpl(Long departementId , Long userID) {
+    public Departement deleteEmpl(Long departementId , Long userID) {
         UserDto userDto = userService.findById( userID);
         DepartementDto deaprtementDto=findById(departementId);
         User utilisateur=userService.convertToEntity(userDto);
         Departement departement= convertToEntity(deaprtementDto);
         departement.getListEmploye().remove(utilisateur);
      departementRepository.save(departement);
+          return departement;
+
+    }
+
+    public Departement findByIdEn(Long id) {
+        return this.convertToEntity(findById(id));
     }
 
     @Override

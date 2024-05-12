@@ -21,7 +21,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
 
-    public void register(RegistrationRequest request)  {
+    public RegistrationRequest register(RegistrationRequest request)  {
 
         var userdetail = User.builder()
                 .firstname(request.getFirstname())
@@ -42,9 +42,8 @@ public class AuthenticationService {
                 .EJuridic(request.getEJuridic())
                 .phonenumber(request.getPhonenumber())
                 .build();
-
         userRepository.save(userdetail);
-
+        return  request;
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {

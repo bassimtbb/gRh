@@ -14,6 +14,6 @@ export interface RegistrationRequest {
   password: string;
   phonenumber: string;
   role?: 'EMPLOYE' | 'RRH' | 'SUP_H';
-  service: string;
+  service?: string;
   sexe: string;
 }

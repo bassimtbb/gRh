@@ -40,8 +40,7 @@ public class RegistrationRequest {
     @NotEmpty(message = "cin is mandatory")
     @NotNull(message = "cin is mandatory")
     private String cin;
-    @NotEmpty(message = "service is mandatory")
-    @NotNull(message = "service is mandatory")
+
     private String service;
     @NotEmpty(message = "sexe is mandatory")
     @NotNull(message = "sexe is mandatory")

@@ -14,6 +14,7 @@ import { Authenticate$Params } from '../fn/authentication/authenticate';
 import { AuthenticationResponse } from '../models/authentication-response';
 import { register } from '../fn/authentication/register';
 import { Register$Params } from '../fn/authentication/register';
+import { RegistrationRequest } from '../models/registration-request';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService extends BaseService {
@@ -30,8 +31,7 @@ export class AuthenticationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  register$Response(params: Register$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+  register$Response(params: Register$Params, context?: HttpContext): Observable<StrictHttpResponse<RegistrationRequest>> {
     return register(this.http, this.rootUrl, params, context);
   }
 
@@ -41,12 +41,9 @@ export class AuthenticationService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  register(params: Register$Params, context?: HttpContext): Observable<{
-}> {
+  register(params: Register$Params, context?: HttpContext): Observable<RegistrationRequest> {
     return this.register$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-}>): {
-} => r.body)
+      map((r: StrictHttpResponse<RegistrationRequest>): RegistrationRequest => r.body)
     );
   }
 

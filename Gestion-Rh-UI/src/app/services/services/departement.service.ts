@@ -17,11 +17,14 @@ import { delete3 } from '../fn/departement/delete-3';
 import { Delete3$Params } from '../fn/departement/delete-3';
 import { deleteEmpl } from '../fn/departement/delete-empl';
 import { DeleteEmpl$Params } from '../fn/departement/delete-empl';
+import { Departement } from '../models/departement';
 import { DepartementDto } from '../models/departement-dto';
 import { findAll3 } from '../fn/departement/find-all-3';
 import { FindAll3$Params } from '../fn/departement/find-all-3';
 import { findById3 } from '../fn/departement/find-by-id-3';
 import { FindById3$Params } from '../fn/departement/find-by-id-3';
+import { findByIdEn } from '../fn/departement/find-by-id-en';
+import { FindByIdEn$Params } from '../fn/departement/find-by-id-en';
 import { setSup } from '../fn/departement/set-sup';
 import { SetSup$Params } from '../fn/departement/set-sup';
 import { update3 } from '../fn/departement/update-3';
@@ -205,6 +208,31 @@ export class DepartementService extends BaseService {
   setSup(params: SetSup$Params, context?: HttpContext): Observable<void> {
     return this.setSup$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `findByIdEn()` */
+  static readonly FindByIdEnPath = '/department/findByIdE/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findByIdEn()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findByIdEn$Response(params: FindByIdEn$Params, context?: HttpContext): Observable<StrictHttpResponse<Departement>> {
+    return findByIdEn(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findByIdEn$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findByIdEn(params: FindByIdEn$Params, context?: HttpContext): Observable<Departement> {
+    return this.findByIdEn$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Departement>): Departement => r.body)
     );
   }
 
