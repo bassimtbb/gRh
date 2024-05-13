@@ -6,13 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { Departement } from '../../models/departement';
 
 export interface SetSup$Params {
   id: number;
       body: number
 }
 
-export function setSup(http: HttpClient, rootUrl: string, params: SetSup$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+export function setSup(http: HttpClient, rootUrl: string, params: SetSup$Params, context?: HttpContext): Observable<StrictHttpResponse<Departement>> {
   const rb = new RequestBuilder(rootUrl, setSup.PATH, 'post');
   if (params) {
     rb.path('id', params.id, {});
@@ -20,11 +21,11 @@ export function setSup(http: HttpClient, rootUrl: string, params: SetSup$Params,
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<Departement>;
     })
   );
 }

@@ -121,7 +121,6 @@ export class HeaderComponent implements OnInit {
         .subscribe(departments => {
           this.departments = departments;
 
-          const filteredRoutes =ROUTES.filter(menuItem => menuItem.roles && menuItem.roles.includes(userRole));
 
           const departmentRoutes: RouteInfo[] = [];
           if (userRole === 'RRH') {
@@ -155,12 +154,13 @@ export class HeaderComponent implements OnInit {
                   title: "Département",
                   icon: 'ni-world text-blue',
                   class: '',
-                  roles: ['SUP_H', 'RRH'],
+                  roles: ['SUP_H'],
                   submenu: []
                 });
               }
+              const filteredRoutes =ROUTES.concat(departmentRoutesSup, departmentRoutes).filter(menuItem => menuItem.roles && menuItem.roles.includes(userRole));
 
-              this.menuItems1 = filteredRoutes.concat(departmentRoutesSup, departmentRoutes);
+              this.menuItems1 = filteredRoutes;
               console.log(ROUTES);
               console.log(userRole);
               console.log(this.menuItems1);

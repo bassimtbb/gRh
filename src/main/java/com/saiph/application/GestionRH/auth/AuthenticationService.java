@@ -3,6 +3,7 @@ package com.saiph.application.GestionRH.auth;
 import com.saiph.application.GestionRH.Domain.entities.User;
 import com.saiph.application.GestionRH.repository.UserRepository;
 import com.saiph.application.GestionRH.security.JwtService;
+import com.saiph.application.GestionRH.services.DepartementCrudService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final DepartementCrudService departementService;
     private final AuthenticationManager authenticationManager;
 
 
@@ -38,11 +40,15 @@ public class AuthenticationService {
                 .address(request.getAddress())
                 .service(request.getService())
                 .sexe(request.getSexe())
-                .departement(request.getDepartement())
+                .departement(null)
                 .EJuridic(request.getEJuridic())
                 .phonenumber(request.getPhonenumber())
                 .build();
+
         userRepository.save(userdetail);
+        if (userdetail.getDepartement()!=null){
+        departementService.addEmpl(request.getDepartement().getId() ,userdetail.getId()) ;}
+        System.out.println(userdetail.getDepartement()!=null);
         return  request;
     }
 

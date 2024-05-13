@@ -7,48 +7,125 @@
     <div style="width: 100%">
         <div class="entete">
             <h4 style="padding: 0%;">Superieure Hi</h4>
-            <button type="button"  class="btn btn-success " data-bs-toggle="modal" data-bs-target="#" >Modifier</button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#setSUP_H"><i class="bi bi-pencil"></i></button>
         </div>
 
         <div *ngIf="!manager" class="">
             <p class="mb-0 "><small class="text-body-secondary">Aucune Superieure Hi</small></p>
         </div>
 
-        <div *ngIf="manager" class="card" style="width: 10rem; padding: 1rem;">
+        <div *ngIf="manager" class="card d-flex justify-content-center" style="width: 11rem;cursor: pointer; padding: 1rem; ">
             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="card-img-top"style="border-radius: 50%;">
 
-            <div class="card-body">
-              <h5 class="card-title">{{this.manager.lastname}}</h5>
-              <p class="card-text">Some quick example tex.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+            <div class="card-body" style="display: grid; justify-content: center; " >
+              <p class="card-text "  style="font-weight: bold;">{{this.manager.firstname}} {{this.manager.lastname}}</p>
+              <p class="mb-0 " style="text-align: center;"><small class="text-body-secondary">{{this.manager.service}}</small></p>
+       
+              </div>
         </div>
     </div>
 
     <div style="width: 100%">
         <div class="entete">
             <h4 style="padding: 0%;">Liste des employes</h4>
-            <button type="button"  class="btn btn-success " data-bs-toggle="modal" data-bs-target="#" >Modifier</button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AddEmployeToDepart"><i class="bi bi-pencil"></i></button>
         </div>
 
-        <div *ngIf="!ListeEmpl" class="">
+        <div *ngIf="!ListeEmpl.length" style="display: flex; justify-content: center; margin: 2rem;">
             <p class="mb-0 "><small class="text-body-secondary">Aucune employe</small></p>
         </div>
 
-        <div *ngIf="ListeEmpl">
-        <div  *ngFor="let employe of ListeEmpl" class="card" style="width: 18rem;">
-            <img src="https://www.pikpng.com/pngl/m/16-168770_user-iconset-no-profile-picture-icon-circle-clipart.png" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">{{employe.lastname}}{{employe.firstname}}</h5>
-              <p class="card-text">{{employe.service}}</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div *ngIf="ListeEmpl.length" style="display: flex; justify-content: center;cursor: pointer;  align-items: center;  gap: 2rem;">
+        <div  *ngFor="let employe of ListeEmpl" class="card" style="width: 11rem; padding: 1rem;">
+            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="card-img-top"style="border-radius: 50%;">
+
+            <div class="card-body" style="display: grid; justify-content: center; " >
+              <p class="card-text "  style="font-weight: bold;">{{this.employe.firstname}} {{this.employe.lastname}}</p>
+              <p class="mb-0 " style="text-align: center;"><small class="text-body-secondary">{{this.employe.service}}</small></p>
             </div>
         </div></div>
     </div>
   </div>
- 
-
-
 </div>
 
 
+
+
+<!-- modal setSUP_H -->
+<div class="modal  fade" id="setSUP_H" tabindex="-1" aria-labelledby="setSUP_H" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Affecter un supérieur hiérarchique</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body ">
+
+          
+    </div> 
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+      <button type="submit" class="btn btn-primary" (click)="SetSupH()" data-bs-dismiss="modal" >Ajouter</button>
+    </div>
+  </div>
+</div>
+</div>       
+
+
+<!-- modal add Employe to depart -->
+<div class="modal  fade" id="AddEmployeToDepart" tabindex="-1" aria-labelledby="AddEmployeToDepart" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un employé </h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body " style="display: grid;justify-items: center; gap: 2rem;"> 
+
+        <div class="search" style="min-width:  60%; display: flex;">
+            <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+          </div>
+
+        <div style="min-width:  100%; " class="data">
+
+            <table class="table table-striped table-hover">
+              <thead>
+              <th>Matricule</th>
+              <th>Image</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Département</th>
+              <th>Poste</th>
+              <th></th>
+              </thead>
+              <tbody>
+              <tr *ngFor="let employee of this.employes; let i = index">
+                <td>{{ employee.id }}</td>
+                <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="border-radius: 50%;"
+                         width="40rem" height="40rem"></td>
+                <td>{{ employee.firstname }}</td>
+                <td>{{ employee.lastname }}</td>
+                <td *ngIf="employee.departement ">{{ employee.departement.name }}</td>
+                <td *ngIf="employee.departement ==null">--</td>
+                <td *ngIf="employee.role=='RRH'" >Responsable RH</td>
+                <td *ngIf="employee.role==null" >--</td>
+                <td *ngIf="employee.role=='SUP_H'" >Supérieur hiérarchique</td>
+                <td *ngIf="employee.role=='EMPLOYE'" >Employe</td>
+
+                <td style="display: flex; justify-content: space-around;">
+                    <button  type="button" *ngIf="isInTheDepartment(employee)" class="btn btn-danger" (click)="remouveEmployefromDepart(employee)"><i class="bi bi-x-lg"></i> </button>
+                    <button  type="button" *ngIf="!isInTheDepartment(employee)" class="btn btn-success" (click)="AddEmployeToDepart(employee)"><i class="bi bi-plus-lg"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          
+    </div> 
+    <div class="modal-footer">
+  
+    </div>
+  </div>
+</div>
+</div>       

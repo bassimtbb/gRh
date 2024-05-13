@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../../services/services/user.service';
 import { TokenService } from '../../../../services/token/token.service';
-import { AuthenticationRequest, Departement, DepartementDto, RegistrationRequest, User} from '../../../../services/models';
+import { AuthenticationRequest, Departement, DepartementDto, RegistrationRequest, User, UserDto} from '../../../../services/models';
 import { AuthenticationService } from '../../../../services/services/authentication.service';
 import { DepartementService } from '../../../../services/services';
 
@@ -15,7 +15,7 @@ import { DepartementService } from '../../../../services/services';
 })
 export class UsersComponent  implements OnInit {
   utilisateur: any;
-  employes: User[] = [];
+  employes: UserDto[] = [];
   totalPages: number = 0;
   error: string = '';
   departements:DepartementDto[]=[];

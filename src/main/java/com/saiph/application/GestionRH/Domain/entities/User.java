@@ -2,7 +2,6 @@ package com.saiph.application.GestionRH.Domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.saiph.application.GestionRH.Domain.dto.DepartementDto;
 import com.saiph.application.GestionRH.Enum.RoleType;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
@@ -42,6 +41,7 @@ public class User extends GenericEntity implements UserDetails, Principal {
     private String lastname;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "departement_id")
+    @JsonIgnore // Prevents infinite recursion during serialization
     private Departement departement;
     private String cin;
     private String service;

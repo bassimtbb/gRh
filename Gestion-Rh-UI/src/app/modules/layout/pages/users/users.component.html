@@ -45,7 +45,7 @@
         <td *ngIf="employee.role==null" >--</td>
         <td *ngIf="employee.role=='SUP_H'" >Supérieur hiérarchique</td>
         <td *ngIf="employee.role=='EMPLOYE'" >Employe</td>
-        <td *ngIf="employee.departement !=null">{{ employee.departement.name }}</td>
+        <td *ngIf="employee.departement ">{{ employee.departement.name }}</td>
         <td *ngIf="employee.departement ==null">--</td>
         <td>{{ employee.email }}</td>
         <td>{{ employee.phonenumber }}</td>

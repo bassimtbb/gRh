@@ -145,7 +145,7 @@ export class DepartementService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  deleteEmpl$Response(params: DeleteEmpl$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  deleteEmpl$Response(params: DeleteEmpl$Params, context?: HttpContext): Observable<StrictHttpResponse<Departement>> {
     return deleteEmpl(this.http, this.rootUrl, params, context);
   }
 
@@ -155,9 +155,9 @@ export class DepartementService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  deleteEmpl(params: DeleteEmpl$Params, context?: HttpContext): Observable<void> {
+  deleteEmpl(params: DeleteEmpl$Params, context?: HttpContext): Observable<Departement> {
     return this.deleteEmpl$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<Departement>): Departement => r.body)
     );
   }
 
@@ -170,7 +170,7 @@ export class DepartementService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addEmployeToDepartement$Response(params: AddEmployeToDepartement$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  addEmployeToDepartement$Response(params: AddEmployeToDepartement$Params, context?: HttpContext): Observable<StrictHttpResponse<Departement>> {
     return addEmployeToDepartement(this.http, this.rootUrl, params, context);
   }
 
@@ -180,9 +180,9 @@ export class DepartementService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addEmployeToDepartement(params: AddEmployeToDepartement$Params, context?: HttpContext): Observable<void> {
+  addEmployeToDepartement(params: AddEmployeToDepartement$Params, context?: HttpContext): Observable<Departement> {
     return this.addEmployeToDepartement$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<Departement>): Departement => r.body)
     );
   }
 
@@ -195,7 +195,7 @@ export class DepartementService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  setSup$Response(params: SetSup$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  setSup$Response(params: SetSup$Params, context?: HttpContext): Observable<StrictHttpResponse<Departement>> {
     return setSup(this.http, this.rootUrl, params, context);
   }
 
@@ -205,9 +205,9 @@ export class DepartementService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  setSup(params: SetSup$Params, context?: HttpContext): Observable<void> {
+  setSup(params: SetSup$Params, context?: HttpContext): Observable<Departement> {
     return this.setSup$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<Departement>): Departement => r.body)
     );
   }
 

@@ -1,6 +1,7 @@
 package com.saiph.application.GestionRH.Domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.saiph.application.GestionRH.Domain.entities.Departement;
 import com.saiph.application.GestionRH.Enum.RoleType;
 import jakarta.persistence.*;
@@ -23,6 +24,8 @@ public class UserDto extends GenericDto{
     private String lastname;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "departement_id")
+        private Departement departement;
+
     private String cin;
     private String service;
     private String sexe;

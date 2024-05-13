@@ -1439,7 +1439,14 @@
     },
     "responses": {
     "200": {
-    "description": "OK"
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Departement"
+    }
+    }
+    }
     }
     }
     }
@@ -1474,7 +1481,14 @@
     },
     "responses": {
     "200": {
-    "description": "OK"
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Departement"
+    }
+    }
+    }
     }
     }
     }
@@ -1509,7 +1523,14 @@
     },
     "responses": {
     "200": {
-    "description": "OK"
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Departement"
+    }
+    }
+    }
     }
     }
     }
@@ -2309,9 +2330,6 @@
     "lastname": {
     "type": "string"
     },
-    "departement": {
-    "$ref": "#/components/schemas/Departement"
-    },
     "cin": {
     "type": "string"
     },
@@ -2337,20 +2355,17 @@
     "name": {
     "type": "string"
     },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
     },
-    "accountNonLocked": {
+    "ejuridic": {
+    "type": "string"
+    },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
     "type": "boolean"
     },
     "username": {
@@ -2361,6 +2376,9 @@
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
+    },
+    "accountNonLocked": {
+    "type": "boolean"
     }
     }
     },
@@ -2436,12 +2454,12 @@
     "type": "string",
     "format": "date-time"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -2737,11 +2755,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "hacces": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     },
-    "hsortie": {
+    "hacces": {
     "type": "string",
     "format": "date-time"
     }
@@ -3043,11 +3061,11 @@
     "isTemporaire": {
     "type": "boolean"
     },
-    "hsortie": {
+    "hretour": {
     "type": "string",
     "format": "date-time"
     },
-    "hretour": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     }
@@ -3107,12 +3125,12 @@
     "img": {
     "type": "string"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -3150,13 +3168,10 @@
     "password": {
     "type": "string"
     },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
     "accountNonExpired": {
     "type": "boolean"
     },
-    "accountNonLocked": {
+    "credentialsNonExpired": {
     "type": "boolean"
     },
     "username": {
@@ -3167,6 +3182,9 @@
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
+    },
+    "accountNonLocked": {
+    "type": "boolean"
     }
     }
     },

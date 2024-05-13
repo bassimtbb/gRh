@@ -32,7 +32,7 @@ export class LoginComponent {
     }).subscribe({
       next: (res) => {
         this.tokenService.token = res.token as string;
-        this.router.navigate(['Home']);
+        this.router.navigate(['Home/profile']);
       },
       error: (err) => {
         console.log(err);

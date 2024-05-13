@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Departement } from '../models/departement';
 import { GrantedAuthority } from '../models/granted-authority';
 export interface User {
   DEmbauche?: string;
@@ -14,7 +13,6 @@ export interface User {
   createdDate?: string;
   credentialsNonExpired?: boolean;
   dembauche?: string;
-  departement?: Departement;
   ejuridic?: string;
   email?: string;
   enabled?: boolean;
