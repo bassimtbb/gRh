@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { GrantedAuthority } from '../models/granted-authority';
+import { Notification } from '../models/notification';
 export interface User {
   DEmbauche?: string;
   accountLocked?: boolean;
@@ -22,6 +23,7 @@ export interface User {
   lastModifiedBy?: string;
   lastname?: string;
   name?: string;
+  notifications?: Array<Notification>;
   password?: string;
   phonenumber?: string;
   role?: 'EMPLOYE' | 'RRH' | 'SUP_H';

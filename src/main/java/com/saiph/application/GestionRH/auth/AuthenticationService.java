@@ -26,6 +26,7 @@ public class AuthenticationService {
     public RegistrationRequest register(RegistrationRequest request)  {
 
         var userdetail = User.builder()
+
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
@@ -46,7 +47,7 @@ public class AuthenticationService {
                 .build();
 
         userRepository.save(userdetail);
-        if (userdetail.getDepartement()!=null){
+        if (request.getDepartement()!=null){
         departementService.addEmpl(request.getDepartement().getId() ,userdetail.getId()) ;}
         System.out.println(userdetail.getDepartement()!=null);
         return  request;

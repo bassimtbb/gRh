@@ -9,22 +9,26 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { add4 } from '../fn/demande/add-4';
-import { Add4$Params } from '../fn/demande/add-4';
-import { delete4 } from '../fn/demande/delete-4';
-import { Delete4$Params } from '../fn/demande/delete-4';
+import { add5 } from '../fn/demande/add-5';
+import { Add5$Params } from '../fn/demande/add-5';
+import { delete5 } from '../fn/demande/delete-5';
+import { Delete5$Params } from '../fn/demande/delete-5';
 import { Demande } from '../models/demande';
 import { DemandeDto } from '../models/demande-dto';
-import { findAll4 } from '../fn/demande/find-all-4';
-import { FindAll4$Params } from '../fn/demande/find-all-4';
-import { findById4 } from '../fn/demande/find-by-id-4';
-import { FindById4$Params } from '../fn/demande/find-by-id-4';
-import { getDemandeById } from '../fn/demande/get-demande-by-id';
-import { GetDemandeById$Params } from '../fn/demande/get-demande-by-id';
+import { findAll5 } from '../fn/demande/find-all-5';
+import { FindAll5$Params } from '../fn/demande/find-all-5';
+import { findById5 } from '../fn/demande/find-by-id-5';
+import { FindById5$Params } from '../fn/demande/find-by-id-5';
+import { getDemandeBydepartementId } from '../fn/demande/get-demande-bydepartement-id';
+import { GetDemandeBydepartementId$Params } from '../fn/demande/get-demande-bydepartement-id';
+import { getDemandeByStatut } from '../fn/demande/get-demande-by-statut';
+import { GetDemandeByStatut$Params } from '../fn/demande/get-demande-by-statut';
 import { getDemandeByUtilisateurId } from '../fn/demande/get-demande-by-utilisateur-id';
 import { GetDemandeByUtilisateurId$Params } from '../fn/demande/get-demande-by-utilisateur-id';
-import { update4 } from '../fn/demande/update-4';
-import { Update4$Params } from '../fn/demande/update-4';
+import { setStatut1 } from '../fn/demande/set-statut-1';
+import { SetStatut1$Params } from '../fn/demande/set-statut-1';
+import { update5 } from '../fn/demande/update-5';
+import { Update5$Params } from '../fn/demande/update-5';
 
 @Injectable({ providedIn: 'root' })
 export class DemandeService extends BaseService {
@@ -32,127 +36,177 @@ export class DemandeService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `findById4()` */
-  static readonly FindById4Path = '/demande/{id}';
+  /** Path part for operation `findById5()` */
+  static readonly FindById5Path = '/demande/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findById4()` instead.
+   * To access only the response body, use `findById5()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById4$Response(params: FindById4$Params, context?: HttpContext): Observable<StrictHttpResponse<DemandeDto>> {
-    return findById4(this.http, this.rootUrl, params, context);
+  findById5$Response(params: FindById5$Params, context?: HttpContext): Observable<StrictHttpResponse<DemandeDto>> {
+    return findById5(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findById4$Response()` instead.
+   * To access the full response (for headers, for example), `findById5$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById4(params: FindById4$Params, context?: HttpContext): Observable<DemandeDto> {
-    return this.findById4$Response(params, context).pipe(
+  findById5(params: FindById5$Params, context?: HttpContext): Observable<DemandeDto> {
+    return this.findById5$Response(params, context).pipe(
       map((r: StrictHttpResponse<DemandeDto>): DemandeDto => r.body)
     );
   }
 
-  /** Path part for operation `update4()` */
-  static readonly Update4Path = '/demande/{id}';
+  /** Path part for operation `update5()` */
+  static readonly Update5Path = '/demande/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `update4()` instead.
+   * To access only the response body, use `update5()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update4$Response(params: Update4$Params, context?: HttpContext): Observable<StrictHttpResponse<DemandeDto>> {
-    return update4(this.http, this.rootUrl, params, context);
+  update5$Response(params: Update5$Params, context?: HttpContext): Observable<StrictHttpResponse<DemandeDto>> {
+    return update5(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `update4$Response()` instead.
+   * To access the full response (for headers, for example), `update5$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update4(params: Update4$Params, context?: HttpContext): Observable<DemandeDto> {
-    return this.update4$Response(params, context).pipe(
+  update5(params: Update5$Params, context?: HttpContext): Observable<DemandeDto> {
+    return this.update5$Response(params, context).pipe(
       map((r: StrictHttpResponse<DemandeDto>): DemandeDto => r.body)
     );
   }
 
-  /** Path part for operation `delete4()` */
-  static readonly Delete4Path = '/demande/{id}';
+  /** Path part for operation `delete5()` */
+  static readonly Delete5Path = '/demande/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `delete4()` instead.
+   * To access only the response body, use `delete5()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete4$Response(params: Delete4$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return delete4(this.http, this.rootUrl, params, context);
+  delete5$Response(params: Delete5$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return delete5(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `delete4$Response()` instead.
+   * To access the full response (for headers, for example), `delete5$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete4(params: Delete4$Params, context?: HttpContext): Observable<string> {
-    return this.delete4$Response(params, context).pipe(
+  delete5(params: Delete5$Params, context?: HttpContext): Observable<string> {
+    return this.delete5$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
-  /** Path part for operation `add4()` */
-  static readonly Add4Path = '/demande';
+  /** Path part for operation `add5()` */
+  static readonly Add5Path = '/demande';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `add4()` instead.
+   * To access only the response body, use `add5()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add4$Response(params: Add4$Params, context?: HttpContext): Observable<StrictHttpResponse<DemandeDto>> {
-    return add4(this.http, this.rootUrl, params, context);
+  add5$Response(params: Add5$Params, context?: HttpContext): Observable<StrictHttpResponse<DemandeDto>> {
+    return add5(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `add4$Response()` instead.
+   * To access the full response (for headers, for example), `add5$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add4(params: Add4$Params, context?: HttpContext): Observable<DemandeDto> {
-    return this.add4$Response(params, context).pipe(
+  add5(params: Add5$Params, context?: HttpContext): Observable<DemandeDto> {
+    return this.add5$Response(params, context).pipe(
       map((r: StrictHttpResponse<DemandeDto>): DemandeDto => r.body)
     );
   }
 
-  /** Path part for operation `findAll4()` */
-  static readonly FindAll4Path = '/demande/all';
+  /** Path part for operation `setStatut1()` */
+  static readonly SetStatut1Path = '/demande/statut/{demandeId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAll4()` instead.
+   * To access only the response body, use `setStatut1()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
-  findAll4$Response(params?: FindAll4$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<DemandeDto>>> {
-    return findAll4(this.http, this.rootUrl, params, context);
+  setStatut1$Response(params: SetStatut1$Params, context?: HttpContext): Observable<StrictHttpResponse<DemandeDto>> {
+    return setStatut1(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAll4$Response()` instead.
+   * To access the full response (for headers, for example), `setStatut1$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  setStatut1(params: SetStatut1$Params, context?: HttpContext): Observable<DemandeDto> {
+    return this.setStatut1$Response(params, context).pipe(
+      map((r: StrictHttpResponse<DemandeDto>): DemandeDto => r.body)
+    );
+  }
+
+  /** Path part for operation `getDemandeByStatut()` */
+  static readonly GetDemandeByStatutPath = '/demande/statut/{statut}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getDemandeByStatut()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll4(params?: FindAll4$Params, context?: HttpContext): Observable<Array<DemandeDto>> {
-    return this.findAll4$Response(params, context).pipe(
+  getDemandeByStatut$Response(params: GetDemandeByStatut$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Demande>>> {
+    return getDemandeByStatut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getDemandeByStatut$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getDemandeByStatut(params: GetDemandeByStatut$Params, context?: HttpContext): Observable<Array<Demande>> {
+    return this.getDemandeByStatut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Demande>>): Array<Demande> => r.body)
+    );
+  }
+
+  /** Path part for operation `findAll5()` */
+  static readonly FindAll5Path = '/demande/all';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAll5()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAll5$Response(params?: FindAll5$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<DemandeDto>>> {
+    return findAll5(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAll5$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAll5(params?: FindAll5$Params, context?: HttpContext): Observable<Array<DemandeDto>> {
+    return this.findAll5$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<DemandeDto>>): Array<DemandeDto> => r.body)
     );
   }
@@ -182,27 +236,27 @@ export class DemandeService extends BaseService {
     );
   }
 
-  /** Path part for operation `getDemandeById()` */
-  static readonly GetDemandeByIdPath = '/demande/Departement/{departementId}';
+  /** Path part for operation `getDemandeBydepartementId()` */
+  static readonly GetDemandeBydepartementIdPath = '/demande/Departement/{departementId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getDemandeById()` instead.
+   * To access only the response body, use `getDemandeBydepartementId()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getDemandeById$Response(params: GetDemandeById$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Demande>>> {
-    return getDemandeById(this.http, this.rootUrl, params, context);
+  getDemandeBydepartementId$Response(params: GetDemandeBydepartementId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Demande>>> {
+    return getDemandeBydepartementId(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getDemandeById$Response()` instead.
+   * To access the full response (for headers, for example), `getDemandeBydepartementId$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getDemandeById(params: GetDemandeById$Params, context?: HttpContext): Observable<Array<Demande>> {
-    return this.getDemandeById$Response(params, context).pipe(
+  getDemandeBydepartementId(params: GetDemandeBydepartementId$Params, context?: HttpContext): Observable<Array<Demande>> {
+    return this.getDemandeBydepartementId$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Demande>>): Array<Demande> => r.body)
     );
   }

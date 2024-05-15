@@ -10,16 +10,16 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { AcompteDto } from '../models/acompte-dto';
-import { add5 } from '../fn/acompte/add-5';
-import { Add5$Params } from '../fn/acompte/add-5';
-import { delete5 } from '../fn/acompte/delete-5';
-import { Delete5$Params } from '../fn/acompte/delete-5';
-import { findAll5 } from '../fn/acompte/find-all-5';
-import { FindAll5$Params } from '../fn/acompte/find-all-5';
-import { findById5 } from '../fn/acompte/find-by-id-5';
-import { FindById5$Params } from '../fn/acompte/find-by-id-5';
-import { update5 } from '../fn/acompte/update-5';
-import { Update5$Params } from '../fn/acompte/update-5';
+import { add6 } from '../fn/acompte/add-6';
+import { Add6$Params } from '../fn/acompte/add-6';
+import { delete6 } from '../fn/acompte/delete-6';
+import { Delete6$Params } from '../fn/acompte/delete-6';
+import { findAll6 } from '../fn/acompte/find-all-6';
+import { FindAll6$Params } from '../fn/acompte/find-all-6';
+import { findById6 } from '../fn/acompte/find-by-id-6';
+import { FindById6$Params } from '../fn/acompte/find-by-id-6';
+import { update6 } from '../fn/acompte/update-6';
+import { Update6$Params } from '../fn/acompte/update-6';
 
 @Injectable({ providedIn: 'root' })
 export class AcompteService extends BaseService {
@@ -27,127 +27,127 @@ export class AcompteService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `findById5()` */
-  static readonly FindById5Path = '/acompte/{id}';
+  /** Path part for operation `findById6()` */
+  static readonly FindById6Path = '/acompte/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findById5()` instead.
+   * To access only the response body, use `findById6()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById5$Response(params: FindById5$Params, context?: HttpContext): Observable<StrictHttpResponse<AcompteDto>> {
-    return findById5(this.http, this.rootUrl, params, context);
+  findById6$Response(params: FindById6$Params, context?: HttpContext): Observable<StrictHttpResponse<AcompteDto>> {
+    return findById6(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findById5$Response()` instead.
+   * To access the full response (for headers, for example), `findById6$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById5(params: FindById5$Params, context?: HttpContext): Observable<AcompteDto> {
-    return this.findById5$Response(params, context).pipe(
+  findById6(params: FindById6$Params, context?: HttpContext): Observable<AcompteDto> {
+    return this.findById6$Response(params, context).pipe(
       map((r: StrictHttpResponse<AcompteDto>): AcompteDto => r.body)
     );
   }
 
-  /** Path part for operation `update5()` */
-  static readonly Update5Path = '/acompte/{id}';
+  /** Path part for operation `update6()` */
+  static readonly Update6Path = '/acompte/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `update5()` instead.
+   * To access only the response body, use `update6()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update5$Response(params: Update5$Params, context?: HttpContext): Observable<StrictHttpResponse<AcompteDto>> {
-    return update5(this.http, this.rootUrl, params, context);
+  update6$Response(params: Update6$Params, context?: HttpContext): Observable<StrictHttpResponse<AcompteDto>> {
+    return update6(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `update5$Response()` instead.
+   * To access the full response (for headers, for example), `update6$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update5(params: Update5$Params, context?: HttpContext): Observable<AcompteDto> {
-    return this.update5$Response(params, context).pipe(
+  update6(params: Update6$Params, context?: HttpContext): Observable<AcompteDto> {
+    return this.update6$Response(params, context).pipe(
       map((r: StrictHttpResponse<AcompteDto>): AcompteDto => r.body)
     );
   }
 
-  /** Path part for operation `delete5()` */
-  static readonly Delete5Path = '/acompte/{id}';
+  /** Path part for operation `delete6()` */
+  static readonly Delete6Path = '/acompte/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `delete5()` instead.
+   * To access only the response body, use `delete6()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete5$Response(params: Delete5$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return delete5(this.http, this.rootUrl, params, context);
+  delete6$Response(params: Delete6$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return delete6(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `delete5$Response()` instead.
+   * To access the full response (for headers, for example), `delete6$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete5(params: Delete5$Params, context?: HttpContext): Observable<string> {
-    return this.delete5$Response(params, context).pipe(
+  delete6(params: Delete6$Params, context?: HttpContext): Observable<string> {
+    return this.delete6$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
-  /** Path part for operation `add5()` */
-  static readonly Add5Path = '/acompte';
+  /** Path part for operation `add6()` */
+  static readonly Add6Path = '/acompte';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `add5()` instead.
+   * To access only the response body, use `add6()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add5$Response(params: Add5$Params, context?: HttpContext): Observable<StrictHttpResponse<AcompteDto>> {
-    return add5(this.http, this.rootUrl, params, context);
+  add6$Response(params: Add6$Params, context?: HttpContext): Observable<StrictHttpResponse<AcompteDto>> {
+    return add6(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `add5$Response()` instead.
+   * To access the full response (for headers, for example), `add6$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add5(params: Add5$Params, context?: HttpContext): Observable<AcompteDto> {
-    return this.add5$Response(params, context).pipe(
+  add6(params: Add6$Params, context?: HttpContext): Observable<AcompteDto> {
+    return this.add6$Response(params, context).pipe(
       map((r: StrictHttpResponse<AcompteDto>): AcompteDto => r.body)
     );
   }
 
-  /** Path part for operation `findAll5()` */
-  static readonly FindAll5Path = '/acompte/all';
+  /** Path part for operation `findAll6()` */
+  static readonly FindAll6Path = '/acompte/all';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAll5()` instead.
+   * To access only the response body, use `findAll6()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll5$Response(params?: FindAll5$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AcompteDto>>> {
-    return findAll5(this.http, this.rootUrl, params, context);
+  findAll6$Response(params?: FindAll6$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AcompteDto>>> {
+    return findAll6(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAll5$Response()` instead.
+   * To access the full response (for headers, for example), `findAll6$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll5(params?: FindAll5$Params, context?: HttpContext): Observable<Array<AcompteDto>> {
-    return this.findAll5$Response(params, context).pipe(
+  findAll6(params?: FindAll6$Params, context?: HttpContext): Observable<Array<AcompteDto>> {
+    return this.findAll6$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<AcompteDto>>): Array<AcompteDto> => r.body)
     );
   }

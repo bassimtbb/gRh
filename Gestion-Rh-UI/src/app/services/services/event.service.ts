@@ -9,19 +9,19 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { add2 } from '../fn/event/add-2';
-import { Add2$Params } from '../fn/event/add-2';
+import { add3 } from '../fn/event/add-3';
+import { Add3$Params } from '../fn/event/add-3';
 import { addEmployeToEvent } from '../fn/event/add-employe-to-event';
 import { AddEmployeToEvent$Params } from '../fn/event/add-employe-to-event';
-import { delete2 } from '../fn/event/delete-2';
-import { Delete2$Params } from '../fn/event/delete-2';
+import { delete3 } from '../fn/event/delete-3';
+import { Delete3$Params } from '../fn/event/delete-3';
 import { EventDto } from '../models/event-dto';
-import { findAll2 } from '../fn/event/find-all-2';
-import { FindAll2$Params } from '../fn/event/find-all-2';
-import { findById2 } from '../fn/event/find-by-id-2';
-import { FindById2$Params } from '../fn/event/find-by-id-2';
-import { update2 } from '../fn/event/update-2';
-import { Update2$Params } from '../fn/event/update-2';
+import { findAll3 } from '../fn/event/find-all-3';
+import { FindAll3$Params } from '../fn/event/find-all-3';
+import { findById3 } from '../fn/event/find-by-id-3';
+import { FindById3$Params } from '../fn/event/find-by-id-3';
+import { update3 } from '../fn/event/update-3';
+import { Update3$Params } from '../fn/event/update-3';
 
 @Injectable({ providedIn: 'root' })
 export class EventService extends BaseService {
@@ -29,102 +29,102 @@ export class EventService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `findById2()` */
-  static readonly FindById2Path = '/event/{id}';
+  /** Path part for operation `findById3()` */
+  static readonly FindById3Path = '/event/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findById2()` instead.
+   * To access only the response body, use `findById3()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById2$Response(params: FindById2$Params, context?: HttpContext): Observable<StrictHttpResponse<EventDto>> {
-    return findById2(this.http, this.rootUrl, params, context);
+  findById3$Response(params: FindById3$Params, context?: HttpContext): Observable<StrictHttpResponse<EventDto>> {
+    return findById3(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findById2$Response()` instead.
+   * To access the full response (for headers, for example), `findById3$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById2(params: FindById2$Params, context?: HttpContext): Observable<EventDto> {
-    return this.findById2$Response(params, context).pipe(
+  findById3(params: FindById3$Params, context?: HttpContext): Observable<EventDto> {
+    return this.findById3$Response(params, context).pipe(
       map((r: StrictHttpResponse<EventDto>): EventDto => r.body)
     );
   }
 
-  /** Path part for operation `update2()` */
-  static readonly Update2Path = '/event/{id}';
+  /** Path part for operation `update3()` */
+  static readonly Update3Path = '/event/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `update2()` instead.
+   * To access only the response body, use `update3()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update2$Response(params: Update2$Params, context?: HttpContext): Observable<StrictHttpResponse<EventDto>> {
-    return update2(this.http, this.rootUrl, params, context);
+  update3$Response(params: Update3$Params, context?: HttpContext): Observable<StrictHttpResponse<EventDto>> {
+    return update3(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `update2$Response()` instead.
+   * To access the full response (for headers, for example), `update3$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update2(params: Update2$Params, context?: HttpContext): Observable<EventDto> {
-    return this.update2$Response(params, context).pipe(
+  update3(params: Update3$Params, context?: HttpContext): Observable<EventDto> {
+    return this.update3$Response(params, context).pipe(
       map((r: StrictHttpResponse<EventDto>): EventDto => r.body)
     );
   }
 
-  /** Path part for operation `delete2()` */
-  static readonly Delete2Path = '/event/{id}';
+  /** Path part for operation `delete3()` */
+  static readonly Delete3Path = '/event/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `delete2()` instead.
+   * To access only the response body, use `delete3()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete2$Response(params: Delete2$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return delete2(this.http, this.rootUrl, params, context);
+  delete3$Response(params: Delete3$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return delete3(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `delete2$Response()` instead.
+   * To access the full response (for headers, for example), `delete3$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete2(params: Delete2$Params, context?: HttpContext): Observable<string> {
-    return this.delete2$Response(params, context).pipe(
+  delete3(params: Delete3$Params, context?: HttpContext): Observable<string> {
+    return this.delete3$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
-  /** Path part for operation `add2()` */
-  static readonly Add2Path = '/event';
+  /** Path part for operation `add3()` */
+  static readonly Add3Path = '/event';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `add2()` instead.
+   * To access only the response body, use `add3()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add2$Response(params: Add2$Params, context?: HttpContext): Observable<StrictHttpResponse<EventDto>> {
-    return add2(this.http, this.rootUrl, params, context);
+  add3$Response(params: Add3$Params, context?: HttpContext): Observable<StrictHttpResponse<EventDto>> {
+    return add3(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `add2$Response()` instead.
+   * To access the full response (for headers, for example), `add3$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add2(params: Add2$Params, context?: HttpContext): Observable<EventDto> {
-    return this.add2$Response(params, context).pipe(
+  add3(params: Add3$Params, context?: HttpContext): Observable<EventDto> {
+    return this.add3$Response(params, context).pipe(
       map((r: StrictHttpResponse<EventDto>): EventDto => r.body)
     );
   }
@@ -154,27 +154,27 @@ export class EventService extends BaseService {
     );
   }
 
-  /** Path part for operation `findAll2()` */
-  static readonly FindAll2Path = '/event/all';
+  /** Path part for operation `findAll3()` */
+  static readonly FindAll3Path = '/event/all';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAll2()` instead.
+   * To access only the response body, use `findAll3()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll2$Response(params?: FindAll2$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<EventDto>>> {
-    return findAll2(this.http, this.rootUrl, params, context);
+  findAll3$Response(params?: FindAll3$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<EventDto>>> {
+    return findAll3(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAll2$Response()` instead.
+   * To access the full response (for headers, for example), `findAll3$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll2(params?: FindAll2$Params, context?: HttpContext): Observable<Array<EventDto>> {
-    return this.findAll2$Response(params, context).pipe(
+  findAll3(params?: FindAll3$Params, context?: HttpContext): Observable<Array<EventDto>> {
+    return this.findAll3$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<EventDto>>): Array<EventDto> => r.body)
     );
   }

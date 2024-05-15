@@ -21,9 +21,9 @@ public class DepartementDto extends GenericDto {
     @Column(nullable = false, unique = true)
     private String name;
 
-    private User manager;
+    private UserDto manager;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<User> ListEmploye = new ArrayList<>();
+    private List<UserDto> ListEmploye = new ArrayList<>();
 
 }

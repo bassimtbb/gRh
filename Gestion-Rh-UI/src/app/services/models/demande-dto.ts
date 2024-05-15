@@ -9,7 +9,7 @@ export interface DemandeDto {
   id?: number;
   lastModifiedBy?: string;
   lastModifiedDate?: string;
-  statut?: 'Validee' | 'En_attente' | 'Refus\xE9e' | 'Annuler';
+  statut?: 'En_attente_Sup_H' | 'Refusee_Sup_H' | 'En_attente_RRH' | 'Validee' | 'Refusee';
   type?: string;
   utilisateur?: User;
 }

@@ -117,7 +117,7 @@ export class HeaderComponent implements OnInit {
     console.log("rs:", userRole);
 
     if (userRole) {
-      this.departmentService.findAll3()
+      this.departmentService.findAll4()
         .subscribe(departments => {
           this.departments = departments;
 

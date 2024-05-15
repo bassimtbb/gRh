@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Departement, DepartementDto, User, UserDto } from '../../../../services/models';
 import { ActivatedRoute } from '@angular/router';
 import { DepartementService, UserService } from '../../../../services/services';
@@ -8,14 +8,14 @@ import { DepartementService, UserService } from '../../../../services/services';
   templateUrl: './departement.component.html',
   styleUrl: './departement.component.scss'
 })
-export class DepartementComponent {
+export class DepartementComponent  implements OnInit  {
   employes:UserDto[]=[];
   alert: string = "d-none";
   Msg:String="";
   departement:DepartementDto={};
-  employeAux!:UserDto;
+  // employeAux!:UserDto;
   manager:User={};
-  ListeEmpl:User[] =[];
+  ListeEmpl:UserDto[] =[];
   ListeEmplAux:User[] =[];
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +36,7 @@ export class DepartementComponent {
         try {
           const departmentId = parseInt(id, 10); 
           console.log(departmentId);
-          this.departmentService.findById3({ id: departmentId as number})
+          this.departmentService.findById4({ id: departmentId as number})
             .subscribe(data => {
               this.departement = data;
               this.manager=data.manager!;
@@ -61,18 +61,18 @@ export class DepartementComponent {
   }
   
   AddEmployeToDepart(employe : UserDto) {
-
-   
     this.departmentService.addEmployeToDepartement({id :this.departement.id as number ,body:employe.id as number})
     .subscribe(departement =>{
+
+      this.ngOnInit();
       this.alert = "alert alert-success";
-      this.Msg = `Employé(e) ${employe.firstname} ${employe.lastname}a été ajouté(e) avec succès au département ${departement.name} `; 
+      this.Msg = `Employé(e) ${employe.firstname} ${employe.lastname} a été ajouté(e) avec succès au département ${departement.name} `; 
       setTimeout(() => {
       this.alert = 'd-none';
     }, 5000)}
   )
 
-    this.ngOnInit();
+    
   }
 
 
@@ -80,32 +80,55 @@ export class DepartementComponent {
 
   remouveEmployefromDepart( employe : UserDto){
 console.log("remouve :" ,employe);
-
     this.departmentService.deleteEmpl({id :employe.departement!.id as number ,body:employe.id as number})
     .subscribe(departement =>{
+      this.ngOnInit();
+
       this.alert = "alert alert-success";
-      this.Msg = `Employé(e) ${employe.firstname} ${employe.lastname} a été suprrimé avec succès du département ${departement.name}`; 
+      this.Msg = `Employé(e) ${employe.firstname} ${employe.lastname} a été ajouté(e) avec succès au département ${departement.name} `; 
       setTimeout(() => {
       this.alert = 'd-none';
     }, 5000)}
     )
 
-this.ngOnInit();
   }
 
 
 
 
   isInTheDepartment(employe : UserDto){
-    for (const empl of employe.departement?.listEmploye! ) {
+  
+    for (const empl of this.ListeEmpl ) {
       if (empl.id === employe.id) {
         return true;
       }
-    } 
+    }
     return false;
   }
-SetSupH() {
-throw new Error('Method not implemented.');
-}
+
+  SetSupH(employe : UserDto) {
+    console.log("remouve :" ,employe);
+    this.departmentService.setSup({id :employe.departement!.id as number ,body:employe.id as number})
+    .subscribe(departement =>{
+      this.ngOnInit();
+      this.alert = "alert alert-success";
+      this.Msg = `Le Supérieur hiérarchique ${employe.firstname} ${employe.lastname} a été affecté avec succès au département ${departement.name}`; 
+      setTimeout(() => {
+      this.alert = 'd-none';
+    }, 5000)}
+    )
+  }
+  remouveSupH(employe : UserDto) {
+    console.log("remouve :" ,employe);
+    this.departmentService.deleteSupH({id :employe.departement!.id as number ,body:employe.id as number})
+    .subscribe(departement =>{
+      this.ngOnInit();
+      this.alert = "alert alert-success";
+      this.Msg = `Le Supérieur hiérarchique ${employe.firstname} ${employe.lastname} a été révoqué avec succès du département ${departement.name}`; 
+      setTimeout(() => {
+      this.alert = 'd-none';
+    }, 5000)}
+    )
+  }
 
 }

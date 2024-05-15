@@ -130,12 +130,111 @@
     }
     }
     },
+    "/notification/{id}": {
+    "get": {
+    "tags": [
+    "Notification"
+    ],
+    "operationId": "findById_1",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/NotificationDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "put": {
+    "tags": [
+    "Notification"
+    ],
+    "operationId": "update_1",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/NotificationDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successfully updated entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/NotificationDto"
+    }
+    }
+    }
+    }
+    }
+    },
+    "delete": {
+    "tags": [
+    "Notification"
+    ],
+    "operationId": "delete_1",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "Successfully delete entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
     "/formation/{id}": {
     "get": {
     "tags": [
     "Formation"
     ],
-    "operationId": "findById_1",
+    "operationId": "findById_2",
     "parameters": [
     {
     "name": "id",
@@ -164,7 +263,7 @@
     "tags": [
     "Formation"
     ],
-    "operationId": "update_1",
+    "operationId": "update_2",
     "parameters": [
     {
     "name": "id",
@@ -203,7 +302,7 @@
     "tags": [
     "Formation"
     ],
-    "operationId": "delete_1",
+    "operationId": "delete_2",
     "parameters": [
     {
     "name": "id",
@@ -234,7 +333,7 @@
     "tags": [
     "Event"
     ],
-    "operationId": "findById_2",
+    "operationId": "findById_3",
     "parameters": [
     {
     "name": "id",
@@ -263,7 +362,7 @@
     "tags": [
     "Event"
     ],
-    "operationId": "update_2",
+    "operationId": "update_3",
     "parameters": [
     {
     "name": "id",
@@ -302,7 +401,7 @@
     "tags": [
     "Event"
     ],
-    "operationId": "delete_2",
+    "operationId": "delete_3",
     "parameters": [
     {
     "name": "id",
@@ -333,7 +432,7 @@
     "tags": [
     "Departement"
     ],
-    "operationId": "findById_3",
+    "operationId": "findById_4",
     "parameters": [
     {
     "name": "id",
@@ -362,7 +461,7 @@
     "tags": [
     "Departement"
     ],
-    "operationId": "update_3",
+    "operationId": "update_4",
     "parameters": [
     {
     "name": "id",
@@ -401,7 +500,7 @@
     "tags": [
     "Departement"
     ],
-    "operationId": "delete_3",
+    "operationId": "delete_4",
     "parameters": [
     {
     "name": "id",
@@ -432,7 +531,7 @@
     "tags": [
     "Demande"
     ],
-    "operationId": "findById_4",
+    "operationId": "findById_5",
     "parameters": [
     {
     "name": "id",
@@ -461,7 +560,7 @@
     "tags": [
     "Demande"
     ],
-    "operationId": "update_4",
+    "operationId": "update_5",
     "parameters": [
     {
     "name": "id",
@@ -500,7 +599,7 @@
     "tags": [
     "Demande"
     ],
-    "operationId": "delete_4",
+    "operationId": "delete_5",
     "parameters": [
     {
     "name": "id",
@@ -531,7 +630,7 @@
     "tags": [
     "Acompte"
     ],
-    "operationId": "findById_5",
+    "operationId": "findById_6",
     "parameters": [
     {
     "name": "id",
@@ -560,7 +659,7 @@
     "tags": [
     "Acompte"
     ],
-    "operationId": "update_5",
+    "operationId": "update_6",
     "parameters": [
     {
     "name": "id",
@@ -599,7 +698,7 @@
     "tags": [
     "Acompte"
     ],
-    "operationId": "delete_5",
+    "operationId": "delete_6",
     "parameters": [
     {
     "name": "id",
@@ -630,7 +729,7 @@
     "tags": [
     "AutorisationTravailSup"
     ],
-    "operationId": "findById_6",
+    "operationId": "findById_7",
     "parameters": [
     {
     "name": "id",
@@ -659,7 +758,7 @@
     "tags": [
     "AutorisationTravailSup"
     ],
-    "operationId": "update_6",
+    "operationId": "update_7",
     "parameters": [
     {
     "name": "id",
@@ -698,7 +797,7 @@
     "tags": [
     "AutorisationTravailSup"
     ],
-    "operationId": "delete_6",
+    "operationId": "delete_7",
     "parameters": [
     {
     "name": "id",
@@ -729,7 +828,7 @@
     "tags": [
     "AutorisationTeletravail"
     ],
-    "operationId": "findById_7",
+    "operationId": "findById_8",
     "parameters": [
     {
     "name": "id",
@@ -758,7 +857,7 @@
     "tags": [
     "AutorisationTeletravail"
     ],
-    "operationId": "update_7",
+    "operationId": "update_8",
     "parameters": [
     {
     "name": "id",
@@ -797,7 +896,7 @@
     "tags": [
     "AutorisationTeletravail"
     ],
-    "operationId": "delete_7",
+    "operationId": "delete_8",
     "parameters": [
     {
     "name": "id",
@@ -828,7 +927,7 @@
     "tags": [
     "Pret"
     ],
-    "operationId": "findById_8",
+    "operationId": "findById_9",
     "parameters": [
     {
     "name": "id",
@@ -857,7 +956,7 @@
     "tags": [
     "Pret"
     ],
-    "operationId": "update_8",
+    "operationId": "update_9",
     "parameters": [
     {
     "name": "id",
@@ -896,7 +995,7 @@
     "tags": [
     "Pret"
     ],
-    "operationId": "delete_8",
+    "operationId": "delete_9",
     "parameters": [
     {
     "name": "id",
@@ -927,7 +1026,7 @@
     "tags": [
     "Conge"
     ],
-    "operationId": "findById_9",
+    "operationId": "findById_10",
     "parameters": [
     {
     "name": "id",
@@ -956,7 +1055,7 @@
     "tags": [
     "Conge"
     ],
-    "operationId": "update_9",
+    "operationId": "update_10",
     "parameters": [
     {
     "name": "id",
@@ -995,7 +1094,7 @@
     "tags": [
     "Conge"
     ],
-    "operationId": "delete_9",
+    "operationId": "delete_10",
     "parameters": [
     {
     "name": "id",
@@ -1026,7 +1125,7 @@
     "tags": [
     "ChangementHoraire"
     ],
-    "operationId": "findById_10",
+    "operationId": "findById_11",
     "parameters": [
     {
     "name": "id",
@@ -1055,7 +1154,7 @@
     "tags": [
     "ChangementHoraire"
     ],
-    "operationId": "update_10",
+    "operationId": "update_11",
     "parameters": [
     {
     "name": "id",
@@ -1094,7 +1193,7 @@
     "tags": [
     "ChangementHoraire"
     ],
-    "operationId": "delete_10",
+    "operationId": "delete_11",
     "parameters": [
     {
     "name": "id",
@@ -1125,7 +1224,7 @@
     "tags": [
     "AutorisationSortie"
     ],
-    "operationId": "findById_11",
+    "operationId": "findById_12",
     "parameters": [
     {
     "name": "id",
@@ -1154,7 +1253,7 @@
     "tags": [
     "AutorisationSortie"
     ],
-    "operationId": "update_11",
+    "operationId": "update_12",
     "parameters": [
     {
     "name": "id",
@@ -1193,7 +1292,7 @@
     "tags": [
     "AutorisationSortie"
     ],
-    "operationId": "delete_11",
+    "operationId": "delete_12",
     "parameters": [
     {
     "name": "id",
@@ -1249,12 +1348,73 @@
     }
     }
     },
+    "/notification": {
+    "post": {
+    "tags": [
+    "Notification"
+    ],
+    "operationId": "add_1",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/NotificationDto"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "201": {
+    "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/NotificationDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/notification/statut/{notificationID}": {
+    "post": {
+    "tags": [
+    "Notification"
+    ],
+    "operationId": "SetStatut",
+    "parameters": [
+    {
+    "name": "notificationID",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/NotificationDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
     "/formation": {
     "post": {
     "tags": [
     "Formation"
     ],
-    "operationId": "add_1",
+    "operationId": "add_2",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1319,7 +1479,7 @@
     "tags": [
     "Event"
     ],
-    "operationId": "add_2",
+    "operationId": "add_3",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1384,7 +1544,7 @@
     "tags": [
     "Departement"
     ],
-    "operationId": "add_3",
+    "operationId": "add_4",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1402,6 +1562,48 @@
     "application/json": {
     "schema": {
     "$ref": "#/components/schemas/DepartementDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/department/removeSupH/{id}": {
+    "post": {
+    "tags": [
+    "Departement"
+    ],
+    "operationId": "deleteSupH",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/Departement"
     }
     }
     }
@@ -1540,7 +1742,7 @@
     "tags": [
     "Demande"
     ],
-    "operationId": "add_4",
+    "operationId": "add_5",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1554,6 +1756,47 @@
     "responses": {
     "201": {
     "description": "Successfully created entity",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/DemandeDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/demande/statut/{demandeId}": {
+    "post": {
+    "tags": [
+    "Demande"
+    ],
+    "operationId": "SetStatut_1",
+    "parameters": [
+    {
+    "name": "demandeId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "OK",
     "content": {
     "application/json": {
     "schema": {
@@ -1630,7 +1873,7 @@
     "tags": [
     "Acompte"
     ],
-    "operationId": "add_5",
+    "operationId": "add_6",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1660,7 +1903,7 @@
     "tags": [
     "AutorisationTravailSup"
     ],
-    "operationId": "add_6",
+    "operationId": "add_7",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1690,7 +1933,7 @@
     "tags": [
     "AutorisationTeletravail"
     ],
-    "operationId": "add_7",
+    "operationId": "add_8",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1720,7 +1963,7 @@
     "tags": [
     "Pret"
     ],
-    "operationId": "add_8",
+    "operationId": "add_9",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1750,7 +1993,7 @@
     "tags": [
     "Conge"
     ],
-    "operationId": "add_9",
+    "operationId": "add_10",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1780,7 +2023,7 @@
     "tags": [
     "ChangementHoraire"
     ],
-    "operationId": "add_10",
+    "operationId": "add_11",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1810,7 +2053,7 @@
     "tags": [
     "AutorisationSortie"
     ],
-    "operationId": "add_11",
+    "operationId": "add_12",
     "requestBody": {
     "content": {
     "application/json": {
@@ -1888,12 +2131,68 @@
     }
     }
     },
+    "/notification/statut": {
+    "get": {
+    "tags": [
+    "Notification"
+    ],
+    "operationId": "getNotificationByStatut",
+    "parameters": [
+    {
+    "name": "statut",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "boolean"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Notification"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/notification/all": {
+    "get": {
+    "tags": [
+    "Notification"
+    ],
+    "operationId": "findAll_1",
+    "responses": {
+    "200": {
+    "description": "Successfully retrieve list",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/NotificationDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
     "/formation/all": {
     "get": {
     "tags": [
     "Formation"
     ],
-    "operationId": "findAll_1",
+    "operationId": "findAll_2",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -1916,7 +2215,7 @@
     "tags": [
     "Event"
     ],
-    "operationId": "findAll_2",
+    "operationId": "findAll_3",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -1970,7 +2269,7 @@
     "tags": [
     "Departement"
     ],
-    "operationId": "findAll_3",
+    "operationId": "findAll_4",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -1988,12 +2287,52 @@
     }
     }
     },
+    "/demande/statut/{statut}": {
+    "get": {
+    "tags": [
+    "Demande"
+    ],
+    "operationId": "getDemandeByStatut",
+    "parameters": [
+    {
+    "name": "statut",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
+    "Validee",
+    "Refusee"
+    ]
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Demande"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
     "/demande/all": {
     "get": {
     "tags": [
     "Demande"
     ],
-    "operationId": "findAll_4",
+    "operationId": "findAll_5",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -2050,7 +2389,7 @@
     "tags": [
     "Demande"
     ],
-    "operationId": "getDemandeById",
+    "operationId": "getDemandeBydepartementId",
     "parameters": [
     {
     "name": "departementId",
@@ -2084,7 +2423,7 @@
     "tags": [
     "Acompte"
     ],
-    "operationId": "findAll_5",
+    "operationId": "findAll_6",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -2107,7 +2446,7 @@
     "tags": [
     "AutorisationTravailSup"
     ],
-    "operationId": "findAll_6",
+    "operationId": "findAll_7",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -2130,7 +2469,7 @@
     "tags": [
     "AutorisationTeletravail"
     ],
-    "operationId": "findAll_7",
+    "operationId": "findAll_8",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -2153,7 +2492,7 @@
     "tags": [
     "Pret"
     ],
-    "operationId": "findAll_8",
+    "operationId": "findAll_9",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -2176,7 +2515,7 @@
     "tags": [
     "Conge"
     ],
-    "operationId": "findAll_9",
+    "operationId": "findAll_10",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -2199,7 +2538,7 @@
     "tags": [
     "ChangementHoraire"
     ],
-    "operationId": "findAll_10",
+    "operationId": "findAll_11",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -2222,7 +2561,7 @@
     "tags": [
     "AutorisationSortie"
     ],
-    "operationId": "findAll_11",
+    "operationId": "findAll_12",
     "responses": {
     "200": {
     "description": "Successfully retrieve list",
@@ -2283,6 +2622,38 @@
     "type": "object",
     "properties": {
     "authority": {
+    "type": "string"
+    }
+    }
+    },
+    "Notification": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "name": {
+    "type": "string"
+    },
+    "date": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "boolean"
+    },
+    "type": {
     "type": "string"
     }
     }
@@ -2352,6 +2723,12 @@
     "type": "string",
     "format": "date-time"
     },
+    "notifications": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Notification"
+    }
+    },
     "name": {
     "type": "string"
     },
@@ -2368,14 +2745,14 @@
     "credentialsNonExpired": {
     "type": "boolean"
     },
-    "username": {
-    "type": "string"
-    },
     "authorities": {
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
+    },
+    "username": {
+    "type": "string"
     },
     "accountNonLocked": {
     "type": "boolean"
@@ -2432,6 +2809,12 @@
     "departement": {
     "$ref": "#/components/schemas/Departement"
     },
+    "notifications": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Notification"
+    }
+    },
     "cin": {
     "type": "string"
     },
@@ -2459,6 +2842,45 @@
     "format": "date-time"
     },
     "ejuridic": {
+    "type": "string"
+    }
+    }
+    },
+    "NotificationDto": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "lastModifiedDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "name": {
+    "type": "string"
+    },
+    "date": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "utilisateur": {
+    "$ref": "#/components/schemas/User"
+    },
+    "statut": {
+    "type": "boolean"
+    },
+    "type": {
     "type": "string"
     }
     }
@@ -2602,12 +3024,12 @@
     "type": "string"
     },
     "manager": {
-    "$ref": "#/components/schemas/User"
+    "$ref": "#/components/schemas/UserDto"
     },
     "listEmploye": {
     "type": "array",
     "items": {
-    "$ref": "#/components/schemas/User"
+    "$ref": "#/components/schemas/UserDto"
     }
     }
     }
@@ -2636,10 +3058,11 @@
     "statut": {
     "type": "string",
     "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
     "Validee",
-    "En_attente",
-    "Refusée",
-    "Annuler"
+    "Refusee"
     ]
     },
     "type": {
@@ -2677,10 +3100,11 @@
     "statut": {
     "type": "string",
     "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
     "Validee",
-    "En_attente",
-    "Refusée",
-    "Annuler"
+    "Refusee"
     ]
     },
     "type": {
@@ -2725,10 +3149,11 @@
     "statut": {
     "type": "string",
     "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
     "Validee",
-    "En_attente",
-    "Refusée",
-    "Annuler"
+    "Refusee"
     ]
     },
     "type": {
@@ -2789,10 +3214,11 @@
     "statut": {
     "type": "string",
     "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
     "Validee",
-    "En_attente",
-    "Refusée",
-    "Annuler"
+    "Refusee"
     ]
     },
     "type": {
@@ -2850,10 +3276,11 @@
     "statut": {
     "type": "string",
     "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
     "Validee",
-    "En_attente",
-    "Refusée",
-    "Annuler"
+    "Refusee"
     ]
     },
     "type": {
@@ -2904,10 +3331,11 @@
     "statut": {
     "type": "string",
     "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
     "Validee",
-    "En_attente",
-    "Refusée",
-    "Annuler"
+    "Refusee"
     ]
     },
     "type": {
@@ -2956,10 +3384,11 @@
     "statut": {
     "type": "string",
     "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
     "Validee",
-    "En_attente",
-    "Refusée",
-    "Annuler"
+    "Refusee"
     ]
     },
     "type": {
@@ -3024,10 +3453,11 @@
     "statut": {
     "type": "string",
     "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
     "Validee",
-    "En_attente",
-    "Refusée",
-    "Annuler"
+    "Refusee"
     ]
     },
     "type": {
@@ -3061,11 +3491,11 @@
     "isTemporaire": {
     "type": "boolean"
     },
-    "hretour": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     },
-    "hsortie": {
+    "hretour": {
     "type": "string",
     "format": "date-time"
     }
@@ -3174,14 +3604,14 @@
     "credentialsNonExpired": {
     "type": "boolean"
     },
-    "username": {
-    "type": "string"
-    },
     "authorities": {
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
+    },
+    "username": {
+    "type": "string"
     },
     "accountNonLocked": {
     "type": "boolean"
@@ -3208,15 +3638,12 @@
     "statut": {
     "type": "string",
     "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
     "Validee",
-    "En_attente",
-    "Refusée",
-    "Annuler"
+    "Refusee"
     ]
-    },
-    "isValidee": {
-    "type": "integer",
-    "format": "int32"
     },
     "type": {
     "type": "string"

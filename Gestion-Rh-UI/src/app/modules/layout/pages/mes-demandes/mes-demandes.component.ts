@@ -72,7 +72,7 @@ export class MesDemandesComponent  implements OnInit {
    switch (this.demandeSelected.type) {
     case "Conge":
     this.typeDSelect="Congé"
-    this.congeService.findById9({id : this.demandeSelected.id as number}).
+    this.congeService.findById10({id : this.demandeSelected.id as number}).
     subscribe(demande=>{
       this.modifConge=demande;
       console.log(demande);
@@ -107,7 +107,7 @@ export class MesDemandesComponent  implements OnInit {
         this.isEXCEPTIONNEL=true;
         break;                  
       case "Décès de mon père/ de ma mère/ de mon enfant":
-    this.motifC="motif5";
+    this.motifC="motif6";
     this.isEXCEPTIONNEL=true;
         break;
         default:
@@ -123,7 +123,7 @@ export class MesDemandesComponent  implements OnInit {
       break; 
     case "AutorisationSortie":
           this.typeDSelect="Autorisation de sortie"
-          this.autorisationSortieService.findById11({id : this.demandeSelected.id as number}).
+          this.autorisationSortieService.findById12({id : this.demandeSelected.id as number}).
           subscribe(demande=>{
             this.modifADS=demande;
             console.log(demande);
@@ -131,7 +131,7 @@ export class MesDemandesComponent  implements OnInit {
       break;
     case "AutorisationTeletravail":
           this.typeDSelect="Autorisation de télétravail"
-               this.autTeletravailService.findById7({id : this.demandeSelected.id as number}).
+               this.autTeletravailService.findById8({id : this.demandeSelected.id as number}).
           subscribe(demande=>{
             this.modifAutTeletravail=demande;
             console.log(demande);
@@ -139,7 +139,8 @@ export class MesDemandesComponent  implements OnInit {
           break;
     case "AutorisationTravailSup":
           this.typeDSelect="Autorisation de travail supplémentaire"
-          this.autTravailSuppService.findById6({id : this.demandeSelected.id as number}).
+          this.autTravailSuppService.findById7
+          ({id : this.demandeSelected.id as number}).
           subscribe(demande=>{
             this.modifAutTravailSupp=demande;
             console.log(demande);
@@ -147,15 +148,15 @@ export class MesDemandesComponent  implements OnInit {
           break;
     case "ChangementHoraire":
           this.typeDSelect="Changement Horaire de travail"
-          this.chHoraireService.findById10({id : this.demandeSelected.id as number}).
-          subscribe(demande=>{
+          this.chHoraireService.findById11({id : this.demandeSelected.id as number})
+          .subscribe(demande=>{
             this.modifChHoraire=demande;
             console.log(demande);
           })
           break;
     case "Acompte":
           this.typeDSelect="Acompte sur Salaire/prime"
-          this.acompteService.findById5({id : this.demandeSelected.id as number}).
+          this.acompteService.findById6({id : this.demandeSelected.id as number}).
           subscribe(demande=>{
             this.modifAcompte=demande;
             console.log(demande);
@@ -167,7 +168,7 @@ export class MesDemandesComponent  implements OnInit {
           break;
     case "Pret":
           this.typeDSelect="Prêt"
-          this.pretService.findById8({id : this.demandeSelected.id as number}).
+          this.pretService.findById9({id : this.demandeSelected.id as number}).
           subscribe(demande=>{
             this.modifPret=demande;
             console.log(demande);
@@ -199,11 +200,11 @@ export class MesDemandesComponent  implements OnInit {
           this.modifADS = {
             ...this.modifADS, 
             utilisateur: user,
-            statut: 'En_attente',
+            statut: 'En_attente_Sup_H',
             departement: user.departement
           };
     
-          this.autorisationSortieService.update11({ 
+          this.autorisationSortieService.update12({ 
             id: this.modifADS.id as number,
             body: this.modifADS as AutorisationSortieDto 
           })
@@ -228,8 +229,8 @@ export class MesDemandesComponent  implements OnInit {
         this.modifConge={
           ...this.modifConge,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
         console.log("this.motifC && this.isEXCEPTIONNEL" ,this.motifC && this.isEXCEPTIONNEL)
         console.log("this.motifC" ,this.motifC )
@@ -291,7 +292,7 @@ export class MesDemandesComponent  implements OnInit {
 
         console.log("this.modifConge",this.modifConge.motif)
         console.log("this.motifC",this.motifC)
-      this.congeService.update9({id:this.modifConge.id as number, body :this.modifConge as CongeDto})
+      this.congeService.update10({id:this.modifConge.id as number, body :this.modifConge as CongeDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
           this.alert ="alert alert-success" ;
@@ -310,10 +311,11 @@ export class MesDemandesComponent  implements OnInit {
         this.modifAutTeletravail={
           ...this.modifAutTeletravail,
           utilisateur:user,
-           statut:'En_attente',
-          departement:user.departement
+           statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
-      this.autTeletravailService.update7({id:this.modifAutTeletravail.id as number, body :this.modifAutTeletravail as AutorisationTeletravailDto})
+      this.autTeletravailService.update8
+      ({id:this.modifAutTeletravail.id as number, body :this.modifAutTeletravail as AutorisationTeletravailDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Autorisation de télétravail modifiée avec succès!"!`;
           this.alert ="alert alert-success" ;
@@ -332,10 +334,10 @@ export class MesDemandesComponent  implements OnInit {
         this.modifAutTravailSupp={
           ...this.modifAutTravailSupp,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
-      this.autTravailSuppService.update6({id:this.modifAutTravailSupp.id as number, body :this.modifAutTravailSupp as AutorisationTravailSupDto})
+      this.autTravailSuppService.update7({id:this.modifAutTravailSupp.id as number, body :this.modifAutTravailSupp as AutorisationTravailSupDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Autorisation de travail supplémentaire modifiée avec succès!"!`;
           this.alert ="alert alert-success" ;
@@ -354,10 +356,10 @@ export class MesDemandesComponent  implements OnInit {
         this.modifChHoraire={
           ...this.modifChHoraire,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
-      this.chHoraireService.update10({id:this.modifChHoraire.id as number, body :this.modifChHoraire as ChangementHoraireDto})
+      this.chHoraireService.update11({id:this.modifChHoraire.id as number, body :this.modifChHoraire as ChangementHoraireDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande de Changement Horaire de travail modifiée avec succès!"!`;
           this.alert ="alert alert-success" ;
@@ -376,8 +378,8 @@ export class MesDemandesComponent  implements OnInit {
         this.modifAcompte={
           ...this.modifAcompte,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
         if(this.acompteR=="non")
           this.modifAcompte={
@@ -386,7 +388,7 @@ export class MesDemandesComponent  implements OnInit {
           }
           
         console.log(this.modifAcompte)
-      this.acompteService.update5({id:this.modifAcompte.id as number, body :this.modifAcompte as AcompteDto})
+      this.acompteService.update6({id:this.modifAcompte.id as number, body :this.modifAcompte as AcompteDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Acompte sur Salaire/prime modifiée avec succès!"!`;
           this.alert ="alert alert-success" ;
@@ -407,8 +409,8 @@ export class MesDemandesComponent  implements OnInit {
         this.modifPret={
           ...this.modifPret,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
         console.log("credit :",this.credit);
         console.log("rembourser :",this.rembourser);
@@ -425,7 +427,7 @@ export class MesDemandesComponent  implements OnInit {
               credit:"Pas crédit bancaire en cours"
             }
           
-      this.pretService.update8({id:this.modifPret.id as number, body :this.modifPret as PretDto})
+      this.pretService.update9({id:this.modifPret.id as number, body :this.modifPret as PretDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande de Prêt modifiée avec succès!"!`;
           this.alert ="alert alert-success" ;
@@ -441,7 +443,7 @@ export class MesDemandesComponent  implements OnInit {
 
    deleteAutorSortie() {
    
-          this.autorisationSortieService.delete11({ 
+          this.autorisationSortieService.delete12({ 
             id: this.modifADS.id as number,
           })
             .subscribe(demande => {
@@ -460,7 +462,7 @@ export class MesDemandesComponent  implements OnInit {
     }
    deleteconge() {
 
-      this.congeService.delete9({id:this.modifConge.id as number })
+      this.congeService.delete10({id:this.modifConge.id as number })
       .subscribe ( demande => 
         {  this.Msg = `Demande de Congé est supprimée!`;
           this.alert ="alert alert-success" ;
@@ -477,7 +479,8 @@ export class MesDemandesComponent  implements OnInit {
 
    deleteautTeletravail() {
  
-      this.autTeletravailService.delete7({id:this.modifAutTeletravail.id as number})
+      this.autTeletravailService.delete8
+      ({id:this.modifAutTeletravail.id as number})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Autorisation de télétravail est supprimée!`;
           this.alert ="alert alert-success" ;
@@ -494,7 +497,7 @@ export class MesDemandesComponent  implements OnInit {
 
    deleteautTravailSupp() {
  
-      this.autTravailSuppService.delete6({id:this.modifAutTravailSupp.id as number})
+      this.autTravailSuppService.delete7({id:this.modifAutTravailSupp.id as number})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Autorisation de travail supplémentaire est supprimée!`;
           this.alert ="alert alert-success" ;
@@ -511,7 +514,7 @@ export class MesDemandesComponent  implements OnInit {
 
    deletechHoraire() {
 
-      this.chHoraireService.delete10({id:this.modifChHoraire.id as number})
+      this.chHoraireService.delete11({id:this.modifChHoraire.id as number})
       .subscribe ( demande => 
         {  this.Msg = `Demande de Changement Horaire de travail est supprimée!`;
           this.alert ="alert alert-success" ;
@@ -528,7 +531,7 @@ export class MesDemandesComponent  implements OnInit {
 
    deleteacompte() {
 
-      this.acompteService.delete5({id:this.modifAcompte.id as number})
+      this.acompteService.delete6({id:this.modifAcompte.id as number})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Acompte sur Salaire/prime est supprimée!`;
           this.alert ="alert alert-success" ;
@@ -547,7 +550,7 @@ export class MesDemandesComponent  implements OnInit {
    deletepret() {
     
          
-      this.pretService.delete8({id:this.modifPret.id as number})
+      this.pretService.delete9({id:this.modifPret.id as number})
       .subscribe ( demande => 
         {  this.Msg = `Demande de Prêt est supprimée!`;
           this.alert ="alert alert-success" ;
@@ -578,20 +581,23 @@ export class MesDemandesComponent  implements OnInit {
           isTemporaire:false} 
         }
      }
-   
-    getStatusClass(statut: any): string {
-     switch (statut) {
-      case 'Validee':
-       return 'valid bi-check-circle-fill';
-      case 'En_attente':
-       return 'pending bi-dash-circle-fill';
-      case 'Refusee':
-       return 'rejected bi-x-circle-fill';
-      default:
-       return '';
-     }
+     getStatusClass(statut: any): string {
+      switch (statut) {
+        case 'Validee':
+          return 'valid bi-check-circle-fill';
+        case 'En_attente_Sup_H':
+          return 'pending bi-dash-circle-fill';
+        case 'Refusee_Sup_H':
+          return 'rejected bi-x-circle-fill';
+          case 'En_attente_RRH':
+            return 'pending bi-dash-circle-fill';
+          case 'Refusee':
+            return 'rejected bi-x-circle-fill';
+          default:
+          return '';
+      }
     }
-
+    
      AddAutorSortie() {
       const Id = this.tokenService.Id;
       this.userService.findById({id: Id as number  })
@@ -599,10 +605,10 @@ export class MesDemandesComponent  implements OnInit {
         this.addADS={
           ...this.addADS,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
-      this.autorisationSortieService.add11({ body :this.addADS as AutorisationSortieDto})
+      this.autorisationSortieService.add12({ body :this.addADS as AutorisationSortieDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'AUTORISATION DE SORTIE est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
@@ -628,8 +634,8 @@ export class MesDemandesComponent  implements OnInit {
         this.conge={
           ...this.conge,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
         switch (this.motifC) {
           case "motif1":
@@ -670,7 +676,7 @@ export class MesDemandesComponent  implements OnInit {
               duree:3
             };
             break;                  
-          case "motif6":
+          case "motif7":
             this.conge = {
               ...this.conge,
               motif: "Décès de mon père/ de ma mère/ de mon enfant",
@@ -679,7 +685,7 @@ export class MesDemandesComponent  implements OnInit {
             break;
         }
         console.log(this.conge)
-      this.congeService.add9({ body :this.conge as CongeDto})
+      this.congeService.add10({ body :this.conge as CongeDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande de Congé est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
@@ -698,10 +704,11 @@ export class MesDemandesComponent  implements OnInit {
         this.autTeletravail={
           ...this.autTeletravail,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
-      this.autTeletravailService.add7({ body :this.autTeletravail as AutorisationTeletravailDto})
+      this.autTeletravailService.add8
+      ({ body :this.autTeletravail as AutorisationTeletravailDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Autorisation de télétravail est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
@@ -720,10 +727,10 @@ export class MesDemandesComponent  implements OnInit {
         this.autTravailSupp={
           ...this.autTravailSupp,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
-      this.autTravailSuppService.add6({ body :this.autTravailSupp as AutorisationTravailSupDto})
+      this.autTravailSuppService.add7({ body :this.autTravailSupp as AutorisationTravailSupDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Autorisation de travail supplémentaire est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
@@ -742,10 +749,10 @@ export class MesDemandesComponent  implements OnInit {
         this.chHoraire={
           ...this.chHoraire,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
-      this.chHoraireService.add10({ body :this.chHoraire as ChangementHoraireDto})
+      this.chHoraireService.add11({ body :this.chHoraire as ChangementHoraireDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande de Changement Horaire de travail est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
@@ -764,8 +771,8 @@ export class MesDemandesComponent  implements OnInit {
         this.acompte={
           ...this.acompte,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
         if(this.acompteR=="non")
           this.acompte={
@@ -774,7 +781,7 @@ export class MesDemandesComponent  implements OnInit {
           }
           
         console.log(this.acompte)
-      this.acompteService.add5({ body :this.acompte as AcompteDto})
+      this.acompteService.add6({ body :this.acompte as AcompteDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Acompte sur Salaire/prime est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
@@ -793,8 +800,8 @@ export class MesDemandesComponent  implements OnInit {
         this.pret={
           ...this.pret,
           utilisateur:user,
-          statut:'En_attente',
-          departement:user.departement
+          statut:'En_attente_Sup_H',
+          departement:{"id":user.departement?.id as number}
         }
         if(this.rembourser=="non")
           this.pret={
@@ -806,7 +813,7 @@ export class MesDemandesComponent  implements OnInit {
               ...this.pret,
               credit:"Pas crédit bancaire en cours"
             }
-      this.pretService.add8({ body :this.pret as PretDto})
+      this.pretService.add9({ body :this.pret as PretDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande de Prêt est ajouté avec succès!`;
           this.alert ="alert alert-success" ;

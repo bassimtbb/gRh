@@ -10,6 +10,8 @@ import { TokenService } from '../../../../services/token/token.service';
 })
 export class FormationComponent implements OnInit {
   private user!: User;
+  datePickerId = new Date().toISOString().split("T")[0];
+
   selectedFormation!: FormationDto ;
   formations:FormationDto[]=[];
   private img64 !:string;
@@ -63,7 +65,7 @@ export class FormationComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.formationService.findAll1() 
+    this.formationService.findAll2() 
     .subscribe(formation => {
       this.formations=formation;
         console.log(this.formations)   
@@ -87,17 +89,6 @@ export class FormationComponent implements OnInit {
 
 
 
-// formationClicked(formation: FormationDto) {
-//    // Check if listeEmpl exists before accessing it
-//    if (!formation.listEmploye) {
-//     console.error("'listeEmpl' is undefined. Formation data might be incomplete.");
-//     return; // Exit the function if listeEmpl is missing
-//   }
-//   this.listeEmpl = formation.listEmploye;
-//   this.selectedFormation = formation;
-//   this.ispostuler=this.isInList(this.listeEmpl, this.user)
-//   console.log(this.ispostuler);
-// }
 formationClicked(formation: FormationDto) {
   this.listeEmpl = formation.listEmploye ?? [];
   this.selectedFormation = formation;
@@ -141,6 +132,12 @@ postuler(formation: FormationDto) {
     if (validationErrors.length > 0) {
       this.alert = 'alert alert-danger';
       this.Msg = `Fromation non ajouté. Erreurs de validation : ${validationErrors.join(', ')}`;
+      setTimeout(() => {
+        this.alert = 'd-none';
+// Provide a more informative error message
+    }, 5000);
+      console.log("error");
+
       return;  // Exit the function if validation fails
     }
     console.log("this.formationAdd",this.formationAdd);
@@ -149,7 +146,7 @@ postuler(formation: FormationDto) {
       ...this.formationAdd,
     }
 
-    this.formationService.add1({body :this.formationAdd}) 
+    this.formationService.add2({body :this.formationAdd}) 
     .subscribe(formation => {
        console.log("formation",formation);
        this.ngOnInit();
@@ -171,15 +168,50 @@ postuler(formation: FormationDto) {
   // Optional validation function (replace with your specific validation logic)
   validateFormation(fromation: any): string[] {
     const errors = [];
+  
+    // Validate Title (already present)
     if (!fromation.titre) {
       errors.push('Le titre est obligatoire.');
+    } else if (fromation.titre.length < 3) {
+      errors.push('Le titre doit contenir au moins 3 caractères.');
     }
+  
+    // Validate Location (already present)
     if (!fromation.lieu) {
       errors.push('Le lieu est obligatoire.');
     }
-    if (!fromation.description) {
-      errors.push('Le description est obligatoire.');
+  
+    // Validate Dates
+    if (!fromation.dateD || !fromation.dateF) {
+      errors.push('Les dates de début et de fin sont obligatoires.');
+    } else if (new Date(fromation.dateD) >= new Date(fromation.dateF)) {
+      errors.push('La date de début doit être antérieure à la date de fin.');
     }
+  
+    // Validate Number of Places
+    if (!fromation.nbrPlace) {
+      errors.push('Le nombre de places est obligatoire.');
+    } else if (fromation.nbrPlace <= 0 || !Number.isInteger(fromation.nbrPlace)) {
+      errors.push('Le nombre de places doit être un entier positif.');
+    }
+  
+    // Validate Duration
+    if (!fromation.duree) {
+      errors.push('La durée est obligatoire.');
+    } else if (fromation.duree <= 0 || !Number.isInteger(fromation.duree)) {
+      errors.push('La durée doit être un entier positif.');
+    }
+  
+    // Validate Description (optional, you can add checks here)
+    if (!fromation.description) {
+      errors.push('Une description est obligatoire.');  // Uncomment if required
+    }
+  
+    // Validate Image (optional, you can add checks here based on file type/size)
+    // if (!fromation.img) {
+    //   errors.push('Une image est obligatoire.');  // Uncomment if required
+    // }
+  
     return errors;
   }
 

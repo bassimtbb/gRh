@@ -1,4 +1,5 @@
 export { UserService } from './services/user.service';
+export { NotificationService } from './services/notification.service';
 export { FormationService } from './services/formation.service';
 export { EventService } from './services/event.service';
 export { DepartementService } from './services/departement.service';

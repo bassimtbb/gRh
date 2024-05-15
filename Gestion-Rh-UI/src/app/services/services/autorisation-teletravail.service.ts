@@ -9,17 +9,17 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { add7 } from '../fn/autorisation-teletravail/add-7';
-import { Add7$Params } from '../fn/autorisation-teletravail/add-7';
+import { add8 } from '../fn/autorisation-teletravail/add-8';
+import { Add8$Params } from '../fn/autorisation-teletravail/add-8';
 import { AutorisationTeletravailDto } from '../models/autorisation-teletravail-dto';
-import { delete7 } from '../fn/autorisation-teletravail/delete-7';
-import { Delete7$Params } from '../fn/autorisation-teletravail/delete-7';
-import { findAll7 } from '../fn/autorisation-teletravail/find-all-7';
-import { FindAll7$Params } from '../fn/autorisation-teletravail/find-all-7';
-import { findById7 } from '../fn/autorisation-teletravail/find-by-id-7';
-import { FindById7$Params } from '../fn/autorisation-teletravail/find-by-id-7';
-import { update7 } from '../fn/autorisation-teletravail/update-7';
-import { Update7$Params } from '../fn/autorisation-teletravail/update-7';
+import { delete8 } from '../fn/autorisation-teletravail/delete-8';
+import { Delete8$Params } from '../fn/autorisation-teletravail/delete-8';
+import { findAll8 } from '../fn/autorisation-teletravail/find-all-8';
+import { FindAll8$Params } from '../fn/autorisation-teletravail/find-all-8';
+import { findById8 } from '../fn/autorisation-teletravail/find-by-id-8';
+import { FindById8$Params } from '../fn/autorisation-teletravail/find-by-id-8';
+import { update8 } from '../fn/autorisation-teletravail/update-8';
+import { Update8$Params } from '../fn/autorisation-teletravail/update-8';
 
 @Injectable({ providedIn: 'root' })
 export class AutorisationTeletravailService extends BaseService {
@@ -27,127 +27,127 @@ export class AutorisationTeletravailService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `findById7()` */
-  static readonly FindById7Path = '/Teletravail/{id}';
+  /** Path part for operation `findById8()` */
+  static readonly FindById8Path = '/Teletravail/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findById7()` instead.
+   * To access only the response body, use `findById8()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById7$Response(params: FindById7$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationTeletravailDto>> {
-    return findById7(this.http, this.rootUrl, params, context);
+  findById8$Response(params: FindById8$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationTeletravailDto>> {
+    return findById8(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findById7$Response()` instead.
+   * To access the full response (for headers, for example), `findById8$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById7(params: FindById7$Params, context?: HttpContext): Observable<AutorisationTeletravailDto> {
-    return this.findById7$Response(params, context).pipe(
+  findById8(params: FindById8$Params, context?: HttpContext): Observable<AutorisationTeletravailDto> {
+    return this.findById8$Response(params, context).pipe(
       map((r: StrictHttpResponse<AutorisationTeletravailDto>): AutorisationTeletravailDto => r.body)
     );
   }
 
-  /** Path part for operation `update7()` */
-  static readonly Update7Path = '/Teletravail/{id}';
+  /** Path part for operation `update8()` */
+  static readonly Update8Path = '/Teletravail/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `update7()` instead.
+   * To access only the response body, use `update8()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update7$Response(params: Update7$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationTeletravailDto>> {
-    return update7(this.http, this.rootUrl, params, context);
+  update8$Response(params: Update8$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationTeletravailDto>> {
+    return update8(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `update7$Response()` instead.
+   * To access the full response (for headers, for example), `update8$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  update7(params: Update7$Params, context?: HttpContext): Observable<AutorisationTeletravailDto> {
-    return this.update7$Response(params, context).pipe(
+  update8(params: Update8$Params, context?: HttpContext): Observable<AutorisationTeletravailDto> {
+    return this.update8$Response(params, context).pipe(
       map((r: StrictHttpResponse<AutorisationTeletravailDto>): AutorisationTeletravailDto => r.body)
     );
   }
 
-  /** Path part for operation `delete7()` */
-  static readonly Delete7Path = '/Teletravail/{id}';
+  /** Path part for operation `delete8()` */
+  static readonly Delete8Path = '/Teletravail/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `delete7()` instead.
+   * To access only the response body, use `delete8()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete7$Response(params: Delete7$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return delete7(this.http, this.rootUrl, params, context);
+  delete8$Response(params: Delete8$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return delete8(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `delete7$Response()` instead.
+   * To access the full response (for headers, for example), `delete8$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  delete7(params: Delete7$Params, context?: HttpContext): Observable<string> {
-    return this.delete7$Response(params, context).pipe(
+  delete8(params: Delete8$Params, context?: HttpContext): Observable<string> {
+    return this.delete8$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
-  /** Path part for operation `add7()` */
-  static readonly Add7Path = '/Teletravail';
+  /** Path part for operation `add8()` */
+  static readonly Add8Path = '/Teletravail';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `add7()` instead.
+   * To access only the response body, use `add8()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add7$Response(params: Add7$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationTeletravailDto>> {
-    return add7(this.http, this.rootUrl, params, context);
+  add8$Response(params: Add8$Params, context?: HttpContext): Observable<StrictHttpResponse<AutorisationTeletravailDto>> {
+    return add8(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `add7$Response()` instead.
+   * To access the full response (for headers, for example), `add8$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  add7(params: Add7$Params, context?: HttpContext): Observable<AutorisationTeletravailDto> {
-    return this.add7$Response(params, context).pipe(
+  add8(params: Add8$Params, context?: HttpContext): Observable<AutorisationTeletravailDto> {
+    return this.add8$Response(params, context).pipe(
       map((r: StrictHttpResponse<AutorisationTeletravailDto>): AutorisationTeletravailDto => r.body)
     );
   }
 
-  /** Path part for operation `findAll7()` */
-  static readonly FindAll7Path = '/Teletravail/all';
+  /** Path part for operation `findAll8()` */
+  static readonly FindAll8Path = '/Teletravail/all';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAll7()` instead.
+   * To access only the response body, use `findAll8()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll7$Response(params?: FindAll7$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AutorisationTeletravailDto>>> {
-    return findAll7(this.http, this.rootUrl, params, context);
+  findAll8$Response(params?: FindAll8$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AutorisationTeletravailDto>>> {
+    return findAll8(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAll7$Response()` instead.
+   * To access the full response (for headers, for example), `findAll8$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll7(params?: FindAll7$Params, context?: HttpContext): Observable<Array<AutorisationTeletravailDto>> {
-    return this.findAll7$Response(params, context).pipe(
+  findAll8(params?: FindAll8$Params, context?: HttpContext): Observable<Array<AutorisationTeletravailDto>> {
+    return this.findAll8$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<AutorisationTeletravailDto>>): Array<AutorisationTeletravailDto> => r.body)
     );
   }

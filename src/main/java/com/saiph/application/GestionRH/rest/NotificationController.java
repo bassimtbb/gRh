@@ -1,17 +1,13 @@
 package com.saiph.application.GestionRH.rest;
 
-import com.saiph.application.GestionRH.Domain.dto.DemandeDto;
-import com.saiph.application.GestionRH.Domain.entities.Demande;
-import com.saiph.application.GestionRH.Domain.entities.Departement;
-import com.saiph.application.GestionRH.Enum.Statut;
+import com.saiph.application.GestionRH.Domain.dto.NotificationDto;
+import com.saiph.application.GestionRH.Domain.entities.Notification;
 import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
-import com.saiph.application.GestionRH.services.DemandeCrudService;
-import com.saiph.application.GestionRH.services.DepartementCrudService;
 import com.saiph.application.GestionRH.services.GenericCrudService;
+import com.saiph.application.GestionRH.services.NotificationCrudService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,64 +15,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/demande")
+@RequestMapping("/notification")
 @RequiredArgsConstructor
-@Tag(name = "Demande")
-public class DemandeController extends GenericCrudController<Demande, DemandeDto> {
+@Tag(name = "Notification")
+public class NotificationController extends GenericCrudController<Notification, NotificationDto> {
 
-    private final DemandeCrudService demandeCrudService;
-    private final DepartementCrudService departementCrudService;
+    private final NotificationCrudService notificationCrudService;
 
-
-    @GetMapping("/Utilisateur/{userId}")
-    public ResponseEntity<List<Demande>> getDemandeByUtilisateurId(
-            @PathVariable("userId") Long userId) {
-        List<Demande> demande = demandeCrudService.getDemandeByUtilisateurId(userId);
-        if (demande == null || demande.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(demande);
-    }
-
-    @GetMapping("/Departement/{departementId}")
-    public ResponseEntity<List<Demande>> getDemandeBydepartementId(
-            @PathVariable("departementId") Long departementId) {
-        List<Demande> demande = demandeCrudService.getDemandeByDepartementId(departementId);
-        if (demande == null || demande.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(demande);
-    }
-
-//        @PostMapping("/preValid")
-//    public ResponseEntity<List<Demande>> getDemandeValidBySup(
-//            @Valid @RequestBody Boolean PreValid) {
-//        List<Demande> demande = demandeCrudService.findByIsPreValidated(PreValid);
-//        if (demande == null || demande.isEmpty()) {
-//            return ResponseEntity.noContent().build();
-//        }
-//        return ResponseEntity.ok(demande);
-//    }
-            @GetMapping("/statut/{statut}")
-    public ResponseEntity<List<Demande>> getDemandeByStatut(
-            @PathVariable("statut") Statut statut) {
-        List<Demande> demande = demandeCrudService.getDemandeByStatut(statut);
-        if (demande == null || demande.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(demande);
-    }
-    @PostMapping("/statut/{demandeId}")
-    public DemandeDto SetStatut(
-            @PathVariable("demandeId") Long demandeId ,@Valid @RequestBody String statut
+    @PostMapping("/statut/{notificationID}")
+    public NotificationDto SetStatut(
+              @PathVariable("notificationID") Long notificationID
     ) throws ResourceNotFoundException {
-        DemandeDto demande = demandeCrudService.SetStatut(demandeId,statut);
+        NotificationDto demande = notificationCrudService.SetStatut(notificationID);
         return demande;
+    }
+    @GetMapping("/statut")
+    public ResponseEntity<List<Notification>> getNotificationByStatut(
+            @Valid @RequestBody  Boolean statut) {
+        List<Notification> notification = notificationCrudService.getNotificationByStatut(statut);
+        if (notification == null || notification.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(notification);
     }
 
 
     @Override
-    protected GenericCrudService<Demande, DemandeDto> getCrudService() {
-        return demandeCrudService;
+    protected GenericCrudService<Notification, NotificationDto> getCrudService() {
+        return notificationCrudService;
     }
 }

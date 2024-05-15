@@ -39,16 +39,23 @@ public class DepartementController extends GenericCrudController<Departement, De
     @PostMapping("/removeEmpl/{id}")
     public Departement deleteEmpl(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
         return departementCrudService.deleteEmpl(IdDepartement,IdUser);
+    }
+
+        @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
+    @PostMapping("/removeSupH/{id}")
+    public Departement deleteSupH(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
+        return departementCrudService.removeSupH(IdDepartement,IdUser);
 
 
     }
-
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     @GetMapping ("/findByIdE/{id}")
     public Departement findByIdEn(@PathVariable("id") Long IdDepartement) {
         return departementCrudService.findByIdEn(IdDepartement) ;
 
     }
+
+
     @Override
     protected GenericCrudService<Departement, DepartementDto> getCrudService() {
         return departementCrudService;

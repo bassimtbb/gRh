@@ -29,7 +29,7 @@ addUtilisateurdepartement: number|null=null;
 
   ngOnInit(): void {
     this.fetchUsers(); // Fetch initial page on load
-    this.departementService.findAll3()
+    this.departementService.findAll4()
     .subscribe(departement =>{
       this.departements=departement;
     })
@@ -47,6 +47,7 @@ addUtilisateurdepartement: number|null=null;
         this.error = 'Error retrieving user information.';
         console.error('Error retrieving user information:', error);
       });
+      
   }
 
 

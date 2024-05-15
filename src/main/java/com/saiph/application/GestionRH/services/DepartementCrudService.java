@@ -3,7 +3,9 @@ package com.saiph.application.GestionRH.services;
 import com.saiph.application.GestionRH.Domain.dto.DepartementDto;
 import com.saiph.application.GestionRH.Domain.dto.UserDto;
 import com.saiph.application.GestionRH.Domain.entities.Departement;
+import com.saiph.application.GestionRH.Domain.entities.DepartementName;
 import com.saiph.application.GestionRH.Domain.entities.User;
+import com.saiph.application.GestionRH.Enum.RoleType;
 import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import com.saiph.application.GestionRH.repository.DepartementRepository;
 import com.saiph.application.GestionRH.repository.UserRepository;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+
 @RequiredArgsConstructor
 @Transactional
 public class DepartementCrudService extends GenericCrudService<Departement, DepartementDto> {
@@ -30,35 +33,81 @@ public class DepartementCrudService extends GenericCrudService<Departement, Depa
         DepartementDto deaprtementDto=findById(departementId);
         User utilisateur=userService.convertToEntity(userDto);
         Departement departement= convertToEntity(deaprtementDto);
-        departement.setManager( utilisateur);
-     departementRepository.save(departement);
-     utilisateur.setDepartement(departement);
-     userRepository.save(utilisateur);
-     return departement;
+
+        if (departement.getName()!= DepartementName.Ressources_Humaine) {
+            if (departement.getManager()!=null){
+               departement.getManager().setRole(RoleType.EMPLOYE);
+               userRepository.save(departement.getManager());
+            }
+        }
+
+        if (utilisateur.getDepartement().getManager() != null) {
+                removeSupH(utilisateur.getDepartement().getId(), utilisateur.getId());
+
+            }
+      if (departement.getName()== DepartementName.Ressources_Humaine)
+      {utilisateur.setRole(RoleType.RRH);}
+      else
+      {utilisateur.setRole(RoleType.SUP_H);      }
+      departement.setManager( utilisateur);
+        utilisateur.setDepartement(departement);
+        userRepository.save(utilisateur);
+        departementRepository.save(departement);
+        return departement;
+    }
+    public Departement removeSupH(Long departementId , Long userID) {
+        UserDto userDto = userService.findById( userID);
+        DepartementDto deaprtementDto=findById(departementId);
+        User utilisateur=userService.convertToEntity(userDto);
+        Departement departement= convertToEntity(deaprtementDto);
+            if (departement.getName()!= DepartementName.Ressources_Humaine) {
+            if (departement.getManager()!=null){
+               departement.getManager().setRole(RoleType.EMPLOYE);
+               userRepository.save(departement.getManager());
+            }
+        }
+
+        departement.setManager( null);
+        addEmpl(departement.getId(), utilisateur.getId());
+        departementRepository.save(departement);
+        return departement;
     }
     public Departement addEmpl(Long departementId , Long userID) {
         UserDto userDto = userService.findById( userID);
         DepartementDto deaprtementDto=findById(departementId);
         User utilisateur=userService.convertToEntity(userDto);
         Departement departement= convertToEntity(deaprtementDto);
+
+        if (utilisateur.getDepartement() != null) {
+            if (utilisateur.getDepartement().getManager() != null) {
+            }
+            utilisateur.getDepartement().setManager(null);
+            deleteEmpl(utilisateur.getDepartement().getId() , utilisateur.getId());
+        }
+        if (
+                departement.getName()== DepartementName.Ressources_Humaine
+        ){utilisateur.setRole(RoleType.RRH);}else {
+         utilisateur.setRole(RoleType.EMPLOYE);
+        }
         utilisateur.setDepartement(departement);
         departement.getListEmploye().add(utilisateur);
-     departementRepository.save(departement);
-     userRepository.save(utilisateur);
-     return departement;
+        departementRepository.save(departement);
+        userRepository.save(utilisateur);
+        return departement;
     }
     public Departement deleteEmpl(Long departementId , Long userID) {
         UserDto userDto = userService.findById( userID);
         DepartementDto deaprtementDto=findById(departementId);
         User utilisateur=userService.convertToEntity(userDto);
+        utilisateur.setRole(RoleType.EMPLOYE);
         Departement departement= convertToEntity(deaprtementDto);
         departement.getListEmploye().remove(utilisateur);
         utilisateur.setDepartement(null);
+        userRepository.save(utilisateur);
         departementRepository.save(departement);
-        departementRepository.save(departement);
-          return departement;
-
+        return departement;
     }
+
 
     public Departement findByIdEn(Long id) {
         return this.convertToEntity(findById(id));

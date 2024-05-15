@@ -12,9 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 
 @Builder
@@ -51,6 +49,8 @@ public class User extends GenericEntity implements UserDetails, Principal {
     private String img;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date DEmbauche;
+    @OneToMany
+    private List<Notification> notifications = new ArrayList<>();
 
 
     @Override

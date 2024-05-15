@@ -2,11 +2,10 @@
     <div class="entete">
         <h3>Les formations</h3>
         <button type="button"   *ngIf="this.Role=='RRH'"  data-bs-toggle="modal" data-bs-target="#formationAdd" class="btn btn-success " >Ajouter une formation</button>
-
     </div>
     <div [ngClass]=alert role="alert">    {{Msg}}    </div>
 
-    <div *ngIf="!formations.length" class="body">
+    <div *ngIf="formations.length==0 || formations==null"  class="body">
       <p class="mb-0 "><small class="text-body-secondary">Aucune Formation</small></p>
     </div>
     <div *ngIf="formations.length" class="body">
@@ -108,21 +107,21 @@
 
           <div class="cl d-flex" >
             <div class="form-floating mb-2">
-              <input required type="date"  [(ngModel)]="formationAdd.dateD"  class="form-control inputF" id="Ddebut"   >
+              <input required type="date"  [(ngModel)]="formationAdd.dateD"  min={{datePickerId}}class="form-control inputF" id="Ddebut"   >
               <label for="Ddebut">Date Debut</label>
           </div>
           <div class="form-floating mb-2">
-            <input required type="date"  [(ngModel)]="formationAdd.dateF"  class="form-control inputF" id="Dfin"   >
+            <input required type="date"  [(ngModel)]="formationAdd.dateF"  min={{formationAdd.dateD}} class="form-control inputF" id="Dfin"   >
             <label for="Dfin">Date Fin</label>
         </div>
           </div>      
           <div class="cl d-flex" >
               <div class="form-floating mb-2">
-                  <input required type="number"  [(ngModel)]="formationAdd.nbrPlace"  class="form-control inputF" id="nbrplace"   >
+                  <input required type="number"  [(ngModel)]="formationAdd.nbrPlace" min="0" class="form-control inputF" id="nbrplace"   >
                   <label for="nbrplace">Nombre des Places</label>
               </div>           
        <div class="form-floating mb-2">
-              <input required type="number"  [(ngModel)]="formationAdd.duree"  class="form-control inputF" id="duree"   >
+              <input required type="number"  [(ngModel)]="formationAdd.duree" min="0" class="form-control inputF" id="duree"   >
               <label for="Duree">Duree</label>
           </div> 
           </div>
@@ -148,7 +147,7 @@
 
 
 
-    <div  *ngIf="listeEmpl"  class="modal  fade" id="listeEmp" tabindex="-1" aria-labelledby="listeEmp" aria-hidden="true">
+    <div  *ngIf="listeEmpl.length"  class="modal  fade" id="listeEmp" tabindex="-1" aria-labelledby="listeEmp" aria-hidden="true">
       <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">

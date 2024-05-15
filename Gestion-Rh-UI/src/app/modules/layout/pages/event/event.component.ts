@@ -15,10 +15,12 @@ export class EventComponent implements OnInit {
   ispostuler!:boolean;
   listeEmpl:User[]=[];
   alert: string = "d-none";
+  datePickerId = new Date().toISOString().split("T")[0];
+
   Msg:String="";
   Role:any="";
   ngOnInit() {
-    this.eventService.findAll2()
+    this.eventService.findAll3()
       .subscribe(events => {
         this.events = events;
         console.log(this.events);
@@ -34,18 +36,7 @@ export class EventComponent implements OnInit {
   
   }
   
-  // eventClicked(event :EventDto) {
-  //   if (event) {
-  //     console.error("'listeEmpl' is undefined. event data might be incomplete.");
-  //     return; 
-  //   }
-  //   console.log(event.listeEmpl.);
 
-  //   this.listeEmpl = event;
-  //   this.selectedEvent = event;
-  //   this.ispostuler=this.isInList(this.listeEmpl, this.user)
-  //   console.log(this.ispostuler);
-  // }
   eventClicked(event: EventDto) {
     this.listeEmpl = event.listEmploye ?? [];
     this.selectedEvent = event;
@@ -84,7 +75,7 @@ export class EventComponent implements OnInit {
       return;  // Exit the function if validation fails
     }
   
-    this.eventService.add2({ body: this.eventAdd })
+    this.eventService.add3({ body: this.eventAdd })
       .subscribe(event => {
         console.log("event", event);
         this.ngOnInit(); 
@@ -106,21 +97,52 @@ export class EventComponent implements OnInit {
       });
   }
   
-  // Optional validation function (replace with your specific validation logic)
   validateEvent(event: any): string[] {
     const errors = [];
+  
+    // Validate Title (already present)
     if (!event.titre) {
       errors.push('Le titre est obligatoire.');
+    } else if (event.titre.length < 3) {
+      errors.push('Le titre doit contenir au moins 3 caractères.');
     }
+  
+    // Validate Location (already present)
     if (!event.lieu) {
       errors.push('Le lieu est obligatoire.');
     }
-    if (!event.description) {
-      errors.push('Le description est obligatoire.');
+  
+    // Validate Dates
+    if (!event.dateD || !event.dateF) {
+      errors.push('Les dates de début et de fin sont obligatoires.');
+    } else if (new Date(event.dateD) >= new Date(event.dateF)) {
+      errors.push('La date de début doit être antérieure à la date de fin.');
     }
+  
+    // Validate Number of Places
+    if (!event.nbrPlace) {
+      errors.push('Le nombre de places est obligatoire.');
+    } else if (event.nbrPlace <= 0 || !Number.isInteger(event.nbrPlace)) {
+      errors.push('Le nombre de places doit être un entier positif.');
+    }
+  
+    // Validate Duration
+    if (!event.duree) {
+      errors.push('La durée est obligatoire.');
+    } else if (event.duree <= 0 || !Number.isInteger(event.duree)) {
+      errors.push('La durée doit être un entier positif.');
+    }
+  
+    // Validate Description (optional, you can add checks here)
+    if (!event.description) {
+      errors.push('Une description est obligatoire.');  // Uncomment if required
+    }
+  
+ 
+  
     return errors;
   }
-
+  
   get EventCover(): string {
     if (0) {
       return 'data:image/jpg;base64,' ;

@@ -52,8 +52,8 @@
                 <td ><i [ngClass]="getStatusClass(demande.statut)"  class="bi  "></i>{{ demande.statut }}</td>
                 <td>{{ demande.createdDate | date:'dd/MM/yyyy' }}</td>
                 <td style="display: flex; justify-content: space-around;">
-                    <button type="button" *ngIf="demande.statut!=='En_attente'" class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
-                    <button type="button" *ngIf="demande.statut==='En_attente'" data-bs-toggle="modal" data-bs-target="#update" (click)="DemandeClicked(demande)" class="btn btn-light"><i class="bi bi-pencil"></i>
+                    <button type="button" *ngIf="demande.statut==='Validee'|| demande.statut==='Refusee'"  class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
+                    <button type="button" *ngIf="demande.statut==='En_attente_Sup_H'||demande.statut==='En_attente_RRH'" data-bs-toggle="modal" data-bs-target="#update" (click)="DemandeClicked(demande)" class="btn btn-light"><i class="bi bi-pencil"></i>
                     </button>
                 </td>
               </tr>

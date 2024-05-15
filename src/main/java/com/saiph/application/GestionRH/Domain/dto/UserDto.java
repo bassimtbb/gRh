@@ -3,11 +3,15 @@ package com.saiph.application.GestionRH.Domain.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.saiph.application.GestionRH.Domain.entities.Departement;
+import com.saiph.application.GestionRH.Domain.entities.Notification;
 import com.saiph.application.GestionRH.Enum.RoleType;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class UserDto extends GenericDto{
@@ -25,7 +29,8 @@ public class UserDto extends GenericDto{
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "departement_id")
         private Departement departement;
-
+    @ManyToMany
+    private List<Notification> notifications = new ArrayList<>();
     private String cin;
     private String service;
     private String sexe;
