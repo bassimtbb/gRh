@@ -49,7 +49,7 @@ public class User extends GenericEntity implements UserDetails, Principal {
     private String img;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date DEmbauche;
-    @OneToMany
+    @ManyToMany
     private List<Notification> notifications = new ArrayList<>();
 
 

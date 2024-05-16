@@ -1,17 +1,12 @@
 package com.saiph.application.GestionRH;
 
 import com.saiph.application.GestionRH.Domain.entities.Departement;
-import com.saiph.application.GestionRH.Domain.entities.DepartementName;
-import com.saiph.application.GestionRH.Domain.entities.User;
+import com.saiph.application.GestionRH.Enum.DepartementName;
 import com.saiph.application.GestionRH.Enum.RoleType;
 import com.saiph.application.GestionRH.auth.AuthenticationService;
 import com.saiph.application.GestionRH.auth.RegistrationRequest;
 import com.saiph.application.GestionRH.repository.DepartementRepository;
 import com.saiph.application.GestionRH.repository.UserRepository;
-import com.saiph.application.GestionRH.security.UserDetailService;
-import com.saiph.application.GestionRH.services.DepartementCrudService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +15,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @EnableAsync

@@ -2643,9 +2643,6 @@
     "type": "string",
     "format": "date-time"
     },
-    "name": {
-    "type": "string"
-    },
     "date": {
     "type": "string",
     "format": "date-time"
@@ -2653,7 +2650,7 @@
     "statut": {
     "type": "boolean"
     },
-    "type": {
+    "description": {
     "type": "string"
     }
     }
@@ -2739,12 +2736,6 @@
     "ejuridic": {
     "type": "string"
     },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
     "authorities": {
     "type": "array",
     "items": {
@@ -2755,6 +2746,12 @@
     "type": "string"
     },
     "accountNonLocked": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    },
+    "accountNonExpired": {
     "type": "boolean"
     }
     }
@@ -2867,9 +2864,6 @@
     "type": "string",
     "format": "date-time"
     },
-    "name": {
-    "type": "string"
-    },
     "date": {
     "type": "string",
     "format": "date-time"
@@ -2880,7 +2874,7 @@
     "statut": {
     "type": "boolean"
     },
-    "type": {
+    "description": {
     "type": "string"
     }
     }
@@ -3598,12 +3592,6 @@
     "password": {
     "type": "string"
     },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
     "authorities": {
     "type": "array",
     "items": {
@@ -3614,6 +3602,12 @@
     "type": "string"
     },
     "accountNonLocked": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    },
+    "accountNonExpired": {
     "type": "boolean"
     }
     }

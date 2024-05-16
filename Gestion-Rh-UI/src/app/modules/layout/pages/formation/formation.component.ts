@@ -110,7 +110,7 @@ formationClicked(formation: FormationDto) {
   return false;
 }
 
-postuler(formation: FormationDto) {
+inscrire (formation: FormationDto) {
   console.log( this.user.id);
   console.log(formation.id);
         this.formationService.addEmployeToFormation({
@@ -169,7 +169,7 @@ postuler(formation: FormationDto) {
   validateFormation(fromation: any): string[] {
     const errors = [];
   
-    // Validate Title (already present)
+    // // Validate Title (already present)
     if (!fromation.titre) {
       errors.push('Le titre est obligatoire.');
     } else if (fromation.titre.length < 3) {
@@ -207,10 +207,10 @@ postuler(formation: FormationDto) {
       errors.push('Une description est obligatoire.');  // Uncomment if required
     }
   
-    // Validate Image (optional, you can add checks here based on file type/size)
-    // if (!fromation.img) {
-    //   errors.push('Une image est obligatoire.');  // Uncomment if required
-    // }
+    // // Validate Image (optional, you can add checks here based on file type/size)
+    // // if (!fromation.img) {
+    // //   errors.push('Une image est obligatoire.');  // Uncomment if required
+    // // }
   
     return errors;
   }

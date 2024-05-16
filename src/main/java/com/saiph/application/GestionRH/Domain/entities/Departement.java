@@ -1,8 +1,9 @@
 package com.saiph.application.GestionRH.Domain.entities;
 
+import com.saiph.application.GestionRH.Enum.DepartementName;
 import jakarta.persistence.*;
 import lombok.*;
-import com.saiph.application.GestionRH.Domain.entities.User;
+
 import java.util.ArrayList;
 import java.util.List;
 

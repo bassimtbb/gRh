@@ -1,8 +1,8 @@
 import { Component ,OnInit} from '@angular/core';
 import { TokenService } from '../../../services/token/token.service';
-import { Departement, DepartementDto, User } from '../../../services/models';
+import { Departement, DepartementDto, Notification, NotificationDto, User } from '../../../services/models';
 import {Router} from '@angular/router';
-import { DepartementService, UserService } from '../../../services/services';
+import { DepartementService, NotificationService, UserService } from '../../../services/services';
 
 declare interface RouteInfo {
   path: string;
@@ -101,21 +101,28 @@ export class HeaderComponent implements OnInit {
   public isCollapsed = true;
   public departments: DepartementDto[] = [];
   userDepartmentID: number=0 ;
-  notifications: any;
+  notifications!: Notification[];
 
 
   constructor(
     public tokenService: TokenService,
     public userService: UserService,
     public departmentService: DepartementService,
+    public notificationService: NotificationService,
     private router: Router
   ) {}
 
   
   ngOnInit() {
+
     const userRole = this.tokenService.userRole();
     console.log("rs:", userRole);
+    const userId = this.tokenService.Id; 
+    this.userService.findById({id: userId as number }) 
+      .subscribe(user => {
+        this.notifications=user.notifications!;
 
+      })
     if (userRole) {
       this.departmentService.findAll4()
         .subscribe(departments => {
@@ -166,6 +173,8 @@ export class HeaderComponent implements OnInit {
               console.log(this.menuItems1);
             });
         });
+ 
+        
     } else {
       this.router.navigate(['login']);
     }
@@ -179,5 +188,14 @@ export class HeaderComponent implements OnInit {
   }
   isActive(route: string): boolean {
     return true;
+  }
+   Readed(notif :Notification):string{
+    if(notif.statut){
+      console.log( "dropdown-item NotifReaded")
+      return "dropdown-item ";
+    }else{
+      console.log( "dropdown-item ")
+      return "dropdown-item NotifReaded";
+    }
   }
 }

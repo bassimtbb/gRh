@@ -75,75 +75,75 @@
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" (click)="postuler(selectedFormation)" data-bs-dismiss="modal" [disabled]="ispostuler" class="btn btn-primary">Postuler</button>
+        <button type="button" (click)="inscrire(selectedFormation)" data-bs-dismiss="modal" [disabled]="ispostuler" class="btn btn-primary">Inscrire</button>
       </div>
     </div>
   </div>
 </div>
 
 
-
-
-   
- <div class="modal  fade" id="formationAdd" tabindex="-1" aria-labelledby="formationAdd" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">AJOUTER UNE FORMATION</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body ">
-            <div class="cl d-flex " >
-              <div class="form-floating mb-2">
-                  <input required type="Text"  [(ngModel)]="formationAdd.titre"  class="form-control inputF" id="titre"   >
-                  <label for="titre">Titre</label>
-              </div>
-
-              <div class="form-floating mb-2">
-                  <input required type="Text"  [(ngModel)]="formationAdd.lieu"  class="form-control inputF" id="lieu"  >
-                  <label for="lieu">Lieu</label>
-              </div>
-               </div>
-
-          <div class="cl d-flex" >
-            <div class="form-floating mb-2">
-              <input required type="date"  [(ngModel)]="formationAdd.dateD"  min={{datePickerId}}class="form-control inputF" id="Ddebut"   >
-              <label for="Ddebut">Date Debut</label>
-          </div>
-          <div class="form-floating mb-2">
-            <input required type="date"  [(ngModel)]="formationAdd.dateF"  min={{formationAdd.dateD}} class="form-control inputF" id="Dfin"   >
-            <label for="Dfin">Date Fin</label>
-        </div>
-          </div>      
-          <div class="cl d-flex" >
-              <div class="form-floating mb-2">
-                  <input required type="number"  [(ngModel)]="formationAdd.nbrPlace" min="0" class="form-control inputF" id="nbrplace"   >
-                  <label for="nbrplace">Nombre des Places</label>
-              </div>           
-       <div class="form-floating mb-2">
-              <input required type="number"  [(ngModel)]="formationAdd.duree" min="0" class="form-control inputF" id="duree"   >
-              <label for="Duree">Duree</label>
-          </div> 
-          </div>
-        
-     
-          <div class="form-floating mb-2">
-            <textarea class="form-control "  [(ngModel)]="formationAdd.description" id="description"  value="description" ></textarea>
-            <label for="description">Description</label>
-        </div>
-          
-          <div class="input-group mb-3">
-            <input (change)="onInputFile($event)" type="file" class="form-control" [(ngModel)]="formationAdd.img"  id="image" accept="image/*">
-            <label class="input-group-text" for="image">Photo</label>
-          </div>  
-        </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-            <button type="submit" class="btn btn-primary" (click)="addformation()" data-bs-dismiss="modal" >Ajouter</button>
-          </div>
-        </div>
+<div class="modal  fade" id="formationAdd" tabindex="-1" aria-labelledby="formationAdd" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+<div class="modal-content">
+  <div class="modal-header">
+    <h1 class="modal-title fs-5" id="exampleModalLabel">AJOUTER UNE ÉVÉNEMENT </h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body ">
+    <div class="cl d-flex " >
+      <div class="form-floating mb-2">
+          <input required type="Text"  [(ngModel)]="formationAdd.titre"  class="form-control inputF" id="titre"   >
+          <label for="titre">Titre</label>
       </div>
-    </div>
+
+      <div class="form-floating mb-2">
+          <input required type="Text"  [(ngModel)]="formationAdd.lieu"  class="form-control inputF" id="lieu"  >
+          <label for="lieu">Lieu</label>
+      </div>
+       </div>
+
+  <div class="cl d-flex" >
+    <div class="form-floating mb-2">
+      <input required type="date"  [(ngModel)]="formationAdd.dateD" min={{datePickerId}}  class="form-control inputF" id="Ddebut"   >
+      <label for="Ddebut">Date Debut</label>
+  </div>
+  <div class="form-floating mb-2">
+    <input required type="date"  [(ngModel)]="formationAdd.dateF"  min={{formationAdd.dateD}} class="form-control inputF" id="Dfin"   >
+    <label for="Dfin">Date Fin</label>
+</div>
+  </div>      
+  <div class="cl d-flex" >
+      <div class="form-floating mb-2">
+          <input required type="number"  [(ngModel)]="formationAdd.nbrPlace" min="0"  class="form-control inputF" id="nbrplace"   >
+          <label for="nbrplace">Nombre des Places</label>
+      </div>           
+<div class="form-floating mb-2">
+      <input required type="number"  [(ngModel)]="formationAdd.duree" min="0" class="form-control inputF" id="duree"   >
+      <label for="Duree">Duree</label>
+  </div> 
+  </div>
+
+
+  <div class="form-floating mb-2">
+    <textarea class="form-control "  [(ngModel)]="formationAdd.description" id="description"  value="description" ></textarea>
+    <label for="description">Description</label>
+</div>
+  
+  <div class="input-group mb-3">
+    <input type="file" class="form-control" [(ngModel)]="formationAdd.img"  id="image" accept="image/*">
+    <label class="input-group-text" for="image">Photo</label>
+  </div>  
+
+</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+    <button type="submit" class="btn btn-primary" (click)="addformation()" data-bs-dismiss="modal" >Ajouter</button>
+  </div>
+</div>
+</div>
+</div>
+
+
 
 
 

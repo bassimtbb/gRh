@@ -5,11 +5,10 @@ export interface NotificationDto {
   createdBy?: string;
   createdDate?: string;
   date?: string;
+  description?: string;
   id?: number;
   lastModifiedBy?: string;
   lastModifiedDate?: string;
-  name?: string;
   statut?: boolean;
-  type?: string;
   utilisateur?: User;
 }

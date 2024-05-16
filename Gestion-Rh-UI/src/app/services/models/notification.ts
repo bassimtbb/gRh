@@ -4,9 +4,8 @@ export interface Notification {
   createdBy?: string;
   createdDate?: string;
   date?: string;
+  description?: string;
   id?: number;
   lastModifiedBy?: string;
-  name?: string;
   statut?: boolean;
-  type?: string;
 }

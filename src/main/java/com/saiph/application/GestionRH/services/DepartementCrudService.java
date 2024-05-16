@@ -3,20 +3,16 @@ package com.saiph.application.GestionRH.services;
 import com.saiph.application.GestionRH.Domain.dto.DepartementDto;
 import com.saiph.application.GestionRH.Domain.dto.UserDto;
 import com.saiph.application.GestionRH.Domain.entities.Departement;
-import com.saiph.application.GestionRH.Domain.entities.DepartementName;
+import com.saiph.application.GestionRH.Enum.DepartementName;
 import com.saiph.application.GestionRH.Domain.entities.User;
 import com.saiph.application.GestionRH.Enum.RoleType;
-import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import com.saiph.application.GestionRH.repository.DepartementRepository;
 import com.saiph.application.GestionRH.repository.UserRepository;
 import com.saiph.application.GestionRH.security.UserDetailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 

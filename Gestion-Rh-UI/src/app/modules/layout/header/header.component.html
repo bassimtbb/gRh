@@ -1,19 +1,13 @@
 <nav class="navbar navbar-expand-lg   ">
   <div class="container-fluid">
     <img class="navbar-brand me-auto" href="#" src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" width="110" height="70" alt="SAIPH" id="logo">
-    <!-- <a class="navbar-brand me-auto" href="#">Saiph</a> -->
     <div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-
           <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-
-        
-          
-          
           <div *ngFor="let menuItem of menuItems1" class="btn-group  dropdown">
             <button *ngIf="menuItem.path!==''" class="nav-link mx-lg-2 {{menuItem.class}}" target="_blank" type="button" id="typeDemande" data-bs-toggle="dropdown" [routerLink]="[menuItem.path]" aria-expanded="false">{{menuItem.title}}</button>
             <button *ngIf="menuItem.path==''" class="nav-link mx-lg-2 {{menuItem.class}}" target="_blank" type="button" id="typeDemande" data-bs-toggle="dropdown"  aria-expanded="false">{{menuItem.title}}</button>
@@ -25,56 +19,43 @@
             </li>            
           </ul> 
         </div>     
-
-<!-- 
-          <div class="btn-group  dropdown">
-            <button class="nav-link dropdown-toggle" type="button" id="typeDemande" data-bs-toggle="dropdown" aria-expanded="false">  Departement</button>
-            <ul class="dropdown-menu">
-              <li *ngFor="let departement of this.departements;" class="nav-item navbar-nav ">
-                <a class="nav-link " id="navbarDropdown" routerLinkActive="List-item-active" routerLink="departement/{{departement.id}}" role="button" data-toggle="dropdown" aria-expanded="false">
-                    {{departement.name}}</a>
-            </li>     
-          </ul> </div>     
-          
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="formations">
-              <i class=""></i>Formation
-            </a>
-          </li>         
-          
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="event">
-              <i class=""></i>Événement
-            </a>
-          </li>         
-          
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="chat">
-              <i class=""></i>Messagerie
-            </a>
-          </li>         
-          
-          
-          
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2 " routerLinkActive="List-item-active" routerLink="calendrier">
-              <i class="fas fa-book"></i>Calendrier
-            </a>
-          </li> -->
           </ul>
         </div>
     </div>
-    <div class="dropdown">
-      <button  class="btn btn-success position-relative notif-btn " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-bell">        </i>  
+
+    <div class="dropdown" style="margin-right: 2rem;">
+      <a class="btn btn-link"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-bell-fill" style="color: black;"></i> 
         <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
           <span class="visually-hidden">New alerts</span>
-        </span>
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a *ngFor="let notification of notifications" class="dropdown-item" href="#">{{ notification }}</a>
+        </span>      </a>
+        <ul *ngIf="!notifications" class="dropdown-menu">
+          <li class="item-notif" >
+            <a class="dropdown-item" ><small class="text-body-secondary">Aucune notification</small></a>
+          </li>
+        </ul>
+        
+      <ul *ngIf="this.notifications" class="dropdown-menu dropdown-menu-end" >
+        <div class="d-flex headDrop justify-content-center ">
+        <p class="fw-semibold mb-0">Notifications</p>
       </div>
+        <li class="item-notif" style="cursor: pointer;" *ngFor="let notification of notifications">
+          <a [ngClass]=" Readed(notification)"  >
+            <p class="fw-semibold mb-0">{{notification.description}} </p>
+            <!-- <small class="fw-normal">{{notification.utilisateur?.firstname}}  {{notification.utilisateur?.lastname}} </small> -->
+            <div class="d-flex justify-content-between">
+            <small class="text-body-secondary">{{notification.createdDate | date:'dd/MM/yyyy' }}</small>
+            <small class="text-body-secondary">{{notification.createdDate | date:'HH:MM' }}</small>
+            </div>
+          </a>
+        </li>
+        <div style="cursor: pointer;" class="d-flex BottomDrop justify-content-center ">
+          <p class="fw-semibold mb-0">Afficher tout</p>
+        </div>
+      </ul>
+
     </div>
+
     <div class="link-profile">
       <a routerLinkActive="List-item-active"  routerLinkActive="List-item-active" routerLink="profile" class="nav-link username-profile ml">{{ tokenService.fullName }}</a>
       <div routerLinkActive="List-item-active"  routerLinkActive="List-item-active" routerLink="profile"class="pic-profile"></div>

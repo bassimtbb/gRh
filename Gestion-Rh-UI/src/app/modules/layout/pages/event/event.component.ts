@@ -162,7 +162,7 @@ export class EventComponent implements OnInit {
   }
 
 
-  postuler(event: EventDto) {
+  inscrire(event: EventDto) {
           this.eventService.addEmployeToEvent({
             id: event.id as number,
             body: this.user.id as number

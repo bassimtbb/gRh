@@ -1,2 +1,11 @@
-package com.saiph.application.GestionRH.Enum;public enum TypeNotification {
+package com.saiph.application.GestionRH.Enum;
+
+public enum TypeNotification {
+    DEMANDE_VALIDEE_SUPERVISEUR,
+    DEMANDE_VALIDEE_RRH,
+    DEMANDE_REJETEE_SUPERVISEUR,
+    DEMANDE_REJETEE_RRH,
+    DEMANDE_A_DEPOSER,
+    FORMATION_INSCRIRE,
+    EVENEMENT_INSCRIRE
 }

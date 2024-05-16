@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.saiph.application.GestionRH.Enum.TypeNotification;
 
 @Controller
 @RequestMapping("/notification")
@@ -29,6 +30,13 @@ public class NotificationController extends GenericCrudController<Notification, 
         NotificationDto demande = notificationCrudService.SetStatut(notificationID);
         return demande;
     }
+
+        @PostMapping("/SendNotif/{notificationID}")
+    public void SendNotif(
+              @PathVariable("notificationID") Long userId ,
+               @Valid @RequestBody TypeNotification type
+    )  {notificationCrudService.SendNotif(userId,type);}
+
     @GetMapping("/statut")
     public ResponseEntity<List<Notification>> getNotificationByStatut(
             @Valid @RequestBody  Boolean statut) {
