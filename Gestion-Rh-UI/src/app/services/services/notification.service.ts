@@ -21,6 +21,8 @@ import { getNotificationByStatut } from '../fn/notification/get-notification-by-
 import { GetNotificationByStatut$Params } from '../fn/notification/get-notification-by-statut';
 import { Notification } from '../models/notification';
 import { NotificationDto } from '../models/notification-dto';
+import { sendNotif } from '../fn/notification/send-notif';
+import { SendNotif$Params } from '../fn/notification/send-notif';
 import { setStatut } from '../fn/notification/set-statut';
 import { SetStatut$Params } from '../fn/notification/set-statut';
 import { update1 } from '../fn/notification/update-1';
@@ -154,6 +156,31 @@ export class NotificationService extends BaseService {
   setStatut(params: SetStatut$Params, context?: HttpContext): Observable<NotificationDto> {
     return this.setStatut$Response(params, context).pipe(
       map((r: StrictHttpResponse<NotificationDto>): NotificationDto => r.body)
+    );
+  }
+
+  /** Path part for operation `sendNotif()` */
+  static readonly SendNotifPath = '/notification/SendNotif/{userID}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `sendNotif()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  sendNotif$Response(params: SendNotif$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return sendNotif(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `sendNotif$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  sendNotif(params: SendNotif$Params, context?: HttpContext): Observable<void> {
+    return this.sendNotif$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

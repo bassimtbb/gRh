@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AcompteDto, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, DemandeDto, Departement, PretDto, UserDto } from '../../../../services/models';
-import { AcompteService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, PretService, UserService } from '../../../../services/services';
+import { AcompteService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, NotificationService, PretService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
+import { NotificationsService } from '../../../../services/NotificationsService';
 
 @Component({
   selector: 'app-gerer-demandes',
@@ -29,7 +30,11 @@ constructor(
   private chHoraireService: ChangementHoraireService,
   private acompteService: AcompteService,
   private pretService: PretService,
-  private autorisationSortieService :AutorisationSortieService
+  private autorisationSortieService :AutorisationSortieService,
+  private  notificationService:NotificationService,
+
+  private notificationsService: NotificationsService
+
 
 ){}
   user!:UserDto;
@@ -126,7 +131,19 @@ getStatusClass(statut: any): string {
     
         this.congeService.update10({id:this.modifConge.id as number, body :this.modifConge })
         .subscribe ( demande => 
-          {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+          { 
+              this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+            }
+
+          ) 
+            this.Msg = `Demande de Congé modifiée avec succès!"!`;
             this.alert ="alert alert-success" ;
             this.ngOnInit();
             console.log("Valid")
@@ -154,7 +171,19 @@ getStatusClass(statut: any): string {
 
     this.autorisationSortieService.update12({id:this.modifADS.id as number, body :this.modifADS })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -182,7 +211,19 @@ getStatusClass(statut: any): string {
 
     this.autTeletravailService.update8({id:this.modifAutTeletravail.id as number, body :this.modifAutTeletravail })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -210,7 +251,19 @@ getStatusClass(statut: any): string {
 
     this.autTravailSuppService.update7({id:this.modifAutTravailSupp.id as number, body :this.modifAutTravailSupp })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -238,7 +291,19 @@ getStatusClass(statut: any): string {
 
     this.chHoraireService.update11({id:this.modifChHoraire.id as number, body :this.modifChHoraire })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -267,7 +332,19 @@ getStatusClass(statut: any): string {
 
     this.acompteService.update6({id:this.modifAcompte.id as number, body :this.modifAcompte })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -295,7 +372,19 @@ getStatusClass(statut: any): string {
 
     this.pretService.update9({id:this.modifPret.id as number, body :this.modifPret })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -332,7 +421,19 @@ getStatusClass(statut: any): string {
     
         this.congeService.update10({id:this.modifConge.id as number, body :this.modifConge })
         .subscribe ( demande => 
-          {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+          { 
+              this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_RRH', error);
+            }
+
+          ) 
+            this.Msg = `Demande de Congé modifiée avec succès!"!`;
             this.alert ="alert alert-success" ;
             this.ngOnInit();
             console.log("Valid")
@@ -360,7 +461,19 @@ getStatusClass(statut: any): string {
 
     this.autorisationSortieService.update12({id:this.modifADS.id as number, body :this.modifADS })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -388,7 +501,19 @@ getStatusClass(statut: any): string {
 
     this.autTeletravailService.update8({id:this.modifAutTeletravail.id as number, body :this.modifAutTeletravail })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -416,7 +541,19 @@ getStatusClass(statut: any): string {
 
     this.autTravailSuppService.update7({id:this.modifAutTravailSupp.id as number, body :this.modifAutTravailSupp })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -444,7 +581,19 @@ getStatusClass(statut: any): string {
 
     this.chHoraireService.update11({id:this.modifChHoraire.id as number, body :this.modifChHoraire })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -473,7 +622,19 @@ getStatusClass(statut: any): string {
 
     this.acompteService.update6({id:this.modifAcompte.id as number, body :this.modifAcompte })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -501,7 +662,19 @@ getStatusClass(statut: any): string {
 
     this.pretService.update9({id:this.modifPret.id as number, body :this.modifPret })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_REJETEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_REJETEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -538,7 +711,19 @@ getStatusClass(statut: any): string {
     
         this.congeService.update10({id:this.modifConge.id as number, body :this.modifConge })
         .subscribe ( demande => 
-          {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+          { 
+              this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_RRH', error);
+            }
+
+          ) 
+            this.Msg = `Demande de Congé modifiée avec succès!"!`;
             this.alert ="alert alert-success" ;
             this.ngOnInit();
             console.log("Valid")
@@ -566,7 +751,19 @@ getStatusClass(statut: any): string {
 
     this.autorisationSortieService.update12({id:this.modifADS.id as number, body :this.modifADS })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -594,7 +791,19 @@ getStatusClass(statut: any): string {
 
     this.autTeletravailService.update8({id:this.modifAutTeletravail.id as number, body :this.modifAutTeletravail })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -622,7 +831,19 @@ getStatusClass(statut: any): string {
 
     this.autTravailSuppService.update7({id:this.modifAutTravailSupp.id as number, body :this.modifAutTravailSupp })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -650,7 +871,19 @@ getStatusClass(statut: any): string {
 
     this.chHoraireService.update11({id:this.modifChHoraire.id as number, body :this.modifChHoraire })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -679,7 +912,19 @@ getStatusClass(statut: any): string {
 
     this.acompteService.update6({id:this.modifAcompte.id as number, body :this.modifAcompte })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -707,7 +952,19 @@ getStatusClass(statut: any): string {
 
     this.pretService.update9({id:this.modifPret.id as number, body :this.modifPret })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_RRH" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_RRH");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_RRH', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -744,7 +1001,19 @@ getStatusClass(statut: any): string {
     
         this.congeService.update10({id:this.modifConge.id as number, body :this.modifConge })
         .subscribe ( demande => 
-          {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+          { 
+              this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+            }
+
+          ) 
+            this.Msg = `Demande de Congé modifiée avec succès!"!`;
             this.alert ="alert alert-success" ;
             this.ngOnInit();
             console.log("Valid")
@@ -772,7 +1041,19 @@ getStatusClass(statut: any): string {
 
     this.autorisationSortieService.update12({id:this.modifADS.id as number, body :this.modifADS })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -800,7 +1081,19 @@ getStatusClass(statut: any): string {
 
     this.autTeletravailService.update8({id:this.modifAutTeletravail.id as number, body :this.modifAutTeletravail })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -828,7 +1121,19 @@ getStatusClass(statut: any): string {
 
     this.autTravailSuppService.update7({id:this.modifAutTravailSupp.id as number, body :this.modifAutTravailSupp })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -856,7 +1161,19 @@ getStatusClass(statut: any): string {
 
     this.chHoraireService.update11({id:this.modifChHoraire.id as number, body :this.modifChHoraire })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -885,7 +1202,19 @@ getStatusClass(statut: any): string {
 
     this.acompteService.update6({id:this.modifAcompte.id as number, body :this.modifAcompte })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")
@@ -913,7 +1242,19 @@ getStatusClass(statut: any): string {
 
     this.pretService.update9({id:this.modifPret.id as number, body :this.modifPret })
     .subscribe ( demande => 
-      {  this.Msg = `Demande de Congé modifiée avec succès!"!`;
+      { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+            }
+
+          ) 
+        this.Msg = `Demande de Congé modifiée avec succès!"!`;
         this.alert ="alert alert-success" ;
         this.ngOnInit();
         console.log("Valid")

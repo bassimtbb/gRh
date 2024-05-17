@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormationDto, User } from '../../../../services/models';
-import { FormationService, UserService } from '../../../../services/services';
+import { FormationDto, User ,Notification} from '../../../../services/models';
+import { FormationService, NotificationService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
-
+import {  Output, EventEmitter  } from '@angular/core';
+import { HeaderComponent } from '../../header/header.component';
+import { NotificationsService } from '../../../../services/NotificationsService';
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
@@ -11,6 +13,11 @@ import { TokenService } from '../../../../services/token/token.service';
 export class FormationComponent implements OnInit {
   private user!: User;
   datePickerId = new Date().toISOString().split("T")[0];
+  notification: Notification  = {
+    type: "FORMATION_INSCRIRE"
+
+  }; // Create a new notification object
+  @Output() reloadNotification: EventEmitter<void> = new EventEmitter();
 
   selectedFormation!: FormationDto ;
   formations:FormationDto[]=[];
@@ -34,7 +41,9 @@ export class FormationComponent implements OnInit {
   constructor(
    private  formationService:FormationService,
    private  usersService:UserService,
-   private tokenService: TokenService
+   private  notificationService:NotificationService,
+   private tokenService: TokenService,
+   private notificationsService: NotificationsService
 
   ){}
   public  onInputFile(formation: any) {  
@@ -42,7 +51,7 @@ export class FormationComponent implements OnInit {
     let targetformation = formation.target;
     let file: File = targetformation.files[0];
     let fileReader: FileReader = new FileReader();
-  
+
     fileReader.onload = (e) => {
     base64 = fileReader.result as string; // Type assertion (careful)
       this.img64 =base64?.split(',')[1];
@@ -118,6 +127,20 @@ inscrire (formation: FormationDto) {
           body: this.user.id as number
         }).subscribe(response => {
           console.log('Successfully added user to formation:', response);
+          this.notificationService.sendNotif({userID:this.user.id as number,body:"FORMATION_INSCRIRE" })
+          .subscribe( notif=>
+            {console.log("Notification FORMATION_INSCRIRE");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification FORMATION_INSCRIRE', error);
+            }
+
+          )
+
+          
+
         this.ngOnInit();
         }, error => {
           console.error('Error adding user to formation:', error);

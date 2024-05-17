@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService, UserService } from '../../../../services/services';
+import { EventService, NotificationService, UserService } from '../../../../services/services';
 import { EventDto, User } from '../../../../services/models';
 import { TokenService } from '../../../../services/token/token.service';
+import { NotificationsService } from '../../../../services/NotificationsService';
 
 @Component({
   selector: 'app-event',
@@ -50,7 +51,11 @@ export class EventComponent implements OnInit {
   constructor(
     private  userService:UserService,
     private tokenService: TokenService,
-   private  eventService:EventService
+   private  eventService:EventService,
+   private notificationsService: NotificationsService,
+   private  notificationService:NotificationService,
+
+
   ){}
 
   eventAdd :EventDto={
@@ -168,7 +173,17 @@ export class EventComponent implements OnInit {
             body: this.user.id as number
           })
           .subscribe(response => {
-            
+            this.notificationService.sendNotif({userID:this.user.id as number,body:"EVENEMENT_INSCRIRE" })
+            .subscribe( notif=>
+              {console.log("Notification FORMATION_INSCRIRE");
+              this.notificationsService.triggerReloadNotification();
+  
+  
+              }, error => {
+                console.error('NO Notification FORMATION_INSCRIRE', error);
+              }
+  
+            )
             this.ngOnInit();
 
             console.log('Successfully added user to event:', response);

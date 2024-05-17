@@ -30,7 +30,7 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
         public NotificationDto SetStatut(Long notificationID) {
         NotificationDto notificationDto = this.findById( notificationID);
         Notification notification = this.convertToEntity(notificationDto);
-        notification.setStatut(true);
+        notification.setStatut(false);
         User user= notification.getOwner();
         user.getNotifications().add(notification);
         userRepository.save(user);
@@ -50,7 +50,7 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
         List<UserDto> RRHs = departementService.findById(Long.valueOf(3)).getListEmploye();
         switch (type) {
             case DEMANDE_A_DEPOSER:
-                description = "L'employé " + userDto.getFirstname() + " " + userDto.getLastname() + " a déposé une demande.";
+                description = "L'employé(e) " + userDto.getFirstname() + " " + userDto.getLastname() + " a déposé(e) une demande.";
                  notification=Notification.builder()
                         .Type(TypeNotification.DEMANDE_A_DEPOSER)
                         .Description(description)
@@ -62,7 +62,7 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
                  userRepository.save(SupH);
                 break;
             case DEMANDE_REJETEE_RRH:
-                description = "La demande de " + userDto.getFirstname() + " " + userDto.getLastname() + " a été rejetée par les RH.";
+                description = "Votre demande a été refusée par le responsable RH.";
                  notification=Notification.builder()
                         .Type(TypeNotification.DEMANDE_REJETEE_RRH)
                         .Description(description)
@@ -74,7 +74,7 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
                  userRepository.save(userService.convertToEntity(userDto));
                 break;
             case DEMANDE_REJETEE_SUPERVISEUR:
-                description = "La demande de " + userDto.getFirstname() + " " + userDto.getLastname() + " a été rejetée par le superviseur.";
+                description = "Votre demande a été refusée par le supérieur hiérarchique .";
                    notification=Notification.builder()
                         .Type(TypeNotification.DEMANDE_REJETEE_SUPERVISEUR)
                         .Description(description)
@@ -86,7 +86,7 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
                  userRepository.save(userService.convertToEntity(userDto));
                 break;
             case DEMANDE_VALIDEE_RRH:
-                description = "La demande de " + userDto.getFirstname() + " " + userDto.getLastname() + " a été validée par les RH.";
+                description = "Votre demande a été acceptée par le responsable RH.";
                      notification=Notification.builder()
                         .Type(TypeNotification.DEMANDE_VALIDEE_RRH)
                         .Description(description)
@@ -98,7 +98,8 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
                  userRepository.save(userService.convertToEntity(userDto));
                 break;
             case DEMANDE_VALIDEE_SUPERVISEUR:
-                description = "La demande de " + userDto.getFirstname() + " " + userDto.getLastname() + " a été validée par le superviseur.";
+                description = "Votre demande a été acceptée par le supérieur hiérarchique .";
+
                 notification=Notification.builder()
                         .Type(TypeNotification.DEMANDE_VALIDEE_SUPERVISEUR)
                         .Description(description)
@@ -108,13 +109,22 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
                 notificationRepository.save(notification);
                  userDto.getNotifications().add(notification);
                  userRepository.save(userService.convertToEntity(userDto));
+
+                 description = "L'employé(e) " + userDto.getFirstname() + " " + userDto.getLastname() + " a déposé(e) une demande.";
+                 notification=Notification.builder()
+                        .Type(TypeNotification.DEMANDE_VALIDEE_SUPERVISEUR)
+                        .Description(description)
+                        .owner(userService.convertToEntity(userDto))
+                        .statut(true)
+                        .build();
+                notificationRepository.save(notification);
                 for (UserDto rrh : RRHs) {
                     rrh.getNotifications().add(notification);
                     userRepository.save(userService.convertToEntity(rrh));
                 }
                 break;
             case EVENEMENT_INSCRIRE:
-                description = "L'employé " + userDto.getFirstname() + " " + userDto.getLastname() + " s'est inscrit à un événement.";
+                description = "L'employé(e) " + userDto.getFirstname() + " " + userDto.getLastname() + " a été inscrit à un événement.";
                 notification = Notification.builder()
                     .Type(TypeNotification.EVENEMENT_INSCRIRE)
                     .Description(description)
@@ -128,9 +138,9 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
                 }
                 break;
             case FORMATION_INSCRIRE:
-                description = "L'employé " + userDto.getFirstname() + " " + userDto.getLastname() + " s'est inscrit à une formation.";
- notification = Notification.builder()
-                    .Type(TypeNotification.EVENEMENT_INSCRIRE)
+                description = "L'employé(e) " + userDto.getFirstname() + " " + userDto.getLastname() + " a été inscrit à une formation.";
+                notification = Notification.builder()
+                    .Type(TypeNotification.FORMATION_INSCRIRE)
                     .Description(description)
                     .owner(userService.convertToEntity(userDto))
                     .statut(true)

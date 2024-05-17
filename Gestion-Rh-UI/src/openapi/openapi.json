@@ -1409,6 +1409,40 @@
     }
     }
     },
+    "/notification/SendNotif/{userID}": {
+    "post": {
+    "tags": [
+    "Notification"
+    ],
+    "operationId": "SendNotif",
+    "parameters": [
+    {
+    "name": "userID",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "OK"
+    }
+    }
+    }
+    },
     "/formation": {
     "post": {
     "tags": [
@@ -2643,12 +2677,20 @@
     "type": "string",
     "format": "date-time"
     },
-    "date": {
-    "type": "string",
-    "format": "date-time"
-    },
     "statut": {
     "type": "boolean"
+    },
+    "type": {
+    "type": "string",
+    "enum": [
+    "DEMANDE_VALIDEE_SUPERVISEUR",
+    "DEMANDE_VALIDEE_RRH",
+    "DEMANDE_REJETEE_SUPERVISEUR",
+    "DEMANDE_REJETEE_RRH",
+    "DEMANDE_A_DEPOSER",
+    "FORMATION_INSCRIRE",
+    "EVENEMENT_INSCRIRE"
+    ]
     },
     "description": {
     "type": "string"
@@ -2736,22 +2778,22 @@
     "ejuridic": {
     "type": "string"
     },
+    "username": {
+    "type": "string"
+    },
     "authorities": {
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "username": {
-    "type": "string"
-    },
-    "accountNonLocked": {
+    "accountNonExpired": {
     "type": "boolean"
     },
     "credentialsNonExpired": {
     "type": "boolean"
     },
-    "accountNonExpired": {
+    "accountNonLocked": {
     "type": "boolean"
     }
     }
@@ -2864,15 +2906,23 @@
     "type": "string",
     "format": "date-time"
     },
-    "date": {
-    "type": "string",
-    "format": "date-time"
-    },
-    "utilisateur": {
+    "owner": {
     "$ref": "#/components/schemas/User"
     },
     "statut": {
     "type": "boolean"
+    },
+    "type": {
+    "type": "string",
+    "enum": [
+    "DEMANDE_VALIDEE_SUPERVISEUR",
+    "DEMANDE_VALIDEE_RRH",
+    "DEMANDE_REJETEE_SUPERVISEUR",
+    "DEMANDE_REJETEE_RRH",
+    "DEMANDE_A_DEPOSER",
+    "FORMATION_INSCRIRE",
+    "EVENEMENT_INSCRIRE"
+    ]
     },
     "description": {
     "type": "string"
@@ -3413,11 +3463,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "nouvelH": {
+    "ancienH": {
     "type": "string",
     "format": "date-time"
     },
-    "ancienH": {
+    "nouvelH": {
     "type": "string",
     "format": "date-time"
     }
@@ -3485,11 +3535,11 @@
     "isTemporaire": {
     "type": "boolean"
     },
-    "hsortie": {
+    "hretour": {
     "type": "string",
     "format": "date-time"
     },
-    "hretour": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     }
@@ -3592,22 +3642,22 @@
     "password": {
     "type": "string"
     },
+    "username": {
+    "type": "string"
+    },
     "authorities": {
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "username": {
-    "type": "string"
-    },
-    "accountNonLocked": {
+    "accountNonExpired": {
     "type": "boolean"
     },
     "credentialsNonExpired": {
     "type": "boolean"
     },
-    "accountNonExpired": {
+    "accountNonLocked": {
     "type": "boolean"
     }
     }

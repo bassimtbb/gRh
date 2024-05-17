@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../../../services/token/token.service';
-import {  AcompteService,  AutorisationSortieService,  AutorisationTeletravailService,  AutorisationTravailSupService,  ChangementHoraireService,  CongeService,  DemandeService,  PretService,  UserService,} from '../../../../services/services';
+import {  AcompteService,  AutorisationSortieService,  AutorisationTeletravailService,  AutorisationTravailSupService,  ChangementHoraireService,  CongeService,  DemandeService,  NotificationService,  PretService,  UserService,} from '../../../../services/services';
 import {  AcompteDto,  AutorisationSortieDto,  AutorisationTeletravailDto,  AutorisationTravailSupDto,  ChangementHoraireDto,  CongeDto,  Demande,  PretDto,  User} from '../../../../services/models';
+import { NotificationsService } from '../../../../services/NotificationsService';
 @Component({
   selector: 'app-mes-demandes',
   templateUrl: './mes-demandes.component.html',
@@ -47,7 +48,10 @@ export class MesDemandesComponent  implements OnInit {
     private demandeService:DemandeService,
     private userService:UserService,
     private tokenService :TokenService,
-    private autorisationSortieService :AutorisationSortieService
+    private autorisationSortieService :AutorisationSortieService,
+    private  notificationService:NotificationService,
+
+    private notificationsService: NotificationsService
   ){}
  
     demandes:Demande[]=[];
@@ -610,7 +614,18 @@ export class MesDemandesComponent  implements OnInit {
         }
       this.autorisationSortieService.add12({ body :this.addADS as AutorisationSortieDto})
       .subscribe ( demande => 
-        {  this.Msg = `Demande d'AUTORISATION DE SORTIE est ajouté avec succès!`;
+        {
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_A_DEPOSER" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_A_DEPOSER");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_A_DEPOSER', error);
+            })
+
+            this.Msg = `Demande d'AUTORISATION DE SORTIE est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
           this.ngOnInit();
           setTimeout(() => {
@@ -687,7 +702,18 @@ export class MesDemandesComponent  implements OnInit {
         console.log(this.conge)
       this.congeService.add10({ body :this.conge as CongeDto})
       .subscribe ( demande => 
-        {  this.Msg = `Demande de Congé est ajouté avec succès!`;
+        {
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_A_DEPOSER" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_A_DEPOSER");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_A_DEPOSER', error);
+            })
+
+            this.Msg = `Demande de Congé est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
           this.ngOnInit();
           setTimeout(() => {
@@ -710,7 +736,18 @@ export class MesDemandesComponent  implements OnInit {
       this.autTeletravailService.add8
       ({ body :this.autTeletravail as AutorisationTeletravailDto})
       .subscribe ( demande => 
-        {  this.Msg = `Demande d'Autorisation de télétravail est ajouté avec succès!`;
+        {
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_A_DEPOSER" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_A_DEPOSER");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_A_DEPOSER', error);
+            })
+
+            this.Msg = `Demande d'Autorisation de télétravail est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
           this.ngOnInit();
           setTimeout(() => {
@@ -732,7 +769,18 @@ export class MesDemandesComponent  implements OnInit {
         }
       this.autTravailSuppService.add7({ body :this.autTravailSupp as AutorisationTravailSupDto})
       .subscribe ( demande => 
-        {  this.Msg = `Demande d'Autorisation de travail supplémentaire est ajouté avec succès!`;
+        {
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_A_DEPOSER" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_A_DEPOSER");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_A_DEPOSER', error);
+            })
+
+            this.Msg = `Demande d'Autorisation de travail supplémentaire est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
           this.ngOnInit();
           setTimeout(() => {
@@ -754,7 +802,18 @@ export class MesDemandesComponent  implements OnInit {
         }
       this.chHoraireService.add11({ body :this.chHoraire as ChangementHoraireDto})
       .subscribe ( demande => 
-        {  this.Msg = `Demande de Changement Horaire de travail est ajouté avec succès!`;
+        { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_A_DEPOSER" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_A_DEPOSER");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_A_DEPOSER', error);
+            })
+
+           this.Msg = `Demande de Changement Horaire de travail est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
           this.ngOnInit();
           setTimeout(() => {
@@ -783,7 +842,18 @@ export class MesDemandesComponent  implements OnInit {
         console.log(this.acompte)
       this.acompteService.add6({ body :this.acompte as AcompteDto})
       .subscribe ( demande => 
-        {  this.Msg = `Demande d'Acompte sur Salaire/prime est ajouté avec succès!`;
+        { 
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_A_DEPOSER" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_A_DEPOSER");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_A_DEPOSER', error);
+            })
+
+           this.Msg = `Demande d'Acompte sur Salaire/prime est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
           this.ngOnInit();
           setTimeout(() => {
@@ -815,7 +885,18 @@ export class MesDemandesComponent  implements OnInit {
             }
       this.pretService.add9({ body :this.pret as PretDto})
       .subscribe ( demande => 
-        {  this.Msg = `Demande de Prêt est ajouté avec succès!`;
+        {
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_A_DEPOSER" })
+          .subscribe( notif=>
+            {console.log("Notification DEMANDE_A_DEPOSER");
+            this.notificationsService.triggerReloadNotification();
+
+
+            }, error => {
+              console.error('NO Notification DEMANDE_A_DEPOSER', error);
+            })
+
+            this.Msg = `Demande de Prêt est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
           this.ngOnInit();
           setTimeout(() => {

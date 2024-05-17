@@ -22,7 +22,7 @@ public class Notification extends GenericEntity {
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     @JsonIgnore
-    private  User owner;
+   private  User owner;
     private Boolean statut;
     private String Description;
     private TypeNotification Type;

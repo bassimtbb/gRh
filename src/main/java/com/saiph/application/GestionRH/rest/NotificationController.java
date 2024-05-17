@@ -31,11 +31,13 @@ public class NotificationController extends GenericCrudController<Notification, 
         return demande;
     }
 
-        @PostMapping("/SendNotif/{notificationID}")
+        @PostMapping("/SendNotif/{userID}")
     public void SendNotif(
-              @PathVariable("notificationID") Long userId ,
-               @Valid @RequestBody TypeNotification type
-    )  {notificationCrudService.SendNotif(userId,type);}
+              @PathVariable("userID") Long userId ,
+               @Valid @RequestBody String typeN
+    )  {
+        TypeNotification type=TypeNotification.valueOf(typeN);
+        notificationCrudService.SendNotif(userId,type);}
 
     @GetMapping("/statut")
     public ResponseEntity<List<Notification>> getNotificationByStatut(

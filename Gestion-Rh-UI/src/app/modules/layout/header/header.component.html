@@ -26,20 +26,26 @@
     <div class="dropdown" style="margin-right: 2rem;">
       <a class="btn btn-link"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-bell-fill" style="color: black;"></i> 
-        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+        <span *ngIf="notificationNotReaded.length" class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
           <span class="visually-hidden">New alerts</span>
         </span>      </a>
-        <ul *ngIf="!notifications" class="dropdown-menu">
+        <ul *ngIf="!lastFiveNotifications.length" class="dropdown-menu">
           <li class="item-notif" >
+            <div class="d-flex headDrop justify-content-center ">
+              <p class="fw-semibold mb-0">Notifications</p>
+            </div>
             <a class="dropdown-item" ><small class="text-body-secondary">Aucune notification</small></a>
+            <div style="cursor: pointer;" class="d-flex BottomDrop justify-content-center ">
+              <p class="fw-semibold mb-0">Afficher tout</p>
+            </div>
           </li>
         </ul>
         
-      <ul *ngIf="this.notifications" class="dropdown-menu dropdown-menu-end" >
+      <ul *ngIf="this.lastFiveNotifications" class="dropdown-menu dropdown-menu-end" >
         <div class="d-flex headDrop justify-content-center ">
-        <p class="fw-semibold mb-0">Notifications</p>
-      </div>
-        <li class="item-notif" style="cursor: pointer;" *ngFor="let notification of notifications">
+          <p class="fw-semibold mb-0">Notifications</p>
+        </div>
+        <li class="item-notif" style="cursor: pointer;"  [routerLink]="[linkNotif(notification)]" (click)=" setStatut(notification)" *ngFor="let notification of lastFiveNotifications">
           <a [ngClass]=" Readed(notification)"  >
             <p class="fw-semibold mb-0">{{notification.description}} </p>
             <!-- <small class="fw-normal">{{notification.utilisateur?.firstname}}  {{notification.utilisateur?.lastname}} </small> -->
