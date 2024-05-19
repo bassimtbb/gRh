@@ -200,7 +200,6 @@ export class HeaderComponent implements OnInit {
   
 
   reloadNotif() {
-    console.log("reloadNotif() ")
     this.ngOnInit();
   }
   isActive(route: string): boolean {
@@ -208,10 +207,8 @@ export class HeaderComponent implements OnInit {
   }
    Readed(notif :Notification):string{
     if(!notif.statut){
-      console.log( "dropdown-item NotifReaded")
       return "dropdown-item ";
     }else{
-      console.log( "dropdown-item ")
       return "dropdown-item NotifReaded";
     }
   }
@@ -226,7 +223,6 @@ export class HeaderComponent implements OnInit {
     
 
   })
-  console.log(this.notificationNotReaded.length);
   this.ngOnInit();
 }
 

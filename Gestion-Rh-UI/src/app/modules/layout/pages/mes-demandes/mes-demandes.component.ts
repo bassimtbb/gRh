@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../../../services/token/token.service';
-import {  AcompteService,  AutorisationSortieService,  AutorisationTeletravailService,  AutorisationTravailSupService,  ChangementHoraireService,  CongeService,  DemandeService,  NotificationService,  PretService,  UserService,} from '../../../../services/services';
+import {  AcompteService,  AutorisationSortieService,  AutorisationTeletravailService,  AutorisationTravailSupService,  ChangementHoraireService,  CongeService,  DemandeService,  DepartementService,  NotificationService,  PretService,  UserService,} from '../../../../services/services';
 import {  AcompteDto,  AutorisationSortieDto,  AutorisationTeletravailDto,  AutorisationTravailSupDto,  ChangementHoraireDto,  CongeDto,  Demande,  PretDto,  User} from '../../../../services/models';
 import { NotificationsService } from '../../../../services/NotificationsService';
 @Component({
@@ -37,7 +37,7 @@ export class MesDemandesComponent  implements OnInit {
   modifAcompte: AcompteDto={}
   modifPret : PretDto={}
   datePickerId = new Date().toISOString().split("T")[0];
-
+Sup_h:User={};
   constructor(
     private congeService:CongeService,
     private autTeletravailService:AutorisationTeletravailService,
@@ -50,6 +50,7 @@ export class MesDemandesComponent  implements OnInit {
     private tokenService :TokenService,
     private autorisationSortieService :AutorisationSortieService,
     private  notificationService:NotificationService,
+    private  departementService:DepartementService,
 
     private notificationsService: NotificationsService
   ){}
@@ -68,6 +69,11 @@ export class MesDemandesComponent  implements OnInit {
           )
   
         });
+              
+  this.departementService.findById4({id:3 as number}).subscribe
+  (departement=>{
+     this.Sup_h=departement.manager! ;
+  })
     }
 
     DemandeClicked(demande: Demande) {
@@ -602,22 +608,68 @@ export class MesDemandesComponent  implements OnInit {
       }
     }
     
-     AddAutorSortie() {
-      const Id = this.tokenService.Id;
+     AddAutorSortie() { 
+
+      const Id = this.tokenService.Id;      
+      const role:String = this.tokenService.userRole();
+       var Typenotif:String =" ";
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+        console.log("Role",role);    
+        console.log("this.Sup_h.id",this.Sup_h.id);
+          console.log("Id",Id);
+          console.log("this.Sup_h.id===Id",this.Sup_h.id===Id);
+        if(role==="RRH"){
+      
+          if(this.Sup_h.id===Id){ 
+            
+
         this.addADS={
+          ...this.addADS,
+          utilisateur:user,
+          statut:'Validee',
+          departement:{"id":user.departement?.id as number}}
+          Typenotif=" ";
+        }else{
+            
+        this.addADS={
+          ...this.addADS,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+          }
+          Typenotif="DEMANDE_VALIDEE_SUPERVISEUR";
+}
+        }
+        if (role==="SUP_H") {
+          this.addADS={
+          ...this.addADS,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+        }
+        Typenotif="DEMANDE_VALIDEE_SUPERVISEUR";
+
+        } 
+        if (role=="EMPLOYE")  {
+          this.addADS={
           ...this.addADS,
           utilisateur:user,
           statut:'En_attente_Sup_H',
           departement:{"id":user.departement?.id as number}
         }
+        Typenotif="DEMANDE_A_DEPOSER";
+
+        }
+        
+
       this.autorisationSortieService.add12({ body :this.addADS as AutorisationSortieDto})
       .subscribe ( demande => 
         {
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_A_DEPOSER" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:Typenotif as string })
           .subscribe( notif=>
             {console.log("Notification DEMANDE_A_DEPOSER");
+
             this.notificationsService.triggerReloadNotification();
 
 
@@ -643,15 +695,49 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     Addconge() {
-      const Id = this.tokenService.Id;
+      
+  this.departementService.findById4({id:3 as number}).subscribe
+      (departement=>{
+         this.Sup_h=departement.manager! ;
+      })
+      const Id = this.tokenService.Id;      
+      const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+        if(role==="RRH"){
+          console.log("RRH demande")
+          if(this.Sup_h.id==Id){ 
         this.conge={
+          ...this.conge,
+          utilisateur:user,
+          statut:'Validee',
+          departement:{"id":user.departement?.id as number}}
+        }else{
+            
+        this.conge={
+          ...this.conge,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+          }}
+        }
+        if (role==="SUP_H") {
+          this.conge={
+          ...this.conge,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+        }
+        } 
+        if (role=="EMPLOYE")  {
+          this.conge={
           ...this.conge,
           utilisateur:user,
           statut:'En_attente_Sup_H',
           departement:{"id":user.departement?.id as number}
         }
+        }
+
         switch (this.motifC) {
           case "motif1":
             this.conge = {
@@ -724,15 +810,50 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     AddautTeletravail() {
-      const Id = this.tokenService.Id;
+      
+  this.departementService.findById4({id:3 as number}).subscribe
+      (departement=>{
+         this.Sup_h=departement.manager! ;
+      })
+      const Id = this.tokenService.Id;      
+      const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+        if(role==="RRH"){
+          console.log("RRH demande")
+          if(this.Sup_h.id==Id){ 
         this.autTeletravail={
+          ...this.autTeletravail,
+          utilisateur:user,
+          statut:'Validee',
+          departement:{"id":user.departement?.id as number}}
+        }else{
+            
+        this.autTeletravail={
+          ...this.autTeletravail,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+          }}
+        }
+        if (role==="SUP_H") {
+          this.autTeletravail={
+          ...this.autTeletravail,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+        }
+        } 
+        if (role=="EMPLOYE")  {
+          this.autTeletravail={
           ...this.autTeletravail,
           utilisateur:user,
           statut:'En_attente_Sup_H',
           departement:{"id":user.departement?.id as number}
         }
+        }
+        
+
       this.autTeletravailService.add8
       ({ body :this.autTeletravail as AutorisationTeletravailDto})
       .subscribe ( demande => 
@@ -758,15 +879,50 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     AddautTravailSupp() {
-      const Id = this.tokenService.Id;
+      
+  this.departementService.findById4({id:3 as number}).subscribe
+      (departement=>{
+         this.Sup_h=departement.manager! ;
+      })
+      const Id = this.tokenService.Id;      
+      const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+        if(role==="RRH"){
+          console.log("RRH demande")
+          if(this.Sup_h.id==Id){ 
         this.autTravailSupp={
+          ...this.autTravailSupp,
+          utilisateur:user,
+          statut:'Validee',
+          departement:{"id":user.departement?.id as number}}
+        }else{
+            
+        this.autTravailSupp={
+          ...this.autTravailSupp,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+          }}
+        }
+        if (role==="SUP_H") {
+          this.autTravailSupp={
+          ...this.autTravailSupp,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+        }
+        } 
+        if (role=="EMPLOYE")  {
+          this.autTravailSupp={
           ...this.autTravailSupp,
           utilisateur:user,
           statut:'En_attente_Sup_H',
           departement:{"id":user.departement?.id as number}
         }
+        }
+        
+ 
       this.autTravailSuppService.add7({ body :this.autTravailSupp as AutorisationTravailSupDto})
       .subscribe ( demande => 
         {
@@ -791,15 +947,50 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     AddchHoraire() {
-      const Id = this.tokenService.Id;
+      
+  this.departementService.findById4({id:3 as number}).subscribe
+      (departement=>{
+         this.Sup_h=departement.manager! ;
+      })
+      const Id = this.tokenService.Id;      
+      const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+        if(role==="RRH"){
+          console.log("RRH demande")
+          if(this.Sup_h.id==Id){ 
         this.chHoraire={
+          ...this.chHoraire,
+          utilisateur:user,
+          statut:'Validee',
+          departement:{"id":user.departement?.id as number}}
+        }else{
+            
+        this.chHoraire={
+          ...this.chHoraire,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+          }}
+        }
+        if (role==="SUP_H") {
+          this.chHoraire={
+          ...this.chHoraire,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+        }
+        } 
+        if (role=="EMPLOYE")  {
+          this.chHoraire={
           ...this.chHoraire,
           utilisateur:user,
           statut:'En_attente_Sup_H',
           departement:{"id":user.departement?.id as number}
         }
+        }
+        
+
       this.chHoraireService.add11({ body :this.chHoraire as ChangementHoraireDto})
       .subscribe ( demande => 
         { 
@@ -824,14 +1015,47 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     Addacompte() {
-      const Id = this.tokenService.Id;
+      
+  this.departementService.findById4({id:3 as number}).subscribe
+      (departement=>{
+         this.Sup_h=departement.manager! ;
+      })
+      const Id = this.tokenService.Id;      
+      const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+        if(role==="RRH"){
+          console.log("RRH demande")
+          if(this.Sup_h.id==Id){ 
         this.acompte={
+          ...this.acompte,
+          utilisateur:user,
+          statut:'Validee',
+          departement:{"id":user.departement?.id as number}}
+        }else{
+            
+        this.acompte={
+          ...this.acompte,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+          }}
+        }
+        if (role==="SUP_H") {
+          this.acompte={
+          ...this.acompte,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+        }
+        } 
+        if (role=="EMPLOYE")  {
+          this.acompte={
           ...this.acompte,
           utilisateur:user,
           statut:'En_attente_Sup_H',
           departement:{"id":user.departement?.id as number}
+        }
         }
         if(this.acompteR=="non")
           this.acompte={
@@ -864,15 +1088,49 @@ export class MesDemandesComponent  implements OnInit {
     }
 
     Addpret() {
-      const Id = this.tokenService.Id;
+  this.departementService.findById4({id:3 as number}).subscribe
+      (departement=>{
+         this.Sup_h=departement.manager! ;
+      })
+      const Id = this.tokenService.Id;      
+      const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+        if(role==="RRH"){
+          console.log("RRH demande")
+          if(this.Sup_h.id==Id){ 
         this.pret={
+          ...this.pret,
+          utilisateur:user,
+          statut:'Validee',
+          departement:{"id":user.departement?.id as number}}
+        }else{
+            
+        this.pret={
+          ...this.pret,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+          }}
+        }
+        if (role==="SUP_H") {
+          this.pret={
+          ...this.pret,
+          utilisateur:user,
+          statut:'En_attente_RRH',
+          departement:{"id":user.departement?.id as number}
+        }
+        } 
+        if (role=="EMPLOYE")  {
+          this.pret={
           ...this.pret,
           utilisateur:user,
           statut:'En_attente_Sup_H',
           departement:{"id":user.departement?.id as number}
         }
+        }  
+        
+    
         if(this.rembourser=="non")
           this.pret={
             ...this.pret,
