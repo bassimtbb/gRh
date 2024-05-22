@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserDetails, User } from '../../../../services/models';
+import { UserDetails, User, UserDto } from '../../../../services/models';
 import { AuthenticationService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import {ActivatedRoute} from '@angular/router';
 export class ProfileComponent implements OnInit {
   show: boolean = false;
   inputsDisabled = true; 
-  user: User = {};
+  user: UserDto = {};
   updatedUserInfo: User ={};
   userUp: User | null = null;
   alert: string = "d-none";

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AcompteDto, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, DemandeDto, Departement, PretDto, UserDto } from '../../../../services/models';
 import { AcompteService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, NotificationService, PretService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
-import { NotificationsService } from '../../../../services/NotificationsService';
+import { NotificationsService } from '../../../layout/NotificationsService';
 
 @Component({
   selector: 'app-gerer-demandes',
@@ -132,14 +132,14 @@ getStatusClass(statut: any): string {
         this.congeService.update10({id:this.modifConge.id as number, body :this.modifConge })
         .subscribe ( demande => 
           { 
-              this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+              this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_REJETEE_SUPH', error);
             }
 
           ) 
@@ -172,14 +172,14 @@ getStatusClass(statut: any): string {
     this.autorisationSortieService.update12({id:this.modifADS.id as number, body :this.modifADS })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_REJETEE_SUPH', error);
             }
 
           ) 
@@ -212,14 +212,14 @@ getStatusClass(statut: any): string {
     this.autTeletravailService.update8({id:this.modifAutTeletravail.id as number, body :this.modifAutTeletravail })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_REJETEE_SUPH', error);
             }
 
           ) 
@@ -252,14 +252,14 @@ getStatusClass(statut: any): string {
     this.autTravailSuppService.update7({id:this.modifAutTravailSupp.id as number, body :this.modifAutTravailSupp })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_REJETEE_SUPH', error);
             }
 
           ) 
@@ -292,14 +292,14 @@ getStatusClass(statut: any): string {
     this.chHoraireService.update11({id:this.modifChHoraire.id as number, body :this.modifChHoraire })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_REJETEE_SUPH', error);
             }
 
           ) 
@@ -333,14 +333,14 @@ getStatusClass(statut: any): string {
     this.acompteService.update6({id:this.modifAcompte.id as number, body :this.modifAcompte })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_REJETEE_SUPH', error);
             }
 
           ) 
@@ -373,14 +373,14 @@ getStatusClass(statut: any): string {
     this.pretService.update9({id:this.modifPret.id as number, body :this.modifPret })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_REJETEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_REJETEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_REJETEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_REJETEE_SUPH', error);
             }
 
           ) 
@@ -1002,14 +1002,14 @@ getStatusClass(statut: any): string {
         this.congeService.update10({id:this.modifConge.id as number, body :this.modifConge })
         .subscribe ( demande => 
           { 
-              this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+              this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_VALIDEE_SUPH', error);
             }
 
           ) 
@@ -1042,14 +1042,14 @@ getStatusClass(statut: any): string {
     this.autorisationSortieService.update12({id:this.modifADS.id as number, body :this.modifADS })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_VALIDEE_SUPH', error);
             }
 
           ) 
@@ -1082,14 +1082,14 @@ getStatusClass(statut: any): string {
     this.autTeletravailService.update8({id:this.modifAutTeletravail.id as number, body :this.modifAutTeletravail })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_VALIDEE_SUPH', error);
             }
 
           ) 
@@ -1122,14 +1122,14 @@ getStatusClass(statut: any): string {
     this.autTravailSuppService.update7({id:this.modifAutTravailSupp.id as number, body :this.modifAutTravailSupp })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_VALIDEE_SUPH', error);
             }
 
           ) 
@@ -1162,14 +1162,14 @@ getStatusClass(statut: any): string {
     this.chHoraireService.update11({id:this.modifChHoraire.id as number, body :this.modifChHoraire })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_VALIDEE_SUPH', error);
             }
 
           ) 
@@ -1203,14 +1203,14 @@ getStatusClass(statut: any): string {
     this.acompteService.update6({id:this.modifAcompte.id as number, body :this.modifAcompte })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_VALIDEE_SUPH', error);
             }
 
           ) 
@@ -1243,14 +1243,14 @@ getStatusClass(statut: any): string {
     this.pretService.update9({id:this.modifPret.id as number, body :this.modifPret })
     .subscribe ( demande => 
       { 
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPERVISEUR" })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_VALIDEE_SUPH" })
           .subscribe( notif=>
-            {console.log("Notification DEMANDE_VALIDEE_SUPERVISEUR");
+            {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
-              console.error('NO Notification DEMANDE_VALIDEE_SUPERVISEUR', error);
+              console.error('NO Notification DEMANDE_VALIDEE_SUPH', error);
             }
 
           ) 

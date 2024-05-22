@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService, NotificationService, UserService } from '../../../../services/services';
 import { EventDto, User } from '../../../../services/models';
 import { TokenService } from '../../../../services/token/token.service';
-import { NotificationsService } from '../../../../services/NotificationsService';
+import { NotificationsService } from '../../../layout/NotificationsService';
 
 @Component({
   selector: 'app-event',
@@ -17,6 +17,7 @@ export class EventComponent implements OnInit {
   listeEmpl:User[]=[];
   alert: string = "d-none";
   datePickerId = new Date().toISOString().split("T")[0];
+  eventUpdate:EventDto={};
 
   Msg:String="";
   Role:any="";
@@ -44,7 +45,7 @@ export class EventComponent implements OnInit {
     // Assign empty array if undefined
     console.log(this.listeEmpl);
     this.ispostuler=this.isInList(this.listeEmpl, this.user)
-
+    this.eventUpdate=event;
   }
   
 
@@ -79,7 +80,10 @@ export class EventComponent implements OnInit {
       this.Msg = `Événement non ajouté. Erreurs de validation : ${validationErrors.join(', ')}`;
       return;  // Exit the function if validation fails
     }
-  
+    this.eventAdd={ 
+      ...this.eventAdd,
+    duree: this.duree(this.eventAdd.dateD!, this.eventAdd.dateF!)
+    }
     this.eventService.add3({ body: this.eventAdd })
       .subscribe(event => {
         console.log("event", event);
@@ -132,11 +136,11 @@ export class EventComponent implements OnInit {
     }
   
     // Validate Duration
-    if (!event.duree) {
-      errors.push('La durée est obligatoire.');
-    } else if (event.duree <= 0 || !Number.isInteger(event.duree)) {
-      errors.push('La durée doit être un entier positif.');
-    }
+    // if (!event.duree) {
+    //   errors.push('La durée est obligatoire.');
+    // } else if (event.duree <= 0 || !Number.isInteger(event.duree)) {
+    //   errors.push('La durée doit être un entier positif.');
+    // }
   
     // Validate Description (optional, you can add checks here)
     if (!event.description) {
@@ -175,12 +179,12 @@ export class EventComponent implements OnInit {
           .subscribe(response => {
             this.notificationService.sendNotif({userID:this.user.id as number,body:"EVENEMENT_INSCRIRE" })
             .subscribe( notif=>
-              {console.log("Notification FORMATION_INSCRIRE");
+              {console.log("Notification Event_INSCRIRE");
               this.notificationsService.triggerReloadNotification();
   
   
               }, error => {
-                console.error('NO Notification FORMATION_INSCRIRE', error);
+                console.error('NO Notification Event_INSCRIRE', error);
               }
   
             )
@@ -193,6 +197,83 @@ export class EventComponent implements OnInit {
    
   }
   
-  
+  duree(dateDebutStr:string,    dateFinStr:string):number{
+    // Convertissez les chaînes de caractères en objets Date
+const dateDebut = new Date(dateDebutStr);
+const dateFin = new Date(dateFinStr);
 
+// Calculez la différence en millisecondes entre les deux dates
+const differenceEnMillisecondes = dateFin.getTime() - dateDebut.getTime();
+const differenceEnJours:number = differenceEnMillisecondes / (1000 * 60 * 60 * 24);
+// Convertissez la différence en jours
+
+console.log(`La durée est de ${differenceEnJours} jours.`);
+return differenceEnJours;
+
+  }
+  
+  updateEvent() { 
+    const validationErrors = this.validateEvent(this.eventUpdate);
+    if (validationErrors.length > 0) {
+      this.alert = 'alert alert-danger';
+      this.Msg = `Événement non modifiée. Erreurs de validation : ${validationErrors.join(', ')}`;
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000);
+      console.log("error");
+      return; // Exit the function if validation fails
+    }
+    console.log("this.eventUpdate", this.eventUpdate);
+    this.eventUpdate = {
+      ...this.eventUpdate,
+      duree: this.duree(this.eventUpdate.dateD!, this.eventUpdate.dateF!)
+    };
+  
+    this.eventService.update3({ id: this.eventUpdate.id as number, body: this.eventUpdate }) 
+      .subscribe(Event => {
+        console.log("Event", Event);
+        this.ngOnInit();
+        this.Msg = `Événement "${Event.titre}" modifiée avec succès!`;
+        this.alert = 'alert alert-success';
+  
+        setTimeout(() => {
+          this.alert = 'd-none';
+          this.Msg = ""; // Clear the message after hiding the alert
+        }, 5000); // Display success message for 5 seconds
+      }, error => {
+        console.error('Error updating Event:', error);
+        this.alert = 'alert alert-danger';
+        this.Msg = `Event non modifiée. Une erreur est survenue : ${error.message || error}`; // Provide a more informative error message
+  
+        setTimeout(() => {
+          this.alert = 'd-none';
+          this.Msg = ""; // Clear the message after hiding the alert
+        }, 5000); // Display error message for 5 seconds
+      });
+  }
+  eventDelete(event :EventDto) { 
+    this.eventService.delete3({ id: event.id as number }) 
+      .subscribe(() => {
+        console.log("event", event);
+        this.ngOnInit();
+        this.Msg = `Événement "${event.titre}" supprimée avec succès!`;
+        this.alert = 'alert alert-success';
+  
+        setTimeout(() => {
+          this.alert = 'd-none';
+          this.Msg = ""; // Clear the message after hiding the alert
+        }, 5000); // Display success message for 5 seconds
+      }, error => {
+        console.error('Error deleting event:', error);
+        this.alert = 'alert alert-danger';
+        this.Msg = `Événement non supprimée. Une erreur est survenue : ${error.message || error}`; // Provide a more informative error message
+  
+        setTimeout(() => {
+          this.alert = 'd-none';
+          this.Msg = ""; // Clear the message after hiding the alert
+        }, 5000); // Display error message for 5 seconds
+      });
+  }
+  
 }

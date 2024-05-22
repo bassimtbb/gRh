@@ -6,7 +6,6 @@ import com.saiph.application.GestionRH.Domain.entities.Departement;
 import com.saiph.application.GestionRH.Domain.entities.Notification;
 import com.saiph.application.GestionRH.Domain.entities.User;
 import com.saiph.application.GestionRH.Enum.TypeNotification;
-import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import com.saiph.application.GestionRH.repository.NotificationRepository;
 import com.saiph.application.GestionRH.repository.UserRepository;
 import com.saiph.application.GestionRH.security.UserDetailService;
@@ -73,10 +72,10 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
                  userDto.getNotifications().add(notification);
                  userRepository.save(userService.convertToEntity(userDto));
                 break;
-            case DEMANDE_REJETEE_SUPERVISEUR:
+            case DEMANDE_REJETEE_SUPH:
                 description = "Votre demande a été refusée par le supérieur hiérarchique .";
                    notification=Notification.builder()
-                        .Type(TypeNotification.DEMANDE_REJETEE_SUPERVISEUR)
+                        .Type(TypeNotification.DEMANDE_REJETEE_SUPH)
                         .Description(description)
                         .owner(userService.convertToEntity(userDto))
                         .statut(true)
@@ -97,11 +96,11 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
                  userDto.getNotifications().add(notification);
                  userRepository.save(userService.convertToEntity(userDto));
                 break;
-            case DEMANDE_VALIDEE_SUPERVISEUR:
+            case DEMANDE_VALIDEE_SUPH:
                 description = "Votre demande a été acceptée par le supérieur hiérarchique .";
 
                 notification=Notification.builder()
-                        .Type(TypeNotification.DEMANDE_VALIDEE_SUPERVISEUR)
+                        .Type(TypeNotification.DEMANDE_VALIDEE_SUPH)
                         .Description(description)
                         .owner(userService.convertToEntity(userDto))
                         .statut(true)
@@ -112,7 +111,7 @@ public class NotificationCrudService extends GenericCrudService<Notification, No
 
                  description = "L'employé(e) " + userDto.getFirstname() + " " + userDto.getLastname() + " a déposé(e) une demande.";
                  notification=Notification.builder()
-                        .Type(TypeNotification.DEMANDE_VALIDEE_SUPERVISEUR)
+                        .Type(TypeNotification.DEMANDE_VALIDEE_SUPH)
                         .Description(description)
                         .owner(userService.convertToEntity(userDto))
                         .statut(true)

@@ -2683,9 +2683,9 @@
     "type": {
     "type": "string",
     "enum": [
-    "DEMANDE_VALIDEE_SUPERVISEUR",
+    "DEMANDE_VALIDEE_SUPH",
     "DEMANDE_VALIDEE_RRH",
-    "DEMANDE_REJETEE_SUPERVISEUR",
+    "DEMANDE_REJETEE_SUPH",
     "DEMANDE_REJETEE_RRH",
     "DEMANDE_A_DEPOSER",
     "FORMATION_INSCRIRE",
@@ -2771,12 +2771,12 @@
     "name": {
     "type": "string"
     },
+    "ejuridic": {
+    "type": "string"
+    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
-    },
-    "ejuridic": {
-    "type": "string"
     },
     "username": {
     "type": "string"
@@ -2787,10 +2787,10 @@
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "accountNonExpired": {
+    "credentialsNonExpired": {
     "type": "boolean"
     },
-    "credentialsNonExpired": {
+    "accountNonExpired": {
     "type": "boolean"
     },
     "accountNonLocked": {
@@ -2876,12 +2876,12 @@
     "type": "string",
     "format": "date-time"
     },
+    "ejuridic": {
+    "type": "string"
+    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
-    },
-    "ejuridic": {
-    "type": "string"
     }
     }
     },
@@ -2915,9 +2915,9 @@
     "type": {
     "type": "string",
     "enum": [
-    "DEMANDE_VALIDEE_SUPERVISEUR",
+    "DEMANDE_VALIDEE_SUPH",
     "DEMANDE_VALIDEE_RRH",
-    "DEMANDE_REJETEE_SUPERVISEUR",
+    "DEMANDE_REJETEE_SUPH",
     "DEMANDE_REJETEE_RRH",
     "DEMANDE_A_DEPOSER",
     "FORMATION_INSCRIRE",
@@ -2954,9 +2954,6 @@
     "type": "string",
     "format": "date-time"
     },
-    "titre": {
-    "type": "string"
-    },
     "dateF": {
     "type": "string",
     "format": "date-time"
@@ -2973,6 +2970,9 @@
     "format": "int32"
     },
     "img": {
+    "type": "string"
+    },
+    "titre": {
     "type": "string"
     },
     "description": {
@@ -3463,11 +3463,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "ancienH": {
+    "nouvelH": {
     "type": "string",
     "format": "date-time"
     },
-    "nouvelH": {
+    "ancienH": {
     "type": "string",
     "format": "date-time"
     }
@@ -3535,11 +3535,11 @@
     "isTemporaire": {
     "type": "boolean"
     },
-    "hretour": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     },
-    "hsortie": {
+    "hretour": {
     "type": "string",
     "format": "date-time"
     }
@@ -3599,12 +3599,12 @@
     "img": {
     "type": "string"
     },
+    "ejuridic": {
+    "type": "string"
+    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
-    },
-    "ejuridic": {
-    "type": "string"
     }
     }
     },
@@ -3651,10 +3651,10 @@
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "accountNonExpired": {
+    "credentialsNonExpired": {
     "type": "boolean"
     },
-    "credentialsNonExpired": {
+    "accountNonExpired": {
     "type": "boolean"
     },
     "accountNonLocked": {

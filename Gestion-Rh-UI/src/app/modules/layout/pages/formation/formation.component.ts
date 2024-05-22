@@ -4,7 +4,7 @@ import { FormationService, NotificationService, UserService } from '../../../../
 import { TokenService } from '../../../../services/token/token.service';
 import {  Output, EventEmitter  } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
-import { NotificationsService } from '../../../../services/NotificationsService';
+import { NotificationsService } from '../../../layout/NotificationsService';
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
@@ -17,7 +17,6 @@ export class FormationComponent implements OnInit {
     type: "FORMATION_INSCRIRE"
 
   }; // Create a new notification object
-  @Output() reloadNotification: EventEmitter<void> = new EventEmitter();
 
   selectedFormation!: FormationDto ;
   formations:FormationDto[]=[];
@@ -36,6 +35,7 @@ export class FormationComponent implements OnInit {
     titre:'',
     nbrPlace: 0
   }
+  formationUpdate:FormationDto={};
   Role: any;
 
   constructor(
@@ -72,7 +72,20 @@ export class FormationComponent implements OnInit {
     fileReader.readAsDataURL(file);
   }
   
+  duree(dateDebutStr:string,    dateFinStr:string):number{
+    // Convertissez les chaînes de caractères en objets Date
+const dateDebut = new Date(dateDebutStr);
+const dateFin = new Date(dateFinStr);
 
+// Calculez la différence en millisecondes entre les deux dates
+const differenceEnMillisecondes = dateFin.getTime() - dateDebut.getTime();
+const differenceEnJours:number = differenceEnMillisecondes / (1000 * 60 * 60 * 24);
+// Convertissez la différence en jours
+
+console.log(`La durée est de ${differenceEnJours} jours.`);
+return differenceEnJours;
+
+  }
   ngOnInit(): void {
     this.formationService.findAll2() 
     .subscribe(formation => {
@@ -102,8 +115,9 @@ formationClicked(formation: FormationDto) {
   this.listeEmpl = formation.listEmploye ?? [];
   this.selectedFormation = formation;
   // Assign empty array if undefined
-  console.log(this.listeEmpl);
   this.ispostuler=this.isInList(this.listeEmpl, this.user)
+this.formationUpdate=formation;
+
 
 }
 
@@ -149,46 +163,118 @@ inscrire (formation: FormationDto) {
 }
 
 
+addFormation() { 
+  const validationErrors = this.validateFormation(this.formationAdd);
+  if (validationErrors.length > 0) {
+    this.alert = 'alert alert-danger';
+    this.Msg = `Formation non ajoutée. Erreurs de validation : ${validationErrors.join(', ')}`;
+    setTimeout(() => {
+      this.alert = 'd-none';
+      this.Msg = ""; // Clear the message after hiding the alert
+    }, 5000);
+    console.log("error");
+    return; // Exit the function if validation fails
+  }
+  console.log("this.formationAdd", this.formationAdd);
+  console.log("imga", this.img64);
+  this.formationAdd = {
+    ...this.formationAdd,
+    duree: this.duree(this.formationAdd.dateD!, this.formationAdd.dateF!)
+  };
 
-  addformation(){ 
-    const validationErrors = this.validateFormation(this.formationAdd);
-    if (validationErrors.length > 0) {
-      this.alert = 'alert alert-danger';
-      this.Msg = `Fromation non ajouté. Erreurs de validation : ${validationErrors.join(', ')}`;
+  this.formationService.add2({ body: this.formationAdd }) 
+    .subscribe(formation => {
+      console.log("formation", formation);
+      this.ngOnInit();
+      this.Msg = `Formation "${formation.titre}" ajoutée avec succès!`;
+      this.alert = 'alert alert-success';
+
       setTimeout(() => {
         this.alert = 'd-none';
-// Provide a more informative error message
-    }, 5000);
-      console.log("error");
-
-      return;  // Exit the function if validation fails
-    }
-    console.log("this.formationAdd",this.formationAdd);
-    console.log( "imga",this.img64);
-    this.formationAdd={
-      ...this.formationAdd,
-    }
-
-    this.formationService.add2({body :this.formationAdd}) 
-    .subscribe(formation => {
-       console.log("formation",formation);
-       this.ngOnInit();
-       this.Msg = `Formation "${formation.titre}" est ajouté avec succès!`;
-       this.alert = 'alert alert-success';
-
-       setTimeout(() => {
-        this.alert = 'd-none';
-        this.Msg = "";
+        this.Msg = ""; // Clear the message after hiding the alert
       }, 5000); // Display success message for 5 seconds
     }, error => {
       console.error('Error adding formation:', error);
       this.alert = 'alert alert-danger';
+      this.Msg = `Formation non ajoutée. Une erreur est survenue : ${error.message || error}`; // Provide a more informative error message
+
       setTimeout(() => {
         this.alert = 'd-none';
-      this.Msg = `Formation non ajouté. Une erreur est survenue : ${error.message || error}`; // Provide a more informative error message
-    }, 5000); // Display success message for 5 seconds
-  })};
-  // Optional validation function (replace with your specific validation logic)
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000); // Display error message for 5 seconds
+    });
+}
+
+formationDelete(formation :FormationDto) { 
+  this.formationService.delete2({ id: formation.id as number }) 
+    .subscribe(() => {
+      console.log("formation", formation);
+      this.ngOnInit();
+      this.Msg = `Formation "${formation.titre}" supprimée avec succès!`;
+      this.alert = 'alert alert-success';
+
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000); // Display success message for 5 seconds
+    }, error => {
+      console.error('Error deleting formation:', error);
+      this.alert = 'alert alert-danger';
+      this.Msg = `Formation non supprimée. Une erreur est survenue : ${error.message || error}`; // Provide a more informative error message
+
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000); // Display error message for 5 seconds
+    });
+}
+
+updateFormation() { 
+  const validationErrors = this.validateFormation(this.formationUpdate);
+  if (validationErrors.length > 0) {
+    this.alert = 'alert alert-danger';
+    this.Msg = `Formation non modifiée. Erreurs de validation : ${validationErrors.join(', ')}`;
+    setTimeout(() => {
+      this.alert = 'd-none';
+      this.Msg = ""; // Clear the message after hiding the alert
+    }, 5000);
+    console.log("error");
+    return; // Exit the function if validation fails
+  }
+  console.log("this.formationUpdate", this.formationUpdate);
+  console.log("imga", this.img64);
+  this.formationUpdate = {
+    ...this.formationUpdate,
+    duree: this.duree(this.formationUpdate.dateD!, this.formationUpdate.dateF!)
+  };
+
+  this.formationService.update2({ id: this.formationUpdate.id as number, body: this.formationUpdate }) 
+    .subscribe(formation => {
+      console.log("formation", formation);
+      this.ngOnInit();
+      this.Msg = `Formation "${formation.titre}" modifiée avec succès!`;
+      this.alert = 'alert alert-success';
+
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000); // Display success message for 5 seconds
+    }, error => {
+      console.error('Error updating formation:', error);
+      this.alert = 'alert alert-danger';
+      this.Msg = `Formation non modifiée. Une erreur est survenue : ${error.message || error}`; // Provide a more informative error message
+
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000); // Display error message for 5 seconds
+    });
+}
+
+
+
+
+
   validateFormation(fromation: any): string[] {
     const errors = [];
   
@@ -219,11 +305,11 @@ inscrire (formation: FormationDto) {
     }
   
     // Validate Duration
-    if (!fromation.duree) {
-      errors.push('La durée est obligatoire.');
-    } else if (fromation.duree <= 0 || !Number.isInteger(fromation.duree)) {
-      errors.push('La durée doit être un entier positif.');
-    }
+    // if (!fromation.duree) {
+    //   errors.push('La durée est obligatoire.');
+    // } else if (fromation.duree <= 0 || !Number.isInteger(fromation.duree)) {
+    //   errors.push('La durée doit être un entier positif.');
+    // }
   
     // Validate Description (optional, you can add checks here)
     if (!fromation.description) {

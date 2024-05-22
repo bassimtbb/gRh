@@ -1,5 +1,6 @@
 package com.saiph.application.GestionRH.Domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.ManyToMany;
@@ -23,8 +24,10 @@ import java.util.List;
 public class Event extends GenericEntity {
 
     @NonNull
+        @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateD;
     @NonNull
+        @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateF;
     @NonNull
     private Integer duree;
@@ -35,9 +38,9 @@ public class Event extends GenericEntity {
     @NonNull
     private String img;
     @NonNull
-    private String description;
-    @NonNull
     private String titre;
+    @NonNull
+    private String description;
 
     @ManyToMany()
     private List<User> ListEmploye = new ArrayList<>();

@@ -3,7 +3,7 @@ import { TokenService } from '../../../services/token/token.service';
 import { Departement, DepartementDto, Notification, NotificationDto, User } from '../../../services/models';
 import {Router} from '@angular/router';
 import { DepartementService, NotificationService, UserService } from '../../../services/services';
-import { NotificationsService } from '../../../services/NotificationsService';
+import { NotificationsService } from '../.././layout/NotificationsService';
 
 declare interface RouteInfo {
   path: string;
@@ -242,13 +242,13 @@ export class HeaderComponent implements OnInit {
 
  return"mesDemandes" ;
         break;
-    case "DEMANDE_REJETEE_SUPERVISEUR":
+    case "DEMANDE_REJETEE_SUPH":
        return"mesDemandes" ; 
         break;
     case "DEMANDE_VALIDEE_RRH":
     return"mesDemandes" ;
         break;
-    case "DEMANDE_VALIDEE_SUPERVISEUR":
+    case "DEMANDE_VALIDEE_SUPH":
       if(notif.description==="Votre demande a été acceptée par le supérieur hiérarchique ."){
         return"mesDemandes" ;
       }else{

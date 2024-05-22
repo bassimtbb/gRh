@@ -19,9 +19,11 @@
         <div class="card-footer d-flex  align-items-center justify-content-between">
           <p class="mb-0 "><small class="text-body-secondary">{{formation.dateD | date:'dd/MM/yyyy'}}</small></p>
 
-          <div class="d-flex   " style="gap:1rem;">
+          <div class="d-flex  justify-content-around " >
             <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#FormationD" (click)="formationClicked(formation)"><i class="bi bi-eye-fill"></i></button>                  
             <button type="button"  class="btn btn-light"  *ngIf="this.Role=='RRH'" data-bs-toggle="modal" data-bs-target="#listeEmp" (click)="formationClicked(formation)"><i class="bi bi-people-fill"></i>                  </button>
+            <button type="button" *ngIf="this.Role=='RRH'" data-bs-toggle="modal" data-bs-target="#formationUpdate"  (click)="formationClicked(formation)" class="btn btn-light"><i class="bi bi-pencil-fill"></i>            </button>
+            <button type="button" *ngIf="this.Role=='RRH'" data-bs-toggle="modal" (click)="formationDelete(formation)" class="btn btn-light"><i style="color: red;" class="bi bi-trash3-fill"></i>           </button>
           </div>
         </div>
       </div>
@@ -52,7 +54,7 @@
         <div class="col2">
           <div class="cara">
             <p class="titre">Durée</p>
-            <p class="reponse">{{selectedFormation.duree}} mois</p>
+            <p class="reponse">{{selectedFormation.duree}} Jours</p>
           </div>
           <div class="cara">
             <p class="titre">Date de debut</p>
@@ -76,6 +78,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" (click)="inscrire(selectedFormation)" data-bs-dismiss="modal" [disabled]="ispostuler" class="btn btn-primary">Inscrire</button>
+      
       </div>
     </div>
   </div>
@@ -86,7 +89,8 @@
   <div class="modal-dialog modal-xl">
 <div class="modal-content">
   <div class="modal-header">
-    <h1 class="modal-title fs-5" id="exampleModalLabel">AJOUTER UNE ÉVÉNEMENT </h1>
+<h1 class="modal-title fs-5" id="exampleModalLabel">AJOUTER UNE FORMATION</h1>
+
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   </div>
   <div class="modal-body ">
@@ -118,8 +122,7 @@
           <label for="nbrplace">Nombre des Places</label>
       </div>           
 <div class="form-floating mb-2">
-      <input required type="number"  [(ngModel)]="formationAdd.duree" min="0" class="form-control inputF" id="duree"   >
-      <label for="Duree">Duree</label>
+      <div class="inputF"></div>
   </div> 
   </div>
 
@@ -137,7 +140,7 @@
 </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-    <button type="submit" class="btn btn-primary" (click)="addformation()" data-bs-dismiss="modal" >Ajouter</button>
+    <button type="submit" class="btn btn-primary" (click)="addFormation()" data-bs-dismiss="modal" >Ajouter</button>
   </div>
 </div>
 </div>
@@ -190,7 +193,73 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
         <button type="submit" class="btn btn-primary"  data-bs-dismiss="modal" ><i class="bi bi-file-arrow-down-fill"></i></button>
+      
       </div>
     </div>
   </div>
+</div>
+
+
+
+
+
+<div class="modal  fade" id="formationUpdate" tabindex="-1" aria-labelledby="formationUpdate" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+<div class="modal-content">
+  <div class="modal-header">
+<h1 class="modal-title fs-5" id="exampleModalLabel">MODIFIER UNE FORMATION</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body ">
+    <div class="cl d-flex " >
+      <div class="form-floating mb-2">
+          <input required type="Text"  [(ngModel)]="formationUpdate.titre"  class="form-control inputF" id="titre"   >
+          <label for="titre">Titre</label>
+      </div>
+
+      <div class="form-floating mb-2">
+          <input required type="Text"  [(ngModel)]="formationUpdate.lieu"  class="form-control inputF" id="lieu"  >
+          <label for="lieu">Lieu</label>
+      </div>
+       </div>
+
+  <div class="cl d-flex" >
+    <div class="form-floating mb-2">
+      <input required type="date"  [(ngModel)]="formationUpdate.dateD" [value]="formationUpdate.dateD" min={{datePickerId}}  class="form-control inputF" id="Ddebut"   >
+      <label for="Ddebut">Date Debut</label>
+  </div>
+  <div class="form-floating mb-2">
+    <input required type="date"  [(ngModel)]="formationUpdate.dateF" [value]="formationUpdate.dateF" min={{formationUpdate.dateD}} class="form-control inputF" id="Dfin"   >
+    <label for="Dfin">Date Fin</label>
+</div>
+  </div>      
+  <div class="cl d-flex" >
+      <div class="form-floating mb-2">
+          <input required type="number"  [(ngModel)]="formationUpdate.nbrPlace" min="0"  class="form-control inputF" id="nbrplace"   >
+          <label for="nbrplace">Nombre des Places</label>
+      </div>           
+<div class="form-floating mb-2">
+      <div  class=" inputF"  ></div>
+
+  </div> 
+  </div>
+
+
+  <div class="form-floating mb-2">
+    <textarea class="form-control "  [(ngModel)]="formationUpdate.description" id="description"  value="description" ></textarea>
+    <label for="description">Description</label>
+</div>
+  
+  <div class="input-group mb-3">
+    <input type="file" class="form-control" [(ngModel)]="formationUpdate.img"  id="image" accept="image/*">
+    <label class="input-group-text" for="image">Photo</label>
+  </div>  
+
+</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+    <button type="submit" class="btn btn-primary" (click)="updateFormation()" data-bs-dismiss="modal" >Ajouter</button>
+  </div>
+</div>
+</div>
 </div>

@@ -1,5 +1,6 @@
 package com.saiph.application.GestionRH.Domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.saiph.application.GestionRH.Domain.entities.User;
 import jakarta.persistence.ManyToMany;
 import lombok.*;
@@ -11,11 +12,12 @@ import java.util.List;
 @Setter
 public class FormationDto extends GenericDto {
 
+
     @NonNull
+        @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateD;
     @NonNull
-    private String titre;
-    @NonNull
+        @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateF;
     @NonNull
     private Integer duree;
@@ -25,6 +27,8 @@ public class FormationDto extends GenericDto {
     private Integer nbrPlace;
     @NonNull
     private String img;
+    @NonNull
+    private String titre;
     @NonNull
     private String description;
 

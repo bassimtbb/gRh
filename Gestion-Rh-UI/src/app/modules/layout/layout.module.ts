@@ -18,6 +18,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { HttpTokenInterceptor } from '../../services/interceptor/http-token.interceptor';
 import { DepartementComponent } from './pages/departement/departement.component';
 import { CalendrierComponent } from './pages/calendrier/calendrier.component';
+import { ProfileUserComponent } from './pages/profile-user/profile-user.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CalendrierComponent } from './pages/calendrier/calendrier.component';
     UsersComponent,
     ManageUserComponent,
     DepartementComponent,
-    CalendrierComponent
+    CalendrierComponent,
+    ProfileUserComponent
   ],
   imports: [
     CommonModule,

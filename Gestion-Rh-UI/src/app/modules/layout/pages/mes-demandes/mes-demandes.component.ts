@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../../../services/token/token.service';
 import {  AcompteService,  AutorisationSortieService,  AutorisationTeletravailService,  AutorisationTravailSupService,  ChangementHoraireService,  CongeService,  DemandeService,  DepartementService,  NotificationService,  PretService,  UserService,} from '../../../../services/services';
 import {  AcompteDto,  AutorisationSortieDto,  AutorisationTeletravailDto,  AutorisationTravailSupDto,  ChangementHoraireDto,  CongeDto,  Demande,  PretDto,  User} from '../../../../services/models';
-import { NotificationsService } from '../../../../services/NotificationsService';
+import { NotificationsService } from '../../NotificationsService';
 @Component({
   selector: 'app-mes-demandes',
   templateUrl: './mes-demandes.component.html',
@@ -70,14 +70,36 @@ Sup_h:User={};
   
         });
               
-  this.departementService.findById4({id:3 as number}).subscribe
-  (departement=>{
-     this.Sup_h=departement.manager! ;
-  })
+
     }
 
     DemandeClicked(demande: Demande) {
-   this.demandeSelected=demande;
+      this.departementService.findById4({id:3 as number}).subscribe
+      (departement=>{
+        if (departement.manager ) {
+          console.log(this.demandeSelected.id);
+          this.Sup_h=departement.manager! ;
+    
+          } else {
+          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+          this.alert ="alert alert-danger" ;
+          this.ngOnInit();
+          setTimeout(() => {
+          this.alert = 'd-none';
+          }, 5000); 
+          console.log("Demande data not yet available");
+        return ;
+        
+        }
+      })
+      if (this.demandeSelected && this.demandeSelected.id) {
+        console.log(this.demandeSelected.id);
+        this.demandeSelected=demande;
+
+      } else {
+        
+        console.log("Demande data not yet available");
+      }
    console.log(this.demandeSelected.type);
    switch (this.demandeSelected.type) {
     case "Conge":
@@ -610,7 +632,8 @@ Sup_h:User={};
     
      AddAutorSortie() { 
 
-      const Id = this.tokenService.Id;      
+      const Id = this.tokenService.Id;    
+      console.log(Id);  
       const role:String = this.tokenService.userRole();
        var Typenotif:String =" ";
       this.userService.findById({id: Id as number  })
@@ -638,7 +661,7 @@ Sup_h:User={};
           statut:'En_attente_RRH',
           departement:{"id":user.departement?.id as number}
           }
-          Typenotif="DEMANDE_VALIDEE_SUPERVISEUR";
+          Typenotif="DEMANDE_VALIDEE_SUPH";
 }
         }
         if (role==="SUP_H") {
@@ -648,7 +671,7 @@ Sup_h:User={};
           statut:'En_attente_RRH',
           departement:{"id":user.departement?.id as number}
         }
-        Typenotif="DEMANDE_VALIDEE_SUPERVISEUR";
+        Typenotif="DEMANDE_VALIDEE_SUPH";
 
         } 
         if (role=="EMPLOYE")  {
@@ -696,10 +719,21 @@ Sup_h:User={};
 
     Addconge() {
       
-  this.departementService.findById4({id:3 as number}).subscribe
+  this.departementService.findById4({id:3 as number})
+  .subscribe
       (departement=>{
-         this.Sup_h=departement.manager! ;
+          console.log(this.demandeSelected.id);
+          this.Sup_h=departement.manager! ;
       })
+      if (!this.Sup_h.id ) {
+          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+          this.alert ="alert alert-danger" ;
+          console.log("Demande data not yet available   j");
+          setTimeout(() => {
+          this.alert = 'd-none';
+          }, 5000); 
+        return ;
+        }        
       const Id = this.tokenService.Id;      
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
@@ -811,10 +845,21 @@ Sup_h:User={};
 
     AddautTeletravail() {
       
-  this.departementService.findById4({id:3 as number}).subscribe
+  this.departementService.findById4({id:3 as number})
+  .subscribe
       (departement=>{
-         this.Sup_h=departement.manager! ;
+          console.log(this.demandeSelected.id);
+          this.Sup_h=departement.manager! ;
       })
+      if (!this.Sup_h.id ) {
+          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+          this.alert ="alert alert-danger" ;
+          console.log("Demande data not yet available   j");
+          setTimeout(() => {
+          this.alert = 'd-none';
+          }, 5000); 
+        return ;
+        }   
       const Id = this.tokenService.Id;      
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
@@ -880,10 +925,21 @@ Sup_h:User={};
 
     AddautTravailSupp() {
       
-  this.departementService.findById4({id:3 as number}).subscribe
+  this.departementService.findById4({id:3 as number})
+  .subscribe
       (departement=>{
-         this.Sup_h=departement.manager! ;
+          console.log(this.demandeSelected.id);
+          this.Sup_h=departement.manager! ;
       })
+      if (!this.Sup_h.id ) {
+          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+          this.alert ="alert alert-danger" ;
+          console.log("Demande data not yet available   j");
+          setTimeout(() => {
+          this.alert = 'd-none';
+          }, 5000); 
+        return ;
+        }   
       const Id = this.tokenService.Id;      
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
@@ -948,10 +1004,21 @@ Sup_h:User={};
 
     AddchHoraire() {
       
-  this.departementService.findById4({id:3 as number}).subscribe
+  this.departementService.findById4({id:3 as number})
+  .subscribe
       (departement=>{
-         this.Sup_h=departement.manager! ;
+          console.log(this.demandeSelected.id);
+          this.Sup_h=departement.manager! ;
       })
+      if (!this.Sup_h.id ) {
+          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+          this.alert ="alert alert-danger" ;
+          console.log("Demande data not yet available   j");
+          setTimeout(() => {
+          this.alert = 'd-none';
+          }, 5000); 
+        return ;
+        }   
       const Id = this.tokenService.Id;      
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
@@ -1016,10 +1083,21 @@ Sup_h:User={};
 
     Addacompte() {
       
-  this.departementService.findById4({id:3 as number}).subscribe
+  this.departementService.findById4({id:3 as number})
+  .subscribe
       (departement=>{
-         this.Sup_h=departement.manager! ;
+          console.log(this.demandeSelected.id);
+          this.Sup_h=departement.manager! ;
       })
+      if (!this.Sup_h.id ) {
+          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+          this.alert ="alert alert-danger" ;
+          console.log("Demande data not yet available   j");
+          setTimeout(() => {
+          this.alert = 'd-none';
+          }, 5000); 
+        return ;
+        }   
       const Id = this.tokenService.Id;      
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
@@ -1088,10 +1166,21 @@ Sup_h:User={};
     }
 
     Addpret() {
-  this.departementService.findById4({id:3 as number}).subscribe
+  this.departementService.findById4({id:3 as number})
+  .subscribe
       (departement=>{
-         this.Sup_h=departement.manager! ;
+          console.log(this.demandeSelected.id);
+          this.Sup_h=departement.manager! ;
       })
+      if (!this.Sup_h.id ) {
+          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+          this.alert ="alert alert-danger" ;
+          console.log("Demande data not yet available   j");
+          setTimeout(() => {
+          this.alert = 'd-none';
+          }, 5000); 
+        return ;
+        }   
       const Id = this.tokenService.Id;      
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })

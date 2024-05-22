@@ -14,6 +14,7 @@ import { DepartementService } from '../../../../services/services';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent  implements OnInit {
+
   utilisateur: any;
   employes: UserDto[] = [];
   totalPages: number = 0;
@@ -83,7 +84,7 @@ getStatusClass(statut: string): string {
     role:'EMPLOYE',
     departement:{}
   };
-
+  userPath:string= `profile/${1}`
   Msg:String="";
 
   addUser(){
@@ -128,5 +129,19 @@ getStatusClass(statut: string): string {
     this.page = newPage;
     this.fetchUsers();
   }
-
+  deleteUser(user: UserDto) {
+    this.usersService.delete({id:user.id as number})
+    .subscribe(user=>{
+       this.Msg = `Demande d'Autorisation de travail supplémentaire est supprimée!`;
+      this.alert ="alert alert-success" ;
+      this.ngOnInit();
+      setTimeout(() => {
+      this.alert = 'd-none';
+      }, 5000); 
+      }, error => {
+          console.error('Error updating authorization request:', error);
+          this.Msg = 'Échec de la suppression de la demande!'; 
+          this.alert = 'alert alert-danger'; 
+        });
+  }
 }

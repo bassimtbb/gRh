@@ -33,11 +33,11 @@
         <div [ngClass]=alert role="alert">
             {{Msg}}
           </div>
-            <div *ngIf="!demandes"  class=" data d-flex justify-content-center m-5" >
+            <div *ngIf="demandes==null"  class=" data d-flex justify-content-center m-5" >
                 <p class="mb-0 "><small class="text-body-secondary">Aucune Demande </small></p>
               </div>
         
-        <table *ngIf="demandes"  class="table table-striped table-hover">
+        <table *ngIf="demandes!=null"  class="table table-striped table-hover">
         <thead>
             <th>ID</th>
             <th>Type</th>
@@ -459,11 +459,8 @@
   </div>
 </div>
 
-
-
-
     <!-- Modal AUTORISATION DE SORTIE -->
-    <div class="modal  fade" id="ADS" tabindex="-1" aria-labelledby="ADS" aria-hidden="true">
+    <div class="modal  fade" *ngIf="addADS"  id="ADS" tabindex="-1" aria-labelledby="ADS" aria-hidden="true">
         <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -552,7 +549,7 @@
   </div>
   
 <!-- Modal DEMANDE D'AUTORISATION DE TELETRAVAIL -->
-<div class="modal  fade" id="teleTra" tabindex="-1" aria-labelledby="teleTra" aria-hidden="true">
+<div class="modal  fade" *ngIf="autTeletravail" id="teleTra" tabindex="-1" aria-labelledby="teleTra" aria-hidden="true">
         <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -642,7 +639,7 @@
   </div>
 
    <!-- Modal DEMANDE  DE PRET -->
-<div class="modal  fade" id="pret" tabindex="-1" aria-labelledby="pret" aria-hidden="true">
+<div class="modal  fade" *ngIf="pret" id="pret" tabindex="-1" aria-labelledby="pret" aria-hidden="true">
       <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -731,7 +728,7 @@
 </div> 
 
    <!-- Modal DEMANDE DE CONGE -->
-  <div class="modal  fade" id="conge" tabindex="-1" aria-labelledby="conge" aria-hidden="true">
+  <div class="modal  fade" *ngIf="conge" id="conge" tabindex="-1" aria-labelledby="conge" aria-hidden="true">
         <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -835,7 +832,7 @@
   </div>
 
    <!-- Modal CHANGEMENT HORAIRE DE TRAVAIL-->
-  <div class="modal  fade" id="chH" tabindex="-1" aria-labelledby="chH" aria-hidden="true">
+  <div class="modal  fade" *ngIf="chHoraire" id="chH" tabindex="-1" aria-labelledby="chH" aria-hidden="true">
         <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -918,7 +915,7 @@
   </div>      
   
    <!-- Modal DEMANDE  D'ACOMPTE' -->
-  <div class="modal  fade" id="acompte" tabindex="-1" aria-labelledby="acompte" aria-hidden="true">
+  <div class="modal  fade" *ngIf="acompte" id="acompte" tabindex="-1" aria-labelledby="acompte" aria-hidden="true">
         <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -1002,7 +999,7 @@
   </div>
   
   <!-- Modal TRAVAIL SUP -->
-  <div class="modal  fade" id="TraSup" tabindex="-1" aria-labelledby="TraSup" aria-hidden="true">
+  <div class="modal  fade" *ngIf="autTravailSupp" id="TraSup" tabindex="-1" aria-labelledby="TraSup" aria-hidden="true">
           <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
