@@ -17,6 +17,7 @@ export class DepartementComponent  implements OnInit  {
   manager:User={};
   ListeEmpl:UserDto[] =[];
   ListeEmplAux:User[] =[];
+  Sup_h:User|null=null;
   constructor(
     private route: ActivatedRoute,
     private departmentService:DepartementService,
@@ -41,9 +42,9 @@ export class DepartementComponent  implements OnInit  {
               this.departement = data;
               this.manager=data.manager!;
               this.ListeEmpl=data.listEmploye!;
-              console.log("this.departement ",     this.departement );
-              console.log("this.manager",     this.manager);
-              console.log("this.ListeEmpl",     this.ListeEmpl);
+              // console.log("this.departement ",     this.departement );
+              // console.log("this.manager",     this.manager);
+              // console.log("this.ListeEmpl",     this.ListeEmpl);
             });
         } catch (error) { 
           this.alert = "alert alert-danger";
@@ -60,20 +61,43 @@ export class DepartementComponent  implements OnInit  {
     });
   }
   
-  AddEmployeToDepart(employe : UserDto) {
-    this.departmentService.addEmployeToDepartement({id :this.departement.id as number ,body:employe.id as number})
-    .subscribe(departement =>{
+  AddEmployeToDepart(employe: UserDto) {
+    if (employe.departement?.manager != null) {
+      console.log(employe.departement?.manager.id == employe.id)
 
-      this.ngOnInit();
-      this.alert = "alert alert-success";
-      this.Msg = `Employé(e) ${employe.firstname} ${employe.lastname} a été ajouté(e) avec succès au département ${departement.name} `; 
-      setTimeout(() => {
-      this.alert = 'd-none';
-    }, 5000)}
-  )
+      if (employe.departement?.manager.id== employe.id) {
+        this.alert = 'alert alert-danger';
+        this.Msg = `Employé(e) ${employe.firstname} ${employe.lastname} est déjà un(e) supérieur(e) hiérarchique dans le département ${employe.departement?.name}`;
+        setTimeout(() => {
+          this.alert = 'd-none';
+        }, 5000);
 
-    
+      }
+      
+      return console.log("error");; 
+    }
+    this.departmentService.findByIdEn({ id: employe.id as number })
+      .subscribe(departement => {
+        if (departement.manager) {
+        }else{
+          this.Sup_h =null;
+        }
+        console.log("département : ", departement);
+        console.log("departement.manager :", departement.manager);
+      });
+  
+  
+        this.departmentService.addEmployeToDepartement({ id: this.departement.id as number, body: employe.id as number })
+          .subscribe(departement => {
+            this.ngOnInit();
+            this.alert = "alert alert-success";
+            this.Msg = `Employé(e) ${employe.firstname} ${employe.lastname} a été ajouté(e) avec succès au département ${departement.name}`;
+            setTimeout(() => {
+              this.alert = 'd-none';
+            }, 5000);
+          });
   }
+  
 
 
 

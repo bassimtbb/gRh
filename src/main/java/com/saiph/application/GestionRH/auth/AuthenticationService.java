@@ -1,6 +1,7 @@
 package com.saiph.application.GestionRH.auth;
 
 import com.saiph.application.GestionRH.Domain.entities.User;
+import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import com.saiph.application.GestionRH.repository.UserRepository;
 import com.saiph.application.GestionRH.security.JwtService;
 import com.saiph.application.GestionRH.services.DepartementCrudService;
@@ -23,7 +24,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
 
-    public RegistrationRequest register(RegistrationRequest request)  {
+    public RegistrationRequest register(RegistrationRequest request) throws ResourceNotFoundException {
 
         var userdetail = User.builder()
 

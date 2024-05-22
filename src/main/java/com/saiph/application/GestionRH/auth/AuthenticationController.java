@@ -1,5 +1,6 @@
 package com.saiph.application.GestionRH.auth;
 
+import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class AuthenticationController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public @Valid ResponseEntity<RegistrationRequest> register(
             @RequestBody @Valid RegistrationRequest request
-    ) {
+    ) throws ResourceNotFoundException {
         return ResponseEntity.ok(service.register(request));
     }
 

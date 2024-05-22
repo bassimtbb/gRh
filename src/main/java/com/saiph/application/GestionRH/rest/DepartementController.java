@@ -2,6 +2,7 @@ package com.saiph.application.GestionRH.rest;
 
 import com.saiph.application.GestionRH.Domain.dto.DepartementDto;
 import com.saiph.application.GestionRH.Domain.entities.Departement;
+import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import com.saiph.application.GestionRH.services.DepartementCrudService;
 import com.saiph.application.GestionRH.services.GenericCrudService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,13 +26,13 @@ public class DepartementController extends GenericCrudController<Departement, De
 
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     @PostMapping("/addEmploye/{id}")
-    public Departement addEmployeToDepartement(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
-             return departementCrudService.addEmpl(IdDepartement,IdUser) ;
-
+    public ResponseEntity<Departement>  addEmployeToDepartement(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) throws RuntimeException, ResourceNotFoundException {
+        Departement departement=departementCrudService.addEmpl(IdDepartement,IdUser) ;
+                 return new ResponseEntity<Departement>(departement, HttpStatus.OK);
     }
         @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     @PostMapping("/SetSup/{id}")
-    public Departement SetSup(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
+    public Departement SetSup(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) throws ResourceNotFoundException {
               return departementCrudService.SetSupH(IdDepartement,IdUser);
 
     }
@@ -43,7 +44,7 @@ public class DepartementController extends GenericCrudController<Departement, De
 
         @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "OK")})
     @PostMapping("/removeSupH/{id}")
-    public Departement deleteSupH(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) {
+    public Departement deleteSupH(@PathVariable("id") Long IdDepartement, @Valid @RequestBody Long  IdUser) throws ResourceNotFoundException {
         return departementCrudService.removeSupH(IdDepartement,IdUser);
 
 
