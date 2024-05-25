@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>AUTORISATION DE SORTIE - Approved</title>
     <style>
@@ -43,19 +43,18 @@
         <div class="header">
             <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo"></img>
             <h1>AUTORISATION DE SORTIE</h1>
-            <p>Approved</p>
         </div>
         <div class="content">
             <p>
-                <strong>Entité Juridique:</strong> {{user.ejuridic}}<br></br>
-                <strong>Nom et Prénom:</strong> {{user.firstname}} {{user.lastname}}<br></br>
-                <strong>Matricule:</strong> {{user.id}}<br></br>
-                <strong>Service:</strong> {{user.service}}<br></br>
-                <strong>Durée:</strong> {{addADS.duree}} Heure(s)<br></br>
-                <strong>Date:</strong> {{addADS.dateS}}<br></br>
-                <strong>Heure de Sortie:</strong> {{addADS.hsortie}}<br></br>
-                <strong>Heure de Retour:</strong> {{addADS.hretour}}<br></br>
-                <strong>Motif:</strong> {{addADS.motif}}
+                <strong>Entité Juridique:</strong> <span th:text="${entiteJuridique}"></span><br></br>
+                <strong>Nom et Prénom:</strong> <span th:text="${nomPrenom}"></span><br></br>
+                <strong>Matricule:</strong> <span th:text="${matricule}"></span><br></br>
+                <strong>Service:</strong> <span th:text="${service}"></span><br></br>
+                <strong>Durée:</strong> <span th:text="${duree}"></span> Heure(s)<br></br>
+                <strong>Date:</strong> <span th:text="${dateS}"></span><br></br>
+                <strong>Heure de Sortie:</strong> <span th:text="${hsortie}" ></span><br></br>
+                <strong>Heure de Retour:</strong> <span th:text="${hretour}" ></span><br></br>
+                <strong>Motif:</strong> <span th:text="${motif}"></span>
             </p>
         </div>
         <div class="footer">

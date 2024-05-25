@@ -61,9 +61,15 @@ export class DepartementComponent  implements OnInit  {
     });
   }
   
-  AddEmployeToDepart(employe: UserDto) {
+  AddEmployeToDepart(employe: UserDto) {      
+    console.log("employe.departement?.manager != null  ",employe.departement?.manager != null)
+    console.log("employe   ",employe )
+    console.log("employe.departement?.manager   ",employe.departement?.manager )
+
     if (employe.departement?.manager != null) {
-      console.log(employe.departement?.manager.id == employe.id)
+      console.log( "employe.id", employe.id)
+      console.log("employe.departement?.manager.id  ",employe.departement?.manager.id)
+      console.log("employe.departement?.manager.id == employe.id ",employe.departement?.manager.id == employe.id)
 
       if (employe.departement?.manager.id== employe.id) {
         this.alert = 'alert alert-danger';
@@ -71,10 +77,10 @@ export class DepartementComponent  implements OnInit  {
         setTimeout(() => {
           this.alert = 'd-none';
         }, 5000);
+        return console.log("error");; 
 
       }
       
-      return console.log("error");; 
     }
     this.departmentService.findByIdEn({ id: employe.id as number })
       .subscribe(departement => {
@@ -102,8 +108,7 @@ export class DepartementComponent  implements OnInit  {
 
 
 
-  remouveEmployefromDepart( employe : UserDto){
-console.log("remouve :" ,employe);
+  removeEmployefromDepart( employe : UserDto){
     this.departmentService.deleteEmpl({id :employe.departement!.id as number ,body:employe.id as number})
     .subscribe(departement =>{
       this.ngOnInit();

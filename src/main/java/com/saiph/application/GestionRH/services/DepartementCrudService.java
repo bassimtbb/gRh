@@ -77,7 +77,6 @@ public class DepartementCrudService extends GenericCrudService<Departement, Depa
         if (utilisateur.getDepartement() != null) {
             if (utilisateur.getDepartement().getManager() != null) {
             }
-            utilisateur.getDepartement().setManager(null);
             deleteEmpl(utilisateur.getDepartement().getId() , utilisateur.getId());
         }
         if (

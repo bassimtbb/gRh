@@ -42,8 +42,7 @@
     <div class="container">
         <div class="header">
             <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo"></img>
-            <h1>AUTORISATION DE SORTIE</h1>
-            <p>Approved</p>
+            <h1>DEMANDE DE CHANGEMENT HORAIRE DE TRAVAIL</h1>
         </div>
         <div class="content">
             <p>
@@ -51,11 +50,11 @@
                 <strong>Nom et Prénom:</strong> {{user.firstname}} {{user.lastname}}<br></br>
                 <strong>Matricule:</strong> {{user.id}}<br></br>
                 <strong>Service:</strong> {{user.service}}<br></br>
-                <strong>Durée:</strong> {{addADS.duree}} Heure(s)<br></br>
-                <strong>Date:</strong> {{addADS.dateS}}<br></br>
-                <strong>Heure de Sortie:</strong> {{addADS.hsortie}}<br></br>
-                <strong>Heure de Retour:</strong> {{addADS.hretour}}<br></br>
-                <strong>Motif:</strong> {{addADS.motif}}
+                <strong>Changement envisagé du </strong> {{addADS.duree}} Heure(s)
+                <strong>Au</strong> {{addADS.dateS}}<br></br>
+                <strong>Ancien Horaire :</strong> {{addADS.hsortie}}
+                <strong>Nouvel Horaire</strong> {{addADS.hretour}}<br></br>
+                <strong>Motif:</strong><br></br> {{addADS.motif}}
             </p>
         </div>
         <div class="footer">

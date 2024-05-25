@@ -1,7 +1,7 @@
 package com.saiph.application.GestionRH.services;
 
 
-import com.saiph.application.GestionRH.Enum.EmailTemplateName;
+import com.saiph.application.GestionRH.Enum.PDFTemplateName;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class EmailService {
     public void sendEmail(
             String to,
             String username,
-            EmailTemplateName emailTemplate,
+            PDFTemplateName emailTemplate,
             String confirmationUrl,
             String activationCode,
             String subject

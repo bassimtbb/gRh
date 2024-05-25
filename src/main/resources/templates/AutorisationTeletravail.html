@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>AUTORISATION DE SORTIE - Approved</title>
+    <title>DEMANDE D'AUTORISATION DE TELETRAVAIL - Approved</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,8 +42,7 @@
     <div class="container">
         <div class="header">
             <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo"></img>
-            <h1>AUTORISATION DE SORTIE</h1>
-            <p>Approved</p>
+            <h1>DEMANDE D'AUTORISATION DE TELETRAVAIL</h1>
         </div>
         <div class="content">
             <p>
@@ -51,11 +50,13 @@
                 <strong>Nom et Prénom:</strong> {{user.firstname}} {{user.lastname}}<br></br>
                 <strong>Matricule:</strong> {{user.id}}<br></br>
                 <strong>Service:</strong> {{user.service}}<br></br>
-                <strong>Durée:</strong> {{addADS.duree}} Heure(s)<br></br>
-                <strong>Date:</strong> {{addADS.dateS}}<br></br>
-                <strong>Heure de Sortie:</strong> {{addADS.hsortie}}<br></br>
-                <strong>Heure de Retour:</strong> {{addADS.hretour}}<br></br>
-                <strong>Motif:</strong> {{addADS.motif}}
+                <strong>Personne à contacter en cas de non joignabilité </strong> {{addADS.duree}}<br></br>
+                <strong>Téléphone </strong> {{addADS.dateS}}<br></br>
+                <strong>Lieu du télétravail </strong> {{addADS.hsortie}}<br></br>
+                <strong>Pour la periode </strong> {{addADS.hretour}}
+                <strong>Au </strong> {{addADS.hretour}}<br></br>
+
+                <strong>Tout en assurant les tâches suivantes :</strong><br></br> {{addADS.motif}}
             </p>
         </div>
         <div class="footer">

@@ -38,6 +38,7 @@ export class MesDemandesComponent  implements OnInit {
   modifPret : PretDto={}
   datePickerId = new Date().toISOString().split("T")[0];
 Sup_h:User={};
+  role: any;
   constructor(
     private congeService:CongeService,
     private autTeletravailService:AutorisationTeletravailService,
@@ -57,6 +58,8 @@ Sup_h:User={};
  
     demandes:Demande[]=[];
     ngOnInit(): void {
+       this.role= this.tokenService.userRole();
+
       const Id = this.tokenService.Id;
       this.userService.findById({id: Id as number  })
         .subscribe(user => { 
@@ -74,32 +77,32 @@ Sup_h:User={};
     }
 
     DemandeClicked(demande: Demande) {
-      this.departementService.findById4({id:3 as number}).subscribe
-      (departement=>{
-        if (departement.manager ) {
-          console.log(this.demandeSelected.id);
-          this.Sup_h=departement.manager! ;
+      // this.departementService.findById4({id:3 as number}).subscribe
+      // (departement=>{
+      //   if (departement.manager ) {
+      //     console.log(this.demandeSelected.id);
+      //     this.Sup_h=departement.manager! ;
     
-          } else {
-          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
-          this.alert ="alert alert-danger" ;
-          this.ngOnInit();
-          setTimeout(() => {
-          this.alert = 'd-none';
-          }, 5000); 
-          console.log("Demande data not yet available");
-        return ;
+      //     } else {
+      //     this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+      //     this.alert ="alert alert-danger" ;
+      //     this.ngOnInit();
+      //     setTimeout(() => {
+      //     this.alert = 'd-none';
+      //     }, 5000); 
+      //     console.log("Demande data not yet available");
+      //   return ;
         
-        }
-      })
-      if (this.demandeSelected && this.demandeSelected.id) {
-        console.log(this.demandeSelected.id);
+      //   }
+      // })
+      // if (this.demandeSelected && this.demandeSelected.id) {
+      //   console.log(this.demandeSelected.id);
         this.demandeSelected=demande;
 
-      } else {
+      // } else {
         
-        console.log("Demande data not yet available");
-      }
+      //   console.log("Demande data not yet available");
+      // }
    console.log(this.demandeSelected.type);
    switch (this.demandeSelected.type) {
     case "Conge":
@@ -719,25 +722,27 @@ Sup_h:User={};
 
     Addconge() {
       
-  this.departementService.findById4({id:3 as number})
-  .subscribe
-      (departement=>{
-          console.log(this.demandeSelected.id);
-          this.Sup_h=departement.manager! ;
-      })
-      if (!this.Sup_h.id ) {
+  // this.departementService.findById4({id:3 as number})
+  // .subscribe
+  //     (departement=>{
+  //         console.log("demandeSelected :",this.demandeSelected.id);
+  //         this.Sup_h=departement.manager! ;
+  //     })
+  const Id = this.tokenService.Id;      
+  const role:String = this.tokenService.userRole();
+  this.userService.findById({id: Id as number  })
+  .subscribe(user => {
+      if (!user.departement?.manager ) {
           this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
           this.alert ="alert alert-danger" ;
+          console.log("this.Sup_h.id ,",this.Sup_h);
           console.log("Demande data not yet available   j");
           setTimeout(() => {
           this.alert = 'd-none';
           }, 5000); 
         return ;
         }        
-      const Id = this.tokenService.Id;      
-      const role:String = this.tokenService.userRole();
-      this.userService.findById({id: Id as number  })
-      .subscribe(user => {
+
         if(role==="RRH"){
           console.log("RRH demande")
           if(this.Sup_h.id==Id){ 

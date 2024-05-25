@@ -153,7 +153,7 @@
                 <td *ngIf="employee.role=='EMPLOYE'" >Employe</td>
 
                 <td style="display: flex; justify-content: space-around;">
-                    <button  type="button" *ngIf="isInTheDepartment(employee)" data-bs-dismiss="modal" class="btn btn-danger" (click)="remouveEmployefromDepart(employee)"><i class="bi bi-x-lg"></i> </button>
+                    <button  type="button" *ngIf="isInTheDepartment(employee)" data-bs-dismiss="modal" class="btn btn-danger" (click)="removeEmployefromDepart(employee)"><i class="bi bi-x-lg"></i> </button>
                     <button  type="button" *ngIf="!isInTheDepartment(employee)" data-bs-dismiss="modal" class="btn btn-success" (click)="AddEmployeToDepart(employee)"><i class="bi bi-plus-lg"></i></button>
                 </td>
               </tr>
