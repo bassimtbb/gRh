@@ -172,9 +172,10 @@ Sup_h:User={};
   let type :ElementRef;
   switch(demande.type) {
     case "Pret":
-      type = this.Pret!;
+       this.pretService.findById9({id:demande.id as number}).subscribe(pret=>{this.pret=pret})
       break;
     case "Conge":
+      this.congeService.findById10({id:demande.id as number}).subscribe(conge=>{this.conge=conge})
       type = this.Conge!;
       break;
     case "ChangementHoraire":
@@ -202,7 +203,7 @@ Sup_h:User={};
       const imgWidth = 210;
       const imgHeight = canvas.height * imgWidth / canvas.width;
       pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
-      pdf.save('filename.pdf');
+      pdf.save('demande.pdf');
     });
 }
   

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Departement, DepartementDto, User, UserDto } from '../../../../services/models';
 import { ActivatedRoute } from '@angular/router';
 import { DepartementService, UserService } from '../../../../services/services';
+import { TokenService } from '../../../../services/token/token.service';
 
 @Component({
   selector: 'app-departement',
@@ -17,14 +18,16 @@ export class DepartementComponent  implements OnInit  {
   manager:User={};
   ListeEmpl:UserDto[] =[];
   ListeEmplAux:User[] =[];
+   role = this.tokenService.userRole();
+
   Sup_h:User|null=null;
   constructor(
     private route: ActivatedRoute,
     private departmentService:DepartementService,
-    private userService: UserService
-  ) {} 
-  
-  ngOnInit() {
+    private userService: UserService,
+    private tokenService: TokenService
+  ) {}
+  ngOnInit(): void {
     this.userService.findAll()
     .subscribe(
       employes =>{

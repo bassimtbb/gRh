@@ -53,7 +53,6 @@
                 <td>{{ demande.createdDate | date:'dd/MM/yyyy' }}</td>
                 <td style="display: flex; justify-content: space-around;">
                   <button type="button" *ngIf="demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H'" data-bs-toggle="modal" data-bs-target="#pdf" (click)="DemandeClicked(demande)"  class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
-                  <!-- <button type="button" *ngIf="demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H'" class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button> -->
 
                   <div style=" height: 2rem;" *ngIf="!(demande.statut === 'Validee' || demande.statut === 'Refusee' || demande.statut === 'En_attente_Sup_H' || ((demande.statut === 'En_attente_RRH') &&  ((role === 'RRH') || (role === 'SUP_H'))) ||demande.statut === 'Refusee_Sup_H') "></div>
                     <button type="button" *ngIf="demande.statut==='En_attente_Sup_H'||((demande.statut==='En_attente_RRH')&&((role=='RRH')||(role=='SUP_H')))" data-bs-toggle="modal" data-bs-target="#update" (click)="DemandeClicked(demande)" class="btn btn-light"><i class="bi bi-pencil"></i>
@@ -1094,17 +1093,16 @@
             <h1>AUTORISATION DE SORTIE</h1>
         </div>
         <div class="content">
-            <!-- <p>
-                <strong>Entité Juridique:</strong> <span th:text="${entiteJuridique}"></span><br>
-                <strong>Nom et Prénom:</strong> <span th:text="${nomPrenom}"></span><br>
-                <strong>Matricule:</strong> <span th:text="${matricule}"></span><br>
-                <strong>Service:</strong> <span th:text="${service}"></span><br>
-                <strong>Durée:</strong> <span th:text="${duree}"></span> Heure(s)<br>
-                <strong>Date:</strong> <span th:text="${dateS}"></span><br>
-                <strong>Heure de Sortie:</strong> <span th:text="${hsortie}" ></span><br>
-                <strong>Heure de Retour:</strong> <span th:text="${hretour}" ></span><br>
-                <strong>Motif:</strong> <span th:text="${motif}"></span>
-            </p> -->
+            <p>
+                <strong>Entité Juridique:</strong> <span> {{this.modifADS.utilisateur?.ejuridic}}</span><br>
+                <strong>Nom et Prénom:</strong> <span > {{this.modifADS.utilisateur?.firstname}}  {{this.modifADS.utilisateur?.lastModifiedBy}}</span><br>
+                <strong>Matricule:</strong> <span > {{this.modifADS.utilisateur?.id}}</span><br>
+                <strong>Service:</strong> <span > {{this.modifADS.utilisateur?.service}}</span><br>
+                <strong>Date de debut:</strong> {{this.modifADS.dateS}}<br>
+                <strong>Durée:</strong> {{this.modifADS.duree}} Jour(s)<br>
+                <strong>Motif:</strong> {{this.modifADS.motif}}
+             
+            </p>
         </div>
         <div class="footer">
             <p>Autorisation Approuvée</p>
