@@ -2361,6 +2361,45 @@
     }
     }
     },
+    "/demande/pdf/{demandeId}": {
+    "get": {
+    "tags": [
+    "Demande"
+    ],
+    "operationId": "generatePdf",
+    "parameters": [
+    {
+    "name": "demandeId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    },
+    {
+    "name": "typeDemande",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
     "/demande/all": {
     "get": {
     "tags": [
@@ -2771,20 +2810,11 @@
     "name": {
     "type": "string"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
     },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
-    "username": {
+    "ejuridic": {
     "type": "string"
     },
     "authorities": {
@@ -2792,6 +2822,15 @@
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
+    },
+    "username": {
+    "type": "string"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    },
+    "accountNonExpired": {
+    "type": "boolean"
     },
     "accountNonLocked": {
     "type": "boolean"
@@ -2876,12 +2915,12 @@
     "type": "string",
     "format": "date-time"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -3224,11 +3263,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "hsortie": {
+    "hacces": {
     "type": "string",
     "format": "date-time"
     },
-    "hacces": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     }
@@ -3463,11 +3502,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "ancienH": {
+    "nouvelH": {
     "type": "string",
     "format": "date-time"
     },
-    "nouvelH": {
+    "ancienH": {
     "type": "string",
     "format": "date-time"
     }
@@ -3535,11 +3574,11 @@
     "isTemporaire": {
     "type": "boolean"
     },
-    "hretour": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     },
-    "hsortie": {
+    "hretour": {
     "type": "string",
     "format": "date-time"
     }
@@ -3599,12 +3638,12 @@
     "img": {
     "type": "string"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -3642,20 +3681,20 @@
     "password": {
     "type": "string"
     },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
-    "username": {
-    "type": "string"
-    },
     "authorities": {
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
+    },
+    "username": {
+    "type": "string"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    },
+    "accountNonExpired": {
+    "type": "boolean"
     },
     "accountNonLocked": {
     "type": "boolean"

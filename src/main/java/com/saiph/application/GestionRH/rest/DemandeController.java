@@ -43,8 +43,8 @@ public class DemandeController extends GenericCrudController<Demande, DemandeDto
     private final DepartementCrudService departementCrudService;
     private final PDFGeneratorService pdfGeneratorService;
 
-    @PostMapping("/pdf/{demandeId}")
-    public void generatePdf(@PathVariable("demandeId") Long demandeId,
+    @GetMapping("/pdf/{demandeId}")
+    public String generatePdf(@PathVariable("demandeId") Long demandeId,
                             @RequestParam("typeDemande") String typeDemande,
                             HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
@@ -57,12 +57,13 @@ public class DemandeController extends GenericCrudController<Demande, DemandeDto
 
         try {
             PDFTemplateName templateName = PDFTemplateName.valueOf(typeDemande);
-            pdfGeneratorService.PdfValidationD(response, templateName, demandeId);
+            return pdfGeneratorService.PdfValidationD(response, templateName, demandeId);
         } catch (IllegalArgumentException e) {
             response.sendError(HttpStatus.BAD_REQUEST.value(), "Invalid typeDemande value.");
         } catch (Exception e) {
             response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error generating PDF.");
         }
+        return "";
     }
     @GetMapping("/Utilisateur/{userId}")
     public ResponseEntity<List<Demande>> getDemandeByUtilisateurId(

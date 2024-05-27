@@ -48,7 +48,7 @@ public class PDFGeneratorService {
         return String.format("%02d:%02d", hours, minutes);
     }
 
-    public void PdfValidationD(HttpServletResponse response, PDFTemplateName pdfTemplate, Long demandeId) throws IOException {
+    public String PdfValidationD(HttpServletResponse response, PDFTemplateName pdfTemplate, Long demandeId) throws IOException {
 
         response.setContentType("application/pdf");
         String templateName = pdfTemplate.getName();
@@ -127,12 +127,12 @@ public class PDFGeneratorService {
                 default:
                     logger.error("Invalid TypeDemande: {}", pdfTemplate);
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid TypeDemande: " + pdfTemplate);
-                    return;
+                    return"";
             }
         } catch (Exception e) {
             logger.error("Error processing PDF generation", e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing PDF generation");
-            return;
+            return"";
         }
 
         context.setVariables(properties);
@@ -140,19 +140,19 @@ public class PDFGeneratorService {
         // Generate HTML from template
         String html = templateEngine.process(templateName, context);
         logger.info("Generated HTML: {}", html);
-
+return html;
         // Generate PDF from HTML
-        try (OutputStream os = response.getOutputStream()) {
-            ITextRenderer renderer = new ITextRenderer();
-            renderer.setDocumentFromString(html);
-            renderer.layout();
-            renderer.createPDF(os, false);
-            renderer.finishPDF();
-        } catch (DocumentException e) {
-            logger.error("Error generating PDF: ", e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error generating PDF.");
-        } catch (Exception e) {
-            logger.error("Unexpected error: ", e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error occurred.");
-        }
+//        try (OutputStream os = response.getOutputStream()) {
+//            ITextRenderer renderer = new ITextRenderer();
+//            renderer.setDocumentFromString(html);
+//            renderer.layout();
+//            renderer.createPDF(os, false);
+//            renderer.finishPDF();
+//        } catch (DocumentException e) {
+//            logger.error("Error generating PDF: ", e);
+//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error generating PDF.");
+//        } catch (Exception e) {
+//            logger.error("Unexpected error: ", e);
+//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error occurred.");
+//        }
     }}

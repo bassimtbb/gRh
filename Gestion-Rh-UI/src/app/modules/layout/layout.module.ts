@@ -19,6 +19,7 @@ import { HttpTokenInterceptor } from '../../services/interceptor/http-token.inte
 import { DepartementComponent } from './pages/departement/departement.component';
 import { CalendrierComponent } from './pages/calendrier/calendrier.component';
 import { ProfileUserComponent } from './pages/profile-user/profile-user.component';
+import { PdfComponent } from './pages/pdf/pdf.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ProfileUserComponent } from './pages/profile-user/profile-user.componen
     ManageUserComponent,
     DepartementComponent,
     CalendrierComponent,
-    ProfileUserComponent
+    ProfileUserComponent,
+    PdfComponent
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,7 @@
 import { Component, ElementRef, Injectable, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
-import * as jspdf from 'jspdf';
+import { Demande } from '../../../../services/models';
+import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import {  Demande,} from '../../../../services/models'
 
 @Injectable({
   providedIn: 'root'
@@ -10,60 +9,63 @@ import {  Demande,} from '../../../../services/models'
 @Component({
   selector: 'app-pdf',
   templateUrl: './pdf.component.html',
-  styleUrl: './pdf.component.scss'
+  styleUrls: ['./pdf.component.scss']
 })
 export class PdfComponent {
+  @ViewChild('Pret', { static: false }) Pret: ElementRef | undefined;
+  @ViewChild('Conge', { static: false }) Conge: ElementRef | undefined;
+  @ViewChild('ChangementHoraire', { static: false }) ChangementHoraire: ElementRef | undefined;
+  @ViewChild('AutorisationTravailSup', { static: false }) AutorisationTravailSup: ElementRef | undefined;
+  @ViewChild('AutorisationTeletravail', { static: false }) AutorisationTeletravail: ElementRef | undefined;
+  @ViewChild('AutorisationSortie', { static: false }) AutorisationSortie: ElementRef | undefined;
+  @ViewChild('Acompte', { static: false }) Acompte: ElementRef | undefined;
+  ngAfterViewInit() {
+    console.log('Pret element:', this.Pret);
+  }
+  downloadPdf(demande: Demande) {
+    this.ngAfterViewInit();
+    let element: ElementRef | undefined;
 
-
-  
-  
-  
-  
-  
-    @ViewChild('Pret') Pret: ElementRef | undefined;
-    @ViewChild('Conge') Conge: ElementRef | undefined;
-    @ViewChild('ChangementHoraire') ChangementHoraire: ElementRef | undefined;
-    @ViewChild('AutorisationTravailSup') AutorisationTravailSup: ElementRef | undefined;
-    @ViewChild('AutorisationTeletravail') AutorisationTeletravail: ElementRef | undefined;
-    @ViewChild('AutorisationSortie') AutorisationSortie: ElementRef | undefined;
-    @ViewChild('Acompte') Acompte: ElementRef | undefined;
-  
-   downloadPdf(demande : Demande){
-    let type :any;
-    switch(demande.type) {
+    switch (demande.type) {
       case "Pret":
-        type = this.Pret!.nativeElement;
+        element = this.Pret;
         break;
       case "Conge":
-        type = this.Conge!.nativeElement;
+        element = this.Conge;
         break;
       case "ChangementHoraire":
-        type = this.ChangementHoraire!.nativeElement;
+        element = this.ChangementHoraire;
         break;
       case "AutorisationTravailSup":
-        type = this.AutorisationTravailSup!.nativeElement;
+        element = this.AutorisationTravailSup;
         break;
       case "AutorisationTeletravail":
-        type = this.AutorisationTeletravail!.nativeElement;
+        element = this.AutorisationTeletravail;
         break;
       case "AutorisationSortie":
-        type = this.AutorisationSortie!.nativeElement;
+        element = this.AutorisationSortie;
         break;
       case "Acompte":
-        type = this.Acompte!.nativeElement;
+        element = this.Acompte;
         break;
       default:
-        type = "UNKNOWN";
-        break;
+        console.error('Invalid type');
+        return;
     }
-      html2canvas(type).then(canvas => {
+
+    if (element) {
+      html2canvas(element.nativeElement).then(canvas => {
         const contentDataURL = canvas.toDataURL('image/png');
-        const pdf = new jspdf.jsPDF();
+        const pdf = new jsPDF();
         const imgWidth = 210;
         const imgHeight = canvas.height * imgWidth / canvas.width;
         pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
         pdf.save('filename.pdf');
+      }).catch(error => {
+        console.error('Error generating PDF', error);
       });
+    } else {
+      console.error('Element not found');
+    }
   }
-  
-  }
+}

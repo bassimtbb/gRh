@@ -1,15 +1,119 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TokenService } from '../../../../services/token/token.service';
 import {  AcompteService,  AutorisationSortieService,  AutorisationTeletravailService,  AutorisationTravailSupService,  ChangementHoraireService,  CongeService,  DemandeService,  DepartementService,  NotificationService,  PretService,  UserService,} from '../../../../services/services';
 import {  AcompteDto,  AutorisationSortieDto,  AutorisationTeletravailDto,  AutorisationTravailSupDto,  ChangementHoraireDto,  CongeDto,  Demande,  PretDto,  User} from '../../../../services/models';
 import { NotificationsService } from '../../NotificationsService';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import { PdfComponent } from '../pdf/pdf.component';
+export const pretTemplate: string = `
+    <div class="container">
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>DEMANDE D'ACOMPTE</h1>
+        </div>
+        <div class="content">
+            <!-- Insert dynamic content here -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+`;
+
+export const congeTemplate: string = `
+    <div class="container">
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>Demande de Congé</h1>
+        </div>
+        <div class="content">
+            <!-- Insert dynamic content here -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+`;
+export const changementHoraireTemplate: string = `
+    <div class="container">
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>Demande de Congé</h1>
+        </div>
+        <div class="content">
+            <!-- Insert dynamic content here -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+`;
+export const autorisationTravailSupTemplate: string = `
+    <div class="container">
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>Demande de Congé</h1>
+        </div>
+        <div class="content">
+            <!-- Insert dynamic content here -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+`;
+export const autorisationTeletravailTemplate: string = `
+    <div class="container">
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>Demande de Congé</h1>
+        </div>
+        <div class="content">
+            <!-- Insert dynamic content here -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+`;
+export const autorisationSortieTemplate: string = `
+    <div class="container">
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>Demande de Congé</h1>
+        </div>
+        <div class="content">
+            <!-- Insert dynamic content here -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+`;
+export const acompteTemplate: string = `
+    <div class="container">
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>Demande de Congé</h1>
+        </div>
+        <div class="content">
+            <!-- Insert dynamic content here -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+`;
+
+
 @Component({
   selector: 'app-mes-demandes',
   templateUrl: './mes-demandes.component.html',
   styleUrl: './mes-demandes.component.scss'
 })
 export class MesDemandesComponent  implements OnInit {
-
+  pdfAffiche:number=0;
   isTemporaire: boolean=true;
   addADS:AutorisationSortieDto={};
   alert!: string;  
@@ -40,6 +144,7 @@ export class MesDemandesComponent  implements OnInit {
 Sup_h:User={};
   role: any;
   constructor(
+    private pdfComponent: PdfComponent,
     private congeService:CongeService,
     private autTeletravailService:AutorisationTeletravailService,
     private autTravailSuppService:  AutorisationTravailSupService,
@@ -52,10 +157,55 @@ Sup_h:User={};
     private autorisationSortieService :AutorisationSortieService,
     private  notificationService:NotificationService,
     private  departementService:DepartementService,
-
     private notificationsService: NotificationsService
   ){}
- 
+  @ViewChild('Pret') Pret: ElementRef | undefined;
+  @ViewChild('Conge') Conge: ElementRef | undefined;
+  @ViewChild('ChangementHoraire') ChangementHoraire: ElementRef | undefined;
+  @ViewChild('AutorisationTravailSup') AutorisationTravailSup: ElementRef | undefined;
+  @ViewChild('AutorisationTeletravail') AutorisationTeletravail: ElementRef | undefined;
+  @ViewChild('AutorisationSortie') AutorisationSortie: ElementRef | undefined;
+  @ViewChild('Acompte') Acompte: ElementRef | undefined;
+
+ downloadPdf(demande : Demande){
+  console.log(demande.type)
+  let type :ElementRef;
+  switch(demande.type) {
+    case "Pret":
+      type = this.Pret!;
+      break;
+    case "Conge":
+      type = this.Conge!;
+      break;
+    case "ChangementHoraire":
+      type = this.ChangementHoraire!;
+      break;
+    case "AutorisationTravailSup":
+      type = this.AutorisationTravailSup!;
+      break;
+    case "AutorisationTeletravail":
+      type = this.AutorisationTeletravail!;
+      break;
+    case "AutorisationSortie":
+      type = this.AutorisationSortie!;
+      break;
+    case "Acompte":
+      type = this.Acompte!;
+      break;
+    default:
+      break;
+  }  console.log(type!.nativeElement);
+
+    html2canvas(type!.nativeElement).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jspdf.jsPDF();
+      const imgWidth = 210;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.save('filename.pdf');
+    });
+}
+  
     demandes:Demande[]=[];
     ngOnInit(): void {
        this.role= this.tokenService.userRole();
@@ -73,9 +223,8 @@ Sup_h:User={};
   
         });
               
-
     }
-
+ 
     DemandeClicked(demande: Demande) {
       // this.departementService.findById4({id:3 as number}).subscribe
       // (departement=>{

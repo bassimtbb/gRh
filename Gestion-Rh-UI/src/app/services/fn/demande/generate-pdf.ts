@@ -12,21 +12,21 @@ export interface GeneratePdf$Params {
   typeDemande: string;
 }
 
-export function generatePdf(http: HttpClient, rootUrl: string, params: GeneratePdf$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, generatePdf.PATH, 'post');
+export function generatePdf(http: HttpClient, rootUrl: string, params: GeneratePdf$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  const rb = new RequestBuilder(rootUrl, generatePdf.PATH, 'get');
   if (params) {
     rb.path('demandeId', params.demandeId, {});
     rb.query('typeDemande', params.typeDemande, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<string>;
     })
   );
 }
 
-generatePdf.PATH = '/demande/generate/{demandeId}';
+generatePdf.PATH = '/demande/pdf/{demandeId}';

@@ -19,6 +19,8 @@ import { findAll5 } from '../fn/demande/find-all-5';
 import { FindAll5$Params } from '../fn/demande/find-all-5';
 import { findById5 } from '../fn/demande/find-by-id-5';
 import { FindById5$Params } from '../fn/demande/find-by-id-5';
+import { generatePdf } from '../fn/demande/generate-pdf';
+import { GeneratePdf$Params } from '../fn/demande/generate-pdf';
 import { getDemandeBydepartementId } from '../fn/demande/get-demande-bydepartement-id';
 import { GetDemandeBydepartementId$Params } from '../fn/demande/get-demande-bydepartement-id';
 import { getDemandeByStatut } from '../fn/demande/get-demande-by-statut';
@@ -183,6 +185,31 @@ export class DemandeService extends BaseService {
   getDemandeByStatut(params: GetDemandeByStatut$Params, context?: HttpContext): Observable<Array<Demande>> {
     return this.getDemandeByStatut$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Demande>>): Array<Demande> => r.body)
+    );
+  }
+
+  /** Path part for operation `generatePdf()` */
+  static readonly GeneratePdfPath = '/demande/pdf/{demandeId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `generatePdf()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  generatePdf$Response(params: GeneratePdf$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+    return generatePdf(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `generatePdf$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  generatePdf(params: GeneratePdf$Params, context?: HttpContext): Observable<string> {
+    return this.generatePdf$Response(params, context).pipe(
+      map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
 
