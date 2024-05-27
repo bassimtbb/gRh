@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Demande de pret - Approved</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            border: 2px solid #4CAF50;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #4CAF50;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .footer p {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" #Pret>
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>DEMANDE D'ACOMPTE</h1>
+        </div>
+        <div class="content">
+            <!-- <p>
+                <strong>Entité Juridique:</strong> {{}}<br>
+                <strong>Nom et Prénom:</strong> {{}}<br>
+                <strong>Matricule:</strong> {{}}<br>
+                <strong>Service:</strong> {{}}<br>
+                <strong>Acompte </strong> {{}} Heure(s)<br>
+                <strong>Montant</strong> {{}}<br>
+            </p> -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+
+
+
+    <div class="container" #Conge>
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>AUTORISATION DE SORTIE</h1>
+        </div>
+        <div class="content">
+            <!-- <p>
+                <strong>Entité Juridique:</strong> <span th:text="${entiteJuridique}"></span><br>
+                <strong>Nom et Prénom:</strong> <span th:text="${nomPrenom}"></span><br>
+                <strong>Matricule:</strong> <span th:text="${matricule}"></span><br>
+                <strong>Service:</strong> <span th:text="${service}"></span><br>
+                <strong>Durée:</strong> <span th:text="${duree}"></span> Heure(s)<br>
+                <strong>Date:</strong> <span th:text="${dateS}"></span><br>
+                <strong>Heure de Sortie:</strong> <span th:text="${hsortie}" ></span><br>
+                <strong>Heure de Retour:</strong> <span th:text="${hretour}" ></span><br>
+                <strong>Motif:</strong> <span th:text="${motif}"></span>
+            </p> -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+
+
+
+
+    <div class="container" #ChangementHoraire>
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>DEMANDE D'AUTORISATION DE TELETRAVAIL</h1>
+        </div>
+        <div class="content">
+            <!-- <p>
+                <strong>Entité Juridique:</strong> {{user.ejuridic}}<br>
+                <strong>Nom et Prénom:</strong> {{user.firstname}} {{user.lastname}}<br>
+                <strong>Matricule:</strong> {{user.id}}<br>
+                <strong>Service:</strong> {{user.service}}<br>
+                <strong>Personne à contacter en cas de non joignabilité </strong> {{addADS.duree}}<br>
+                <strong>Téléphone </strong> {{addADS.dateS}}<br>
+                <strong>Lieu du télétravail </strong> {{addADS.hsortie}}<br>
+                <strong>Pour la periode </strong> {{addADS.hretour}}
+                <strong>Au </strong> {{addADS.hretour}}<br>
+
+                <strong>Tout en assurant les tâches suivantes :</strong><br> {{addADS.motif}}
+            </p> -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+
+
+
+
+    <div class="container" #AutorisationTravailSup>
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>DEMANDE D'AUTORISATION De TRAVAIL SUPPLÉMENTAIRE</h1>
+        </div>
+        <div class="content">
+            <!-- <p>
+                <strong>Entité Juridique:</strong> {{user.ejuridic}}<br>
+                <strong>Nom et Prénom:</strong> {{user.firstname}} {{user.lastname}}<br>
+                <strong>Matricule:</strong> {{user.id}}<br>
+                <strong>Service:</strong> {{user.service}}<br>
+                <strong>Date:</strong> {{addADS.dateS}}<br>
+                <strong>Heure de accès:</strong> {{addADS.hsortie}}<br>
+                <strong>Heure de sortie:</strong> {{addADS.hretour}}<br>
+                <strong>Motif:</strong> {{addADS.motif}}
+            </p> -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+
+
+
+
+    <div class="container" #AutorisationTeletravail>
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>DEMANDE DE CHANGEMENT HORAIRE DE TRAVAIL</h1>
+        </div>
+        <div class="content">
+            <!-- <p>
+                <strong>Entité Juridique:</strong> {{user.ejuridic}}<br>
+                <strong>Nom et Prénom:</strong> {{user.firstname}} {{user.lastname}}<br>
+                <strong>Matricule:</strong> {{user.id}}<br>
+                <strong>Service:</strong> {{user.service}}<br>
+                <strong>Changement envisagé du </strong> {{addADS.duree}} Heure(s)
+                <strong>Au</strong> {{addADS.dateS}}<br>
+                <strong>Ancien Horaire :</strong> {{addADS.hsortie}}
+                <strong>Nouvel Horaire</strong> {{addADS.hretour}}<br>
+                <strong>Motif:</strong><br> {{addADS.motif}}
+            </p> -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+
+
+
+    <div class="container" #AutorisationSortie>
+        <div class="header">
+            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+            <h1>Demande de Congé</h1>
+        </div>
+        <div class="content">
+            <!-- <p>
+                <strong>Entité Juridique:</strong> {{user.ejuridic}}<br>
+                <strong>Nom et Prénom:</strong> {{user.firstname}} {{user.lastname}}<br>
+                <strong>Matricule:</strong> {{user.id}}<br>
+                <strong>Service:</strong> {{user.service}}<br>
+                <strong>Date de debut:</strong> {{addADS.dateS}}<br>
+                <strong>Durée:</strong> {{addADS.duree}} Jour(s)<br>
+                <strong>Motif:</strong> {{addADS.motif}}
+            </p> -->
+        </div>
+        <div class="footer">
+            <p>Autorisation Approuvée</p>
+        </div>
+    </div>
+
+
+
+
+<div class="container" #Acompte>
+    <div class="header">
+        <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
+        <h1>DEMANDE DE PRET</h1>
+    </div>
+    <div class="content">
+        <!-- <p>
+            <strong>Entité Juridique:</strong> {{user.ejuridic}}<br>
+            <strong>Nom et Prénom:</strong> {{user.firstname}} {{user.lastname}}<br>
+            <strong>Matricule:</strong> {{user.id}}<br>
+            <strong>Service:</strong> {{user.service}}<br>
+            <strong>Crédit bancaire en cours :</strong> {{addADS.duree}} Heure(s)<br>
+            <strong>Rembourser par :</strong> {{addADS.dateS}}<br>
+            <strong>Montant du prêt</strong> {{addADS.hsortie}}<br>
+            <strong>Motif:</strong> {{addADS.motif}}
+        </p> -->
+    </div>
+    <div class="footer">
+        <p>Autorisation Approuvée</p>
+    </div>
+</div>
+
+
+</body>
+</html>
