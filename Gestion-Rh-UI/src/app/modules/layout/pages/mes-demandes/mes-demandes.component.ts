@@ -6,105 +6,7 @@ import { NotificationsService } from '../../NotificationsService';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { PdfComponent } from '../pdf/pdf.component';
-export const pretTemplate: string = `
-    <div class="container">
-        <div class="header">
-            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
-            <h1>DEMANDE D'ACOMPTE</h1>
-        </div>
-        <div class="content">
-            <!-- Insert dynamic content here -->
-        </div>
-        <div class="footer">
-            <p>Autorisation Approuvée</p>
-        </div>
-    </div>
-`;
 
-export const congeTemplate: string = `
-    <div class="container">
-        <div class="header">
-            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
-            <h1>Demande de Congé</h1>
-        </div>
-        <div class="content">
-            <!-- Insert dynamic content here -->
-        </div>
-        <div class="footer">
-            <p>Autorisation Approuvée</p>
-        </div>
-    </div>
-`;
-export const changementHoraireTemplate: string = `
-    <div class="container">
-        <div class="header">
-            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
-            <h1>Demande de Congé</h1>
-        </div>
-        <div class="content">
-            <!-- Insert dynamic content here -->
-        </div>
-        <div class="footer">
-            <p>Autorisation Approuvée</p>
-        </div>
-    </div>
-`;
-export const autorisationTravailSupTemplate: string = `
-    <div class="container">
-        <div class="header">
-            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
-            <h1>Demande de Congé</h1>
-        </div>
-        <div class="content">
-            <!-- Insert dynamic content here -->
-        </div>
-        <div class="footer">
-            <p>Autorisation Approuvée</p>
-        </div>
-    </div>
-`;
-export const autorisationTeletravailTemplate: string = `
-    <div class="container">
-        <div class="header">
-            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
-            <h1>Demande de Congé</h1>
-        </div>
-        <div class="content">
-            <!-- Insert dynamic content here -->
-        </div>
-        <div class="footer">
-            <p>Autorisation Approuvée</p>
-        </div>
-    </div>
-`;
-export const autorisationSortieTemplate: string = `
-    <div class="container">
-        <div class="header">
-            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
-            <h1>Demande de Congé</h1>
-        </div>
-        <div class="content">
-            <!-- Insert dynamic content here -->
-        </div>
-        <div class="footer">
-            <p>Autorisation Approuvée</p>
-        </div>
-    </div>
-`;
-export const acompteTemplate: string = `
-    <div class="container">
-        <div class="header">
-            <img src="https://saiph-labo.com/wp-content/uploads/2023/07/logo-s.png" alt="Company Logo" class="logo">
-            <h1>Demande de Congé</h1>
-        </div>
-        <div class="content">
-            <!-- Insert dynamic content here -->
-        </div>
-        <div class="footer">
-            <p>Autorisation Approuvée</p>
-        </div>
-    </div>
-`;
 
 
 @Component({
@@ -172,10 +74,9 @@ Sup_h:User={};
   let type :ElementRef;
   switch(demande.type) {
     case "Pret":
-       this.pretService.findById9({id:demande.id as number}).subscribe(pret=>{this.pret=pret})
+      type = this.Pret!;
       break;
     case "Conge":
-      this.congeService.findById10({id:demande.id as number}).subscribe(conge=>{this.conge=conge})
       type = this.Conge!;
       break;
     case "ChangementHoraire":
@@ -782,7 +683,15 @@ Sup_h:User={};
           return '';
       }
     }
-    
+     calculateDuration (H1: Date | undefined, H2: Date | undefined): number {
+      if (!H1 || !H2) {
+          return 0; // or handle the case when one or both of the dates are undefined
+      }
+      
+      const timeDiff = Math.abs(H2.getTime() - H1.getTime());
+      const durationInMinutes = Math.ceil(timeDiff / (1000 * 60)); // converting milliseconds to minutes
+      return durationInMinutes;
+  }
      AddAutorSortie() { 
 
       const Id = this.tokenService.Id;    
@@ -837,7 +746,8 @@ Sup_h:User={};
         Typenotif="DEMANDE_A_DEPOSER";
 
         }
-        
+
+ 
 
       this.autorisationSortieService.add12({ body :this.addADS as AutorisationSortieDto})
       .subscribe ( demande => 
@@ -1000,25 +910,20 @@ Sup_h:User={};
 
     AddautTeletravail() {
       
-  this.departementService.findById4({id:3 as number})
-  .subscribe
-      (departement=>{
-          console.log(this.demandeSelected.id);
-          this.Sup_h=departement.manager! ;
-      })
-      if (!this.Sup_h.id ) {
-          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
-          this.alert ="alert alert-danger" ;
-          console.log("Demande data not yet available   j");
-          setTimeout(() => {
-          this.alert = 'd-none';
-          }, 5000); 
-        return ;
-        }   
       const Id = this.tokenService.Id;      
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+          if (!user.departement?.manager ) {
+              this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+              this.alert ="alert alert-danger" ;
+              console.log("this.Sup_h.id ,",this.Sup_h);
+              console.log("Demande data not yet available   j");
+              setTimeout(() => {
+              this.alert = 'd-none';
+              }, 5000); 
+            return ;
+            }   
         if(role==="RRH"){
           console.log("RRH demande")
           if(this.Sup_h.id==Id){ 
@@ -1075,30 +980,26 @@ Sup_h:User={};
           this.alert = 'd-none';
           }, 5000); 
         });
-    }); 
+    });   
     }
 
     AddautTravailSupp() {
-      
-  this.departementService.findById4({id:3 as number})
-  .subscribe
-      (departement=>{
-          console.log(this.demandeSelected.id);
-          this.Sup_h=departement.manager! ;
-      })
-      if (!this.Sup_h.id ) {
-          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
-          this.alert ="alert alert-danger" ;
-          console.log("Demande data not yet available   j");
-          setTimeout(() => {
-          this.alert = 'd-none';
-          }, 5000); 
-        return ;
-        }   
       const Id = this.tokenService.Id;      
+
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+          if (!user.departement?.manager ) {
+              this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+              this.alert ="alert alert-danger" ;
+              console.log("this.Sup_h.id ,",this.Sup_h);
+              console.log("Demande data not yet available   j");
+              setTimeout(() => {
+              this.alert = 'd-none';
+              }, 5000); 
+            return ;
+            }        
+    
         if(role==="RRH"){
           console.log("RRH demande")
           if(this.Sup_h.id==Id){ 
@@ -1158,26 +1059,22 @@ Sup_h:User={};
     }
 
     AddchHoraire() {
-      
-  this.departementService.findById4({id:3 as number})
-  .subscribe
-      (departement=>{
-          console.log(this.demandeSelected.id);
-          this.Sup_h=departement.manager! ;
-      })
-      if (!this.Sup_h.id ) {
-          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
-          this.alert ="alert alert-danger" ;
-          console.log("Demande data not yet available   j");
-          setTimeout(() => {
-          this.alert = 'd-none';
-          }, 5000); 
-        return ;
-        }   
       const Id = this.tokenService.Id;      
+
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+          if (!user.departement?.manager ) {
+              this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+              this.alert ="alert alert-danger" ;
+              console.log("this.Sup_h.id ,",this.Sup_h);
+              console.log("Demande data not yet available   j");
+              setTimeout(() => {
+              this.alert = 'd-none';
+              }, 5000); 
+            return ;
+            }        
+    
         if(role==="RRH"){
           console.log("RRH demande")
           if(this.Sup_h.id==Id){ 
@@ -1237,26 +1134,22 @@ Sup_h:User={};
     }
 
     Addacompte() {
-      
-  this.departementService.findById4({id:3 as number})
-  .subscribe
-      (departement=>{
-          console.log(this.demandeSelected.id);
-          this.Sup_h=departement.manager! ;
-      })
-      if (!this.Sup_h.id ) {
-          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
-          this.alert ="alert alert-danger" ;
-          console.log("Demande data not yet available   j");
-          setTimeout(() => {
-          this.alert = 'd-none';
-          }, 5000); 
-        return ;
-        }   
       const Id = this.tokenService.Id;      
+
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
+          if (!user.departement?.manager ) {
+              this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+              this.alert ="alert alert-danger" ;
+              console.log("this.Sup_h.id ,",this.Sup_h);
+              console.log("Demande data not yet available   j");
+              setTimeout(() => {
+              this.alert = 'd-none';
+              }, 5000); 
+            return ;
+            }        
+    
         if(role==="RRH"){
           console.log("RRH demande")
           if(this.Sup_h.id==Id){ 
@@ -1321,25 +1214,23 @@ Sup_h:User={};
     }
 
     Addpret() {
-  this.departementService.findById4({id:3 as number})
-  .subscribe
-      (departement=>{
-          console.log(this.demandeSelected.id);
-          this.Sup_h=departement.manager! ;
-      })
-      if (!this.Sup_h.id ) {
+
+  const Id = this.tokenService.Id;      
+
+  const role:String = this.tokenService.userRole();
+  this.userService.findById({id: Id as number  })
+  .subscribe(user => {
+      if (!user.departement?.manager ) {
           this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
           this.alert ="alert alert-danger" ;
+          console.log("this.Sup_h.id ,",this.Sup_h);
           console.log("Demande data not yet available   j");
           setTimeout(() => {
           this.alert = 'd-none';
           }, 5000); 
         return ;
-        }   
-      const Id = this.tokenService.Id;      
-      const role:String = this.tokenService.userRole();
-      this.userService.findById({id: Id as number  })
-      .subscribe(user => {
+        }        
+
         if(role==="RRH"){
           console.log("RRH demande")
           if(this.Sup_h.id==Id){ 
