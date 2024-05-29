@@ -189,7 +189,7 @@ export class CalendrierComponent implements OnInit {
       title: "ÉVÉNEMENT :"+event.titre,
       start: event.dateD,
       end: event.dateF,
-      color: 'green' // Set the color for events to green
+      color: '#C00606' // Set the color for events to green
     }));
   }
 
@@ -200,7 +200,7 @@ export class CalendrierComponent implements OnInit {
         title: conge.utilisateur?.firstname+" " +conge.utilisateur?.lastname ,
         start: debutDate,
         end: this.addJoursAuDate(debutDate, conge.duree!),
-        color: 'blue' // Set the color for conges to blue
+        color: '#078CCD' // Set the color for conges to blue
       };
     });
   }
@@ -210,7 +210,7 @@ export class CalendrierComponent implements OnInit {
       title: "FORMATION :"+formation.titre,
       start: formation.dateD,
       end: formation.dateF,
-      color: 'red' // Set the color for formations to red
+      color: '#0E743F' // Set the color for formations to red
     }));
   }
 
