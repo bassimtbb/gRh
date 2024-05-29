@@ -31,8 +31,7 @@ const routes: Routes = [
       {path:'users',component:UsersComponent,canActivate: [authGuard]},
       {path:'UserDetails',component:ManageUserComponent,canActivate: [authGuard]},
       {path:'departement/:id',component:DepartementComponent,canActivate: [authGuard]},
-      {path:'calendrier',component:CalendrierComponent,canActivate: [authGuard]},
-    ]
+      {path:'calendrier',component:CalendrierComponent,canActivate: [authGuard]}    ]
   }
 ];
 

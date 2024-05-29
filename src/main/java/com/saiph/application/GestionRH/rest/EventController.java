@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/event")
@@ -22,7 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EventController extends GenericCrudController<Event, EventDto> {
     public final EventCrudService eventCrudService;
 
-
+    @Override
+    public ResponseEntity<List<EventDto>> findAll() {
+        return super.findAll();
+    }
 
     @PostMapping("/addEmploye/{id}")
     public ResponseEntity<Void> addEmployeToEvent(@PathVariable("id") Long IdEvent, @Valid @RequestBody Long  IdUser) {

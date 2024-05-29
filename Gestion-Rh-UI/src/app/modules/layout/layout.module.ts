@@ -13,13 +13,13 @@ import { GererDemandesComponent } from './pages/gerer-demandes/gerer-demandes.co
 import { ProfileComponent } from './pages/profile/profile.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ManageUserComponent } from './pages/manage-user/manage-user.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpTokenInterceptor } from '../../services/interceptor/http-token.interceptor';
 import { DepartementComponent } from './pages/departement/departement.component';
 import { CalendrierComponent } from './pages/calendrier/calendrier.component';
 import { ProfileUserComponent } from './pages/profile-user/profile-user.component';
-import { PdfComponent } from './pages/pdf/pdf.component';
 
 @NgModule({
   declarations: [
@@ -36,12 +36,12 @@ import { PdfComponent } from './pages/pdf/pdf.component';
     DepartementComponent,
     CalendrierComponent,
     ProfileUserComponent,
-    PdfComponent
   ],
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    FormsModule
+    FormsModule,
+    FullCalendarModule
   ]
 })
 export class LayoutModule { }

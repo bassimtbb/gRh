@@ -12,11 +12,22 @@ import java.util.List;
 
 @Repository
 @EnableJpaRepositories
-public interface DemandeRepository extends JpaRepository<Demande,Long> {
-        List<Demande> findByUtilisateurId(Long userId);
-        List<Demande> findByDepartementId(Long departementId);
-        List<Demande> findByStatut(Statut statut);
-//@Query("SELECT d FROM Demande d WHERE d.isPreValidated = :preValidated")
-//List<Demande> findByIsPreValidated(@Param("preValidated") Boolean preValidated);
+public interface DemandeRepository extends JpaRepository<Demande, Long> {
+    List<Demande> findByUtilisateurId(Long userId);
 
+    List<Demande> findByDepartementId(Long departementId);
+
+    List<Demande> findValidByDepartementId(Long departementId);
+
+    List<Demande> findByStatut(Statut statut);
+
+//    @Query("SELECT COUNT(c) FROM Demande c JOIN c.departement d WHERE d.id = :departementId AND c.statut = :statut")
+//    Integer countStatutByDepartementId(@Param("departementId") Long departementId, @Param("statut") Statut statut);
+//
+//    @Query("SELECT COUNT(c) FROM Demande ")
+//    Integer countAll();
+//
+//    @Query("SELECT COUNT(c) FROM Demande c JOIN c.departement d WHERE d.id = :departementId ")
+//    Integer countByDepartementId(@Param("departementId") Long departementId);
 }
+

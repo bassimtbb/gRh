@@ -86,7 +86,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Calendrier',
     icon: 'ni-settings text-red',
     class: '',
-    roles: ['RRH','SUP_H']
+    roles: ['RRH','SUP_H','EMPLOYE']
     , submenu: []
   }
 ];

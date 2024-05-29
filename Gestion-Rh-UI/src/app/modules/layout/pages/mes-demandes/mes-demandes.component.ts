@@ -5,7 +5,6 @@ import {  AcompteDto,  AutorisationSortieDto,  AutorisationTeletravailDto,  Auto
 import { NotificationsService } from '../../NotificationsService';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-import { PdfComponent } from '../pdf/pdf.component';
 
 
 
@@ -46,7 +45,6 @@ export class MesDemandesComponent  implements OnInit {
 Sup_h:User={};
   role: any;
   constructor(
-    private pdfComponent: PdfComponent,
     private congeService:CongeService,
     private autTeletravailService:AutorisationTeletravailService,
     private autTravailSuppService:  AutorisationTravailSupService,
@@ -128,24 +126,13 @@ Sup_h:User={};
     }
  
     DemandeClicked(demande: Demande) {
-      // this.departementService.findById4({id:3 as number}).subscribe
-      // (departement=>{
-      //   if (departement.manager ) {
-      //     console.log(this.demandeSelected.id);
-      //     this.Sup_h=departement.manager! ;
+      this.departementService.findById4({id:3 as number}).subscribe
+      (departement=>{
+        if (departement.manager ) {
+          console.log(this.demandeSelected.id);
+          this.Sup_h=departement.manager! ;
     
-      //     } else {
-      //     this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
-      //     this.alert ="alert alert-danger" ;
-      //     this.ngOnInit();
-      //     setTimeout(() => {
-      //     this.alert = 'd-none';
-      //     }, 5000); 
-      //     console.log("Demande data not yet available");
-      //   return ;
-        
-      //   }
-      // })
+          }})
       // if (this.demandeSelected && this.demandeSelected.id) {
       //   console.log(this.demandeSelected.id);
         this.demandeSelected=demande;
@@ -683,38 +670,32 @@ Sup_h:User={};
           return '';
       }
     }
-     calculateDuration (H1: Date | undefined, H2: Date | undefined): number {
-      if (!H1 || !H2) {
-          return 0; // or handle the case when one or both of the dates are undefined
-      }
-      
-      const timeDiff = Math.abs(H2.getTime() - H1.getTime());
-      const durationInMinutes = Math.ceil(timeDiff / (1000 * 60)); // converting milliseconds to minutes
-      return durationInMinutes;
-  }
+    
      AddAutorSortie() { 
 
-      const Id = this.tokenService.Id;    
-      console.log(Id);  
-      const role:String = this.tokenService.userRole();
-       var Typenotif:String =" ";
-      this.userService.findById({id: Id as number  })
-      .subscribe(user => {
-        console.log("Role",role);    
-        console.log("this.Sup_h.id",this.Sup_h.id);
-          console.log("Id",Id);
-          console.log("this.Sup_h.id===Id",this.Sup_h.id===Id);
+      const Id = this.tokenService.Id;      
+  const role:String = this.tokenService.userRole();
+  this.userService.findById({id: Id as number  })
+  .subscribe(user => {
+      if (!user.departement?.manager ) {
+          this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
+          this.alert ="alert alert-danger" ;
+          console.log("Demande data not yet available   j");
+          setTimeout(() => {
+          this.alert = 'd-none';
+          }, 5000); 
+        return ;
+        }        
+
         if(role==="RRH"){
-      
-          if(this.Sup_h.id===Id){ 
-            
+          console.log("RRH demande",this.Sup_h.id)
+          if(user.departement.manager.id==Id){ 
 
         this.addADS={
           ...this.addADS,
           utilisateur:user,
           statut:'Validee',
           departement:{"id":user.departement?.id as number}}
-          Typenotif=" ";
         }else{
             
         this.addADS={
@@ -723,7 +704,6 @@ Sup_h:User={};
           statut:'En_attente_RRH',
           departement:{"id":user.departement?.id as number}
           }
-          Typenotif="DEMANDE_VALIDEE_SUPH";
 }
         }
         if (role==="SUP_H") {
@@ -733,7 +713,6 @@ Sup_h:User={};
           statut:'En_attente_RRH',
           departement:{"id":user.departement?.id as number}
         }
-        Typenotif="DEMANDE_VALIDEE_SUPH";
 
         } 
         if (role=="EMPLOYE")  {
@@ -743,25 +722,23 @@ Sup_h:User={};
           statut:'En_attente_Sup_H',
           departement:{"id":user.departement?.id as number}
         }
-        Typenotif="DEMANDE_A_DEPOSER";
 
         }
-
- 
+        
 
       this.autorisationSortieService.add12({ body :this.addADS as AutorisationSortieDto})
       .subscribe ( demande => 
         {
-          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:Typenotif as string })
+          this.notificationService.sendNotif({userID:demande.utilisateur?.id as number,body:"DEMANDE_A_DEPOSER" })
           .subscribe( notif=>
             {console.log("Notification DEMANDE_A_DEPOSER");
-
             this.notificationsService.triggerReloadNotification();
 
 
             }, error => {
               console.error('NO Notification DEMANDE_A_DEPOSER', error);
             })
+
 
             this.Msg = `Demande d'AUTORISATION DE SORTIE est ajouté avec succès!`;
           this.alert ="alert alert-success" ;
@@ -795,7 +772,6 @@ Sup_h:User={};
       if (!user.departement?.manager ) {
           this.Msg = "ERREUR : Pas de supérieur hiérarchique";  // Corrected spelling and grammar
           this.alert ="alert alert-danger" ;
-          console.log("this.Sup_h.id ,",this.Sup_h);
           console.log("Demande data not yet available   j");
           setTimeout(() => {
           this.alert = 'd-none';
@@ -804,8 +780,8 @@ Sup_h:User={};
         }        
 
         if(role==="RRH"){
-          console.log("RRH demande")
-          if(this.Sup_h.id==Id){ 
+          console.log("RRH demande",this.Sup_h.id)
+          if(user.departement.manager.id==Id){ 
         this.conge={
           ...this.conge,
           utilisateur:user,
@@ -926,7 +902,8 @@ Sup_h:User={};
             }   
         if(role==="RRH"){
           console.log("RRH demande")
-          if(this.Sup_h.id==Id){ 
+                    if(user.departement.manager.id==Id){ 
+ 
         this.autTeletravail={
           ...this.autTeletravail,
           utilisateur:user,
@@ -1002,7 +979,8 @@ Sup_h:User={};
     
         if(role==="RRH"){
           console.log("RRH demande")
-          if(this.Sup_h.id==Id){ 
+                    if(user.departement.manager.id==Id){ 
+ 
         this.autTravailSupp={
           ...this.autTravailSupp,
           utilisateur:user,
@@ -1077,7 +1055,8 @@ Sup_h:User={};
     
         if(role==="RRH"){
           console.log("RRH demande")
-          if(this.Sup_h.id==Id){ 
+                    if(user.departement.manager.id==Id){ 
+ 
         this.chHoraire={
           ...this.chHoraire,
           utilisateur:user,
@@ -1152,7 +1131,8 @@ Sup_h:User={};
     
         if(role==="RRH"){
           console.log("RRH demande")
-          if(this.Sup_h.id==Id){ 
+                    if(user.departement.manager.id==Id){ 
+ 
         this.acompte={
           ...this.acompte,
           utilisateur:user,
@@ -1233,7 +1213,8 @@ Sup_h:User={};
 
         if(role==="RRH"){
           console.log("RRH demande")
-          if(this.Sup_h.id==Id){ 
+                    if(user.departement.manager.id==Id){ 
+ 
         this.pret={
           ...this.pret,
           utilisateur:user,

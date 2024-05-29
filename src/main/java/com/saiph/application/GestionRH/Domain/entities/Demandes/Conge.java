@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Conge extends Demande {
+
     private Integer duree;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date debut;

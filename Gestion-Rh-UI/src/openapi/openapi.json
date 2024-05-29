@@ -2491,6 +2491,108 @@
     }
     }
     },
+    "/calendar/formations/{userId}": {
+    "get": {
+    "tags": [
+    "calendar-controller"
+    ],
+    "operationId": "getFormationsByUserId",
+    "parameters": [
+    {
+    "name": "userId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Formation"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/calendar/events/{userId}": {
+    "get": {
+    "tags": [
+    "calendar-controller"
+    ],
+    "operationId": "getEventsByUserId",
+    "parameters": [
+    {
+    "name": "userId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Event"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/calendar/conges/{userId}": {
+    "get": {
+    "tags": [
+    "calendar-controller"
+    ],
+    "operationId": "getCongesByUserId",
+    "parameters": [
+    {
+    "name": "userId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Conge"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
     "/acompte/all": {
     "get": {
     "tags": [
@@ -2583,6 +2685,80 @@
     }
     }
     },
+    "/Conge/utilisateur/{utilisateurId}": {
+    "get": {
+    "tags": [
+    "Conge"
+    ],
+    "operationId": "getCongeByutilisateurId",
+    "parameters": [
+    {
+    "name": "utilisateurId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Conge"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Conge/statut/{statut}": {
+    "get": {
+    "tags": [
+    "Conge"
+    ],
+    "operationId": "getCongeByStatut",
+    "parameters": [
+    {
+    "name": "statut",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "string",
+    "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
+    "Validee",
+    "Refusee"
+    ]
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Conge"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
     "/Conge/all": {
     "get": {
     "tags": [
@@ -2598,6 +2774,40 @@
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/CongeDto"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Conge/Departement/{departementId}": {
+    "get": {
+    "tags": [
+    "Conge"
+    ],
+    "operationId": "getCongeBydepartementId",
+    "parameters": [
+    {
+    "name": "departementId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Conge"
     }
     }
     }
@@ -2810,11 +3020,20 @@
     "name": {
     "type": "string"
     },
+    "ejuridic": {
+    "type": "string"
+    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
     },
-    "ejuridic": {
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    },
+    "username": {
     "type": "string"
     },
     "authorities": {
@@ -2822,15 +3041,6 @@
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
-    },
-    "username": {
-    "type": "string"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
-    "accountNonExpired": {
-    "type": "boolean"
     },
     "accountNonLocked": {
     "type": "boolean"
@@ -2915,12 +3125,12 @@
     "type": "string",
     "format": "date-time"
     },
+    "ejuridic": {
+    "type": "string"
+    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
-    },
-    "ejuridic": {
-    "type": "string"
     }
     }
     },
@@ -3502,11 +3712,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "nouvelH": {
+    "ancienH": {
     "type": "string",
     "format": "date-time"
     },
-    "ancienH": {
+    "nouvelH": {
     "type": "string",
     "format": "date-time"
     }
@@ -3638,12 +3848,12 @@
     "img": {
     "type": "string"
     },
+    "ejuridic": {
+    "type": "string"
+    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
-    },
-    "ejuridic": {
-    "type": "string"
     }
     }
     },
@@ -3681,20 +3891,20 @@
     "password": {
     "type": "string"
     },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    },
+    "username": {
+    "type": "string"
+    },
     "authorities": {
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
-    },
-    "username": {
-    "type": "string"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
-    "accountNonExpired": {
-    "type": "boolean"
     },
     "accountNonLocked": {
     "type": "boolean"
@@ -3736,6 +3946,161 @@
     },
     "departement": {
     "$ref": "#/components/schemas/Departement"
+    }
+    }
+    },
+    "Formation": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateD": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateF": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "duree": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "lieu": {
+    "type": "string"
+    },
+    "nbrPlace": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "img": {
+    "type": "string"
+    },
+    "titre": {
+    "type": "string"
+    },
+    "description": {
+    "type": "string"
+    },
+    "listEmploye": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/User"
+    }
+    }
+    }
+    },
+    "Event": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateD": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "dateF": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "duree": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "lieu": {
+    "type": "string"
+    },
+    "nbrPlace": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "img": {
+    "type": "string"
+    },
+    "titre": {
+    "type": "string"
+    },
+    "description": {
+    "type": "string"
+    },
+    "listEmploye": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/User"
+    }
+    }
+    }
+    },
+    "Conge": {
+    "type": "object",
+    "properties": {
+    "id": {
+    "type": "integer",
+    "format": "int64"
+    },
+    "createdBy": {
+    "type": "string"
+    },
+    "lastModifiedBy": {
+    "type": "string"
+    },
+    "createdDate": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "statut": {
+    "type": "string",
+    "enum": [
+    "En_attente_Sup_H",
+    "Refusee_Sup_H",
+    "En_attente_RRH",
+    "Validee",
+    "Refusee"
+    ]
+    },
+    "type": {
+    "type": "string"
+    },
+    "utilisateur": {
+    "$ref": "#/components/schemas/User"
+    },
+    "departement": {
+    "$ref": "#/components/schemas/Departement"
+    },
+    "duree": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "debut": {
+    "type": "string",
+    "format": "date-time"
+    },
+    "motif": {
+    "type": "string"
     }
     }
     }

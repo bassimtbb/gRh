@@ -78,8 +78,8 @@ export class ProfileComponent implements OnInit {
         }, 5000); 
       }, error => {
         console.error('Error updating telephone:', error);
-        this.Msg = ` Numéro de téléphone a été modifiée avec succès!`;
-        this.alert ="alert alert-success" ;
+        this.Msg = ` ERROR : Numéro de téléphone n'a pas été modifiée`;
+        this.alert ="alert alert-danger" ;
       });
 
   }
