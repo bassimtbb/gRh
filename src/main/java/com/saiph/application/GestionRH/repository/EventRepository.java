@@ -12,9 +12,9 @@ import java.util.Optional;
 @Repository
 public interface EventRepository extends JpaRepository<Event,Long> {
 
-//
-//    @Query("SELECT COUNT(d) FROM event_list_employe WHERE d.id = :eventId  ")
-//    Integer countEmployeByDepartementId(@Param("eventId") Long eventId);
+
+    @Query("SELECT COUNT(u) FROM Event e JOIN e.ListEmploye u WHERE e.id = :eventId")
+    Integer countEmployeByEventId(@Param("eventId") Long eventId);
  @Query("SELECT E FROM Event E JOIN E.ListEmploye u WHERE u.id = :userId")
  Optional<List<Event>> findAllEventsByUserId(@Param("userId") Long userId);
 }

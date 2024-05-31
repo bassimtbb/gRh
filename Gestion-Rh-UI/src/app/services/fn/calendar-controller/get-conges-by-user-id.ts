@@ -28,4 +28,4 @@ export function getCongesByUserId(http: HttpClient, rootUrl: string, params: Get
   );
 }
 
-getCongesByUserId.PATH = '/calendar/conges/{userId}';
+getCongesByUserId.PATH = '/calendar/conges/User/{userId}';

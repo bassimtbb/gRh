@@ -293,7 +293,7 @@ updateFormation() {
     // Validate Dates
     if (!fromation.dateD || !fromation.dateF) {
       errors.push('Les dates de début et de fin sont obligatoires.');
-    } else if (new Date(fromation.dateD) >= new Date(fromation.dateF)) {
+    } else if (new Date(fromation.dateD) > new Date(fromation.dateF)) {
       errors.push('La date de début doit être antérieure à la date de fin.');
     }
   

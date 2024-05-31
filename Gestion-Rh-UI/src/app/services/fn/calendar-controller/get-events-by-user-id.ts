@@ -28,4 +28,4 @@ export function getEventsByUserId(http: HttpClient, rootUrl: string, params: Get
   );
 }
 
-getEventsByUserId.PATH = '/calendar/events/{userId}';
+getEventsByUserId.PATH = '/calendar/events/User/{userId}';

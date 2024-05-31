@@ -2491,7 +2491,30 @@
     }
     }
     },
-    "/calendar/formations/{userId}": {
+    "/calendar/formations": {
+    "get": {
+    "tags": [
+    "calendar-controller"
+    ],
+    "operationId": "getFormations",
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Formation"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/calendar/formations/User/{userId}": {
     "get": {
     "tags": [
     "calendar-controller"
@@ -2525,7 +2548,30 @@
     }
     }
     },
-    "/calendar/events/{userId}": {
+    "/calendar/events": {
+    "get": {
+    "tags": [
+    "calendar-controller"
+    ],
+    "operationId": "getEvents",
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Event"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/calendar/events/User/{userId}": {
     "get": {
     "tags": [
     "calendar-controller"
@@ -2559,7 +2605,30 @@
     }
     }
     },
-    "/calendar/conges/{userId}": {
+    "/calendar/conges": {
+    "get": {
+    "tags": [
+    "calendar-controller"
+    ],
+    "operationId": "getConges",
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Conge"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/calendar/conges/User/{userId}": {
     "get": {
     "tags": [
     "calendar-controller"
@@ -2568,6 +2637,40 @@
     "parameters": [
     {
     "name": "userId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/Conge"
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/calendar/conges/Departement/{departementId}": {
+    "get": {
+    "tags": [
+    "calendar-controller"
+    ],
+    "operationId": "getCongesByDepartementId",
+    "parameters": [
+    {
+    "name": "departementId",
     "in": "path",
     "required": true,
     "schema": {
@@ -3027,12 +3130,6 @@
     "type": "string",
     "format": "date-time"
     },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
     "username": {
     "type": "string"
     },
@@ -3041,6 +3138,12 @@
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
+    },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
     },
     "accountNonLocked": {
     "type": "boolean"
@@ -3888,15 +3991,6 @@
     "enabled": {
     "type": "boolean"
     },
-    "password": {
-    "type": "string"
-    },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
     "username": {
     "type": "string"
     },
@@ -3906,8 +4000,17 @@
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    },
     "accountNonLocked": {
     "type": "boolean"
+    },
+    "password": {
+    "type": "string"
     }
     }
     },

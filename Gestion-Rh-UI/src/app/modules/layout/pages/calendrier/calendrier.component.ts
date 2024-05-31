@@ -3,7 +3,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-import { CalendarControllerService, CongeService, EventService, FormationService, UserService } from '../../../../services/services';
+import { CalendarControllerService, EventService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { Formation } from '../../../../services/models/formation';
 import { CongeDto, EventDto } from '../../../../services/models';
@@ -28,9 +28,9 @@ export class CalendrierComponent implements OnInit {
   };
   role: any;
   filterOptions = {
-    conges: true,
-    formations: true,
-    events: true
+    conges: false,
+    formations: false,
+    events: false
   };
 
   private allEvents: any[] = [];
@@ -38,9 +38,6 @@ export class CalendrierComponent implements OnInit {
   constructor(
     private userService: UserService,
     private calendarService: CalendarControllerService,
-    private congeService: CongeService,
-    private formationservice: FormationService,
-    private eventservice: EventService,
     private tokenService: TokenService
   ) { }
 
@@ -79,7 +76,7 @@ export class CalendrierComponent implements OnInit {
 
   fetchEvents(): void {
     if (this.userId) {
-      this.eventservice.findAll3().subscribe(
+      this.calendarService.getEvents().subscribe(
         (events: EventDto[]) => {
           const formattedEvents = this.formatEvents(events);
           this.allEvents = [...this.allEvents, ...formattedEvents];
@@ -110,7 +107,7 @@ export class CalendrierComponent implements OnInit {
 
   fetchAllCongeValid(): void {
     if (this.userId) {
-      this.congeService.getCongeByStatut({ statut: 'Validee' }).subscribe(
+      this.calendarService.getConges().subscribe(
         (Conges: CongeDto[]) => {
           const formattedConges = this.formatConges(Conges);
           this.allEvents = [...this.allEvents, ...formattedConges];
@@ -142,7 +139,7 @@ export class CalendrierComponent implements OnInit {
     if (this.userId) {
       this.userService.findById({ id: this.userId as number })
         .subscribe(user => {
-          this.congeService.getCongeBydepartementId({ departementId: user.departement?.id as number }).subscribe(
+          this.calendarService.getCongesByDepartementId({ departementId: user.departement?.id as number }).subscribe(
             (Conges: CongeDto[]) => {
               const formattedConges = this.formatConges(Conges);
               this.allEvents = [...this.allEvents, ...formattedConges];
@@ -158,7 +155,7 @@ export class CalendrierComponent implements OnInit {
 
   fetchFormations(): void {
     if (this.userId) {
-      this.formationservice.findAll2().subscribe(
+      this.calendarService.getFormations().subscribe(
         (formations: Formation[]) => {
           const formattedFormations = this.formatFormations(formations);
           this.allEvents = [...this.allEvents, ...formattedFormations];
@@ -198,7 +195,7 @@ export class CalendrierComponent implements OnInit {
       return {
         title: "ÉVÉNEMENT :" + event.titre,
         start: event.dateD,
-        end: event.dateF,
+        end: this.addJoursAuDate(finDate, event.duree!),
         color: '#C00606' // Set the color for events to green
       }
     });
@@ -210,7 +207,7 @@ export class CalendrierComponent implements OnInit {
       return {
         title: conge.utilisateur?.firstname + " " + conge.utilisateur?.lastname,
         start: debutDate,
-        end: this.addJoursAuDate(debutDate, conge.duree!),
+        end: this.addJoursAuDate(debutDate, conge.duree!-1),
         color: '#078CCD' // Set the color for conges to blue
       };
     });
@@ -222,7 +219,7 @@ export class CalendrierComponent implements OnInit {
       return {
         title: "FORMATION :" + formation.titre,
         start: formation.dateD,
-        end: this.addJoursAuDate(finDate, 1),
+        end: this.addJoursAuDate(finDate, formation.duree!),
         color: '#0E743F' // Set the color for formations to red
       }
     });

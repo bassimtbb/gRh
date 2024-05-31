@@ -124,7 +124,7 @@ export class EventComponent implements OnInit {
     // Validate Dates
     if (!event.dateD || !event.dateF) {
       errors.push('Les dates de début et de fin sont obligatoires.');
-    } else if (new Date(event.dateD) >= new Date(event.dateF)) {
+    } else if (new Date(event.dateD) > new Date(event.dateF)) {
       errors.push('La date de début doit être antérieure à la date de fin.');
     }
   

@@ -11,15 +11,17 @@ import java.util.Optional;
 
 @Repository
 public interface AutorisationSortieRepository extends JpaRepository<AutorisationSortie, Long> {
+
     @Override
     Optional<AutorisationSortie> findById(Long aLong);
+        @Query("SELECT COUNT(a) FROM AutorisationSortie a WHERE a.statut = :statut")
+    Integer countByStatut(@Param("statut") Statut statut) ;
+    @Query("SELECT COUNT(a) FROM AutorisationSortie a WHERE a.departement.id = :departementId AND a.statut = :statut")
+    Integer countStatutByDepartementId(@Param("departementId") Long departementId, @Param("statut") Statut statut);
 
-//    @Query("SELECT COUNT(c) FROM AutorisationSortie c JOIN c.departement d WHERE d.id = :departementId AND c.statut = :statut")
-//    Integer countStatutByDepartementId(@Param("departementId") Long departementId, @Param("statut") Statut statut);
-//
-//    @Query("SELECT COUNT(c) FROM AutorisationSortie ")
-//    Integer countAll();
-//
-//    @Query("SELECT COUNT(c) FROM AutorisationSortie c JOIN c.departement d WHERE d.id = :departementId ")
-//    Integer countByDepartementId(@Param("departementId") Long departementId);
+    @Query("SELECT COUNT(a) FROM AutorisationSortie a")
+    Integer countAll();
+
+    @Query("SELECT COUNT(a) FROM AutorisationSortie a WHERE a.departement.id = :departementId")
+    Integer countByDepartementId(@Param("departementId") Long departementId);
 }

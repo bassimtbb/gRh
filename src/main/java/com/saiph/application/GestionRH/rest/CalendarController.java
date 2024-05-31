@@ -19,22 +19,42 @@ public class CalendarController {
 
     private final CalendarService calendarService;
 
-    @GetMapping("/events/{userId}")
+    @GetMapping("/events/User/{userId}")
     public ResponseEntity<List<Event>> getEventsByUserId(@PathVariable Long userId) {
         List<Event> events = calendarService.getEventsByUserId(userId);
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/formations/{userId}")
+    @GetMapping("/formations/User/{userId}")
     public ResponseEntity<List<Formation>> getFormationsByUserId(@PathVariable Long userId) {
         List<Formation> formations = calendarService.getFormationsByUserId(userId);
         return ResponseEntity.ok(formations);
     }
 
-   @GetMapping("/conges/{userId}")
+   @GetMapping("/conges/User/{userId}")
     public ResponseEntity<List<Conge>> getCongesByUserId(@PathVariable Long userId) {
         List<Conge> conges = calendarService.getCongesByUserId(userId);
         return ResponseEntity.ok(conges);
+    }
+       @GetMapping("/conges/Departement/{departementId}")
+    public ResponseEntity<List<Conge>> getCongesByDepartementId(@PathVariable Long departementId) {
+        List<Conge> conges = calendarService.getCongesByDepartementId(departementId);
+        return ResponseEntity.ok(conges);
+    }
+    @GetMapping("/conges")
+    public ResponseEntity<List<Conge>> getConges() {
+        List<Conge> conges = calendarService.getAllCongeValid();
+        return ResponseEntity.ok(conges);
+    }
+        @GetMapping("/events")
+    public ResponseEntity<List<Event>> getEvents() {
+        List<Event> events = calendarService.findAllEvent();
+        return ResponseEntity.ok(events);
+    }
+            @GetMapping("/formations")
+    public ResponseEntity<List<Formation>> getFormations() {
+        List<Formation> formations = calendarService.findAllFormation();
+        return ResponseEntity.ok(formations);
     }
 }
 

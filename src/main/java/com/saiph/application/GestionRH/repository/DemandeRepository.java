@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 @EnableJpaRepositories
 public interface DemandeRepository extends JpaRepository<Demande, Long> {
+
     List<Demande> findByUtilisateurId(Long userId);
 
     List<Demande> findByDepartementId(Long departementId);
@@ -21,13 +22,13 @@ public interface DemandeRepository extends JpaRepository<Demande, Long> {
 
     List<Demande> findByStatut(Statut statut);
 
-//    @Query("SELECT COUNT(c) FROM Demande c JOIN c.departement d WHERE d.id = :departementId AND c.statut = :statut")
-//    Integer countStatutByDepartementId(@Param("departementId") Long departementId, @Param("statut") Statut statut);
-//
-//    @Query("SELECT COUNT(c) FROM Demande ")
-//    Integer countAll();
-//
-//    @Query("SELECT COUNT(c) FROM Demande c JOIN c.departement d WHERE d.id = :departementId ")
-//    Integer countByDepartementId(@Param("departementId") Long departementId);
-}
+    @Query("SELECT COUNT(d) FROM Demande d WHERE d.departement.id = :departementId AND d.statut = :statut")
+    Integer countStatutByDepartementId(@Param("departementId") Long departementId, @Param("statut") Statut statut);
+        @Query("SELECT COUNT(a) FROM Demande a WHERE a.statut = :statut")
+    Integer countByStatut(@Param("statut") Statut statut) ;
+    @Query("SELECT COUNT(d) FROM Demande d")
+    Integer countAll();
 
+    @Query("SELECT COUNT(d) FROM Demande d WHERE d.departement.id = :departementId")
+    Integer countByDepartementId(@Param("departementId") Long departementId);
+}

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class Statistique {
+public class StatistiqueService {
     private final DepartementRepository departementRepository;
     private final FormationRepository formationRepository;
     private final EventRepository eventRepository;

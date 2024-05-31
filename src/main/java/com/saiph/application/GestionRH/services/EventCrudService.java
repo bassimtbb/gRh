@@ -11,6 +11,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 @Transactional
@@ -18,8 +20,10 @@ public  class EventCrudService extends GenericCrudService<Event, EventDto> {
     private final EventRepository eventRepository;
     private final UserDetailService userService;
 
-
-
+    @Override
+    public List<EventDto> findAll() {
+        return super.findAll();
+    }
 
     @Override
     protected CrudRepository getRepository() {

@@ -11,15 +11,17 @@ import java.util.Optional;
 
 @Repository
 public interface AutorisationTeletravailRepository extends JpaRepository<AutorisationTeletravail, Long> {
+
     @Override
     Optional<AutorisationTeletravail> findById(Long aLong);
+        @Query("SELECT COUNT(a) FROM AutorisationTeletravail a WHERE a.statut = :statut")
+    Integer countByStatut(@Param("statut") Statut statut) ;
+    @Query("SELECT COUNT(a) FROM AutorisationTeletravail a WHERE a.departement.id = :departementId AND a.statut = :statut")
+    Integer countStatutByDepartementId(@Param("departementId") Long departementId, @Param("statut") Statut statut);
 
-//    @Query("SELECT COUNT(c) FROM AutorisationTeletravail c JOIN c.departement d WHERE d.id = :departementId AND c.statut = :statut")
-//    Integer countStatutByDepartementId(@Param("departementId") Long departementId, @Param("statut") Statut statut);
-//
-//    @Query("SELECT COUNT(c) FROM AutorisationTeletravail ")
-//    Integer countAll();
-//
-//    @Query("SELECT COUNT(c) FROM AutorisationTeletravail c JOIN c.departement d WHERE d.id = :departementId ")
-//    Integer countByDepartementId(@Param("departementId") Long departementId);
+    @Query("SELECT COUNT(a) FROM AutorisationTeletravail a")
+    Integer countAll();
+
+    @Query("SELECT COUNT(a) FROM AutorisationTeletravail a WHERE a.departement.id = :departementId")
+    Integer countByDepartementId(@Param("departementId") Long departementId);
 }

@@ -28,4 +28,4 @@ export function getFormationsByUserId(http: HttpClient, rootUrl: string, params:
   );
 }
 
-getFormationsByUserId.PATH = '/calendar/formations/{userId}';
+getFormationsByUserId.PATH = '/calendar/formations/User/{userId}';
