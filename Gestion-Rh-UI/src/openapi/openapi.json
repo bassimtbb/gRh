@@ -2765,6 +2765,139 @@
     }
     }
     },
+    "/Statistique/Generale": {
+    "get": {
+    "tags": [
+    "Statistique"
+    ],
+    "operationId": "getStatistiqueGenerale",
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/StatistiqueGeneraleResult"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Statistique/Formation/{formationId}": {
+    "get": {
+    "tags": [
+    "Statistique"
+    ],
+    "operationId": "getStatistiqueFormation",
+    "parameters": [
+    {
+    "name": "formationId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/StatistiqueFormationResult"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Statistique/Event/{eventId}": {
+    "get": {
+    "tags": [
+    "Statistique"
+    ],
+    "operationId": "getStatistiqueEvent",
+    "parameters": [
+    {
+    "name": "eventId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/StatistiqueEventResult"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Statistique/Demande": {
+    "get": {
+    "tags": [
+    "Statistique"
+    ],
+    "operationId": "getStatistiqueDemande",
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/StatistiqueDemandeResult"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/Statistique/Demande/{departementId}": {
+    "get": {
+    "tags": [
+    "Statistique"
+    ],
+    "operationId": "getStatistiqueDemandeByDepartement",
+    "parameters": [
+    {
+    "name": "departementId",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/StatistiqueDemandeByDepartementResult"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
     "/Pret/all": {
     "get": {
     "tags": [
@@ -3123,12 +3256,18 @@
     "name": {
     "type": "string"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
+    },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
     },
     "username": {
     "type": "string"
@@ -3138,12 +3277,6 @@
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
-    },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
     },
     "accountNonLocked": {
     "type": "boolean"
@@ -3228,12 +3361,12 @@
     "type": "string",
     "format": "date-time"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -3815,11 +3948,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "ancienH": {
+    "nouvelH": {
     "type": "string",
     "format": "date-time"
     },
-    "nouvelH": {
+    "ancienH": {
     "type": "string",
     "format": "date-time"
     }
@@ -3951,12 +4084,12 @@
     "img": {
     "type": "string"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -3991,6 +4124,15 @@
     "enabled": {
     "type": "boolean"
     },
+    "password": {
+    "type": "string"
+    },
+    "accountNonExpired": {
+    "type": "boolean"
+    },
+    "credentialsNonExpired": {
+    "type": "boolean"
+    },
     "username": {
     "type": "string"
     },
@@ -4000,17 +4142,8 @@
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "accountNonExpired": {
-    "type": "boolean"
-    },
-    "credentialsNonExpired": {
-    "type": "boolean"
-    },
     "accountNonLocked": {
     "type": "boolean"
-    },
-    "password": {
-    "type": "string"
     }
     }
     },
@@ -4204,6 +4337,447 @@
     },
     "motif": {
     "type": "string"
+    }
+    }
+    },
+    "StatistiqueGeneraleResult": {
+    "type": "object",
+    "properties": {
+    "eventCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "formationCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "userCount": {
+    "type": "integer",
+    "format": "int32"
+    }
+    }
+    },
+    "StatistiqueFormationResult": {
+    "type": "object",
+    "properties": {
+    "formationCountEmployeeRegistered": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "formationNumberOfSeats": {
+    "type": "integer",
+    "format": "int32"
+    }
+    }
+    },
+    "StatistiqueEventResult": {
+    "type": "object",
+    "properties": {
+    "eventCountEmployeeRegistered": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "eventNumberOfSeats": {
+    "type": "integer",
+    "format": "int32"
+    }
+    }
+    },
+    "StatistiqueDemandeResult": {
+    "type": "object",
+    "properties": {
+    "autorisationTeletravailCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "preCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCount": {
+    "type": "integer",
+    "format": "int32"
+    }
+    }
+    },
+    "StatistiqueDemandeByDepartementResult": {
+    "type": "object",
+    "properties": {
+    "countEmploye": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeEn_attente_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeRefusee_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeEn_attente_RRHCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeValideeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeRefuseeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteEn_attente_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteRefusee_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteEn_attente_RRHCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteValideeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteRefuseeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieEn_attente_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieRefusee_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieEn_attente_RRHCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieValideeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieRefuseeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailEn_attente_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailRefusee_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailEn_attente_RRHCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailValideeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailRefuseeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupEn_attente_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupRefusee_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupEn_attente_RRHCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupValideeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupRefuseeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireEn_attente_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireRefusee_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireEn_attente_RRHCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireValideeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireRefuseeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeEn_attente_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeRefusee_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeEn_attente_RRHCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeRefuseeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeValideeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretEn_attente_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretRefusee_Sup_HCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretEn_attente_RRHCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretValideeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretRefuseeCountByDepartement": {
+    "type": "integer",
+    "format": "int32"
     }
     }
     }

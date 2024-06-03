@@ -14,8 +14,12 @@ public interface FormationRepository extends JpaRepository<Formation,Long> {
 
     @Override
     Optional<Formation> findById(Long id);
-   @Query("SELECT COUNT(u) FROM Formation e JOIN e.ListEmploye u WHERE e.id = :formationId")
-    Integer countEmployeByFormationId(@Param("formationId") Long formationId);
+      @Query("SELECT COUNT(u) FROM Formation e JOIN e.nbrPlace u WHERE e.id = :formationId")
+    Integer countNbrDePlace(@Param("formationId") Long formationId);
+    @Query("SELECT COUNT(u) FROM Formation e JOIN e.ListEmploye u WHERE e.id = :formationId")
+    Integer countEmployeeRegisteredByFormationId(@Param("formationId") Long formationId);
+    @Query("SELECT COUNT(E) FROM Formation E" )
+    Integer countAll();
      @Query("SELECT f FROM Formation f JOIN f.ListEmploye u WHERE u.id = :userId")
     Optional<List<Formation>> findAllFormationsByUserId(@Param("userId") Long userId);
 }

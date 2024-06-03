@@ -19,6 +19,7 @@ import { ChangementHoraireService } from './services/changement-horaire.service'
 import { AutorisationSortieService } from './services/autorisation-sortie.service';
 import { AuthenticationService } from './services/authentication.service';
 import { CalendarControllerService } from './services/calendar-controller.service';
+import { StatistiqueService } from './services/statistique.service';
 
 /**
  * Module that provides all services and configuration.
@@ -43,6 +44,7 @@ import { CalendarControllerService } from './services/calendar-controller.servic
     AutorisationSortieService,
     AuthenticationService,
     CalendarControllerService,
+    StatistiqueService,
     ApiConfiguration
   ],
 })

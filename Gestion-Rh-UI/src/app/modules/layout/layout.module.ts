@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { HeaderComponent } from './header/header.component';
-import { FormsModule } from '@angular/forms';
 import { MainComponent } from './pages/main/main.component';
 import { MesDemandesComponent } from './pages/mes-demandes/mes-demandes.component';
 import { FormationComponent } from './pages/formation/formation.component';
@@ -13,13 +14,11 @@ import { GererDemandesComponent } from './pages/gerer-demandes/gerer-demandes.co
 import { ProfileComponent } from './pages/profile/profile.component';
 import { UsersComponent } from './pages/users/users.component';
 import { ManageUserComponent } from './pages/manage-user/manage-user.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
-
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { HttpTokenInterceptor } from '../../services/interceptor/http-token.interceptor';
 import { DepartementComponent } from './pages/departement/departement.component';
 import { CalendrierComponent } from './pages/calendrier/calendrier.component';
 import { ProfileUserComponent } from './pages/profile-user/profile-user.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -36,12 +35,17 @@ import { ProfileUserComponent } from './pages/profile-user/profile-user.componen
     DepartementComponent,
     CalendrierComponent,
     ProfileUserComponent,
+    DashboardComponent,
   ],
   imports: [
     CommonModule,
     LayoutRoutingModule,
     FormsModule,
-    FullCalendarModule
-  ]
+    FullCalendarModule,
+    NgxChartsModule,
+
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class LayoutModule { }

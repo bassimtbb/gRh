@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EventRepository extends JpaRepository<Event,Long> {
-
-
+public interface EventRepository extends JpaRepository<Event, Long> {
+    @Query("SELECT COUNT(u) FROM Event e JOIN e.nbrPlace u WHERE e.id = :eventId")
+    Integer countNbrDePlace(@Param("eventId") Long eventId);
     @Query("SELECT COUNT(u) FROM Event e JOIN e.ListEmploye u WHERE e.id = :eventId")
-    Integer countEmployeByEventId(@Param("eventId") Long eventId);
- @Query("SELECT E FROM Event E JOIN E.ListEmploye u WHERE u.id = :userId")
- Optional<List<Event>> findAllEventsByUserId(@Param("userId") Long userId);
+    Integer countEmployeeRegisteredByEventId(@Param("eventId") Long eventId);
+    @Query("SELECT COUNT(E) FROM Event E" )
+    Integer countAll();
+    @Query("SELECT E FROM Event E JOIN E.ListEmploye u WHERE u.id = :userId")
+    Optional<List<Event>> findAllEventsByUserId(@Param("userId") Long userId);
 }

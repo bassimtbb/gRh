@@ -1,1 +1,116 @@
-<p>dashboard works!</p>
+<div class="containe">
+  <div class="entete">
+    <h3>Dashboard</h3>
+  </div>
+  <div style="display: flex;gap: 1rem; width: 100%;">
+    <div class="card Carddemande text-bg-light mt-3 ">
+      <div class="card-header">Demandes Statistics</div>
+      <div class="card-body">
+        <div>
+          <ngx-charts-advanced-pie-chart
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="demande"
+            [gradient]="gradient">
+          </ngx-charts-advanced-pie-chart>
+        </div>
+      </div>
+    </div>
+    <div class="card Cardformation text-bg-light mt-3">
+      <div class="card-header">Formation Statistics</div>
+      <div *ngIf="!formations.length" class="card-body">
+        <p class="mb-0" style="text-align: center;"><small class="text-body-secondary">Aucune Formation</small></p>
+      </div>
+      <div *ngIf="formations.length > 0" class="card-body">
+        <div *ngFor="let formation of formations" style="margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label>{{ formation.titre }}</label>
+            <div class="progress" style="width: 75%;">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                [style.width.%]="formationStatistics[formation.id!]"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {{ formationStatistics[formation.id!] | number: '1.0-0' }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display: flex;gap: 1rem; width: 100%;">
+    <div class="card Carddemande text-bg-light mt-3 ">
+      <div class="card-header">Employes Statistics</div>
+      <div class="card-body">
+        <div>
+          <ngx-charts-advanced-pie-chart
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="employee"
+            [gradient]="gradient">
+          </ngx-charts-advanced-pie-chart>
+        </div>
+      </div>
+    </div>
+    <div class="card Cardformation text-bg-light mt-3">
+      <div class="card-header">Événement Statistics</div>
+      <div *ngIf="!events.length" class="card-body">
+        <p class="mb-0" style="text-align: center;"><small class="text-body-secondary">Aucune Événement</small></p>
+      </div>
+      <div *ngIf="events.length > 0" class="card-body">
+        <div *ngFor="let event of events" style="margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label>{{ event.titre }}</label>
+            <div class="progress" style="width: 75%;">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                [style.width.%]="eventStatistics[event.id!]"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {{ eventStatistics[event.id!] | number: '1.0-0' }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<div class="card text-bg-light mt-3">
+  <div class="card-header">Demandes Statistics</div>
+  <div class="card-body">
+    <div class="d-flex mb-4 justify-content-around">
+      <div class="d-flex justify-content-center bg-body-tertiary rounded flex-column align-items-center">
+        <p class="card-text">{{ statistiqueDemandeResult!.demandeCount }}</p>
+        <h5 class="card-title">Total Demandes</h5>
+      </div>
+
+      <div class="d-flex justify-content-center bg-body-tertiary rounded flex-column align-items-center">
+        <p class="p-0 card-text">{{ statistiqueDemandeResult!.demandeCountEn_attente_Sup_H }}</p>
+        <h5 class="card-title">En attente Sup H</h5>
+      </div>
+      <div class="d-flex justify-content-center bg-body-tertiary rounded flex-column align-items-center">
+        <p class="p-0 card-text">{{ statistiqueDemandeResult!.demandeCountEn_attente_RRH }}</p>
+        <h5 class="card-title">En attente RRH</h5>
+      </div>
+      <div class="d-flex justify-content-center bg-body-tertiary rounded flex-column align-items-center">
+        <p class="p-0 card-text">{{ statistiqueDemandeResult!.demandeCountValidee }}</p>
+        <h5 class="card-title">Validée</h5>
+      </div>
+      <div class="d-flex justify-content-center bg-body-tertiary rounded flex-column align-items-center">
+        <p class="p-0 card-text">{{ statistiqueDemandeResult!.demandeCountRefusee_Sup_H }}</p>
+        <h5 class="card-title">Refusée Sup H</h5>
+      </div>
+      <div class="d-flex justify-content-center bg-body-tertiary rounded flex-column align-items-center">
+        <p class="p-0 card-text">{{ statistiqueDemandeResult!.demandeCountRefusee }}</p>
+        <h5 class="card-title">Refusée RRH</h5>
+      </div>
+    </div>
+  </div>
+</div> -->
