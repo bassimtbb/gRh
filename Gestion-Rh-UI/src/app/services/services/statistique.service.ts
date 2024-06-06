@@ -19,16 +19,44 @@ import { getStatistiqueFormation } from '../fn/statistique/get-statistique-forma
 import { GetStatistiqueFormation$Params } from '../fn/statistique/get-statistique-formation';
 import { getStatistiqueGenerale } from '../fn/statistique/get-statistique-generale';
 import { GetStatistiqueGenerale$Params } from '../fn/statistique/get-statistique-generale';
+import { getStatistiqueUserByDepartement } from '../fn/statistique/get-statistique-user-by-departement';
+import { GetStatistiqueUserByDepartement$Params } from '../fn/statistique/get-statistique-user-by-departement';
 import { StatistiqueDemandeByDepartementResult } from '../models/statistique-demande-by-departement-result';
 import { StatistiqueDemandeResult } from '../models/statistique-demande-result';
 import { StatistiqueEventResult } from '../models/statistique-event-result';
 import { StatistiqueFormationResult } from '../models/statistique-formation-result';
 import { StatistiqueGeneraleResult } from '../models/statistique-generale-result';
+import { StatistiqueUserByDepartementResult } from '../models/statistique-user-by-departement-result';
 
 @Injectable({ providedIn: 'root' })
 export class StatistiqueService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `getStatistiqueUserByDepartement()` */
+  static readonly GetStatistiqueUserByDepartementPath = '/Statistique/User/{departementId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getStatistiqueUserByDepartement()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStatistiqueUserByDepartement$Response(params: GetStatistiqueUserByDepartement$Params, context?: HttpContext): Observable<StrictHttpResponse<StatistiqueUserByDepartementResult>> {
+    return getStatistiqueUserByDepartement(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getStatistiqueUserByDepartement$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStatistiqueUserByDepartement(params: GetStatistiqueUserByDepartement$Params, context?: HttpContext): Observable<StatistiqueUserByDepartementResult> {
+    return this.getStatistiqueUserByDepartement$Response(params, context).pipe(
+      map((r: StrictHttpResponse<StatistiqueUserByDepartementResult>): StatistiqueUserByDepartementResult => r.body)
+    );
   }
 
   /** Path part for operation `getStatistiqueGenerale()` */

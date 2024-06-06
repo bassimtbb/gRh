@@ -222,6 +222,7 @@ return differenceEnJours;
         this.Msg = ""; // Clear the message after hiding the alert
       }, 5000);
       console.log("error");
+this.ngOnInit();
       return; // Exit the function if validation fails
     }
     console.log("this.eventUpdate", this.eventUpdate);

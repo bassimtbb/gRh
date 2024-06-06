@@ -1,4 +1,4 @@
-package com.saiph.application.GestionRH.Domain.entities;
+package com.saiph.application.GestionRH.Domain.entities.Statistique;
 
 import lombok.Data;
 

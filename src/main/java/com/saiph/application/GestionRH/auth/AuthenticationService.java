@@ -1,6 +1,7 @@
 package com.saiph.application.GestionRH.auth;
 
 import com.saiph.application.GestionRH.Domain.entities.User;
+import com.saiph.application.GestionRH.exception.ResourceAlreadyExistsException;
 import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
 import com.saiph.application.GestionRH.repository.UserRepository;
 import com.saiph.application.GestionRH.security.JwtService;
@@ -24,8 +25,15 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
 
-    public RegistrationRequest register(RegistrationRequest request) throws ResourceNotFoundException {
+    public RegistrationRequest register(RegistrationRequest request) throws ResourceNotFoundException ,ResourceAlreadyExistsException{
+    if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+        throw new ResourceAlreadyExistsException("Email already exists");
+    }
 
+    // Check if CIN already exists
+    if (userRepository.findByCin(request.getCin()).isPresent()) {
+        throw new ResourceAlreadyExistsException("CIN already exists");
+    }
         var userdetail = User.builder()
 
                 .firstname(request.getFirstname())
@@ -46,6 +54,7 @@ public class AuthenticationService {
                 .EJuridic(request.getEJuridic())
                 .phonenumber(request.getPhonenumber())
                 .build();
+    // Check if email already exists
 
         userRepository.save(userdetail);
         if (request.getDepartement()!=null){

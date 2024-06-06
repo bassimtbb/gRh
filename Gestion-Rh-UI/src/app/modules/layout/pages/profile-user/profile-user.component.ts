@@ -1283,6 +1283,8 @@ constructor(
       .subscribe(user=> { 
         console.log('user updated')
 
-      })
+      }, error => {
+        console.error('Error updating email:', error);
+      });
     }
 }

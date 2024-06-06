@@ -107,6 +107,7 @@ Sup_h:User={};
 }
   
     demandes:Demande[]=[];
+    demandesFilter:Demande[]=[];
     ngOnInit(): void {
        this.role= this.tokenService.userRole();
 
@@ -118,6 +119,7 @@ Sup_h:User={};
           .subscribe(
              demandes =>{ 
               this.demandes=demandes;
+              this.demandesFilter = this.demandes;
             }
           )
   
@@ -125,6 +127,27 @@ Sup_h:User={};
               
     }
  
+  
+    filterDemandes(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value;
+      switch (filterValue) {
+        case 'validated':
+          this.demandesFilter = this.demandes.filter(demande => demande.statut === "Validee");
+          break;
+        case 'pending':
+          this.demandesFilter = this.demandes.filter(demande => demande.statut === "En_attente_Sup_H" || demande.statut === "En_attente_RRH");
+          break;
+        case 'rejected':
+          this.demandesFilter = this.demandes.filter(demande => demande.statut === "Refusee" || demande.statut === "Refusee_Sup_H");
+          break;
+          case 'all':
+            this.demandesFilter = this.demandes; // Show all demandes if no filter selected
+            break;
+        default:
+          this.demandesFilter = this.demandes; // Show all demandes if no filter selected
+          break;
+      }
+    }
     DemandeClicked(demande: Demande) {
       this.departementService.findById4({id:3 as number}).subscribe
       (departement=>{
@@ -264,9 +287,15 @@ Sup_h:User={};
     }
      
     }
-    
-
     updateAutorSortie() {
+      const errors = this.validateAddADS(this.modifADS);
+      if (errors.length > 0) {
+        setTimeout(() => {
+          this.alert = 'alert alert-danger';
+          this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+        }, 5000); // 5 seconds
+          return;
+      } 
       const userId = this.tokenService.Id; 
       this.userService.findById({id: userId as number }) 
         .subscribe(user => {
@@ -362,7 +391,17 @@ Sup_h:User={};
             };
             break;
         }
-
+        const errors = this.validateAddConge(this.modifConge, this.isEXCEPTIONNEL, this.motifC);
+        if (errors.length > 0) {
+  
+            this.alert = 'alert alert-danger';
+            this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000); // 5 seconds
+            return;
+        } 
         console.log("this.modifConge",this.modifConge.motif)
         console.log("this.motifC",this.motifC)
       this.congeService.update10({id:this.modifConge.id as number, body :this.modifConge as CongeDto})
@@ -378,6 +417,13 @@ Sup_h:User={};
     }
 
     updateautTeletravail() {
+      const errors = this.validateAddTeletravail(this.autTeletravail);
+      if (errors.length > 0) {
+        setTimeout(() => {
+          this.alert = 'alert alert-danger';
+          this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+        }, 5000); // 5 seconds
+          return;   } 
       const Id = this.tokenService.Id;
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
@@ -401,6 +447,13 @@ Sup_h:User={};
     }
 
     updateautTravailSupp() {
+      const errors = this.validateAddAutTravailSupp(this.autTravailSupp);
+      if (errors.length > 0) {
+        setTimeout(() => {
+          this.alert = 'alert alert-danger';
+          this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+        }, 5000); // 5 seconds
+          return;}
       const Id = this.tokenService.Id;
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
@@ -423,6 +476,18 @@ Sup_h:User={};
     }
 
     updatechHoraire() {
+      
+      const errors = this.validateAddChHoraire(this.modifChHoraire);
+      if (errors.length > 0) {
+  
+            this.alert = 'alert alert-danger';
+            this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000); // 5 seconds
+            return;
+        } 
       const Id = this.tokenService.Id;
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
@@ -445,6 +510,7 @@ Sup_h:User={};
     }
 
     updateacompte() {
+
       const Id = this.tokenService.Id;
       this.userService.findById({id: Id as number  })
       .subscribe(user => {
@@ -461,6 +527,14 @@ Sup_h:User={};
           }
           
         console.log(this.modifAcompte)
+        const errors = this.validateAddAcompte(this.modifAcompte, this.acompteR, this.modifAcompte);
+        if (errors.length > 0) {  
+            setTimeout(() => {
+              this.alert = 'alert alert-danger';
+              this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+            }, 5000); // 5 seconds
+              return;
+          }
       this.acompteService.update6({id:this.modifAcompte.id as number, body :this.modifAcompte as AcompteDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande d'Acompte sur Salaire/prime modifiée avec succès!"!`;
@@ -499,7 +573,14 @@ Sup_h:User={};
               ...this.modifPret,
               credit:"Pas crédit bancaire en cours"
             }
-          
+            const errors = this.validateAddPret(this.pret, this.credit, this.rembourser);
+            if (errors.length > 0) {
+                setTimeout(() => {
+                  this.alert = 'alert alert-danger';
+                  this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+                }, 5000); // 5 seconds
+                  return;
+              } 
       this.pretService.update9({id:this.modifPret.id as number, body :this.modifPret as PretDto})
       .subscribe ( demande => 
         {  this.Msg = `Demande de Prêt modifiée avec succès!"!`;
@@ -672,7 +753,14 @@ Sup_h:User={};
     }
     
      AddAutorSortie() { 
-
+      const errors = this.validateAddADS(this.addADS);
+      if (errors.length > 0) {
+        setTimeout(() => {
+          this.alert = 'alert alert-danger';
+          this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+        }, 5000); // 5 seconds
+          return;
+      } 
       const Id = this.tokenService.Id;      
   const role:String = this.tokenService.userRole();
   this.userService.findById({id: Id as number  })
@@ -861,6 +949,19 @@ Sup_h:User={};
             break;
         }
         console.log(this.conge)
+        const errors = this.validateAddConge(this.conge, this.isEXCEPTIONNEL, this.motifC);
+        if (errors.length > 0) {
+
+            this.alert = 'alert alert-danger';
+            this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000);
+          
+          this.ngOnInit(); // 5 seconds
+            return;
+        } 
       this.congeService.add10({ body :this.conge as CongeDto})
       .subscribe ( demande => 
         {
@@ -885,7 +986,13 @@ Sup_h:User={};
     }
 
     AddautTeletravail() {
-      
+      const errors = this.validateAddTeletravail(this.autTeletravail);
+      if (errors.length > 0) {
+        setTimeout(() => {
+          this.alert = 'alert alert-danger';
+          this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+        }, 5000); // 5 seconds
+          return;   } 
       const Id = this.tokenService.Id;      
       const role:String = this.tokenService.userRole();
       this.userService.findById({id: Id as number  })
@@ -961,6 +1068,13 @@ Sup_h:User={};
     }
 
     AddautTravailSupp() {
+      const errors = this.validateAddAutTravailSupp(this.autTravailSupp);
+      if (errors.length > 0) {
+        setTimeout(() => {
+          this.alert = 'alert alert-danger';
+          this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+        }, 5000); // 5 seconds
+          return;}
       const Id = this.tokenService.Id;      
 
       const role:String = this.tokenService.userRole();
@@ -1037,6 +1151,16 @@ Sup_h:User={};
     }
 
     AddchHoraire() {
+
+        const errors = this.validateAddChHoraire(this.chHoraire);
+        if (errors.length > 0) {
+            setTimeout(() => {
+              this.alert = 'alert alert-danger';
+              this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+            }, 5000); // 5 seconds
+              return;
+          } 
+      
       const Id = this.tokenService.Id;      
 
       const role:String = this.tokenService.userRole();
@@ -1168,7 +1292,14 @@ Sup_h:User={};
             ...this.acompte,
            typeA:"Prime"
           }
-          
+          const errors = this.validateAddAcompte(this.acompte, this.acompteR, this.modifAcompte);
+          if (errors.length > 0) {  
+              setTimeout(() => {
+                this.alert = 'alert alert-danger';
+                this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+              }, 5000); // 5 seconds
+                return;
+            } 
         console.log(this.acompte)
       this.acompteService.add6({ body :this.acompte as AcompteDto})
       .subscribe ( demande => 
@@ -1194,7 +1325,19 @@ Sup_h:User={};
     }
 
     Addpret() {
-
+      const errors = this.validateAddPret(this.pret, this.credit, this.rembourser);
+      if (errors.length > 0) {
+  
+            this.alert = 'alert alert-danger';
+            this.Msg = `demande non ajouté. Erreurs de validation : ${errors.join(', ')}`;
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000); // 5 seconds
+            return;
+        } 
+    
+    
   const Id = this.tokenService.Id;      
 
   const role:String = this.tokenService.userRole();
@@ -1279,5 +1422,362 @@ Sup_h:User={};
         });
     }); 
     }
+
+
+    validateAddADS(addADS: any): string[] {
+      const errors = [];
+  
+      // Validate Entité Juridique
+      if (!this.user.ejuridic) {
+          errors.push('L\'entité juridique est obligatoire.');
+      }
+  
+      // Validate Nom et Prénom
+      if (!this.user.firstname || !this.user.lastname) {
+          errors.push('Le nom et le prénom sont obligatoires.');
+      }
+  
+      // Validate Matricule
+      if (!this.user.id) {
+          errors.push('Le matricule est obligatoire.');
+      }
+  
+      // Validate Service
+      if (!this.user.service) {
+          errors.push('Le service est obligatoire.');
+      }
+  
+      // Validate Heure de Sortie
+      if (!addADS.hsortie) {
+          errors.push('L\'heure de sortie est obligatoire.');
+      }
+  
+      // Validate Date
+      if (!addADS.dateS) {
+          errors.push('La date est obligatoire.');
+      } else if (new Date(addADS.dateS) < new Date()) {
+          errors.push('La date ne peut pas être dans le passé.');
+      }
+  
+      // Validate Heure de Retour if not Temporaire
+      if (!addADS.isTemporaire && !addADS.hretour) {
+          errors.push('L\'heure de retour est obligatoire pour une sortie non temporaire.');
+      }
+  
+      // Validate Motif
+      if (!addADS.motif) {
+          errors.push('Le motif est obligatoire.');
+      }
+  
+      return errors;
+  }
+
+  validateAddTeletravail(autTeletravail: any): string[] {
+    const errors = [];
+
+    // Validate Entité Juridique
+    if (!this.user.ejuridic) {
+        errors.push('L\'entité juridique est obligatoire.');
+    }
+
+    // Validate Nom et Prénom
+    if (!this.user.firstname || !this.user.lastname) {
+        errors.push('Le nom et le prénom sont obligatoires.');
+    }
+
+    // Validate Matricule
+    if (!this.user.id) {
+        errors.push('Le matricule est obligatoire.');
+    }
+
+    // Validate Service
+    if (!this.user.service) {
+        errors.push('Le service est obligatoire.');
+    }
+
+    // Validate Email
+    if (!this.user.email) {
+        errors.push('L\'adresse email est obligatoire.');
+    }
+
+    // Validate Téléphone
+    if (!this.user.phonenumber) {
+        errors.push('Le numéro de téléphone est obligatoire.');
+    } else if (!/^\d+$/.test(this.user.phonenumber)) {
+        errors.push('Le numéro de téléphone doit être un nombre.');
+    }
+
+    // Validate Personne à contacter en cas de non joignabilité
+    if (!autTeletravail.contact) {
+        errors.push('La personne à contacter en cas de non joignabilité est obligatoire.');
+    }
+
+    // Validate Téléphone de la personne à contacter
+    if (!autTeletravail.telephone) {
+        errors.push('Le téléphone de la personne à contacter est obligatoire.');
+    } else if (!/^\d+$/.test(autTeletravail.telephone)) {
+        errors.push('Le téléphone de la personne à contacter doit être un nombre.');
+    }
+
+    // Validate Lieu du télétravail
+    if (!autTeletravail.lieu) {
+        errors.push('Le lieu du télétravail est obligatoire.');
+    }
+
+    // Validate Pour la periode (debut and fin)
+    if (!autTeletravail.debut) {
+        errors.push('La date de début de la période est obligatoire.');
+    }
+    if (!autTeletravail.fin) {
+        errors.push('La date de fin de la période est obligatoire.');
+    } else if (new Date(autTeletravail.debut) > new Date(autTeletravail.fin)) {
+        errors.push('La date de fin doit être postérieure à la date de début.');
+    }
+
+    // Validate Tâches
+    if (!autTeletravail.tache) {
+        errors.push('Les tâches sont obligatoires.');
+    }
+
+    return errors;
+}
+
+validateAddPret(pret: any, credit: string, rembourser: string): string[] {
+  const errors = [];
+
+  // Validate Entité Juridique
+  if (!this.user.ejuridic) {
+      errors.push("L'entité juridique est obligatoire.");
+  }
+
+  // Validate Nom et Prénom
+  if (!this.user.firstname || !this.user.lastname) {
+      errors.push("Le nom et le prénom sont obligatoires.");
+  }
+
+  // Validate Matricule
+  if (!this.user.id) {
+      errors.push("Le matricule est obligatoire.");
+  }
+
+  // Validate Service
+  if (!this.user.service) {
+      errors.push("Le service est obligatoire.");
+  }
+
+  // Validate Montant du prêt
+  if (!pret.montant || pret.montant <= 0) {
+      errors.push("Le montant du prêt est obligatoire et doit être supérieur à zéro.");
+  }
+
+  // Validate Crédit bancaire en cours
+  if (credit === "oui") {
+      if (!pret.credit || pret.credit <= 0) {
+          errors.push("Le montant des retenues mensuelles pour le crédit bancaire est obligatoire et doit être supérieur à zéro.");
+      }
+  }
+
+  // Validate Rembourser par
+  if (rembourser === "oui") {
+      if (!pret.remboursement || pret.remboursement <= 0) {
+          errors.push("Le montant des retenues mensuelles pour le remboursement est obligatoire et doit être supérieur à zéro.");
+      }
+  }
+
+  // Validate Motif
+  if (!pret.motif) {
+      errors.push("Le motif est obligatoire.");
+  }
+
+  return errors;
+}
+
+validateAddConge(conge: any, isEXCEPTIONNEL: boolean, motifC: string): string[] {
+  const errors = [];
+
+  // Validate Entité Juridique
+  if (!this.user.ejuridic) {
+      errors.push("L'entité juridique est obligatoire.");
+  }
+
+  // Validate Nom et Prénom
+  if (!this.user.firstname || !this.user.lastname) {
+      errors.push("Le nom et le prénom sont obligatoires.");
+  }
+
+  // Validate Matricule
+  if (!this.user.id) {
+      errors.push("Le matricule est obligatoire.");
+  }
+
+  // Validate Service
+  if (!this.user.service) {
+      errors.push("Le service est obligatoire.");
+  }
+
+  // Validate Début date
+  if (!conge.debut) {
+      errors.push("La date de début est obligatoire.");
+  }
+
+
+      // Validate Durée for regular leave
+      if (!conge.duree || conge.duree <= 0) {
+          errors.push("La durée du congé est obligatoire et doit être supérieure à zéro.");
+      }
+
+      // Validate Motif for regular leave
+      if (!conge.motif) {
+          errors.push("Le motif du congé est obligatoire.");
+      }
+  
+
+  return errors;
+}
+validateAddChHoraire(chHoraire: any): string[] {
+  const errors = [];
+
+  // Validate Entité Juridique
+  if (!this.user.ejuridic) {
+      errors.push("L'entité juridique est obligatoire.");
+  }
+
+  // Validate Nom et Prénom
+  if (!this.user.firstname || !this.user.lastname) {
+      errors.push("Le nom et le prénom sont obligatoires.");
+  }
+
+  // Validate Matricule
+  if (!this.user.id) {
+      errors.push("Le matricule est obligatoire.");
+  }
+
+  // Validate Service
+  if (!this.user.service) {
+      errors.push("Le service est obligatoire.");
+  }
+
+  // Validate Début date
+  if (!chHoraire.debut) {
+      errors.push("La date de début est obligatoire.");
+  }
+
+  // Validate Fin date
+  if (!chHoraire.fin) {
+      errors.push("La date de fin est obligatoire.");
+  }
+
+  // Ensure Fin date is after Début date
+  if (chHoraire.debut && chHoraire.fin && new Date(chHoraire.debut) > new Date(chHoraire.fin)) {
+      errors.push("La date de fin doit être après la date de début.");
+  }
+
+  // Validate Ancien Horaire
+  if (!chHoraire.ancienH) {
+      errors.push("L'ancien horaire est obligatoire.");
+  }
+
+  // Validate Nouvel Horaire
+  if (!chHoraire.nouvelH) {
+      errors.push("Le nouvel horaire est obligatoire.");
+  }
+
+  // Ensure Nouvel Horaire is after Ancien Horaire
+  if (chHoraire.ancienH && chHoraire.nouvelH && chHoraire.ancienH >= chHoraire.nouvelH) {
+      errors.push("Le nouvel horaire doit être après l'ancien horaire.");
+  }
+
+  // Validate Motif
+  if (!chHoraire.motif) {
+      errors.push("Le motif du changement est obligatoire.");
+  }
+
+  return errors;
+}
+validateAddAcompte(acompte: any, acompteR: string, modifAcompte: any): string[] {
+  const errors = [];
+
+  // Validate Entité Juridique
+  if (!this.user.ejuridic) {
+      errors.push("L'entité juridique est obligatoire.");
+  }
+
+  // Validate Nom et Prénom
+  if (!this.user.firstname || !this.user.lastname) {
+      errors.push("Le nom et le prénom sont obligatoires.");
+  }
+
+  // Validate Matricule
+  if (!this.user.id) {
+      errors.push("Le matricule est obligatoire.");
+  }
+
+  // Validate Service
+  if (!this.user.service) {
+      errors.push("Le service est obligatoire.");
+  }
+
+  // Validate Acompte Type
+  if (!acompteR) {
+      errors.push("Le type d'acompte est obligatoire.");
+  }
+
+  // Validate Mois if "oui" is selected
+  if (acompteR === 'oui' && !modifAcompte.typeA) {
+      errors.push("Le mois de l'acompte est obligatoire.");
+  }
+
+  // Validate Montant
+  if (!acompte.montant || acompte.montant <= 0) {
+      errors.push("Le montant de l'acompte doit être supérieur à zéro.");
+  }
+
+  return errors;
+}
+validateAddAutTravailSupp(autTravailSupp: any): string[] {
+  const errors = [];
+
+  // Validate Entité Juridique
+  if (!this.user.ejuridic) {
+      errors.push("L'entité juridique est obligatoire.");
+  }
+
+  // Validate Nom et Prénom
+  if (!this.user.firstname || !this.user.lastname) {
+      errors.push("Le nom et le prénom sont obligatoires.");
+  }
+
+  // Validate Matricule
+  if (!this.user.id) {
+      errors.push("Le matricule est obligatoire.");
+  }
+
+  // Validate Service
+  if (!this.user.service) {
+      errors.push("Le service est obligatoire.");
+  }
+
+  // Validate Date
+  if (!autTravailSupp.date) {
+      errors.push("La date est obligatoire.");
+  }
+
+  // Validate Heure de accès
+  if (!autTravailSupp.hacces) {
+      errors.push("L'heure de l'accès est obligatoire.");
+  }
+
+  // Validate Heure de sortie
+  if (!autTravailSupp.hsortie) {
+      errors.push("L'heure de sortie est obligatoire.");
+  }
+
+  // Validate Motif
+  if (!autTravailSupp.motif) {
+      errors.push("Le motif du changement est obligatoire.");
+  }
+
+  return errors;
+}
 
     }

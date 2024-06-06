@@ -172,6 +172,8 @@ addFormation() {
       this.alert = 'd-none';
       this.Msg = ""; // Clear the message after hiding the alert
     }, 5000);
+    this.ngOnInit();
+
     console.log("error");
     return; // Exit the function if validation fails
   }
@@ -238,6 +240,8 @@ updateFormation() {
       this.alert = 'd-none';
       this.Msg = ""; // Clear the message after hiding the alert
     }, 5000);
+    this.ngOnInit();
+
     console.log("error");
     return; // Exit the function if validation fails
   }

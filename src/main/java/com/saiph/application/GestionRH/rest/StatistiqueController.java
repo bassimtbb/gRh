@@ -1,6 +1,6 @@
 package com.saiph.application.GestionRH.rest;
 
-import com.saiph.application.GestionRH.Domain.entities.*;
+import com.saiph.application.GestionRH.Domain.entities.Statistique.*;
 import com.saiph.application.GestionRH.services.StatistiqueService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,10 @@ public class StatistiqueController {
     public StatistiqueDemandeByDepartementResult getStatistiqueDemandeByDepartement(@PathVariable("departementId") Long departementId) {
         return statistiqueService.getStatistiqueDemandeByDepartement(departementId);
     }
-
+    @GetMapping("/User/{departementId}")
+    public StatistiqueUserByDepartementResult getStatistiqueUserByDepartement(@PathVariable("departementId") Long departementId) {
+        return statistiqueService.getStatistiqueUserByDepartement(departementId);
+    }
     @GetMapping("/Demande")
     public StatistiqueDemandeResult getStatistiqueDemande() {
         return statistiqueService.getStatistiqueDemande();

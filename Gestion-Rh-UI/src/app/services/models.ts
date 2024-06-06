@@ -27,6 +27,7 @@ export { StatistiqueDemandeResult } from './models/statistique-demande-result';
 export { StatistiqueEventResult } from './models/statistique-event-result';
 export { StatistiqueFormationResult } from './models/statistique-formation-result';
 export { StatistiqueGeneraleResult } from './models/statistique-generale-result';
+export { StatistiqueUserByDepartementResult } from './models/statistique-user-by-departement-result';
 export { User } from './models/user';
 export { UserDetails } from './models/user-details';
 export { UserDto } from './models/user-dto';

@@ -1,48 +1,37 @@
 <div class="containe">
     <div class="entete">
         <h3>Tous les demandes</h3>
-        <div class="btn-group  dropdown">
-            <button type="button" id="typeDemande" class="btn btn-success dropdown-toggle" data-toggle="dropdown" >Déposer une demande</button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item"  routerLink="/dashboard/demandes/ChDemandes/ED/D-conge" >Congé </a></li>
-                <li><a class="dropdown-item"  routerLink="/dashboard/demandes/ChDemandes/ED/D-conge-ex" >Congé exceptionnel</a></li>
-                <li><a class="dropdown-item"  routerLink="/dashboard/demandes/ChDemandes/ED/D-Autor-Sor"  >Autorisation de sortie </a></li>
-                <li><a class="dropdown-item"  routerLink="/dashboard/demandes/ChDemandes/ED/D-Autor-Tele" >Autorisation de télétravail </a></li>
-                <li><a class="dropdown-item" >Autorisation de travail supplémentaire </a></li>
-                <li><a class="dropdown-item"  routerLink="/dashboard/demandes/ChDemandes/ED/D-Chang-Horaire" >Changement Horaire de travail</a></li>
-                <li><a class="dropdown-item" >Autorisation de travail le dimanche </a></li>
-                <li><a class="dropdown-item" >Acompte sur Salaire/prime </a></li>
-                <li><a class="dropdown-item"  routerLink="/dashboard/demandes/ChDemandes/ED/D-pret" >Prêt</a></li>
-            </ul> </div>
+
     </div>
       
     <div class="container-fluid">
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+            <input #searchInput class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search" (input)="applySearch(searchInput.value)">
+            <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
         </form>
       </div>
+      
 
-  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group" (change)="filterDemandes($event)">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked value="all">
         <label class="btn btn-outline-success" for="btnradio1">Toutes les Demandes</label>
       
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-success" for="btnradio2">Demande Valider</label>
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="validated">
+        <label class="btn btn-outline-success" for="btnradio2">Demande Validée</label>
       
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="pending">
         <label class="btn btn-outline-success" for="btnradio3">Demande en attente</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-        <label class="btn btn-outline-success" for="btnradio4">Demande refuse</label>
-    </div>
+      
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" value="rejected">
+        <label class="btn btn-outline-success" for="btnradio4">Demande refusée</label>
+      </div>
     <div class=" data  mt-5">
 
-        <div  *ngIf="allDemandes.length==0 || allDemandes==null" class=" data d-flex justify-content-center m-5" >
+        <div  *ngIf="demandesFilter.length==0 || demandesFilter==null" class=" data d-flex justify-content-center m-5" >
             <p class="mb-0 "><small class="text-body-secondary">Aucune Demande </small></p>
           </div>
    
-    <table *ngIf="allDemandes.length " class="table table-striped table-hover">
+    <table *ngIf="demandesFilter.length " class="table table-striped table-hover">
         <thead>
             <th>ID</th>
             <th>Type</th>
@@ -53,7 +42,7 @@
             <th></th>
          </thead>
         <tbody>
-            <tr *ngFor="let demande of allDemandes">
+            <tr *ngFor="let demande of demandesFilter">
 
                 <td>{{ demande.id }}</td>
                 <td>{{ demande.type }}</td>

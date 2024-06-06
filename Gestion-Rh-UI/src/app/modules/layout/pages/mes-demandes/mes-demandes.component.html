@@ -9,43 +9,40 @@
       </button>
       <ul class="dropdown-menu">
         <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#conge">Congé </a></li>
-        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#ADS">Autorisation de
-          sortie </a></li>
-        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#teleTra">Autorisation de
-          télétravail </a></li>
-        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#TraSup">Autorisation de
-          travail supplémentaire </a></li>
-        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#chH">Changement Horaire de
-          travail</a></li>
-        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#acompte">Acompte sur
-          Salaire/prime </a></li>
+        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#ADS">Autorisation de sortie </a></li>
+        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#teleTra">Autorisation de télétravail </a></li>
+        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#TraSup">Autorisation de travail supplémentaire </a></li>
+        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#chH">Changement Horaire de travail</a></li>
+        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#acompte">Acompte sur Salaire/prime </a></li>
         <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#pret">Prêt</a></li>
       </ul>
     </div>
   </div>
 
-  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+  <div class="btn-group" role="group" aria-label="Basic radio toggle button group" (change)="filterDemandes($event)">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked value="all">
     <label class="btn btn-outline-success" for="btnradio1">Toutes les Demandes</label>
-
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-    <label class="btn btn-outline-success" for="btnradio2">Demande Valider</label>
-
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="validated">
+    <label class="btn btn-outline-success" for="btnradio2">Demande Validée</label>
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="pending">
     <label class="btn btn-outline-success" for="btnradio3">Demande en attente</label>
-
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-    <label class="btn btn-outline-success" for="btnradio4">Demande refuse</label>
+  
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" value="rejected">
+    <label class="btn btn-outline-success" for="btnradio4">Demande refusée</label>
   </div>
+  
+  
   <div class=" data  mt-5">
     <div [ngClass]=alert role="alert">
       {{Msg}}
     </div>
-    <div *ngIf="demandes==null" class=" data d-flex justify-content-center m-5">
+    <div *ngIf="!demandesFilter.length" class=" data d-flex justify-content-center m-5">
       <p class="mb-0 "><small class="text-body-secondary">Aucune Demande </small></p>
     </div>
 
-    <table *ngIf="demandes!=null" id="tablede" class="table table-striped table-hover">
+    <table *ngIf="demandesFilter.length" id="tablede" class="table table-striped table-hover">
       <thead>
       <th>ID</th>
       <th>Type</th>
@@ -54,7 +51,7 @@
       <th></th>
       </thead>
       <tbody>
-      <tr *ngFor="let demande of demandes">
+      <tr *ngFor="let demande of demandesFilter">
         <td>{{ demande.id }}</td>
         <td>{{ demande.type }}</td>
         <td><i [ngClass]="getStatusClass(demande.statut)" class="bi  "></i>{{ demande.statut }}</td>
@@ -535,21 +532,10 @@
         <button type="submit " *ngIf="this.typeDSelect=='Prêt'" class="btn btn-primary" (click)="updatepret()"
                 data-bs-dismiss="modal">Modifier
         </button>
+        <button type="submit " class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#deleteconfirm"
+                data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
 
-        <button type="submit " *ngIf="this.typeDSelect=='Congé'" class="btn btn-danger" (click)="deleteconge()"
-                data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
-        <button type="submit " *ngIf="this.typeDSelect=='Autorisation de sortie'" class="btn btn-danger"
-                (click)="deleteAutorSortie()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
-        <button type="submit " *ngIf="this.typeDSelect=='Autorisation de télétravail'" class="btn btn-danger"
-                (click)="deleteautTeletravail()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
-        <button type="submit " *ngIf="this.typeDSelect=='Autorisation de travail supplémentaire'" class="btn btn-danger"
-                (click)="deleteautTravailSupp()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
-        <button type="submit " *ngIf="this.typeDSelect=='Changement Horaire de travail'" class="btn btn-danger"
-                (click)="deletechHoraire()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
-        <button type="submit " *ngIf="this.typeDSelect=='Acompte sur Salaire/prime'" class="btn btn-danger"
-                (click)="deleteacompte()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
-        <button type="submit " *ngIf="this.typeDSelect=='Prêt'" class="btn btn-danger" (click)="deletepret()"
-                data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
+
       </div>
     </div>
   </div>
@@ -784,7 +770,7 @@
           </div>
           <div class="col-auto">
             <div class="input-group mb-2">
-              <input style="max-width: 4.7rem;" type="number" min="0" class="form-control" placeholder="00">
+              <input style="max-width: 4.7rem;" type="number" min="0" [(ngModel)]="pret.montant" class="form-control" placeholder="00">
               <span class="input-group-text" id="basic-addon2">DT</span>
             </div>
           </div>
@@ -1492,6 +1478,37 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
         <button type="submit" class="btn btn-primary" (click)="downloadPdf(demandeSelected)" data-bs-dismiss="modal">Télécharger</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteconfirm" tabindex="-1" aria-labelledby="deleteconfirmLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteconfirmLabel">Confirmer la suppression</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h1 class="modal-title fs-5" *ngIf="this.typeDSelect=='Congé'" >Êtes-vous sûr de supprimer la demande de {{this.typeDSelect}} ?</h1>
+        <h1 class="modal-title fs-5" *ngIf="this.typeDSelect=='Autorisation de sortie'" >Êtes-vous sûr de supprimer la demande d'{{this.typeDSelect}} ?</h1>
+        <h1 class="modal-title fs-5" *ngIf="this.typeDSelect=='Autorisation de télétravail'" >Êtes-vous sûr de supprimer la demande d'{{this.typeDSelect}} ?</h1>
+        <h1 class="modal-title fs-5" *ngIf="this.typeDSelect=='Autorisation de travail supplémentaire'" >Êtes-vous sûr de supprimer la demande d'{{this.typeDSelect}} ?</h1>
+        <h1 class="modal-title fs-5" *ngIf="this.typeDSelect=='Changement Horaire de travail'" >Êtes-vous sûr de supprimer la demande de {{this.typeDSelect}} ?</h1>
+        <h1 class="modal-title fs-5" *ngIf="this.typeDSelect=='Acompte sur Salaire/prime'" >Êtes-vous sûr de supprimer la demande d'{{this.typeDSelect}} ?</h1>
+        <h1 class="modal-title fs-5" *ngIf="this.typeDSelect=='Prêt'">Êtes-vous sûr de supprimer la demande {{this.typeDSelect}} ?</h1>     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="submit" *ngIf="this.typeDSelect=='Congé'" class="btn btn-danger" (click)="deleteconge()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit" *ngIf="this.typeDSelect=='Autorisation de sortie'" class="btn btn-danger" (click)="deleteAutorSortie()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit" *ngIf="this.typeDSelect=='Autorisation de télétravail'" class="btn btn-danger" (click)="deleteautTeletravail()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit" *ngIf="this.typeDSelect=='Autorisation de travail supplémentaire'" class="btn btn-danger" (click)="deleteautTravailSupp()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit" *ngIf="this.typeDSelect=='Changement Horaire de travail'" class="btn btn-danger" (click)="deletechHoraire()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit" *ngIf="this.typeDSelect=='Acompte sur Salaire/prime'" class="btn btn-danger" (click)="deleteacompte()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
+        <button type="submit" *ngIf="this.typeDSelect=='Prêt'" class="btn btn-danger" (click)="deletepret()" data-bs-dismiss="modal"><i class="bi bi-trash3-fill"></i></button>
       </div>
     </div>
   </div>

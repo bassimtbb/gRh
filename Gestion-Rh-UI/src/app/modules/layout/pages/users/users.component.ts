@@ -88,6 +88,22 @@ getStatusClass(statut: string): string {
   Msg:String="";
 
   addUser(){
+    const validationErrors = this.validateAddUser(this.addUtilisateur);
+
+    // If there are validation errors, display them
+    if (validationErrors.length > 0) {
+  
+
+      // Display validation errors to the user or handle them as needed
+      this.alert = 'alert alert-danger';
+      this.Msg = `Employée non ajouté. Erreurs de validation : ${validationErrors.join(', ')}`;
+      setTimeout(() => {
+        this.alert = 'd-none';
+        this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000);
+
+      return;
+    }
     console.log("departementid",this.addUtilisateurdepartement);
 
     this.addUtilisateur = {
@@ -116,14 +132,19 @@ getStatusClass(statut: string): string {
         // Handle error
         this.alert = 'alert alert-danger';
         console.error('Error adding user:', error);
-        this.Msg = `: ${error}`;
+        if (error.error.error=== "Email already exists") {
+            this.Msg = "Email est déjà utilisé";
+        } else if (error.error.error === "CIN already exists") {
+            this.Msg = "CIN est déjà utilisé";
+        } else {
+            this.Msg = `Error: ${error}`;
+        }
         setTimeout(() => {
-          this.alert = 'd-none';
-          this.Msg="";
-
+            this.alert = 'd-none';
+            this.Msg = "";
         }, 5000); // 5 seconds
-      }
-    );
+    }
+);
   }
   changePage(newPage: number) {
     this.page = newPage;
@@ -144,4 +165,83 @@ getStatusClass(statut: string): string {
           this.alert = 'alert alert-danger'; 
         });
   }
+
+  validateAddUser(addUtilisateur: any): string[] {
+    const errors = [];
+
+    // Validate Nom
+    if (!addUtilisateur.firstname) {
+        errors.push('Le nom est obligatoire.');
+    } else if (addUtilisateur.firstname.length < 3) {
+        errors.push('Le nom doit contenir au moins 3 caractères.');
+    }
+
+    // Validate Prénom
+    if (!addUtilisateur.lastname) {
+        errors.push('Le prénom est obligatoire.');
+    } else if (addUtilisateur.lastname.length < 3) {
+        errors.push('Le prénom doit contenir au moins 3 caractères.');
+    }
+
+    // Validate CIN
+    if (!addUtilisateur.cin) {
+        errors.push('Le CIN est obligatoire.');
+    }
+
+    // Validate Email
+    if (!addUtilisateur.email) {
+        errors.push('L\'email est obligatoire.');
+    } else if (!this.isValidEmail(addUtilisateur.email)) {
+        errors.push('L\'email n\'est pas valide.');
+    }
+
+    // Validate Date embauche
+    if (!addUtilisateur.dembauche) {
+        errors.push('La date d\'embauche est obligatoire.');
+    }
+
+    // Validate Poste
+    if (!addUtilisateur.role) {
+        errors.push('Le poste est obligatoire.');
+    }
+
+    // Validate Département
+    if (!addUtilisateur.departement) {
+        errors.push('Le département est obligatoire.');
+    }
+
+    // Validate Sexe
+    if (!addUtilisateur.sexe) {
+        errors.push('Le sexe est obligatoire.');
+    }
+
+    // Validate Adresse
+    if (!addUtilisateur.address) {
+        errors.push('L\'adresse est obligatoire.');
+    }
+
+    // Validate Téléphone
+    if (!addUtilisateur.phonenumber) {
+        errors.push('Le numéro de téléphone est obligatoire.');
+    } else if (!/^\d+$/.test(addUtilisateur.phonenumber)) {
+        errors.push('Le numéro de téléphone doit être un nombre.');
+    }
+
+    // Validate Photo
+    // if (!addUtilisateur.img) {
+    //     errors.push('La photo est obligatoire.');
+    // }
+
+    return errors;
+}
+
+  
+  // Method to check if the email is valid
+  isValidEmail(email: string): boolean {
+    // Use a regular expression to validate the email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+  
+
 }

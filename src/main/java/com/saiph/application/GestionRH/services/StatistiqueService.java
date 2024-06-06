@@ -1,8 +1,10 @@
 package com.saiph.application.GestionRH.services;
 
 
+import com.saiph.application.GestionRH.Domain.dto.EventDto;
+import com.saiph.application.GestionRH.Domain.dto.FormationDto;
 import com.saiph.application.GestionRH.Domain.entities.Departement;
-import com.saiph.application.GestionRH.Domain.entities.*;
+import com.saiph.application.GestionRH.Domain.entities.Statistique.*;
 import com.saiph.application.GestionRH.Enum.Statut;
 import com.saiph.application.GestionRH.repository.DemandesRepository.*;
 import com.saiph.application.GestionRH.repository.*;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 public class StatistiqueService {
     private final DepartementRepository departementRepository;
     private final DepartementCrudService departementService;
+    private final FormationCrudService formationService;
+    private final EventCrudService eventService;
     private final FormationRepository formationRepository;
     private final EventRepository eventRepository;
     private final DemandeRepository demandeRepository;
@@ -186,17 +190,52 @@ public class StatistiqueService {
         return result;
     }
 
+
     public StatistiqueEventResult getStatistiqueEventByEventID(Long eventId) {
-        StatistiqueEventResult result = new StatistiqueEventResult();
-        result.setEventCountEmployeeRegistered(eventRepository.countEmployeeRegisteredByEventId(eventId));
-        result.setEventNumberOfSeats(eventRepository.countNbrDePlace(eventId));
-        return result;
+    StatistiqueEventResult result = new StatistiqueEventResult();
+    EventDto event = eventService.findById(eventId);
+
+    // Count the number of employees registered for the event
+    int countEmployeeRegistered = event.getListEmploye().size();
+    result.setEventCountEmployeeRegistered(countEmployeeRegistered);
+    result.setEventTitre(event.getTitre());
+
+    // Count the total number of seats available for the event
+    int eventNumberOfSeats = event.getNbrPlace();
+    result.setEventNumberOfSeats(eventNumberOfSeats);
+
+    // Calculate the percentage of seats filled
+    if (eventNumberOfSeats != 0) {
+        double percentageFilled = ((double) countEmployeeRegistered / eventNumberOfSeats) * 100;
+        result.setEventPourcentage(percentageFilled);
+    } else {
+        result.setEventPourcentage(0); // To avoid division by zero error
     }
-    public StatistiqueFormationResult getStatistiqueFormationByFormationID(Long formationId) {
-        StatistiqueFormationResult result = new StatistiqueFormationResult();
-        result.setFormationCountEmployeeRegistered(formationRepository.countEmployeeRegisteredByFormationId(formationId));
-        result.setFormationNumberOfSeats(formationRepository.countNbrDePlace(formationId));
-        return result;
+
+    return result;
+}
+public StatistiqueFormationResult getStatistiqueFormationByFormationID(Long formationId) {
+    StatistiqueFormationResult result = new StatistiqueFormationResult();
+    FormationDto formation = formationService.findById(formationId);
+
+    // Count the number of employees registered for the formation
+    int countEmployeeRegistered = formation.getListEmploye().size();
+    result.setFormationCountEmployeeRegistered(countEmployeeRegistered);
+    result.setFormationTitre(formation.getTitre());
+
+    // Count the total number of seats available for the formation
+    int formationNumberOfSeats = formation.getNbrPlace();
+    result.setFormationNumberOfSeats(formationNumberOfSeats);
+
+    // Calculate the percentage of seats filled
+    if (formationNumberOfSeats != 0) {
+        double percentageFilled = ((double) countEmployeeRegistered / formationNumberOfSeats) * 100;
+        result.setFormationPourcentage(percentageFilled);
+    } else {
+        result.setFormationPourcentage(0); // To avoid division by zero error
     }
+
+    return result;
+}
 
 }

@@ -33,6 +33,8 @@ const routes: Routes = [
       {path:'UserDetails',component:ManageUserComponent,canActivate: [authGuard]},
       {path:'departement/:id',component:DepartementComponent,canActivate: [authGuard]},
       {path:'calendrier',component:CalendrierComponent,canActivate: [authGuard]}    ,
+      {path:'departement/:id/profile/:id',component:ProfileUserComponent,canActivate: [authGuard]},
+
       {path:'dashboard',component:DashboardComponent,canActivate: [authGuard]}    ]
 
   }

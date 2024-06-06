@@ -39,8 +39,53 @@ constructor(
 ){}
   user!:UserDto;
  departement!: Departement;
-  allDemandes:Demande[]=[];
   departementDemandes:Demande[]=[];
+
+  allDemandes:Demande[]=[];
+  demandesFilter:Demande[]=[];
+
+  searchQuery: string = '';
+  applySearch    (query: string) {
+    this.searchQuery = query;
+    if (this.searchQuery.trim() === '') {
+      this.demandesFilter = this.allDemandes; // Reset to show all demandes if search query is empty
+    } else {
+      this.demandesFilter = this.allDemandes.filter(demande => {
+        const user = demande.utilisateur;
+        if (user && user.firstname && user.lastname) {
+          return (
+            user.firstname.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+            user.lastname.toLowerCase().includes(this.searchQuery.toLowerCase())
+          );
+        }
+        return false;
+      });
+    }
+    console.log('Filtered demandes:', this.demandesFilter);
+  }
+
+
+  
+
+  filterDemandes(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    switch (filterValue) {
+      case 'validated':
+        this.demandesFilter = this.allDemandes.filter(demande => demande.statut === "Validee");
+        break;
+      case 'pending':
+        this.demandesFilter = this.allDemandes.filter(demande => demande.statut === "En_attente_Sup_H" || demande.statut === "En_attente_RRH");
+        break;
+      case 'rejected':
+        this.demandesFilter = this.allDemandes.filter(demande => demande.statut === "Refusee" || demande.statut === "Refusee_Sup_H");
+        break;
+
+      default:
+        this.demandesFilter = this.allDemandes; // Show all demandes if no filter selected
+        break;
+    }
+  }
+
   ngOnInit(): void {
     const Id = this.tokenService.Id;
     this.userService.findById({id: Id as number  })
@@ -52,25 +97,36 @@ constructor(
         .subscribe(
           demandes =>{ 
             this.allDemandes=[]
-           this.allDemandes=demandes;
-         }
+            this.demandesFilter=[]
+            this.allDemandes=demandes;
+            this.demandesFilter = demandes;    
+            this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
+            this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
+  
+          }
        )}else{
-        this.allDemandes=[];
         console.log("vide",this.allDemandes)
        this.demandeService.getDemandeByStatut({statut:'En_attente_RRH'})
        .subscribe(
         demandes =>{ 
           if(demandes)
 {          this.allDemandes =this.allDemandes.concat(demandes );
+          this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
+  this.demandesFilter = this.demandesFilter.concat(demandes );    
+  this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
           console.log("En_attente_RRH",demandes)}
-
-       }
-     )
+  }
+      )
      this.demandeService.getDemandeByStatut({statut:'Validee'})
      .subscribe(
       demandes =>{ 
         if(demandes){
         this.allDemandes =this.allDemandes.concat(demandes);
+        this.demandesFilter = this.demandesFilter.concat(demandes );    
+         this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
+          this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
+        
+
         console.log("Validee",this.allDemandes)
 }
      }
@@ -79,17 +135,18 @@ constructor(
    .subscribe(
     demandes =>{ 
       if(demandes)
-    {  this.allDemandes =this.allDemandes.concat(demandes);
-      console.log("Refusee",this.allDemandes)}
+    {  this.allDemandes =this.allDemandes
+      this.demandesFilter = this.demandesFilter.concat(demandes );    
+      this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
+          this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
 
+      console.log("Refusee",this.allDemandes)}
 
    }
  )
- 
     }
-
-
       });
+
   }
 getStatusClass(statut: any): string {
   switch (statut) {

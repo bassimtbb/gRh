@@ -14,7 +14,7 @@
             <p class="mb-0 "><small class="text-body-secondary">Aucune Supérieur hiérarchique</small></p>
         </div>
 
-        <div *ngIf="manager" class="card d-flex justify-content-center" style="width: 11rem;cursor: pointer; padding: 1rem; ">
+        <div routerLink='profile/{{manager.id}}' *ngIf="manager" class="card d-flex justify-content-center" style="width: 11rem;cursor: pointer; padding: 1rem; ">
             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="card-img-top"style="border-radius: 50%;">
 
             <div class="card-body" style="display: grid; justify-content: center; " >
@@ -35,8 +35,8 @@
             <p class="mb-0 "><small class="text-body-secondary">Aucune employe</small></p>
         </div>
 
-        <div *ngIf="ListeEmpl.length" style="display: flex; justify-content: center;cursor: pointer;  align-items: center;  gap: 2rem;">
-        <div  *ngFor="let employe of ListeEmpl" class="card" style="width: 11rem; padding: 1rem;">
+        <div   *ngIf="ListeEmpl.length" style="display: flex; justify-content: center;cursor: pointer;  align-items: center;  gap: 2rem;">
+        <div routerLink='profile/{{employe.id}}' *ngFor="let employe of ListeEmpl" class="card" style="width: 11rem; padding: 1rem;">
             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="card-img-top"style="border-radius: 50%;">
 
             <div class="card-body" style="display: grid; justify-content: center; " >

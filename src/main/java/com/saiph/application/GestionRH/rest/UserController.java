@@ -23,6 +23,8 @@ public class UserController  extends GenericCrudController<User, UserDto>{
         this.userService = userService;
     }
 
+
+
     @GetMapping("/username/{username}")
     public UserDetails loadUserByUsername(@PathVariable String username) throws UsernameNotFoundException {
         return userService.loadUserByUsername(username);
