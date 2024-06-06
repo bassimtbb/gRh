@@ -5,8 +5,7 @@ import lombok.Data;
 @Data
 public class StatistiqueFormationResult {
     private Integer formationCountEmployeeRegistered;
-private Integer formationNumberOfSeats;
-private Integer formationPourcentage;
-
-
+    private String formationTitre;
+    private Integer formationNumberOfSeats;
+    private double formationPourcentage;
 }
