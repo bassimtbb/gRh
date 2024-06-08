@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AcompteDto, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, DemandeDto, Departement, PretDto, User, UserDto } from '../../../../services/models';
-import { AcompteService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, DepartementService, NotificationService, PretService, UserService } from '../../../../services/services';
+import { AcompteService, AuthenticationService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, DepartementService, NotificationService, PretService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { NotificationsService } from '../../NotificationsService';
 import { ActivatedRoute } from '@angular/router';
@@ -40,6 +40,8 @@ export class ProfileUserComponent implements OnInit {
 
   }
 constructor(
+  private authService: AuthenticationService,
+
   private  demandeService:DemandeService,
   private  congeService:CongeService,
   private userService:UserService,
@@ -1279,12 +1281,26 @@ constructor(
     }
 
     update(){
-      this.userService.update({id:this.user.id as number , body :this.user as UserDto})
+      this.authService.updateInfopersonnel({
+        id: this.user.id as number,
+        cin: this.user.cin!,
+        dembauche: this.user.DEmbauche!,
+        adresse: this.user.address!,
+        firstname: this.user.firstname!,
+        lastname: this.user.lastname!,
+        sexe: this.user.sexe!
+      })
       .subscribe(user=> { 
+        this.Msg = `La modification a été effectuée avec succès!`;
+        this.alert ="alert alert-success" ;
+        this.ngOnInit();
+        setTimeout(() => {
+        this.alert = 'd-none';
+        }, 5000); 
         console.log('user updated')
-
+        this.toggleInputs();
       }, error => {
-        console.error('Error updating email:', error);
+        console.error('Error ', error);
       });
     }
 }
