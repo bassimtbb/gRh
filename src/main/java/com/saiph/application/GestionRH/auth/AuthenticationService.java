@@ -1,5 +1,6 @@
 package com.saiph.application.GestionRH.auth;
 
+import com.saiph.application.GestionRH.Domain.dto.UserDto;
 import com.saiph.application.GestionRH.Domain.entities.User;
 import com.saiph.application.GestionRH.exception.ResourceAlreadyExistsException;
 import com.saiph.application.GestionRH.exception.ResourceNotFoundException;
@@ -12,7 +13,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -81,4 +85,91 @@ public class AuthenticationService {
                 .build();
     }
 
+public User resetPassword(Long id, String email, String cin, String phoneNumber) throws ResourceNotFoundException {
+    Optional<User> user = userRepository.findById(id);
+
+    if (!user.isPresent()) {
+        throw new ResourceNotFoundException("User not found");
+    }
+
+    User foundUser = user.get();
+
+    if (userRepository.findByEmail(email).isPresent() && !Objects.equals(foundUser.getEmail(), email)) {
+        throw new ResourceAlreadyExistsException("Email already exists");
+    }
+
+    if (!Objects.equals(foundUser.getCin(), cin)) {
+        throw new ResourceAlreadyExistsException("CIN does not match");
+    }
+
+    if (!Objects.equals(foundUser.getPhonenumber(), phoneNumber)) {
+        throw new ResourceAlreadyExistsException("Phone number does not match");
+    }
+
+    foundUser.setPassword(this.passwordEncoder.encode("password")); // Ensure you define a new password or generate it
+    userRepository.save(foundUser);
+    return foundUser;
+}
+
+public User updateInfoconfidentiel(Long id, String password, String email, String phoneNumber) throws ResourceNotFoundException {
+    Optional<User> userOptional = userRepository.findById(id);
+
+    if (!userOptional.isPresent()) {
+        throw new ResourceNotFoundException("User not found");
+    }
+
+    User user = userOptional.get();
+
+    if (userRepository.findByEmail(email).isPresent() && !Objects.equals(user.getEmail(), email)) {
+        throw new ResourceAlreadyExistsException("Email already exists");
+    }
+
+    user.setPassword(this.passwordEncoder.encode(password));
+    user.setEmail(email);
+    user.setPhonenumber(phoneNumber);
+    userRepository.save(user);
+    return user;
+}
+public User updateInfopersonnel(Long id, String firstname , String lastname, String cin , String Sexe , Date Dembauche , String adresse) throws ResourceNotFoundException {
+    Optional<User> userOptional = userRepository.findById(id);
+
+    if (!userOptional.isPresent()) {
+        throw new ResourceNotFoundException("User not found");
+    }
+    User user = userOptional.get();
+    // Check if CIN already exists
+    if (userRepository.findByEmail(cin).isPresent() && !Objects.equals(user.getEmail(), cin)) {
+        throw new ResourceAlreadyExistsException("CIN already exists");
+    }
+
+    user.setFirstname(firstname);
+    user.setLastname(lastname);
+    user.setCin(cin);
+    user.setSexe(Sexe);
+    user.setDEmbauche(Dembauche);
+    user.setAddress(adresse);
+    userRepository.save(user);
+    return user;
+}
+
+public User lockCompte(Long id) throws ResourceNotFoundException {
+    Optional<User> userOptional = userRepository.findById(id);
+    if (!userOptional.isPresent()) {
+        throw new ResourceNotFoundException("User not found");
+    }
+    User user = userOptional.get();
+    user.setAccountLocked(true);
+    userRepository.save(user);
+    return user;
+}
+public User unlockCompte(Long id) throws ResourceNotFoundException {
+    Optional<User> userOptional = userRepository.findById(id);
+    if (!userOptional.isPresent()) {
+        throw new ResourceNotFoundException("User not found");
+    }
+    User user = userOptional.get();
+    user.setAccountLocked(false);
+    userRepository.save(user);
+    return user;
+}
 }

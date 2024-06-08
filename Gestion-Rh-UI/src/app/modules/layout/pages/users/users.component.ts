@@ -7,6 +7,7 @@ import { TokenService } from '../../../../services/token/token.service';
 import { AuthenticationRequest, Departement, DepartementDto, RegistrationRequest, User, UserDto} from '../../../../services/models';
 import { AuthenticationService } from '../../../../services/services/authentication.service';
 import { DepartementService } from '../../../../services/services';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 @Component({
   selector: 'app-users',
@@ -22,6 +23,8 @@ export class UsersComponent  implements OnInit {
   departements:DepartementDto[]=[];
 addUtilisateurdepartement: number|null=null;
   constructor(
+    private authService: AuthenticationService,
+
     private registre: AuthenticationService,
     private usersService: UserService,
     private departementService: DepartementService,
@@ -117,6 +120,8 @@ getStatusClass(statut: string): string {
     .subscribe(
       (User) => {
           this.ngOnInit();
+          this.sendEmail(this.addUtilisateur.firstname!,    this.addUtilisateur.lastname,    this.addUtilisateur.email) ;
+
         this.alert = 'alert alert-success';
         console.log('User added successfully:', User);
         // Construct the success message outside of interpolation
@@ -242,6 +247,20 @@ getStatusClass(statut: string): string {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
-  
-
+  public sendEmail(firstname: string, lastname: string, email: string) {
+    if (firstname && lastname && email) {
+      emailjs.send("Saiph1234", "saiph-Create-User", {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+      },'nsAnQ6GlnMesrf6zn')
+        .then((result: EmailJSResponseStatus) => {
+          console.log("Message sent successfully ✅");
+        }, (error) => {
+          console.error("Message not sent (service error) ❌", error);
+        });
+    } else {
+      console.error("Invalid email parameters. Email not sent.");
+    }
+  }
 }

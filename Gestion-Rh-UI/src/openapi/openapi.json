@@ -625,6 +625,257 @@
     }
     }
     },
+    "/auth/{id}/update-info": {
+    "put": {
+    "tags": [
+    "Authentication"
+    ],
+    "operationId": "updateInfoconfidentiel",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    },
+    {
+    "name": "password",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    },
+    {
+    "name": "email",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    },
+    {
+    "name": "phoneNumber",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/User"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/auth/{id}/update-info-personnel": {
+    "put": {
+    "tags": [
+    "Authentication"
+    ],
+    "operationId": "updateInfopersonnel",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    },
+    {
+    "name": "firstname",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    },
+    {
+    "name": "lastname",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    },
+    {
+    "name": "cin",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    },
+    {
+    "name": "sexe",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    },
+    {
+    "name": "dembauche",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    },
+    {
+    "name": "adresse",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/User"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/auth/{id}/unlock-account": {
+    "put": {
+    "tags": [
+    "Authentication"
+    ],
+    "operationId": "unlockCompte",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/User"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/auth/{id}/reset-password": {
+    "put": {
+    "tags": [
+    "Authentication"
+    ],
+    "operationId": "resetPassword",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    },
+    {
+    "name": "email",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    },
+    {
+    "name": "cin",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    },
+    {
+    "name": "phoneNumber",
+    "in": "query",
+    "required": true,
+    "schema": {
+    "type": "string"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/User"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/auth/{id}/lock-account": {
+    "put": {
+    "tags": [
+    "Authentication"
+    ],
+    "operationId": "lockCompte",
+    "parameters": [
+    {
+    "name": "id",
+    "in": "path",
+    "required": true,
+    "schema": {
+    "type": "integer",
+    "format": "int64"
+    }
+    }
+    ],
+    "responses": {
+    "200": {
+    "description": "OK",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/User"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
     "/acompte/{id}": {
     "get": {
     "tags": [
@@ -3287,14 +3538,11 @@
     "name": {
     "type": "string"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
     },
-    "username": {
+    "ejuridic": {
     "type": "string"
     },
     "authorities": {
@@ -3303,10 +3551,13 @@
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "accountNonExpired": {
-    "type": "boolean"
+    "username": {
+    "type": "string"
     },
     "credentialsNonExpired": {
+    "type": "boolean"
+    },
+    "accountNonExpired": {
     "type": "boolean"
     },
     "accountNonLocked": {
@@ -3392,12 +3643,12 @@
     "type": "string",
     "format": "date-time"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -3740,11 +3991,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "hsortie": {
+    "hacces": {
     "type": "string",
     "format": "date-time"
     },
-    "hacces": {
+    "hsortie": {
     "type": "string",
     "format": "date-time"
     }
@@ -3979,11 +4230,11 @@
     "type": "string",
     "format": "date-time"
     },
-    "ancienH": {
+    "nouvelH": {
     "type": "string",
     "format": "date-time"
     },
-    "nouvelH": {
+    "ancienH": {
     "type": "string",
     "format": "date-time"
     }
@@ -4115,12 +4366,12 @@
     "img": {
     "type": "string"
     },
-    "ejuridic": {
-    "type": "string"
-    },
     "dembauche": {
     "type": "string",
     "format": "date-time"
+    },
+    "ejuridic": {
+    "type": "string"
     }
     }
     },
@@ -4158,19 +4409,19 @@
     "password": {
     "type": "string"
     },
-    "username": {
-    "type": "string"
-    },
     "authorities": {
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "accountNonExpired": {
-    "type": "boolean"
+    "username": {
+    "type": "string"
     },
     "credentialsNonExpired": {
+    "type": "boolean"
+    },
+    "accountNonExpired": {
     "type": "boolean"
     },
     "accountNonLocked": {
@@ -4456,31 +4707,27 @@
     "type": "integer",
     "format": "int32"
     },
-    "pretCount": {
-    "type": "integer",
-    "format": "int32"
-    },
     "congeCount": {
     "type": "integer",
     "format": "int32"
     },
-    "changementHoraireCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "changementHoraireCountRefusee_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "demandeCountEn_attente_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "demandeCountRefusee_Sup_H": {
+    "pretCount": {
     "type": "integer",
     "format": "int32"
     },
     "demandeCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCount": {
     "type": "integer",
     "format": "int32"
     },
@@ -4496,11 +4743,11 @@
     "type": "integer",
     "format": "int32"
     },
-    "acompteCountValidee": {
+    "autorisationSortieCountValidee": {
     "type": "integer",
     "format": "int32"
     },
-    "pretCountRefusee": {
+    "autorisationSortieCountRefusee": {
     "type": "integer",
     "format": "int32"
     },
@@ -4508,11 +4755,7 @@
     "type": "integer",
     "format": "int32"
     },
-    "autorisationTravailSupCount": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "congeCountEn_attente_Sup_H": {
+    "acompteCountValidee": {
     "type": "integer",
     "format": "int32"
     },
@@ -4520,27 +4763,31 @@
     "type": "integer",
     "format": "int32"
     },
+    "autorisationTravailSupCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
     "congeCountRefusee": {
     "type": "integer",
     "format": "int32"
     },
-    "changementHoraireCountValidee": {
+    "pretCountRefusee": {
     "type": "integer",
     "format": "int32"
     },
-    "changementHoraireCount": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "congeCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "acompteCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "pretCountEn_attente_RRH": {
+    "congeCountValidee": {
     "type": "integer",
     "format": "int32"
     },
@@ -4556,7 +4803,19 @@
     "type": "integer",
     "format": "int32"
     },
-    "changementHoraireCountRefusee": {
+    "changementHoraireCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountEn_attente_RRH": {
     "type": "integer",
     "format": "int32"
     },
@@ -4564,39 +4823,11 @@
     "type": "integer",
     "format": "int32"
     },
-    "autorisationSortieCount": {
+    "congeCountEn_attente_Sup_H": {
     "type": "integer",
     "format": "int32"
     },
-    "autorisationSortieCountRefusee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "congeCountValidee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationSortieCountValidee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "acompteCountRefusee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationTravailSupCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationTeletravailCountEn_attente_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationTeletravailCountValidee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationTravailSupCountValidee": {
+    "changementHoraireCountRefusee_Sup_H": {
     "type": "integer",
     "format": "int32"
     },
@@ -4608,15 +4839,11 @@
     "type": "integer",
     "format": "int32"
     },
-    "autorisationSortieCountEn_attente_Sup_H": {
+    "autorisationTravailSupCountValidee": {
     "type": "integer",
     "format": "int32"
     },
-    "autorisationSortieCountRefusee_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationSortieCountEn_attente_RRH": {
+    "changementHoraireCountEn_attente_RRH": {
     "type": "integer",
     "format": "int32"
     },
@@ -4628,15 +4855,39 @@
     "type": "integer",
     "format": "int32"
     },
-    "autorisationTeletravailCountRefusee_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
     "autorisationTravailSupCountEn_attente_Sup_H": {
     "type": "integer",
     "format": "int32"
     },
+    "autorisationSortieCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
     "autorisationTravailSupCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountEn_attente_RRH": {
     "type": "integer",
     "format": "int32"
     }
