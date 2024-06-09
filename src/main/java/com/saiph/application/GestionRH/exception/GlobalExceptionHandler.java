@@ -1,6 +1,6 @@
 package com.saiph.application.GestionRH.exception;
 
-import com.alibou.book.exception.ActivationTokenException;
+import com.saiph.application.GestionRH.exception.ActivationTokenException;
 import com.saiph.application.GestionRH.exception.OperationNotPermittedException;
 import jakarta.mail.MessagingException;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService, NotificationService, UserService } from '../../../../services/services';
+import { EventService, NotificationService, UserService,  } from '../../../../services/services';
 import { EventDto, User } from '../../../../services/models';
 import { TokenService } from '../../../../services/token/token.service';
 import { NotificationsService } from '../../../layout/NotificationsService';

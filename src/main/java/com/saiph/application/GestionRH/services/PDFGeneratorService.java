@@ -64,7 +64,6 @@ public class PDFGeneratorService {
         User user = demandeService.findById(demandeId).getUtilisateur();
         properties.put("nomPrenom", user.fullName());
         properties.put("entiteJuridique", user.getEJuridic());
-        properties.put("service", user.getService());
         properties.put("matricule", user.getId());
 
         // Fetch specific data based on pdfTemplate

@@ -4,7 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { UserService } from './services/user.service';
+import { UserService } from './user.service';
 import { NotificationService } from './services/notification.service';
 import { FormationService } from './services/formation.service';
 import { EventService } from './services/event.service';

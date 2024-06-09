@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../../../services/services/user.service';
+import { UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { AuthenticationRequest, Departement, DepartementDto, RegistrationRequest, User, UserDto} from '../../../../services/models';
 import { AuthenticationService } from '../../../../services/services/authentication.service';
@@ -15,7 +15,9 @@ import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent  implements OnInit {
-
+  userPath:string= `profile/${1}`
+  Msg:String="";
+  alert: string = "d-none";
   utilisateur: any;
   employes: UserDto[] = [];
   totalPages: number = 0;
@@ -54,7 +56,34 @@ addUtilisateurdepartement: number|null=null;
       
   }
 
+  accountUnlocked(user: User) {
+    this.authService.unlockCompte({ id: user.id as number })
+    .subscribe(unlock => {
+        this.alert = 'alert alert-success';
+        this.Msg = `Le compte de ${user.firstname} ${user.lastname} est débloqué.`;
+        this.ngOnInit();
 
+        setTimeout(() => {
+            this.alert = 'd-none';
+            this.Msg = ""; // Clear the message after hiding the alert
+        }, 5000);
+        
+    });
+}
+
+  accountLocked(user:User ){
+    this.authService.lockCompte({id:user.id as number})
+    .subscribe(unlock => {
+      this.alert = 'alert alert-success';
+      this.Msg = `Le compte de ${user.firstname} ${user.lastname} est bloqué.`;
+      this.ngOnInit();
+
+      setTimeout(() => {
+          this.alert = 'd-none';
+          this.Msg = ""; // Clear the message after hiding the alert
+      }, 5000);
+  });
+  }
 getStatusClass(statut: string): string {
   switch (statut) {
     case 'Validée':
@@ -68,7 +97,6 @@ getStatusClass(statut: string): string {
   }
 }
 
-  alert: string = "d-none";
 
 
   addUtilisateur: RegistrationRequest = {
@@ -87,8 +115,7 @@ getStatusClass(statut: string): string {
     role:'EMPLOYE',
     departement:{}
   };
-  userPath:string= `profile/${1}`
-  Msg:String="";
+ 
 
   addUser(){
     const validationErrors = this.validateAddUser(this.addUtilisateur);

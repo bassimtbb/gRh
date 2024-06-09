@@ -51,7 +51,8 @@
         <td>{{ employee.phonenumber }}</td>
         <td>{{ employee.dembauche | date:'dd/MM/yyyy' }}</td>
         <td style="display: flex; justify-content: space-around;">
-          <button type="submit " class="btn btn-danger" (click)="deleteUser(employee)" data-bs-dismiss="modal" ><i class="bi bi-trash3-fill"></i></button>
+          <button type="submit " class="btn btn-danger" [disabled]="employee.accountLocked" (click)="accountLocked(employee)"   data-bs-dismiss="modal" ><i class="bi bi-lock-fill"></i></button>
+          <button type="submit " class="btn btn-success" [disabled]="!employee.accountLocked" (click)="accountUnlocked(employee)" data-bs-dismiss="modal" ><i class="bi bi-unlock-fill"></i></button>
 
           <button routerLink='profile/{{employee.id}}' type="button" class="btn btn-primary"><i class="bi bi-pencil"></i></button>
         </td>

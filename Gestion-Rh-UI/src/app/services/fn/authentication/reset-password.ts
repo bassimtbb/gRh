@@ -9,7 +9,6 @@ import { RequestBuilder } from '../../request-builder';
 import { User } from '../../models/user';
 
 export interface ResetPassword$Params {
-  id: number;
   email: string;
   cin: string;
   phoneNumber: string;
@@ -18,7 +17,6 @@ export interface ResetPassword$Params {
 export function resetPassword(http: HttpClient, rootUrl: string, params: ResetPassword$Params, context?: HttpContext): Observable<StrictHttpResponse<User>> {
   const rb = new RequestBuilder(rootUrl, resetPassword.PATH, 'put');
   if (params) {
-    rb.path('id', params.id, {});
     rb.query('email', params.email, {});
     rb.query('cin', params.cin, {});
     rb.query('phoneNumber', params.phoneNumber, {});

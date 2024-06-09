@@ -575,7 +575,7 @@
           </div>
 
           <div class="form-floating formD mb-2">
-            <input type="Text" class="form-control " id="Service" [value]="user.service" disabled>
+            <input type="Text" class="form-control " id="Service" [value]="user.role" disabled>
             <label for="Service">Service</label>
           </div>
         </div>
@@ -661,7 +661,7 @@
           </div>
 
           <div class="form-floating formD mb-2">
-            <input type="Text" class="form-control " id="Service" [value]="user.service" disabled>
+            <input type="Text" class="form-control " id="Service" [value]="user.role" disabled>
             <label for="Service">Service</label>
           </div>
         </div>
@@ -760,7 +760,7 @@
 
 
           <div class="form-floating formD mb-2">
-            <input type="Text" class="form-control " id="Service" [value]="user.service" disabled>
+            <input type="Text" class="form-control " id="Service" [value]="user.role" disabled>
             <label for="Service">Service</label>
           </div>
         </div>
@@ -863,7 +863,7 @@
 
 
           <div class="form-floating formD mb-2">
-            <input type="Text" class="form-control " id="Service" [value]="user.service" disabled>
+            <input type="Text" class="form-control " id="Service" [value]="user.role" disabled>
             <label for="Service">Service</label>
           </div>
         </div>
@@ -972,7 +972,7 @@
 
 
           <div class="form-floating formD mb-2">
-            <input type="Text" class="form-control " id="Service" [value]="user.service" disabled>
+            <input type="Text" class="form-control " id="Service" [value]="user.role" disabled>
             <label for="Service">Service</label>
           </div>
         </div>
@@ -1060,7 +1060,7 @@
 
 
           <div class="form-floating formD mb-2">
-            <input type="Text" class="form-control " id="Service" [value]="user.service" disabled>
+            <input type="Text" class="form-control " id="Service" [value]="user.role" disabled>
             <label for="Service">Service</label>
           </div>
         </div>
@@ -1147,7 +1147,7 @@
 
 
           <div class="form-floating formD mb-2">
-            <input type="Text" class="form-control " id="Service" [value]="user.service" disabled>
+            <input type="Text" class="form-control " id="Service" [value]="user.role" disabled>
             <label for="Service">Service</label>
           </div>
         </div>
@@ -1220,7 +1220,7 @@
             <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifADS.utilisateur?.ejuridic}}</span></p>
             <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifADS.utilisateur?.firstname}}  {{this.modifADS.utilisateur?.lastModifiedBy}}</span></p>
             <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifADS.utilisateur?.id}}</span></p>
-            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifADS.utilisateur?.service}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifADS.utilisateur?.role}}</span></p>
             <p><strong style="font-weight: bold;">Date de sortie:</strong> {{this.modifADS.dateS}}</p>
             <p  > <strong style="font-weight: bold;">Heure de sortie:</strong> {{this.modifADS.Hsortie}}</p>
             <p  *ngIf="this.modifADS.isTemporaire" > <strong style="font-weight: bold;">Heure de retour:</strong> {{this.modifADS.Hretour}}</p>
@@ -1261,7 +1261,7 @@
             <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifPret.utilisateur?.ejuridic}}</span></p>
             <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifPret.utilisateur?.firstname}}  {{this.modifADS.utilisateur?.lastModifiedBy}}</span></p>
             <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifPret.utilisateur?.id}}</span></p>
-            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifPret.utilisateur?.service}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifPret.utilisateur?.role}}</span></p>
             <p><strong style="font-weight: bold;">montant:</strong> <span> {{this.modifPret.montant}}</span></p>
             <p><strong style="font-weight: bold;">Crédit bancaire en cours:</strong> <span> {{this.modifPret.credit}}</span></p>
             <p><strong style="font-weight: bold;">Rembourser par: </strong> <span> {{this.modifPret.remboursement}}</span></p>
@@ -1339,7 +1339,7 @@
             <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifChHoraire .utilisateur?.ejuridic}}</span></p>
             <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifChHoraire .utilisateur?.firstname}}  {{this.modifChHoraire .utilisateur?.lastModifiedBy}}</span></p>
             <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifChHoraire .utilisateur?.id}}</span></p>
-            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifChHoraire .utilisateur?.service}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifChHoraire .utilisateur?.role}}</span></p>
             <p><strong style="font-weight: bold;">Changement envisagé du</strong> <span> {{this.modifChHoraire.debut}}</span>
             <strong style="font-weight: bold;">Au</strong> <span> {{this.modifChHoraire.fin}}</span></p>
             <p><strong style="font-weight: bold;">Ancien Horaire:</strong> <span> {{this.modifChHoraire.ancienH}}</span></p>
@@ -1380,7 +1380,7 @@
             <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifAutTravailSupp.utilisateur?.ejuridic}}</span></p>
             <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifAutTravailSupp.utilisateur?.firstname}}  {{this.modifAutTravailSupp.utilisateur?.lastModifiedBy}}</span></p>
             <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifAutTravailSupp.utilisateur?.id}}</span></p>
-            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifAutTravailSupp.utilisateur?.service}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifAutTravailSupp.utilisateur?.role}}</span></p>
             <p><strong style="font-weight: bold;">Date:</strong> <span> {{this.modifAutTravailSupp.date}}</span></p>
             <p><strong style="font-weight: bold;">Heure d'accès</strong> <span> {{this.modifAutTravailSupp.hacces}}</span></p>
             <p><strong style="font-weight: bold;">Heure de sortie</strong> <span> {{this.modifAutTravailSupp.hsortie}}</span></p>
@@ -1420,7 +1420,7 @@
             <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifAutTeletravail.utilisateur?.ejuridic}}</span></p>
             <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifAutTeletravail.utilisateur?.firstname}}{{this.modifAutTravailSupp.utilisateur?.lastModifiedBy}}</span></p>
             <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifAutTeletravail.utilisateur?.id}}</span></p>
-            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifAutTeletravail.utilisateur?.service}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifAutTeletravail.utilisateur?.role}}</span></p>
             <p><strong style="font-weight: bold;">Adresse Email :</strong> <span> {{this.modifAutTeletravail.utilisateur?.email}}</span></p>
             <p><strong style="font-weight: bold;">Téléphone:</strong> <span> {{this.modifAutTeletravail.utilisateur?.phonenumber}}</span></p>
             <p><strong style="font-weight: bold;">Personne à contacter en cas de non joignabilité:</strong> <span> {{this.modifAutTeletravail.contact}}</span></p>
@@ -1463,7 +1463,7 @@
             <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifAcompte.utilisateur?.ejuridic}}</span></p>
             <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifAcompte.utilisateur?.firstname}}  {{this.modifAcompte.utilisateur?.lastModifiedBy}}</span></p>
             <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifAcompte.utilisateur?.id}}</span></p>
-            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifAcompte.utilisateur?.service}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifAcompte.utilisateur?.role}}</span></p>
             <p><strong style="font-weight: bold;">Acompte:</strong> <span> {{this.modifAcompte.typeA}}</span></p>
             <p><strong style="font-weight: bold;">Montant:</strong> <span> {{this.modifAcompte.montant}}</span></p>
           </div>

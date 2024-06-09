@@ -10,11 +10,14 @@ import com.saiph.application.GestionRH.services.DepartementCrudService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -27,19 +30,19 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final DepartementCrudService departementService;
     private final AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
 
+    public RegistrationRequest register(RegistrationRequest request) throws ResourceNotFoundException, ResourceAlreadyExistsException {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new ResourceAlreadyExistsException("Email already exists");
+        }
 
-    public RegistrationRequest register(RegistrationRequest request) throws ResourceNotFoundException ,ResourceAlreadyExistsException{
-    if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-        throw new ResourceAlreadyExistsException("Email already exists");
-    }
+        // Check if CIN already exists
+        if (userRepository.findByCin(request.getCin()).isPresent()) {
+            throw new ResourceAlreadyExistsException("CIN already exists");
+        }
 
-    // Check if CIN already exists
-    if (userRepository.findByCin(request.getCin()).isPresent()) {
-        throw new ResourceAlreadyExistsException("CIN already exists");
-    }
         var userdetail = User.builder()
-
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
@@ -48,23 +51,21 @@ public class AuthenticationService {
                 .enabled(true)
                 .role(request.getRole())
                 .DEmbauche(request.getDEmbauche())
-                .email(request.getEmail())
                 .cin(request.getCin())
                 .img(request.getImg())
                 .address(request.getAddress())
-                .service(request.getService())
                 .sexe(request.getSexe())
                 .departement(null)
                 .EJuridic(request.getEJuridic())
                 .phonenumber(request.getPhonenumber())
                 .build();
-    // Check if email already exists
 
         userRepository.save(userdetail);
-        if (request.getDepartement()!=null){
-        departementService.addEmpl(request.getDepartement().getId() ,userdetail.getId()) ;}
-        System.out.println(userdetail.getDepartement()!=null);
-        return  request;
+        if (request.getDepartement() != null) {
+            departementService.addEmpl(request.getDepartement().getId(), userdetail.getId());
+        }
+        System.out.println(userdetail.getDepartement() != null);
+        return request;
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -78,98 +79,116 @@ public class AuthenticationService {
         var claims = new HashMap<String, Object>();
         var user = ((User) auth.getPrincipal());
         claims.put("fullName", user.fullName());
-        claims.put("Id", user.getId() );
+        claims.put("Id", user.getId());
         var jwtToken = jwtService.generateToken(claims, (User) auth.getPrincipal());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
 
-public User resetPassword(Long id, String email, String cin, String phoneNumber) throws ResourceNotFoundException {
-    Optional<User> user = userRepository.findById(id);
+ public User resetPassword(String email, String cin, String phoneNumber) throws ResourceNotFoundException {
+    Optional<User> userOptional = userRepository.findByEmail(email);
 
-    if (!user.isPresent()) {
+    if (!userOptional.isPresent()) {
         throw new ResourceNotFoundException("User not found");
     }
 
-    User foundUser = user.get();
-
-    if (userRepository.findByEmail(email).isPresent() && !Objects.equals(foundUser.getEmail(), email)) {
-        throw new ResourceAlreadyExistsException("Email already exists");
-    }
+    User foundUser = userOptional.get();
 
     if (!Objects.equals(foundUser.getCin(), cin)) {
-        throw new ResourceAlreadyExistsException("CIN does not match");
+        throw new ResourceNotFoundException("CIN does not match");
     }
 
     if (!Objects.equals(foundUser.getPhonenumber(), phoneNumber)) {
-        throw new ResourceAlreadyExistsException("Phone number does not match");
+        throw new ResourceNotFoundException("Phone number does not match");
     }
 
-    foundUser.setPassword(this.passwordEncoder.encode("password")); // Ensure you define a new password or generate it
+    foundUser.setPassword(passwordEncoder.encode("newPassword")); // Ensure you define a new password or generate it
     userRepository.save(foundUser);
     return foundUser;
 }
 
-public User updateInfoconfidentiel(Long id, String password, String email, String phoneNumber) throws ResourceNotFoundException {
-    Optional<User> userOptional = userRepository.findById(id);
+    public User updateInfoconfidentiel(Long id, String password, String email, String phoneNumber) throws ResourceNotFoundException {
+        Optional<User> userOptional = userRepository.findById(id);
 
-    if (!userOptional.isPresent()) {
-        throw new ResourceNotFoundException("User not found");
+        if (!userOptional.isPresent()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        User user = userOptional.get();
+
+        if (userRepository.findByEmail(email).isPresent() && !Objects.equals(user.getEmail(), email)) {
+            throw new ResourceAlreadyExistsException("Email already exists");
+        }
+  if (!Objects.equals(user.getPassword(), password)) {
+              user.setPassword(passwordEncoder.encode(password));
+        }
+        user.setEmail(email);
+        user.setPhonenumber(phoneNumber);
+        userRepository.save(user);
+        return user;
     }
 
-    User user = userOptional.get();
+    public User updateInfopersonnel(Long id, String firstname, String lastname, String cin, String Sexe, Date Dembauche, String adresse) throws ResourceNotFoundException {
+        Optional<User> userOptional = userRepository.findById(id);
 
-    if (userRepository.findByEmail(email).isPresent() && !Objects.equals(user.getEmail(), email)) {
-        throw new ResourceAlreadyExistsException("Email already exists");
+        if (!userOptional.isPresent()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+        User user = userOptional.get();
+        // Check if CIN already exists
+        if (userRepository.findByEmail(cin).isPresent() && !Objects.equals(user.getEmail(), cin)) {
+            throw new ResourceAlreadyExistsException("CIN already exists");
+        }
+
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setCin(cin);
+        user.setSexe(Sexe);
+        user.setDEmbauche(Dembauche);
+        user.setAddress(adresse);
+        userRepository.save(user);
+
+        return user;
     }
 
-    user.setPassword(this.passwordEncoder.encode(password));
-    user.setEmail(email);
-    user.setPhonenumber(phoneNumber);
-    userRepository.save(user);
-    return user;
-}
-public User updateInfopersonnel(Long id, String firstname , String lastname, String cin , String Sexe , Date Dembauche , String adresse) throws ResourceNotFoundException {
-    Optional<User> userOptional = userRepository.findById(id);
-
-    if (!userOptional.isPresent()) {
-        throw new ResourceNotFoundException("User not found");
-    }
-    User user = userOptional.get();
-    // Check if CIN already exists
-    if (userRepository.findByEmail(cin).isPresent() && !Objects.equals(user.getEmail(), cin)) {
-        throw new ResourceAlreadyExistsException("CIN already exists");
+    public User lockCompte(Long id) throws ResourceNotFoundException {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (!userOptional.isPresent()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+        User user = userOptional.get();
+        user.setAccountLocked(true);
+        userRepository.save(user);
+        return user;
     }
 
-    user.setFirstname(firstname);
-    user.setLastname(lastname);
-    user.setCin(cin);
-    user.setSexe(Sexe);
-    user.setDEmbauche(Dembauche);
-    user.setAddress(adresse);
-    userRepository.save(user);
-    return user;
-}
+    public User unlockCompte(Long id) throws ResourceNotFoundException {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (!userOptional.isPresent()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+        User user = userOptional.get();
+        user.setAccountLocked(false);
+        userRepository.save(user);
+        return user;
+    }
 
-public User lockCompte(Long id) throws ResourceNotFoundException {
-    Optional<User> userOptional = userRepository.findById(id);
-    if (!userOptional.isPresent()) {
-        throw new ResourceNotFoundException("User not found");
+    public AuthenticationResponse refreshToken(String oldToken) {
+
+        String username = jwtService.extractUsername(oldToken);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (!jwtService.isTokenValid(oldToken,userDetails)) {
+            throw new IllegalArgumentException("Invalid token");
+        }
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("fullName", ((User) userDetails).fullName());
+        claims.put("Id", ((User) userDetails).getId());
+        String newToken = jwtService.generateToken(claims, (User) userDetails);
+
+        return AuthenticationResponse.builder()
+                .token(newToken)
+                .build();
     }
-    User user = userOptional.get();
-    user.setAccountLocked(true);
-    userRepository.save(user);
-    return user;
-}
-public User unlockCompte(Long id) throws ResourceNotFoundException {
-    Optional<User> userOptional = userRepository.findById(id);
-    if (!userOptional.isPresent()) {
-        throw new ResourceNotFoundException("User not found");
-    }
-    User user = userOptional.get();
-    user.setAccountLocked(false);
-    userRepository.save(user);
-    return user;
-}
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AcompteDto, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, DemandeDto, Departement, PretDto, User, UserDto } from '../../../../services/models';
-import { AcompteService, AuthenticationService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, DepartementService, NotificationService, PretService, UserService } from '../../../../services/services';
+import { AcompteDto, AuthenticationRequest, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, DemandeDto, Departement, PretDto, User, UserDto } from '../../../../services/models';
+import { AcompteService, AuthenticationService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, DepartementService, NotificationService, PretService,  } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { NotificationsService } from '../../NotificationsService';
 import { ActivatedRoute } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { UserService } from '../../../../services/services/user.service';
 
 @Component({
   selector: 'app-profile-user',
@@ -30,6 +31,7 @@ export class ProfileUserComponent implements OnInit {
   nbrDemandeValide:number=0;
   nbrDemandeRefuser:number=0;
   nbrDemandeEnattente:number=0;
+  router: any;
   toggle(ok : boolean){
     this.togglenav= ok;
     this.ngOnInit();
@@ -63,6 +65,7 @@ constructor(
  departement!: Departement;
  demandes:Demande[]=[];
   departementDemandes:Demande[]=[];
+  authRequest!: AuthenticationRequest ;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -1279,7 +1282,23 @@ constructor(
         break;
         }
     }
-
+    login() {
+      console.log(this.authRequest);
+      this.authService.authenticate({
+        body: this.authRequest
+      }).subscribe({
+        next: (res) => {
+          this.tokenService.token = res.token as string;
+          this.router.navigate(['Home/users/profile/'+this.tokenService.Id]);
+        },
+        error: (err) => {
+          console.log(err);
+          if (err.error.validationErrors) {
+          } else {
+          }
+        }
+      });
+    }
     update(){
       this.authService.updateInfopersonnel({
         id: this.user.id as number,
@@ -1299,6 +1318,14 @@ constructor(
         }, 5000); 
         console.log('user updated')
         this.toggleInputs();
+        this.authRequest = {email: user.email!, password: user.password!};
+        if(user.id==this.tokenService.Id){
+        this.authService.refreshToken({request:this.tokenService.token as string})
+        .subscribe(token=>{
+          this.tokenService.token = token.token as string;
+
+        })
+        }
       }, error => {
         console.error('Error ', error);
       });

@@ -57,9 +57,65 @@
                     <button type="button" *ngIf="demande.statut==='En_attente_RRH' && user.role==='RRH'"  (click)="valid_RRH(demande )" class="btn btn-success"><i class="bi bi-check2"></i></button>
                     <button type="button" *ngIf="demande.statut==='En_attente_Sup_H' && user.role==='SUP_H'"  (click)="refuse_Sup(demande )"  class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
                     <button type="button" *ngIf="demande.statut==='En_attente_RRH' && user.role==='RRH'"  (click)="refuse_RRH(demande )"  class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
-                    <button type="button" *ngIf="demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH'" class="btn btn-light"><i class="bi bi-eye-fill"></i></button>
-                    <button type="button" *ngIf="demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H'"  class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
-
+                     <button type="button"
+                  *ngIf="(demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH')&&demande.type==='Pret'"
+                  data-bs-toggle="modal" data-bs-target="#pdfPret" (click)="DemandeClicked(demande)"
+                  class="btn btn-light"><i class="bi bi-eye-fill"></i></button>
+          <button type="button"
+                  *ngIf="(demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH')&&demande.type==='Conge'"
+                  data-bs-toggle="modal" data-bs-target="#pdfConge" (click)="DemandeClicked(demande)"
+                  class="btn btn-light"><i class="bi bi-eye-fill"></i></button>
+          <button type="button"
+                  *ngIf="(demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH')&&demande.type==='ChangementHoraire'"
+                  data-bs-toggle="modal" data-bs-target="#pdfChangementHoraire" (click)="DemandeClicked(demande)"
+                  class="btn btn-light"><i class="bi bi-eye-fill"></i></button>          
+          <button type="button"
+                  *ngIf="(demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH')&&demande.type==='AutorisationTravailSup'"
+                  data-bs-toggle="modal" data-bs-target="#pdfAutorisationTravailSup" (click)="DemandeClicked(demande)"
+                  class="btn btn-light"><i class="bi bi-eye-fill"></i></button>          
+          <button type="button"
+                  *ngIf="(demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH')&&demande.type==='AutorisationTeletravail'"
+                  data-bs-toggle="modal" data-bs-target="#pdfAutorisationTeletravail" (click)="DemandeClicked(demande)"
+                  class="btn btn-light"><i class="bi bi-eye-fill"></i></button>          
+          <button type="button"
+                  *ngIf="(demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH')&&demande.type==='AutorisationSortie'"
+                  data-bs-toggle="modal" data-bs-target="#pdfAutorisationSortie" (click)="DemandeClicked(demande)"
+                  class="btn btn-light"><i class="bi bi-eye-fill"></i></button>          
+          <button type="button"
+                  *ngIf="(demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH')&&demande.type==='Acompte'"
+                  data-bs-toggle="modal" data-bs-target="#pdfAcompte" (click)="DemandeClicked(demande)"
+                  class="btn btn-light"><i class="bi bi-eye-fill"></i></button>                   
+                 
+                    
+                    <button type="button"
+                    *ngIf="(demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H')&&demande.type==='Pret'"
+                    data-bs-toggle="modal" data-bs-target="#pdfPret" (click)="DemandeClicked(demande)"
+                    class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
+            <button type="button"
+                    *ngIf="(demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H')&&demande.type==='Conge'"
+                    data-bs-toggle="modal" data-bs-target="#pdfConge" (click)="DemandeClicked(demande)"
+                    class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
+            <button type="button"
+                    *ngIf="(demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H')&&demande.type==='ChangementHoraire'"
+                    data-bs-toggle="modal" data-bs-target="#pdfChangementHoraire" (click)="DemandeClicked(demande)"
+                    class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>          
+            <button type="button"
+                    *ngIf="(demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H')&&demande.type==='AutorisationTravailSup'"
+                    data-bs-toggle="modal" data-bs-target="#pdfAutorisationTravailSup" (click)="DemandeClicked(demande)"
+                    class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>          
+            <button type="button"
+                    *ngIf="(demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H')&&demande.type==='AutorisationTeletravail'"
+                    data-bs-toggle="modal" data-bs-target="#pdfAutorisationTeletravail" (click)="DemandeClicked(demande)"
+                    class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>          
+            <button type="button"
+                    *ngIf="(demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H')&&demande.type==='AutorisationSortie'"
+                    data-bs-toggle="modal" data-bs-target="#pdfAutorisationSortie" (click)="DemandeClicked(demande)"
+                    class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>          
+            <button type="button"
+                    *ngIf="(demande.statut==='Validee' || demande.statut==='Refusee' || demande.statut==='Refusee_Sup_H')&&demande.type==='Acompte'"
+                    data-bs-toggle="modal" data-bs-target="#pdfAcompte" (click)="DemandeClicked(demande)"
+                    class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>                   
+              
                 </td>
               </tr>
         </tbody>
@@ -68,3 +124,283 @@
       </div>
 </div>
 
+<div class="modal fade"  id="pdfAutorisationSortie" tabindex="-1" aria-labelledby="pdfAutorisationSortie" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">AUTORISATION DE SORTIE PDF</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div #AutorisationSortie class="modal-body" style="padding: .5rem; background-color: #ffffff;">
+        <div class="container">
+          <div class="header">
+            <img src="../../../../../assets/logoSaiph.png" alt="Company Logo" class="logo" style="max-width: 150px; margin-bottom: 1rem;">
+            <div></div>
+          </div>
+          <h1 style="font-size: 1.5rem;text-align: center; font-weight: bold;">AUTORISATION DE SORTIE</h1>
+          <div class="content" style="font-size: 1rem;    margin-left: 5rem;          line-height: 1.5; color: #333;">
+            <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifADS.utilisateur?.ejuridic}}</span></p>
+            <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifADS.utilisateur?.firstname}}  {{this.modifADS.utilisateur?.lastModifiedBy}}</span></p>
+            <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifADS.utilisateur?.id}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifADS.utilisateur?.role}}</span></p>
+            <p><strong style="font-weight: bold;">Date de sortie:</strong> {{this.modifADS.dateS}}</p>
+            <p  > <strong style="font-weight: bold;">Heure de sortie:</strong> {{this.modifADS.Hsortie}}</p>
+            <p  *ngIf="this.modifADS.isTemporaire" > <strong style="font-weight: bold;">Heure de retour:</strong> {{this.modifADS.Hretour}}</p>
+            <p ><strong style="font-weight: bold;">Motif:</strong> {{this.modifADS.motif}}</p> 
+         
+          </div>
+          <div *ngIf="!(this.modifADS.statut==='En_attente_Sup_H' ||this.modifADS.statut==='En_attente_RRH')" class="footer" style="text-align: center; display: flex; justify-content: center; align-items: center; margin-top: 2rem;">
+            <svg style="font-size: 1.25rem; color: green; " xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+            </svg>
+            <p style="font-size: 1.25rem;margin-bottom: 0%; color: green; font-weight: bold;">Autorisation Approuvée</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!(this.modifADS.statut==='En_attente_Sup_H' ||this.modifADS.statut==='En_attente_RRH')"  class="modal-footer" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6; padding: 1rem 1.5rem;">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="padding: 0.5rem 1rem; font-size: 1rem; border-radius: 0.25rem; background-color: #6c757d; border-color: #6c757d; color: #fff;">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="downloadPdf(demandeSelected)" data-bs-dismiss="modal" style="padding: 0.5rem 1rem; font-size: 1rem; border-radius: 0.25rem; background-color: #007bff; border-color: #007bff; color: #fff;">Télécharger</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal PDF fade" id="pdfPret" tabindex="-1" aria-labelledby="pdfPret" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE PRET PDF</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div #Pret class="modal-body" style="padding: .5rem; background-color: #ffffff;">
+        <div class="container">
+          <div class="header">
+            <img src="../../../../../assets/logoSaiph.png" alt="Company Logo" class="logo" style="max-width: 150px; margin-bottom: 1rem;">
+            <div></div>
+          </div>
+          <h1 style="font-size: 1.5rem;text-align: center; font-weight: bold;">DEMANDE DE PRET</h1>
+          <div class="content" style="font-size: 1rem; line-height: 1.5; color: #333;">
+            <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifPret.utilisateur?.ejuridic}}</span></p>
+            <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifPret.utilisateur?.firstname}}  {{this.modifADS.utilisateur?.lastModifiedBy}}</span></p>
+            <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifPret.utilisateur?.id}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifPret.utilisateur?.role}}</span></p>
+            <p><strong style="font-weight: bold;">montant:</strong> <span> {{this.modifPret.montant}}</span></p>
+            <p><strong style="font-weight: bold;">Crédit bancaire en cours:</strong> <span> {{this.modifPret.credit}}</span></p>
+            <p><strong style="font-weight: bold;">Rembourser par: </strong> <span> {{this.modifPret.remboursement}}</span></p>
+            <p><strong style="font-weight: bold;">Motif</strong> <span> {{this.modifPret.motif}}</span></p>
+          </div>
+          <div *ngIf="!(this.modifPret.statut==='En_attente_Sup_H' ||this.modifPret.statut==='En_attente_RRH')" class="footer" style="text-align: center; display: flex; justify-content: center; align-items: center; margin-top: 2rem;">
+            <svg style="font-size: 1.25rem; color: green; " xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+            </svg>
+            <p style="font-size: 1.25rem;margin-bottom: 0%; color: green; font-weight: bold;">Autorisation Approuvée</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!(this.modifPret.statut==='En_attente_Sup_H' ||this.modifPret.statut==='En_attente_RRH')" class="modal-footer" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6; padding: 1rem 1.5rem;">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" style="padding: 0.5rem 1rem; font-size: 1rem; border-radius: 0.25rem; background-color: #6c757d; border-color: #6c757d; color: #fff;">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="downloadPdf(demandeSelected)" data-bs-dismiss="modal" style="padding: 0.5rem 1rem; font-size: 1rem; border-radius: 0.25rem; background-color: #007bff; border-color: #007bff; color: #fff;">Télécharger</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal PDF fade"  id="pdfConge" tabindex="-1" aria-labelledby="pdfConge" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE CONGE PDF</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div #Conge class="modal-body">
+        <div class="container">
+          <div class="header">
+            <img src="../../../../../assets/logoSaiph.png" alt="Company Logo" class="logo">
+            <div></div>
+          </div>
+          <h1>DEMANDE DE CONGE </h1>
+          <div class="content">
+            <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifConge.utilisateur?.ejuridic}}</span></p>
+            <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifConge.utilisateur?.firstname}}  {{this.modifConge.utilisateur?.lastModifiedBy}}</span></p>
+            <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifConge.utilisateur?.id}}</span></p>
+            <p><strong style="font-weight: bold;">Date :</strong> <span> {{this.modifConge.debut}}</span></p>
+            <p><strong style="font-weight: bold;">Durée:</strong> <span> {{this.modifConge.duree}} Jour(s)</span></p>
+            <p><strong style="font-weight: bold;">Motif:</strong> <span> {{this.modifConge.motif}}</span></p>
+          </div>
+          <div *ngIf="!(this.modifConge.statut==='En_attente_Sup_H' ||this.modifConge.statut==='En_attente_RRH')" class="footer">
+            <svg style="font-size: 1.25rem; color: green; " xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+            </svg>
+            <p>Autorisation Approuvée</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"  *ngIf="!(this.modifConge.statut==='En_attente_Sup_H' ||this.modifConge.statut==='En_attente_RRH')">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="downloadPdf(demandeSelected)" data-bs-dismiss="modal">Télécharger</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal PDF fade" id="pdfChangementHoraire" tabindex="-1" aria-labelledby="pdfChangementHoraire" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE DE CHANGEMENT HORAIRE DE TRAVAIL PDF</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div #ChangementHoraire class="modal-body">
+        <div class="container">
+          <div class="header">
+            <img src="../../../../../assets/logoSaiph.png" alt="Company Logo" class="logo">
+            <div></div>
+          </div>
+          <h1>DEMANDE DE CHANGEMENT HORAIRE DE TRAVAIL</h1>
+          <div class="content">
+            <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifChHoraire .utilisateur?.ejuridic}}</span></p>
+            <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifChHoraire .utilisateur?.firstname}}  {{this.modifChHoraire .utilisateur?.lastModifiedBy}}</span></p>
+            <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifChHoraire .utilisateur?.id}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifChHoraire .utilisateur?.role}}</span></p>
+            <p><strong style="font-weight: bold;">Changement envisagé du</strong> <span> {{this.modifChHoraire.debut}}</span>
+            <strong style="font-weight: bold;">Au</strong> <span> {{this.modifChHoraire.fin}}</span></p>
+            <p><strong style="font-weight: bold;">Ancien Horaire:</strong> <span> {{this.modifChHoraire.ancienH}}</span></p>
+            <p><strong style="font-weight: bold;">Nouvel Horaire</strong> <span> {{this.modifChHoraire.nouvelH}}</span></p>
+            <p><strong style="font-weight: bold;">Motif</strong> <span> {{this.modifChHoraire.motif}}</span></p>
+          </div>
+          <div *ngIf="!(this.modifChHoraire.statut==='En_attente_Sup_H' ||this.modifChHoraire.statut==='En_attente_RRH')" class="footer">
+            <svg style="font-size: 1.25rem; color: green; " xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+            </svg>
+            <p>Autorisation Approuvée</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"  *ngIf="!(this.modifChHoraire.statut==='En_attente_Sup_H' ||this.modifChHoraire.statut==='En_attente_RRH')">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="downloadPdf(demandeSelected)" data-bs-dismiss="modal">Télécharger</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal PDF fade"  id="pdfAutorisationTravailSup" tabindex="-1" aria-labelledby="pdfAutorisationTravailSup" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'AUTORISATION De TRAVAIL SUPPLÉMENTAIRE  PDF </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div #AutorisationTravailSup class="modal-body">
+        <div class="container">
+          <div class="header">
+            <img src="../../../../../assets/logoSaiph.png" alt="Company Logo" class="logo">
+            <div></div>
+          </div>
+          <h1>DEMANDE D'AUTORISATION De TRAVAIL SUPPLÉMENTAIRE</h1>
+          <div class="content">
+            <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifAutTravailSupp.utilisateur?.ejuridic}}</span></p>
+            <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifAutTravailSupp.utilisateur?.firstname}}  {{this.modifAutTravailSupp.utilisateur?.lastModifiedBy}}</span></p>
+            <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifAutTravailSupp.utilisateur?.id}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifAutTravailSupp.utilisateur?.role}}</span></p>
+            <p><strong style="font-weight: bold;">Date:</strong> <span> {{this.modifAutTravailSupp.date}}</span></p>
+            <p><strong style="font-weight: bold;">Heure d'accès</strong> <span> {{this.modifAutTravailSupp.hacces}}</span></p>
+            <p><strong style="font-weight: bold;">Heure de sortie</strong> <span> {{this.modifAutTravailSupp.hsortie}}</span></p>
+            <p><strong style="font-weight: bold;">Motif du changement:</strong> <span> {{this.modifAutTravailSupp.motif}}</span></p>
+          </div>
+          <div *ngIf="!(this.modifAutTravailSupp.statut==='En_attente_Sup_H' ||this.modifAutTravailSupp.statut==='En_attente_RRH')" class="footer">
+            <svg style="font-size: 1.25rem; color: green; " xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+            </svg>
+            <p>Autorisation Approuvée</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"  *ngIf="!(this.modifAutTravailSupp.statut==='En_attente_Sup_H' ||this.modifAutTravailSupp.statut==='En_attente_RRH')">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="downloadPdf(demandeSelected)" data-bs-dismiss="modal">Télécharger</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal PDF fade" id="pdfAutorisationTeletravail" tabindex="-1" aria-labelledby="pdfAutorisationTeletravail" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'AUTORISATION DE TELETRAVAIL PDF</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div #AutorisationTeletravail class="modal-body">
+        <div class="container">
+          <div class="header">
+            <img src="../../../../../assets/logoSaiph.png" alt="Company Logo" class="logo">
+            <div></div>
+          </div>
+          <h1>DEMANDE D'AUTORISATION DE TELETRAVAIL</h1>
+          <div class="content">
+            <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifAutTeletravail.utilisateur?.ejuridic}}</span></p>
+            <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifAutTeletravail.utilisateur?.firstname}}{{this.modifAutTravailSupp.utilisateur?.lastModifiedBy}}</span></p>
+            <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifAutTeletravail.utilisateur?.id}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifAutTeletravail.utilisateur?.role}}</span></p>
+            <p><strong style="font-weight: bold;">Adresse Email :</strong> <span> {{this.modifAutTeletravail.utilisateur?.email}}</span></p>
+            <p><strong style="font-weight: bold;">Téléphone:</strong> <span> {{this.modifAutTeletravail.utilisateur?.phonenumber}}</span></p>
+            <p><strong style="font-weight: bold;">Personne à contacter en cas de non joignabilité:</strong> <span> {{this.modifAutTeletravail.contact}}</span></p>
+            <p><strong style="font-weight: bold;">Téléphone</strong> <span> {{this.modifAutTeletravail.telephone}}</span></p>
+            <p><strong style="font-weight: bold;">Lieu du télétravail</strong> <span> {{this.modifAutTeletravail.lieu}}</span></p>
+            <p><strong style="font-weight: bold;">Pour la periode</strong> <span> {{this.modifAutTeletravail.debut}}</span><strong style="font-weight: bold;">Au</strong> <span> {{this.modifAutTeletravail.fin}}</span></p>
+            <p><strong style="font-weight: bold;">Tout en assurant les tâches suivantes :</strong> <span> {{this.modifAutTeletravail.tache}}</span></p>
+          </div>
+          <div *ngIf="!(this.modifAutTeletravail.statut==='En_attente_Sup_H' ||this.modifAutTeletravail.statut==='En_attente_RRH')" class="footer">
+            <svg style="font-size: 1.25rem; color: green; " xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+            </svg>
+            <p>Autorisation Approuvée</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"  *ngIf="!(this.modifAutTeletravail.statut==='En_attente_Sup_H' ||this.modifAutTeletravail.statut==='En_attente_RRH')">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="downloadPdf(demandeSelected)" data-bs-dismiss="modal">Télécharger</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal PDF fade" id="pdfAcompte" tabindex="-1" aria-labelledby="pdfAcompte" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">DEMANDE D'ACOMPTE PDF</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div #Acompte class="modal-body">
+        <div class="container">
+          <div class="header">
+            <img src="../../../../../assets/logoSaiph.png" alt="Company Logo" class="logo">
+            <div></div>
+          </div>
+          <h1>DEMANDE D'ACOMPTE</h1>
+          <div class="content">
+            <p><strong style="font-weight: bold;">Entité Juridique:</strong> <span> {{this.modifAcompte.utilisateur?.ejuridic}}</span></p>
+            <p><strong style="font-weight: bold;">Nom et Prénom:</strong> <span> {{this.modifAcompte.utilisateur?.firstname}}  {{this.modifAcompte.utilisateur?.lastModifiedBy}}</span></p>
+            <p><strong style="font-weight: bold;">Matricule:</strong> <span> {{this.modifAcompte.utilisateur?.id}}</span></p>
+            <p><strong style="font-weight: bold;">Service:</strong> <span> {{this.modifAcompte.utilisateur?.role}}</span></p>
+            <p><strong style="font-weight: bold;">Acompte:</strong> <span> {{this.modifAcompte.typeA}}</span></p>
+            <p><strong style="font-weight: bold;">Montant:</strong> <span> {{this.modifAcompte.montant}}</span></p>
+          </div>
+          <div *ngIf="!(this.modifAcompte.statut==='En_attente_Sup_H' ||this.modifAcompte.statut==='En_attente_RRH')" class="footer">
+            <svg style="font-size: 1.25rem; color: green; " xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+              <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+            </svg>
+            <p>Autorisation Approuvée</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"  *ngIf="!(this.modifAcompte.statut==='En_attente_Sup_H' ||this.modifAcompte.statut==='En_attente_RRH')">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="downloadPdf(demandeSelected)" data-bs-dismiss="modal">Télécharger</button>
+      </div>
+    </div>
+  </div>
+</div>

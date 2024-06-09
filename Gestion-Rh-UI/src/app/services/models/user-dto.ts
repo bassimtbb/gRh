@@ -24,6 +24,5 @@ export interface UserDto {
   password?: string;
   phonenumber?: string;
   role?: 'EMPLOYE' | 'RRH' | 'SUP_H';
-  service?: string;
   sexe?: string;
 }
