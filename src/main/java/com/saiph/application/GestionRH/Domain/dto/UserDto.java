@@ -32,7 +32,6 @@ public class UserDto extends GenericDto{
     @ManyToMany
     private List<Notification> notifications = new ArrayList<>();
     private String cin;
-    private String service;
     private String sexe;
     private String address;
     private String phonenumber;

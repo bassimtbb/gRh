@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TokenService } from '../../../../services/token/token.service';
-import {  AcompteService,  AutorisationSortieService,  AutorisationTeletravailService,  AutorisationTravailSupService,  ChangementHoraireService,  CongeService,  DemandeService,  DepartementService,  NotificationService,  PretService,  UserService,} from '../../../../services/services';
+import {  AcompteService,  AutorisationSortieService,  AutorisationTeletravailService,  AutorisationTravailSupService,  ChangementHoraireService,  CongeService,  DemandeService,  DepartementService,  NotificationService,  PretService,  } from '../../../../services/services';
 import {  AcompteDto,  AutorisationSortieDto,  AutorisationTeletravailDto,  AutorisationTravailSupDto,  ChangementHoraireDto,  CongeDto,  Demande,  PretDto,  User} from '../../../../services/models';
 import { NotificationsService } from '../../NotificationsService';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import { UserService } from '../../../../services/services/user.service';
 
 
 
@@ -1443,7 +1444,7 @@ Sup_h:User={};
       }
   
       // Validate Service
-      if (!this.user.service) {
+      if (!this.user.role) {
           errors.push('Le service est obligatoire.');
       }
   
@@ -1491,7 +1492,7 @@ Sup_h:User={};
     }
 
     // Validate Service
-    if (!this.user.service) {
+    if (!this.user.role) {
         errors.push('Le service est obligatoire.');
     }
 
@@ -1561,9 +1562,7 @@ validateAddPret(pret: any, credit: string, rembourser: string): string[] {
   }
 
   // Validate Service
-  if (!this.user.service) {
-      errors.push("Le service est obligatoire.");
-  }
+
 
   // Validate Montant du prêt
   if (!pret.montant || pret.montant <= 0) {
@@ -1611,9 +1610,7 @@ validateAddConge(conge: any, isEXCEPTIONNEL: boolean, motifC: string): string[] 
   }
 
   // Validate Service
-  if (!this.user.service) {
-      errors.push("Le service est obligatoire.");
-  }
+
 
   // Validate Début date
   if (!conge.debut) {
@@ -1653,9 +1650,7 @@ validateAddChHoraire(chHoraire: any): string[] {
   }
 
   // Validate Service
-  if (!this.user.service) {
-      errors.push("Le service est obligatoire.");
-  }
+
 
   // Validate Début date
   if (!chHoraire.debut) {
@@ -1713,9 +1708,7 @@ validateAddAcompte(acompte: any, acompteR: string, modifAcompte: any): string[] 
   }
 
   // Validate Service
-  if (!this.user.service) {
-      errors.push("Le service est obligatoire.");
-  }
+
 
   // Validate Acompte Type
   if (!acompteR) {
@@ -1753,9 +1746,7 @@ validateAddAutTravailSupp(autTravailSupp: any): string[] {
   }
 
   // Validate Service
-  if (!this.user.service) {
-      errors.push("Le service est obligatoire.");
-  }
+
 
   // Validate Date
   if (!autTravailSupp.date) {

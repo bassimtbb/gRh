@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
-import { AcompteDto, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, DemandeDto, Departement, PretDto, UserDto } from '../../../../services/models';
-import { AcompteService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, NotificationService, PretService, UserService } from '../../../../services/services';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AcompteDto, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, DemandeDto, Departement, PretDto, User, UserDto } from '../../../../services/models';
+import { AcompteService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, DepartementService, NotificationService, PretService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { NotificationsService } from '../../../layout/NotificationsService';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-gerer-demandes',
@@ -19,7 +21,17 @@ export class GererDemandesComponent {
   modifAcompte: AcompteDto={}
   modifPret : PretDto={}
    Msg!: string;
+   demandeSelected!: Demande;
+   typeDSelect: string="nothing";
+   Sup_h!:User;
   alert!: string;
+  @ViewChild('Pret') Pret: ElementRef | undefined;
+  @ViewChild('Conge') Conge: ElementRef | undefined;
+  @ViewChild('ChangementHoraire') ChangementHoraire: ElementRef | undefined;
+  @ViewChild('AutorisationTravailSup') AutorisationTravailSup: ElementRef | undefined;
+  @ViewChild('AutorisationTeletravail') AutorisationTeletravail: ElementRef | undefined;
+  @ViewChild('AutorisationSortie') AutorisationSortie: ElementRef | undefined;
+  @ViewChild('Acompte') Acompte: ElementRef | undefined;
 constructor(
   private  demandeService:DemandeService,
   private  congeService:CongeService,
@@ -32,6 +44,7 @@ constructor(
   private pretService: PretService,
   private autorisationSortieService :AutorisationSortieService,
   private  notificationService:NotificationService,
+  private  departementService:DepartementService,
 
   private notificationsService: NotificationsService
 
@@ -43,7 +56,74 @@ constructor(
 
   allDemandes:Demande[]=[];
   demandesFilter:Demande[]=[];
+  DemandeClicked(demande: Demande) {
+    this.departementService.findById4({id:3 as number}).subscribe
+    (departement=>{
+      if (departement.manager ) {
+        console.log(this.demandeSelected.id);
+        this.Sup_h=departement.manager! ;
+  
+        }})
 
+      this.demandeSelected=demande;
+
+ console.log(this.demandeSelected.type);
+ switch (this.demandeSelected.type) {
+  case "Conge":
+  this.typeDSelect="Congé"
+  this.congeService.findById10({id : this.demandeSelected.id as number}).
+  subscribe(demande=>{
+    this.modifConge=demande;
+ 
+
+})
+
+  
+    break; 
+  case "AutorisationSortie":
+        this.typeDSelect="Autorisation de sortie"
+        this.autorisationSortieService.findById12({id : this.demandeSelected.id as number}).
+        subscribe(demande=>{
+          this.modifADS=demande;
+          console.log(demande);
+        })
+    break;
+  case "AutorisationTeletravail":
+        this.typeDSelect="Autorisation de télétravail"
+             this.autTeletravailService.findById8({id : this.demandeSelected.id as number}).
+        subscribe(demande=>{
+          this.modifAutTeletravail=demande;
+          console.log(demande);
+        })
+        break;
+  case "AutorisationTravailSup":
+        this.typeDSelect="Autorisation de travail supplémentaire"
+        this.autTravailSuppService.findById7
+        ({id : this.demandeSelected.id as number}).
+        subscribe(demande=>{
+          this.modifAutTravailSupp=demande;
+        })
+        break;
+  case "ChangementHoraire":
+        this.typeDSelect="Changement Horaire de travail"
+        this.chHoraireService.findById11({id : this.demandeSelected.id as number})
+        .subscribe(demande=>{
+          this.modifChHoraire=demande;
+        })
+        break;
+  case "Acompte":
+        this.typeDSelect="Acompte sur Salaire/prime"
+        this.acompteService.findById6({id : this.demandeSelected.id as number}).
+        subscribe(demande=>{
+          this.modifAcompte=demande;
+          console.log(demande);
+        })
+
+      
+        break;
+  }
+   
+  }
   searchQuery: string = '';
   applySearch    (query: string) {
     this.searchQuery = query;
@@ -64,6 +144,44 @@ constructor(
     console.log('Filtered demandes:', this.demandesFilter);
   }
 
+  downloadPdf(demande : Demande){
+    console.log(demande.type)
+    let type :ElementRef;
+    switch(demande.type) {
+      case "Pret":
+        type = this.Pret!;
+        break;
+      case "Conge":
+        type = this.Conge!;
+        break;
+      case "ChangementHoraire":
+        type = this.ChangementHoraire!;
+        break;
+      case "AutorisationTravailSup":
+        type = this.AutorisationTravailSup!;
+        break;
+      case "AutorisationTeletravail":
+        type = this.AutorisationTeletravail!;
+        break;
+      case "AutorisationSortie":
+        type = this.AutorisationSortie!;
+        break;
+      case "Acompte":
+        type = this.Acompte!;
+        break;
+      default:
+        break;
+    }  console.log(type!.nativeElement);
+  
+      html2canvas(type!.nativeElement).then(canvas => {
+        const contentDataURL = canvas.toDataURL('image/png');
+        const pdf = new jspdf.jsPDF();
+        const imgWidth = 210;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
+        pdf.save('demande.pdf');
+      });
+  }
 
   
 

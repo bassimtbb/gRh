@@ -42,7 +42,6 @@ public class User extends GenericEntity implements UserDetails, Principal {
     @JsonIgnore // Prevents infinite recursion during serialization
     private Departement departement;
     private String cin;
-    private String service;
     private String sexe;
     private String address;
     private String phonenumber;

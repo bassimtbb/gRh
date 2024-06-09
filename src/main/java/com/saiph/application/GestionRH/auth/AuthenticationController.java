@@ -30,11 +30,10 @@ public class AuthenticationController {
     }
 @PutMapping("/{id}/reset-password")
     public ResponseEntity<User> resetPassword(
-            @PathVariable Long id,
             @RequestParam String email,
             @RequestParam String cin,
             @RequestParam String phoneNumber) throws ResourceNotFoundException {
-        User user = service.resetPassword(id, email, cin, phoneNumber);
+        User user = service.resetPassword( email, cin, phoneNumber);
         return ResponseEntity.ok(user);
     }
 
@@ -83,7 +82,14 @@ public ResponseEntity<User> updateInfopersonnel(
         return ResponseEntity.ok(user);
     }
 
-
+    @PostMapping("/refresh-token")
+    public ResponseEntity<AuthenticationResponse> refreshToken(@RequestParam String request) {
+        try {
+            return ResponseEntity.ok(service.refreshToken(request));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request

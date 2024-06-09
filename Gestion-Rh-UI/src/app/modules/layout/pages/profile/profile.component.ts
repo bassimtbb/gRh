@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDetails, User, UserDto } from '../../../../services/models';
-import { AuthenticationService, UserService } from '../../../../services/services';
+import { AuthenticationService, UserService,  } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -64,7 +64,11 @@ export class ProfileComponent implements OnInit {
     };
     console.log('Telephone updated updatedUser:', updatedUser);
   
-    this.userService.update({ id: updatedUser.id as number, body: updatedUser })
+    this.authenticationService.updateInfoconfidentiel({ 
+      id: updatedUser.id as number, 
+      email: this.user.email as string,
+      password: this.user.password as string,
+      phoneNumber: updatedUser.phonenumber , })
       .subscribe(response => {
         console.log('Telephone updated successfully:', response);
         this.user = response;
@@ -93,12 +97,24 @@ export class ProfileComponent implements OnInit {
     };
     console.log('Email updated updatedUser:', updatedUser);
   
-    this.userService.update({ id: updatedUser.id as number, body: updatedUser })
+    this.authenticationService.updateInfoconfidentiel({ 
+      id: this.user.id as number, 
+      email: updatedUser.email as string,
+      password: this.user.password as string,
+      phoneNumber: this.user.phonenumber!  })
       .subscribe(response => {
-        console.log('Email updated successfully:', response);
+        console.log('Telephone updated successfully:', response);
         this.user = response;
+        this.Msg = `Email a été modifiée avec succès!`;
+        this.alert = "alert alert-success";
+        this.ngOnInit();
+        setTimeout(() => {
+          this.alert = 'd-none';
+        }, 5000); 
       }, error => {
-        console.error('Error updating email:', error);
+        console.error('Error updating Email:', error);
+        this.Msg = `ERROR: Email n'a pas été modifiée`;
+        this.alert = "alert alert-danger";
       });
   }
 
@@ -113,16 +129,25 @@ export class ProfileComponent implements OnInit {
       password: this.updatedUserInfo.password 
     };
   
-    console.log('Password updated in updatedUser:', updatedUser);
-    this.userService.update({ id: updatedUser.id as number, body: updatedUser })
-      .subscribe(
-        (response) => {
-          console.log('Password updated successfully:', response);
-          this.user = response;
-        },
-        (error) => {
-          console.error('Error updating password:', error);
-        }
-      );
+    console.log('Password updated in updatedUser:', updatedUser.password);
+    this.authenticationService.updateInfoconfidentiel({ 
+      id: this.user.id as number, 
+      email: this.user.email as string,
+      password: updatedUser.password as string,
+      phoneNumber: this.user.phonenumber!  })
+      .subscribe(response => {
+        console.log('Mot de passe updated successfully:', response);
+        this.user = response;
+        this.Msg = `Mot de passe a été modifiée avec succès!`;
+        this.alert = "alert alert-success";
+        this.ngOnInit();
+        setTimeout(() => {
+          this.alert = 'd-none';
+        }, 5000); 
+      }, error => {
+        console.error('Error updating Mot de passe :', error);
+        this.Msg = `ERROR: Mot de passe  n'a pas été modifiée`;
+        this.alert = "alert alert-danger";
+      });
   }
 }
