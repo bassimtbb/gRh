@@ -184,10 +184,13 @@
   <tr  *ngFor="let employee of selectedEvent.listEmploye;   ">
     
     <td>{{ employee.id }}</td>
-    <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="border-radius: 50%;" width="40rem" height="40rem"></td>
+    <td>  
+    <img src="https://bootdey.com/img/Content/avatar/avatar1.png"  *ngIf="employee.sexe=='H'"alt="" style="border-radius: 50%;  border: 2px solid #666777;" width="40rem" height="40rem">
+    <img src="../../../../assets/profile_pic.svg" *ngIf="employee.sexe=='F'"alt="" style="border-radius: 50%;  border: 2px solid #666777;" width="40rem" height="40rem">
+  </td>
     <td>{{ employee.firstname }}</td>
     <td>{{ employee.lastname }}</td>
-    <td>{{ employee.service }}</td>
+    <td>{{ employee.role }}</td>
     <td>{{ employee.email }}</td>
     <td>{{ employee.phonenumber }}</td>
     <td style="display: flex; justify-content: space-around;">
@@ -269,4 +272,65 @@
   </div>
 </div>
 </div>
+</div>
+
+
+
+<div class="modal fade"  *ngIf="listeEmpl.length"  id="listeEmplPdf" tabindex="-1"
+     aria-labelledby="listeEmplPdf" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Liste des employes PDF</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div #listeEmplPdf class="modal-body" style="padding: .5rem; background-color: #ffffff;">
+        <div class="container">
+          <div class="header">
+            <img src="../../../../../assets/logoSaiph.png" alt="Company Logo" class="logo"
+                 style="max-width: 150px; margin-bottom: 1rem;">
+            <div></div>
+          </div>
+          <h1 style="font-size: 1.5rem; text-align: center; margin-bottom: 2rem; font-weight: bold;">
+            Liste des employés qui sont inscrits dans l'événement {{selectedEvent.titre}}
+          </h1>       
+          <div class="datapdf">
+
+            <table class="table ">
+              <thead class="table-light">
+              <th>Matricule</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Poste</th>
+              <th>Email</th>
+              <th>Téléphone</th>
+              </thead>
+              <tbody >
+              <tr  *ngFor="let employee of listeEmpl;   ">
+                
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.firstname }}</td>
+                <td>{{ employee.lastname }}</td>
+                <td>{{ employee.role }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.phonenumber }}</td>
+    
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="background-color: #f8f9fa; border-top: 1px solid #dee2e6; padding: 1rem 1.5rem;">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close"
+                style="padding: 0.5rem 1rem; font-size: 1rem; border-radius: 0.25rem; background-color: #6c757d; border-color: #6c757d; color: #fff;">
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="downloadPdf()" data-bs-dismiss="modal"
+                style="padding: 0.5rem 1rem; font-size: 1rem; border-radius: 0.25rem; background-color: #007bff; border-color: #007bff; color: #fff;">
+          Télécharger
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

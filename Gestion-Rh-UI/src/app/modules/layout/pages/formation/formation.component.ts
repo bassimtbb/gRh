@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormationDto, User ,Notification} from '../../../../services/models';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormationDto, User ,Notification, UserDto} from '../../../../services/models';
 import { FormationService, NotificationService, UserService } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import {  Output, EventEmitter  } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
 import { NotificationsService } from '../../../layout/NotificationsService';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-formation',
   templateUrl: './formation.component.html',
@@ -21,7 +23,7 @@ export class FormationComponent implements OnInit {
   selectedFormation!: FormationDto ;
   formations:FormationDto[]=[];
   private img64 !:string;
-  listeEmpl:User[]=[];
+  listeEmpl:UserDto[]=[];
   alert: string = "d-none";
   Msg:String="";
    ispostuler!:boolean;
@@ -37,7 +39,19 @@ export class FormationComponent implements OnInit {
   }
   formationUpdate:FormationDto={};
   Role: any;
+  @ViewChild('listeEmplPdf') listeEmplPdf: ElementRef | undefined;
 
+ downloadPdf(){
+    html2canvas(this.listeEmplPdf!.nativeElement).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jspdf.jsPDF();
+      const imgWidth = 210;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.save('demande.pdf');
+    });
+}
+  
   constructor(
    private  formationService:FormationService,
    private  usersService:UserService,

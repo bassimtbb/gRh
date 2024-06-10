@@ -5,7 +5,9 @@
   
     <div class="   card ">
         <div class="img">
-            <img class="card-img-top mb-2" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Profile pic ">
+          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" *ngIf="user.sexe=='H'"  routerLinkActive="List-item-active"  routerLinkActive="List-item-active"  class="card-img-top mb-2">
+          <img src="../../../../assets/profile_pic.svg" alt="" *ngIf="user.sexe=='F'"  routerLinkActive="List-item-active"  routerLinkActive="List-item-active"  class="card-img-top mb-2">
+
             <p style="text-align: center;"> {{user.firstname}} {{user.lastname}}</p>
         </div>
         <div class="list-group">

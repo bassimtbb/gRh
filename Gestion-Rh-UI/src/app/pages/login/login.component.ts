@@ -37,14 +37,35 @@ export class LoginComponent {
       error: (err) => {
         console.log(err);
         if (err.error.validationErrors) {
-          this.errorMsg = err.error.validationErrors;
+          this.errorMsg = err.error.error;
         } else {
-          this.errorMsg.push(err.error.errorMsg);
+          switch (err.error.error) {
+            case "Current password is incorrect":
+              this.errorMsg.push("Le mot de passe actuel est incorrect.");
+              break;
+            case "The new password does not match":
+              this.errorMsg.push("Le nouveau mot de passe ne correspond pas.");
+              break;
+            case "User account is locked":
+              this.errorMsg.push("Votre compte utilisateur est verrouillé.");
+              break;
+            case "User account is disabled":
+              this.errorMsg.push("Le compte utilisateur est désactivé.");
+              break;
+            case "Login and / or Password is incorrect":
+              this.errorMsg.push("Le mot de passe incorrect.");
+              break;
+              case "Email est incorrecte":
+                this.errorMsg.push("Email est incorrecte");
+                break;
+            default:
+              this.errorMsg.push("Une erreur est survenue.");
+          }
         }
       }
     });
   }
-
+  
   forgetP() {
     this.router.navigate(['forgetP']);
   }

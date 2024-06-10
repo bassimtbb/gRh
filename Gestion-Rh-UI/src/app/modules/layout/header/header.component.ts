@@ -14,82 +14,90 @@ declare interface RouteInfo {
   submenu : RouteInfo[];
 }
 export const ROUTES: RouteInfo[] = [
-  {path: 'dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-primary', class: '', roles: ['RRH','SUP_H'], submenu: []},
+    // {
+    //   path: 'dashboard',
+    //   title: 'Tableau de bord',
+    //   icon: 'bi bi-speedometer',  // Filled Bootstrap icon for dashboard
+    //   class: '',
+    //   roles: ['RRH','SUP_H'],
+    //   submenu: []
+    // },
+    {
+      path: 'mesdemande',
+      title: 'Mes demandes',
+      icon: 'bi bi-file-earmark-text-fill',  // Filled Bootstrap icon for file
+      class: '',
+      roles: ['EMPLOYE'],
+      submenu: []
+    },
+    {
+      path: '',
+      title: 'Demandes',
+      icon: 'bi bi-inbox-fill',  // Filled Bootstrap icon for inbox
+      class: 'dropdown-toggle',
+      roles: ['RRH','SUP_H'],
+      submenu: [
+        {
+          path: 'mesdemande',
+          title: 'Mes demandes',
+          icon: 'bi bi-file-earmark-text-fill',  // Filled Bootstrap icon for file
+          class: '',
+          roles: ['RRH','SUP_H'],
+          submenu: []
+        },
+        {
+          path: 'gererdemande',
+          title: 'Traiter Demandes',
+          icon: 'bi bi-gear-fill',  // Filled Bootstrap icon for settings
+          class: '',
+          roles: ['RRH','SUP_H'],
+          submenu: []
+        },
+      ]
+    },
+    {
+      path: 'formations',
+      title: 'Formation',
+      icon: 'bi bi-mortarboard-fill',  // Filled Bootstrap icon for graduation cap
+      class: '',
+      roles: ['EMPLOYE','RRH','SUP_H'],
+      submenu: []
+    },
+    // {
+    //   path: 'event',
+    //   title: 'Événement',
+    //   icon: 'bi bi-calendar-event-fill',  // Filled Bootstrap icon for calendar event
+    //   class: '',
+    //   roles: ['EMPLOYE','RRH','SUP_H'],
+    //   submenu: []
+    // },
+    // {
+    //   path: 'chat',
+    //   title: 'Messagerie',
+    //   icon: 'bi bi-chat-dots-fill',  // Filled Bootstrap icon for chat
+    //   class: '',
+    //   roles: ['EMPLOYE','RRH','SUP_H'],
+    //   submenu: []
+    // },
+    {
+      path: 'users',
+      title: 'Employé',
+      icon: 'bi bi-people-fill',  // Filled Bootstrap icon for people
+      class: '',
+      roles: ['RRH'],
+      submenu: []
+    },
+    // {
+    //   path: 'calendrier',
+    //   title: 'Calendrier',
+    //   icon: 'bi bi-calendar-fill',  // Filled Bootstrap icon for calendar
+    //   class: '',
+    //   roles: ['RRH','SUP_H','EMPLOYE'],
+    //   submenu: []
+    // }
+  ];
   
-  {
-    path: 'mesdemande',
-    title: 'Mes demandes',
-    icon: 'fas fa-users text-yellow',
-    class: '',
-    roles: [ 'EMPLOYE']
-    , submenu: []
-  },{
-    path: '',
-    title: 'Demandes',
-    icon: 'fas fa-users text-yellow',
-    class: 'dropdown-toggle',
-    roles: [ 'RRH','SUP_H']
-    , submenu: [
-      {
-        path: 'mesdemande',
-        title: 'Mes demandes',
-        icon: 'fas fa-users text-yellow',
-        class: '',
-        roles: [ 'RRH','SUP_H']
-        , submenu: []
-      },
-      {
-        path: 'gererdemande',
-        title: 'Traiter Demandes',
-        icon: 'ni-glasses-2 text-yellow',
-        class: '',
-        roles: ['RRH','SUP_H']
-        , submenu: []
-      },
-    ]
-  },
-  {
-    path: 'formations',
-    title: 'Formation',
-    icon: 'ni-world text-blue',
-    class: '',
-    roles: ['EMPLOYE','RRH','SUP_H']
-    , submenu: []
-  },
-
-  {
-    path: 'event',
-    title: 'Événement',
-    icon: 'ni-tag text-orange',
-    class: '',
-    roles: ['EMPLOYE','RRH','SUP_H']
-    , submenu: []
-  },
-  {
-    path: 'chat',
-    title: 'Messagerie',
-    icon: 'ni-settings text-red',
-    class: '',
-    roles: ['EMPLOYE','RRH','SUP_H']
-    , submenu: []
-  },
-  {
-    path: 'users',
-    title: 'Employé',
-    icon: 'ni-settings text-red',
-    class: '',
-    roles: ['RRH']
-    , submenu: []
-  },
-  {
-    path: 'calendrier',
-    title: 'Calendrier',
-    icon: 'ni-settings text-red',
-    class: '',
-    roles: ['RRH','SUP_H','EMPLOYE']
-    , submenu: []
-  }
-];
+  
 
 @Component({
   selector: 'app-header',
@@ -104,6 +112,7 @@ export class HeaderComponent implements OnInit {
   notifications: Notification[]=[];
   notificationNotReaded:Notification[]=[];
   userRole:any;
+  user !:User;
   constructor(
     public tokenService: TokenService,
     public userService: UserService,
@@ -129,7 +138,7 @@ export class HeaderComponent implements OnInit {
             this.notificationNotReaded.push(notif);
           }
         }
-    
+        this.user=user;
 
       })
     if (this.userRole) {
@@ -145,7 +154,7 @@ export class HeaderComponent implements OnInit {
               departmentSubmenu.push({
                 path: `departement/${department.id}`,
                 title: department?.name ?? 'Département',
-                icon: 'ni-world text-blue',
+                icon: '',
                 class: '',
                 roles: ['RRH'],
                 submenu: []
@@ -154,7 +163,7 @@ export class HeaderComponent implements OnInit {
             departmentRoutes.push({
               path: '',
               title: 'Départements',
-              icon: 'ni-world text-blue',
+              icon: 'bi bi-building-fill',
               class: 'dropdown-toggle',
               roles: ['RRH'],
               submenu: departmentSubmenu
@@ -168,7 +177,7 @@ export class HeaderComponent implements OnInit {
                 departmentRoutesSup.push({
                   path: `departement/${user.departement.id}`,
                   title: "Département",
-                  icon: 'ni-world text-blue',
+                  icon: 'bi bi-building-fill',
                   class: '',
                   roles: ['SUP_H'],
                   submenu: []

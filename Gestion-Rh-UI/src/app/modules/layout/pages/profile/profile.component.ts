@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDetails, User, UserDto } from '../../../../services/models';
-import { AuthenticationService, UserService,  } from '../../../../services/services';
+import { UserDetails, User, UserDto, Conge } from '../../../../services/models';
+import { AuthenticationService, CongeService, UserService,  } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -18,12 +18,15 @@ export class ProfileComponent implements OnInit {
   userUp: User | null = null;
   alert: string = "d-none";
   Msg: string = "";
-
+conges :Conge[]=[];
+soldeConge:number=0;
+soldeCongePourcentage:number=0;
   constructor(
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private congeService:CongeService,
   ) {}
 
   ngOnInit(): void {
@@ -37,8 +40,24 @@ export class ProfileComponent implements OnInit {
         console.error('Error retrieving user information:', error);
         // Handle error (e.g., display error message)
       });
+      this.congeService.getCongeByutilisateurId({utilisateurId:Id as number})
+      .subscribe(conges=>{
+        this.conges=conges;
+        if(conges){
+          this.soldeConge=this.compterSoldeConge(conges);
+          this.soldeCongePourcentage=(this.soldeConge/30)*100;
+        }
+      })
+
   }
   
+  compterSoldeConge(conges: Conge[]): number {
+    let solde: number = 0;
+    for (const conge of conges) {
+      solde += conge.duree!;
+    }
+    return solde;
+  }
   toggleInputs() {
     this.inputsDisabled = !this.inputsDisabled;
   }

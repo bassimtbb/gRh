@@ -45,7 +45,6 @@ border-bottom: 4px solid green ;
     }
 
     .pic-profile{
-      background-image: url("../../../../assets/profile_pic.svg");
       height: 3rem;
       width: 3rem;
       border-radius: 50%;
@@ -67,6 +66,18 @@ border-bottom: 4px solid green ;
     .List-item-active{
       color:black;
         border-bottom: 4px solid green ;      
+    }
+    .dropdown-menu{
+      margin-left: 2rem;
+      margin-right: 2rem;
+      width: fit-content;
+    }
+    .iconsubMenu{
+      font-weight: 500;
+    }
+    .icon{
+      font-weight: 500;
+      margin-right: 6px;
     }
 @media (min-width: 991px) {
     .nav-link::before{

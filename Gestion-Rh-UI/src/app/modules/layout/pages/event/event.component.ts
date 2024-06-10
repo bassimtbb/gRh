@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EventService, NotificationService, UserService,  } from '../../../../services/services';
 import { EventDto, User } from '../../../../services/models';
 import { TokenService } from '../../../../services/token/token.service';
 import { NotificationsService } from '../../../layout/NotificationsService';
-
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrl: './event.component.scss'
 })
 export class EventComponent implements OnInit {
+  @ViewChild('listeEmplPdf') listeEmplPdf: ElementRef | undefined;
+
+
   selectedEvent!: EventDto ;
   user!: User;
   events:EventDto[]=[];
@@ -38,7 +42,16 @@ export class EventComponent implements OnInit {
   
   }
   
-
+  downloadPdf(){
+    html2canvas(this.listeEmplPdf!.nativeElement).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jspdf.jsPDF();
+      const imgWidth = 210;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.save('demande.pdf');
+    })
+   }
   eventClicked(event: EventDto) {
     this.listeEmpl = event.listEmploye ?? [];
     this.selectedEvent = event;

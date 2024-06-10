@@ -37,8 +37,10 @@
       <tbody>
       <tr *ngFor="let employee of this.employes; let i = index">
         <td>{{ employee.id }}</td>
-        <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" style="border-radius: 50%;"
-                 width="40rem" height="40rem"></td>
+        <td>
+                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" *ngIf="employee.sexe=='H'" style="border-radius: 50%;       border: 2px solid #666777;" routerLinkActive="List-item-active"  routerLinkActive="List-item-active" width="40rem" height="40rem">
+                 <img src="../../../../assets/profile_pic.svg" alt="" *ngIf="employee.sexe=='F'" style="border-radius: 50%;       border: 2px solid #666777;" routerLinkActive="List-item-active"  routerLinkActive="List-item-active" width="40rem" height="40rem">
+           </td>
         <td>{{ employee.firstname }}</td>
         <td>{{ employee.lastname }}</td>
         <td *ngIf="employee.role=='RRH'" >Responsable RH</td>

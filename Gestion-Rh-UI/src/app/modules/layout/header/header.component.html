@@ -9,12 +9,12 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
           <div *ngFor="let menuItem of menuItems1" class="btn-group  dropdown">
-            <button *ngIf="menuItem.path!==''" class="nav-link mx-lg-2 {{menuItem.class}}" target="_blank" type="button" id="typeDemande" data-bs-toggle="dropdown" [routerLink]="[menuItem.path]" aria-expanded="false">{{menuItem.title}}</button>
-            <button *ngIf="menuItem.path==''" class="nav-link mx-lg-2 {{menuItem.class}}" target="_blank" type="button" id="typeDemande" data-bs-toggle="dropdown"  aria-expanded="false">{{menuItem.title}}</button>
+            <button *ngIf="menuItem.path!==''" class="nav-link mx-lg-2 {{menuItem.class}}"  routerLinkActive="List-item-active"  routerLinkActive="List-item-active" target="_blank" type="button" id="typeDemande" data-bs-toggle="dropdown" [routerLink]="[menuItem.path]" aria-expanded="false"><i class="icon {{menuItem.icon}}"></i>{{menuItem.title}}</button>
+            <button *ngIf="menuItem.path==''" class="nav-link mx-lg-2 {{menuItem.class}}" routerLinkActive="List-item-active"  routerLinkActive="List-item-active"  target="_blank" type="button" id="typeDemande" data-bs-toggle="dropdown"  aria-expanded="false"> <i class="icon {{menuItem.icon}} "></i> {{menuItem.title}}</button>
             <ul *ngIf=" menuItem.submenu.length>0" class="dropdown-menu">
               <li *ngFor="let subMenuItem of menuItem.submenu" class="nav-item navbar-nav ">
                 <a class="nav-link " id="navbarDropdown" routerLinkActive="List-item-active"[routerLink]="[subMenuItem.path]" role="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class=""></i> {{subMenuItem.title}}
+                    <i class="icon {{subMenuItem.icon}}"></i> {{subMenuItem.title}}
                 </a>
             </li>            
           </ul> 
@@ -48,7 +48,6 @@
         <li class="item-notif" style="cursor: pointer;"  [routerLink]="[linkNotif(notification)]" (click)=" setStatut(notification)" *ngFor="let notification of lastFiveNotifications">
           <a [ngClass]=" Readed(notification)"  >
             <p class="fw-semibold mb-0">{{notification.description}} </p>
-            <!-- <small class="fw-normal">{{notification.utilisateur?.firstname}}  {{notification.utilisateur?.lastname}} </small> -->
             <div class="d-flex justify-content-between">
             <small class="text-body-secondary">{{notification.createdDate | date:'dd/MM/yyyy' }}</small>
             <small class="text-body-secondary">{{notification.createdDate | date:'HH:MM' }}</small>
@@ -64,10 +63,11 @@
 
     <div class="link-profile">
       <a routerLinkActive="List-item-active"  routerLinkActive="List-item-active" routerLink="profile" class="nav-link username-profile ml">{{ tokenService.fullName }}</a>
-      <div routerLinkActive="List-item-active"  routerLinkActive="List-item-active" routerLink="profile"class="pic-profile"></div>
+      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" *ngIf="user.sexe=='H'" style="border-radius: 50%;       border: 2px solid #666777;" routerLinkActive="List-item-active"  routerLinkActive="List-item-active" width="40rem" height="40rem">
+      <img src="../../../../assets/profile_pic.svg" alt="" *ngIf="user.sexe=='F'" style="border-radius: 50%;       border: 2px solid #666777;" routerLinkActive="List-item-active"  routerLinkActive="List-item-active" width="40rem" height="40rem">
     </div>
     
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"  data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
   </div>

@@ -121,6 +121,16 @@ constructor(
 
       
         break;
+        case "Pret":
+          this.typeDSelect="Pret"
+          this.pretService.findById9({id : this.demandeSelected.id as number}).
+          subscribe(demande=>{
+            this.modifPret=demande;
+            console.log(demande);
+          })
+  
+        
+          break;
   }
    
   }
@@ -186,6 +196,8 @@ constructor(
   
 
   filterDemandes(event: Event) {
+    this.ngOnInit;
+    this.demandesFilter=[];
     const filterValue = (event.target as HTMLInputElement).value;
     switch (filterValue) {
       case 'validated':
@@ -217,31 +229,38 @@ constructor(
             this.allDemandes=[]
             this.demandesFilter=[]
             this.allDemandes=demandes;
+            this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id); 
+
             this.demandesFilter = demandes;    
-            this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
             this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
   
           }
        )}else{
-        console.log("vide",this.allDemandes)
+        console.log("vide",this.allDemandes);
+        this.demandesFilter =[];
+        this.allDemandes=[];
+
        this.demandeService.getDemandeByStatut({statut:'En_attente_RRH'})
        .subscribe(
         demandes =>{ 
+          
           if(demandes)
-{          this.allDemandes =this.allDemandes.concat(demandes );
-          this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
-  this.demandesFilter = this.demandesFilter.concat(demandes );    
-  this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
+{                 this.allDemandes =this.allDemandes.concat(demandes);
+  this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
+                 this.demandesFilter = this.demandesFilter.concat(demandes );    
+                 this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
           console.log("En_attente_RRH",demandes)}
   }
       )
      this.demandeService.getDemandeByStatut({statut:'Validee'})
      .subscribe(
+      
       demandes =>{ 
+
         if(demandes){
         this.allDemandes =this.allDemandes.concat(demandes);
+        this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
         this.demandesFilter = this.demandesFilter.concat(demandes );    
-         this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
           this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
         
 
@@ -253,10 +272,10 @@ constructor(
    .subscribe(
     demandes =>{ 
       if(demandes)
-    {  this.allDemandes =this.allDemandes
+    {          this.allDemandes =this.allDemandes.concat(demandes);
+      this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id); 
       this.demandesFilter = this.demandesFilter.concat(demandes );    
-      this.allDemandes =this.allDemandes.filter(demande => demande.utilisateur?.id != Id);
-          this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
+        this.demandesFilter = this.demandesFilter.filter(demande => demande.utilisateur?.id != Id);  
 
       console.log("Refusee",this.allDemandes)}
 
@@ -312,6 +331,7 @@ getStatusClass(statut: any): string {
             {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
 
+            this.ngOnInit();
 
             }, error => {
               console.error('NO Notification DEMANDE_REJETEE_SUPH', error);
@@ -351,6 +371,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -391,6 +412,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -431,6 +453,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -471,6 +494,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -512,6 +536,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -552,6 +577,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -601,6 +627,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -641,6 +668,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -681,6 +709,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -721,6 +750,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -761,6 +791,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -802,6 +833,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -842,6 +874,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_REJETEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -891,6 +924,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -931,6 +965,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -971,6 +1006,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1011,6 +1047,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1051,6 +1088,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1092,6 +1130,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1132,6 +1171,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_RRH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1181,6 +1221,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1221,6 +1262,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1261,6 +1303,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1301,6 +1344,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1341,6 +1385,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1382,6 +1427,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {
@@ -1422,6 +1468,7 @@ getStatusClass(statut: any): string {
           .subscribe( notif=>
             {console.log("Notification DEMANDE_VALIDEE_SUPH");
             this.notificationsService.triggerReloadNotification();
+                          this.ngOnInit();
 
 
             }, error => {

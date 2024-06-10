@@ -68,7 +68,11 @@ public class AuthenticationService {
         return request;
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) throws  ResourceAlreadyExistsException {
+             if (userRepository.findByEmail(request.getEmail()).isEmpty()) {
+            throw new ResourceAlreadyExistsException("Email est incorrecte");
+        }
+
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -103,7 +107,7 @@ public class AuthenticationService {
         throw new ResourceNotFoundException("Phone number does not match");
     }
 
-    foundUser.setPassword(passwordEncoder.encode("newPassword")); // Ensure you define a new password or generate it
+    foundUser.setPassword(passwordEncoder.encode("password")); // Ensure you define a new password or generate it
     userRepository.save(foundUser);
     return foundUser;
 }
