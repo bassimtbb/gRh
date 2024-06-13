@@ -117,7 +117,7 @@ export class DepartementComponent  implements OnInit  {
       this.ngOnInit();
 
       this.alert = "alert alert-success";
-      this.Msg = `Employé(e) ${employe.firstname} ${employe.lastname} a été ajouté(e) avec succès au département ${departement.name} `; 
+      this.Msg = `Employé(e) ${employe.firstname} ${employe.lastname} a été retiré avec succès du département ${departement.name} `; 
       setTimeout(() => {
       this.alert = 'd-none';
     }, 5000)}

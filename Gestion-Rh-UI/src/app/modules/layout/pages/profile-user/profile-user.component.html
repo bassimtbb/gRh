@@ -92,7 +92,7 @@
         <div class="p-4" style="border-radius: 10px; background-color: white;">
             <div class="ml-3 mt-3 mb-5 d-flex justify-content-between align-items-center">
               <h3 class="   fw-bolder">Informations personnelles</h3 >
-              <button class="btn  btn-primary" type="button" id="button-addon2" [disabled]="!inputsDisabled" (click)="toggleInputs()">Modifier</button>
+              <button class="btn  btn-primary" type="button" id="button-addon2" *ngIf="role==='RRH'" [disabled]="!inputsDisabled" (click)="toggleInputs()">Modifier</button>
               </div>
               <div [ngClass]=alert role="alert">
                 {{Msg}}

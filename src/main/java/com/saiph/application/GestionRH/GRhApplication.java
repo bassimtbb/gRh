@@ -26,7 +26,8 @@ public class GRhApplication {
         	@Bean
 	public CommandLineRunner runner(UserRepository userRepository , DepartementRepository departementRepository, AuthenticationService authenticationService, PasswordEncoder passwordEncoder
 ) {
-		return args -> {
+   if (userRepository.findByEmail("RRH@gmail.com").isEmpty()) {
+        	return args -> {
 
             {
                 Departement Informatique = Departement.builder()
@@ -96,7 +97,9 @@ public class GRhApplication {
                 authenticationService.register(RRH);
 
             }
-        };
+        };}else{
+       return  args -> {};
+   }
 };
 
 	}

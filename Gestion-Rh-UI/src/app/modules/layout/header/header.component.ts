@@ -14,14 +14,14 @@ declare interface RouteInfo {
   submenu : RouteInfo[];
 }
 export const ROUTES: RouteInfo[] = [
-    // {
-    //   path: 'dashboard',
-    //   title: 'Tableau de bord',
-    //   icon: 'bi bi-speedometer',  // Filled Bootstrap icon for dashboard
-    //   class: '',
-    //   roles: ['RRH','SUP_H'],
-    //   submenu: []
-    // },
+    {
+      path: 'dashboard',
+      title: 'Tableau de bord',
+      icon: 'bi bi-speedometer',  // Filled Bootstrap icon for dashboard
+      class: '',
+      roles: ['RRH','SUP_H'],
+      submenu: []
+    },
     {
       path: 'mesdemande',
       title: 'Mes demandes',
@@ -63,22 +63,22 @@ export const ROUTES: RouteInfo[] = [
       roles: ['EMPLOYE','RRH','SUP_H'],
       submenu: []
     },
-    // {
-    //   path: 'event',
-    //   title: 'Événement',
-    //   icon: 'bi bi-calendar-event-fill',  // Filled Bootstrap icon for calendar event
-    //   class: '',
-    //   roles: ['EMPLOYE','RRH','SUP_H'],
-    //   submenu: []
-    // },
-    // {
-    //   path: 'chat',
-    //   title: 'Messagerie',
-    //   icon: 'bi bi-chat-dots-fill',  // Filled Bootstrap icon for chat
-    //   class: '',
-    //   roles: ['EMPLOYE','RRH','SUP_H'],
-    //   submenu: []
-    // },
+    {
+      path: 'event',
+      title: 'Événement',
+      icon: 'bi bi-calendar-event-fill',  // Filled Bootstrap icon for calendar event
+      class: '',
+      roles: ['EMPLOYE','RRH','SUP_H'],
+      submenu: []
+    },
+    {
+      path: 'chat',
+      title: 'Messagerie',
+      icon: 'bi bi-chat-dots-fill',  // Filled Bootstrap icon for chat
+      class: '',
+      roles: ['EMPLOYE','RRH','SUP_H'],
+      submenu: []
+    },
     {
       path: 'users',
       title: 'Employé',
@@ -87,14 +87,14 @@ export const ROUTES: RouteInfo[] = [
       roles: ['RRH'],
       submenu: []
     },
-    // {
-    //   path: 'calendrier',
-    //   title: 'Calendrier',
-    //   icon: 'bi bi-calendar-fill',  // Filled Bootstrap icon for calendar
-    //   class: '',
-    //   roles: ['RRH','SUP_H','EMPLOYE'],
-    //   submenu: []
-    // }
+    {
+      path: 'calendrier',
+      title: 'Calendrier',
+      icon: 'bi bi-calendar-fill',  // Filled Bootstrap icon for calendar
+      class: '',
+      roles: ['RRH','SUP_H','EMPLOYE'],
+      submenu: []
+    }
   ];
   
   

@@ -76,6 +76,19 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+  this.statistiqueDemandeByDepartementResult=[];
+  this.statistiqueUserByDepartementResult=[];
+  this.statistiqueEventResult=[];
+  this.statistiqueFormationResult=[];
+  this.departements= [];
+  this.demande= [];  
+  this.employee= [];
+  this.demandesDepartementChart= [];
+  this.demandesDepartement= [];
+  this.employeeChart= [];
+  this.formations = [];
+  this.events = [];
+
     this.loadStatistiqueDemande();
     this.loadStatistiqueGenerale();
     this.loadFormations();
@@ -233,7 +246,7 @@ export class DashboardComponent implements OnInit {
   if(this.departIndex>2){    
     this.departIndex=0;
   }
-  this.ngOnInit();
+  // this.ngOnInit();
 
   }
   previes(){
@@ -241,7 +254,7 @@ export class DashboardComponent implements OnInit {
     if(this.departIndex<0){    
       this.departIndex=2;
     }
-    this.ngOnInit();
+    // this.ngOnInit();
   }
   updateChartDataDemandes(): void {
     // Here you may need to ensure that you are aggregating or selecting data correctly

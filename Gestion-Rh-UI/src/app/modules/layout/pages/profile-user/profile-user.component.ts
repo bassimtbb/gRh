@@ -61,6 +61,7 @@ constructor(
 
 
 ){}
+role:string="";
   user!:UserDto;
  departement!: Departement;
  demandes:Demande[]=[];
@@ -68,6 +69,7 @@ constructor(
   authRequest!: AuthenticationRequest ;
 
   ngOnInit(): void {
+this.role=this.tokenService.userRole();
     this.route.paramMap.subscribe(params => {
       const Id = params.get('id');
       if (Id) {

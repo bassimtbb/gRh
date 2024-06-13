@@ -26,6 +26,8 @@ export class EventComponent implements OnInit {
   Msg:String="";
   Role:any="";
   ngOnInit() {
+    this.selectedEvent = {};
+
     this.eventService.findAll3()
       .subscribe(events => {
         this.events = events;
@@ -52,13 +54,16 @@ export class EventComponent implements OnInit {
       pdf.save('demande.pdf');
     })
    }
-  eventClicked(event: EventDto) {
+   eventClicked(eventID: number) {
+    this.eventService.findById3({id:eventID})
+    .subscribe(event=>{
     this.listeEmpl = event.listEmploye ?? [];
     this.selectedEvent = event;
     // Assign empty array if undefined
-    console.log(this.listeEmpl);
     this.ispostuler=this.isInList(this.listeEmpl, this.user)
-    this.eventUpdate=event;
+  this.eventUpdate=event;
+  
+  })
   }
   
 

@@ -48,7 +48,7 @@ export class FormationComponent implements OnInit {
       const imgWidth = 210;
       const imgHeight = canvas.height * imgWidth / canvas.width;
       pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
-      pdf.save('demande.pdf');
+      pdf.save('Formation.pdf');
     });
 }
   
@@ -101,6 +101,7 @@ return differenceEnJours;
 
   }
   ngOnInit(): void {
+    this.selectedFormation={};
     this.formationService.findAll2() 
     .subscribe(formation => {
       this.formations=formation;
@@ -125,14 +126,16 @@ return differenceEnJours;
 
 
 
-formationClicked(formation: FormationDto) {
+formationClicked(formationID: number) {
+  this.formationService.findById2({id:formationID})
+  .subscribe(formation=>{
   this.listeEmpl = formation.listEmploye ?? [];
   this.selectedFormation = formation;
   // Assign empty array if undefined
   this.ispostuler=this.isInList(this.listeEmpl, this.user)
 this.formationUpdate=formation;
 
-
+})
 }
 
 
