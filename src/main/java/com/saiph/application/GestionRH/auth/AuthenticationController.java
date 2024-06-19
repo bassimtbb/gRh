@@ -82,14 +82,14 @@ public ResponseEntity<User> updateInfopersonnel(
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/refresh-token")
-    public ResponseEntity<AuthenticationResponse> refreshToken(@RequestParam String request) {
-        try {
-            return ResponseEntity.ok(service.refreshToken(request));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
-        }
+@PostMapping("/refresh-token")
+public ResponseEntity<AuthenticationResponse> refreshToken(@Valid @RequestBody TokenRefreshRequest request) {
+    try {
+        return ResponseEntity.ok(service.refreshToken(request.getOldToken(), request.getEmail()));
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(null);
     }
+}
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request

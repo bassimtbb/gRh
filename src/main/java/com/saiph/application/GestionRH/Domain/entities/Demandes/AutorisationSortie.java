@@ -18,7 +18,6 @@ public class AutorisationSortie extends Demande {
     private Integer duree;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateS;
-
     @JsonFormat(pattern = "HH:MM")
     private Date Hsortie;
     @JsonFormat(pattern = "HH:MM")

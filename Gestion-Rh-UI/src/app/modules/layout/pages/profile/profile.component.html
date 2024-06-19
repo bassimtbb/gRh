@@ -1,27 +1,18 @@
 <div *ngIf="user as user" class="containe">
-    <!-- <div class="entete">
-        <h3>Profile</h3>
-    </div> -->
  <div class="   card ">
     <div class="img">
       <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" *ngIf="user.sexe=='H'"  routerLinkActive="List-item-active"  routerLinkActive="List-item-active"  class="card-img-top">
       <img src="../../../../assets/profile_pic.svg" alt="" *ngIf="user.sexe=='F'"  routerLinkActive="List-item-active"  routerLinkActive="List-item-active"  class="card-img-top">
-
         <div class="Ch-pic-btn">
                   <button type="button" class="btn editP btn-primary"><i class="bi bi-pencil"></i></button>
         </div>
     </div>
       <div class="list-group">
         <a (click)="toggle()"  [class.item-active]="!show"  class="nav-link  list-group-item   " >
-          Informations personnelles        </a>
-
+          Informations personnelles   </a>
         <a (click)="toggle()"  [class.item-active]="show"  class=" nav-link list-group-item  " >
-          Informations confidentiel
-        </a>
-
-
+          Informations confidentiel </a>
         <button style="margin-top: 1rem;" (click)="logout()" type="button" class="btn btn-danger">Déconnexion</button>
-
  </div>
 
  </div>
@@ -49,7 +40,6 @@
                   </div>          
               </div>
           </div>
-      
           <div class="row mb-4 pl-7">
               <div class="col">
                     <div class="item">
@@ -70,7 +60,6 @@
                 </div>    
                 </div>
             </div>
-  
             <div class="row mb-4 pl-7">
               <div class="col">
                     <div class="item">
@@ -91,19 +80,10 @@
                     </div>          
                 </div>
             </div>          
-
       </div>
-
       <div>
       <div class="ml-3 mt-3 ">
       <p class=" fw-bolder mb-0 fs-5 titre"> Solde de congé</p>          
-      <!-- <div class="progress-stacked">
-                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 66%">
-              <div class="progress-bar progress-bar-striped progress-bar-animated">20 Jours pris</div>
-          </div>  
-       
-      
-      </div> -->
       <div class="progress" style="width: 75%;">
         <div
           class="progress-bar progress-bar-striped progress-bar-animated"
@@ -116,19 +96,16 @@
         </div>
       </div>
   </div>
-  </div>
-  </div>
-
+</div>
+</div>
 
 <div class="infoP" *ngIf="show">
   <div [ngClass]=alert role="alert">    {{Msg}}    </div>
-
     <div class="ml-3 mt-3 mb-5 d-flex justify-content-between">
     <h3 class="   fw-bolder">Informations confidentiel</h3 >
     </div>
     <div class="container ">
         <div class="row mb-4 pl-7 ">
-      
           <div class="col order-5">  
                 <div class="item">
                     <p class=" fw-bolder mb-0 fs-5 titre"> Email</p>          
@@ -160,7 +137,6 @@
                 </div>          
             </div>
         </div>
-
     </div>
 </div>
 
@@ -240,7 +216,7 @@
                 </div>
                 <div class="modal-footer">
                   <button  data-bs-dismiss="modal" type="button" class="btn btn-secondary" >Close</button>
-                  <button type="submit" class="btn btn-primary"  (click)=" updateemail() " data-bs-dismiss="modal" >Modifier</button>
+                  <button type="submit" class="btn btn-primary"  (click)=" updateEmail() " data-bs-dismiss="modal" >Modifier</button>
                 </div>
               </div>
             </div>

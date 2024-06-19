@@ -7,15 +7,16 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { AuthenticationResponse } from '../../models/authentication-response';
+import { TokenRefreshRequest } from '../../models/token-refresh-request';
 
 export interface RefreshToken$Params {
-  request: string;
+      body: TokenRefreshRequest
 }
 
 export function refreshToken(http: HttpClient, rootUrl: string, params: RefreshToken$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticationResponse>> {
   const rb = new RequestBuilder(rootUrl, refreshToken.PATH, 'post');
   if (params) {
-    rb.query('request', params.request, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(

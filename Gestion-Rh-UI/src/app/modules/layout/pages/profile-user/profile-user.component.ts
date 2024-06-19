@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AcompteDto, AuthenticationRequest, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, DemandeDto, Departement, PretDto, User, UserDto } from '../../../../services/models';
+import { AcompteDto, AuthenticationRequest, AutorisationSortieDto, AutorisationTeletravailDto, AutorisationTravailSupDto, ChangementHoraireDto, CongeDto, Demande, DemandeDto, Departement, PretDto, TokenRefreshRequest, User, UserDto } from '../../../../services/models';
 import { AcompteService, AuthenticationService, AutorisationSortieService, AutorisationTeletravailService, AutorisationTravailSupService, ChangementHoraireService, CongeService, DemandeService, DepartementService, NotificationService, PretService,  } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { NotificationsService } from '../../NotificationsService';
@@ -1322,7 +1322,12 @@ this.role=this.tokenService.userRole();
         this.toggleInputs();
         this.authRequest = {email: user.email!, password: user.password!};
         if(user.id==this.tokenService.Id){
-        this.authService.refreshToken({request:this.tokenService.token as string})
+          const tokenRefresh :TokenRefreshRequest =
+          {
+            oldToken:this.tokenService.token!,
+            email:user.email!
+          };
+        this.authService.refreshToken({body:tokenRefresh})
         .subscribe(token=>{
           this.tokenService.token = token.token as string;
 

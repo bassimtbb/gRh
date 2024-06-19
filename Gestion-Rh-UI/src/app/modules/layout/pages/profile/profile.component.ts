@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDetails, User, UserDto, Conge } from '../../../../services/models';
+import { UserDetails, User, UserDto, Conge, TokenRefreshRequest } from '../../../../services/models';
 import { AuthenticationService, CongeService, UserService,  } from '../../../../services/services';
 import { TokenService } from '../../../../services/token/token.service';
 import { Router } from '@angular/router';
@@ -21,7 +21,10 @@ export class ProfileComponent implements OnInit {
 conges :Conge[]=[];
 soldeConge:number=0;
 soldeCongePourcentage:number=0;
+  authRequest!: { email: any; password: any; };
   constructor(
+
+  
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private tokenService: TokenService,
@@ -31,6 +34,7 @@ soldeCongePourcentage:number=0;
 
   ngOnInit(): void {
     const Id = this.tokenService.Id;
+    console.log("id",this.tokenService.email);
     this.userService.findById({ id: Id as number })
       .subscribe(user => {
         console.log('Token retrieved:', this.tokenService.token);
@@ -93,6 +97,7 @@ soldeCongePourcentage:number=0;
         this.user = response;
         this.Msg = `Numéro de téléphone a été modifiée avec succès!`;
         this.alert = "alert alert-success";
+
         this.ngOnInit();
         setTimeout(() => {
           this.alert = 'd-none';
@@ -104,38 +109,66 @@ soldeCongePourcentage:number=0;
       });
   }
 
-  updateemail() {
+  updateEmail() {
+    let newToken:string="";
+
+
     if (!this.user || !this.updatedUserInfo.email) {
       console.error('Missing user data or updated email. Update cannot proceed.');
       return;
     }
 
     const updatedUser = {
-      ...this.user, 
+      ...this.user,
       email: this.updatedUserInfo.email
     };
     console.log('Email updated updatedUser:', updatedUser);
-  
-    this.authenticationService.updateInfoconfidentiel({ 
-      id: this.user.id as number, 
+    const tokenRefresh: TokenRefreshRequest = {
+      oldToken: this.tokenService.token!,
+      email: this.updatedUserInfo.email!
+    };
+    
+    if (!this.tokenService.token) {
+      console.error('No token available. Cannot refresh.');
+      this.Msg = `ERROR: No token available for refresh.`;
+      this.alert = "alert alert-danger";
+      return;
+    }
+    
+    this.authenticationService.refreshToken({ body: tokenRefresh })
+      .subscribe(token => {
+        console.log(token.token);
+
+        newToken =token.token!;
+
+    this.authenticationService.updateInfoconfidentiel({
+      id: this.user.id as number,
       email: updatedUser.email as string,
       password: this.user.password as string,
-      phoneNumber: this.user.phonenumber!  })
-      .subscribe(response => {
-        console.log('Telephone updated successfully:', response);
-        this.user = response;
-        this.Msg = `Email a été modifiée avec succès!`;
-        this.alert = "alert alert-success";
-        this.ngOnInit();
-        setTimeout(() => {
-          this.alert = 'd-none';
-        }, 5000); 
-      }, error => {
-        console.error('Error updating Email:', error);
-        this.Msg = `ERROR: Email n'a pas été modifiée`;
-        this.alert = "alert alert-danger";
-      });
+      phoneNumber: this.user.phonenumber!
+    }).subscribe(response => {
+      console.log('Email updated successfully:', response);
+      this.user = response;
+      this.Msg = `Email a été modifiée avec succès!`;
+      this.alert = "alert alert-success";
+      this.tokenService.token =newToken;
+this.ngOnInit();
+      setTimeout(() => {
+        this.alert = 'd-none';
+      }, 5000);
+    }, error => {
+      console.error('Error updating email:', error);
+      this.Msg = `ERROR: Email n'a pas été modifiée`;
+      this.alert = "alert alert-danger";
+    });
+    
+  }, error => {
+    console.error('Error refreshing token:', error);
+    this.Msg = `ERROR: Le jeton n'a pas été rafraîchi`;
+    this.alert = "alert alert-danger";
+  });
   }
+  
 
   updatePassword() {
     if (!this.user || !this.updatedUserInfo.password) {
@@ -159,6 +192,7 @@ soldeCongePourcentage:number=0;
         this.user = response;
         this.Msg = `Mot de passe a été modifiée avec succès!`;
         this.alert = "alert alert-success";
+ 
         this.ngOnInit();
         setTimeout(() => {
           this.alert = 'd-none';

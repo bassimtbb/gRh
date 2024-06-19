@@ -1456,10 +1456,7 @@ Sup_h:User={};
       // Validate Date
       if (!addADS.dateS) {
           errors.push('La date est obligatoire.');
-      } else if (new Date(addADS.dateS) < new Date()) {
-          errors.push('La date ne peut pas être dans le passé.');
-      }
-  
+      } 
       // Validate Heure de Retour if not Temporaire
       if (!addADS.isTemporaire && !addADS.hretour) {
           errors.push('L\'heure de retour est obligatoire pour une sortie non temporaire.');

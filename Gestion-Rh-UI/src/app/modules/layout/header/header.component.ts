@@ -71,14 +71,14 @@ export const ROUTES: RouteInfo[] = [
       roles: ['EMPLOYE','RRH','SUP_H'],
       submenu: []
     },
-    {
-      path: 'chat',
-      title: 'Messagerie',
-      icon: 'bi bi-chat-dots-fill',  // Filled Bootstrap icon for chat
-      class: '',
-      roles: ['EMPLOYE','RRH','SUP_H'],
-      submenu: []
-    },
+    // {
+    //   path: 'chat',
+    //   title: 'Messagerie',
+    //   icon: 'bi bi-chat-dots-fill',  // Filled Bootstrap icon for chat
+    //   class: '',
+    //   roles: ['EMPLOYE','RRH','SUP_H'],
+    //   submenu: []
+    // },
     {
       path: 'users',
       title: 'Employé',

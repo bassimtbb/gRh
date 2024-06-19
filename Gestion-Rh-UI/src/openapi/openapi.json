@@ -2120,16 +2120,16 @@
     "Authentication"
     ],
     "operationId": "refreshToken",
-    "parameters": [
-    {
-    "name": "request",
-    "in": "query",
-    "required": true,
+    "requestBody": {
+    "content": {
+    "application/json": {
     "schema": {
-    "type": "string"
+    "$ref": "#/components/schemas/TokenRefreshRequest"
     }
     }
-    ],
+    },
+    "required": true
+    },
     "responses": {
     "200": {
     "description": "OK",
@@ -3563,22 +3563,22 @@
     "ejuridic": {
     "type": "string"
     },
+    "username": {
+    "type": "string"
+    },
     "authorities": {
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "username": {
-    "type": "string"
+    "accountNonLocked": {
+    "type": "boolean"
     },
     "accountNonExpired": {
     "type": "boolean"
     },
     "credentialsNonExpired": {
-    "type": "boolean"
-    },
-    "accountNonLocked": {
     "type": "boolean"
     }
     }
@@ -4390,6 +4390,17 @@
     }
     }
     },
+    "TokenRefreshRequest": {
+    "type": "object",
+    "properties": {
+    "oldToken": {
+    "type": "string"
+    },
+    "email": {
+    "type": "string"
+    }
+    }
+    },
     "AuthenticationResponse": {
     "type": "object",
     "properties": {
@@ -4424,22 +4435,22 @@
     "password": {
     "type": "string"
     },
+    "username": {
+    "type": "string"
+    },
     "authorities": {
     "type": "array",
     "items": {
     "$ref": "#/components/schemas/GrantedAuthority"
     }
     },
-    "username": {
-    "type": "string"
+    "accountNonLocked": {
+    "type": "boolean"
     },
     "accountNonExpired": {
     "type": "boolean"
     },
     "credentialsNonExpired": {
-    "type": "boolean"
-    },
-    "accountNonLocked": {
     "type": "boolean"
     }
     }
@@ -4714,10 +4725,6 @@
     "StatistiqueDemandeResult": {
     "type": "object",
     "properties": {
-    "congeCount": {
-    "type": "integer",
-    "format": "int32"
-    },
     "demandeCount": {
     "type": "integer",
     "format": "int32"
@@ -4726,11 +4733,123 @@
     "type": "integer",
     "format": "int32"
     },
+    "acompteCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "preCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTravailSupCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountEn_attente_RRH": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountRefusee_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationSortieCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountEn_attente_Sup_H": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "demandeCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "changementHoraireCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "autorisationTeletravailCount": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "pretCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "congeCountRefusee": {
+    "type": "integer",
+    "format": "int32"
+    },
+    "acompteCountValidee": {
+    "type": "integer",
+    "format": "int32"
+    },
     "pretCount": {
     "type": "integer",
     "format": "int32"
     },
-    "autorisationTeletravailCountEn_attente_Sup_H": {
+    "congeCount": {
     "type": "integer",
     "format": "int32"
     },
@@ -4738,19 +4857,7 @@
     "type": "integer",
     "format": "int32"
     },
-    "changementHoraireCountEn_attente_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "changementHoraireCountRefusee_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "changementHoraireCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationSortieCountEn_attente_Sup_H": {
+    "autorisationSortieCountRefusee_Sup_H": {
     "type": "integer",
     "format": "int32"
     },
@@ -4762,7 +4869,7 @@
     "type": "integer",
     "format": "int32"
     },
-    "autorisationTeletravailCountEn_attente_RRH": {
+    "autorisationSortieCountEn_attente_Sup_H": {
     "type": "integer",
     "format": "int32"
     },
@@ -4770,23 +4877,7 @@
     "type": "integer",
     "format": "int32"
     },
-    "autorisationTravailSupCountRefusee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationSortieCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationTeletravailCountValidee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationTravailSupCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationSortieCountRefusee_Sup_H": {
+    "autorisationTeletravailCountEn_attente_RRH": {
     "type": "integer",
     "format": "int32"
     },
@@ -4794,115 +4885,35 @@
     "type": "integer",
     "format": "int32"
     },
-    "demandeCountEn_attente_Sup_H": {
+    "autorisationTravailSupCountRefusee": {
     "type": "integer",
     "format": "int32"
     },
-    "demandeCountRefusee_Sup_H": {
+    "changementHoraireCountEn_attente_Sup_H": {
     "type": "integer",
     "format": "int32"
     },
-    "demandeCountEn_attente_RRH": {
+    "changementHoraireCountEn_attente_RRH": {
     "type": "integer",
     "format": "int32"
     },
-    "demandeCountValidee": {
+    "changementHoraireCountRefusee_Sup_H": {
     "type": "integer",
     "format": "int32"
     },
-    "demandeCountRefusee": {
+    "autorisationTeletravailCountValidee": {
     "type": "integer",
     "format": "int32"
     },
-    "acompteCountEn_attente_Sup_H": {
+    "autorisationTeletravailCountEn_attente_Sup_H": {
     "type": "integer",
     "format": "int32"
     },
-    "acompteCountRefusee_Sup_H": {
+    "autorisationTravailSupCountEn_attente_RRH": {
     "type": "integer",
     "format": "int32"
     },
-    "acompteCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "acompteCountValidee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "acompteCountRefusee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationSortieCount": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationSortieCountRefusee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "changementHoraireCount": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationSortieCountValidee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "changementHoraireCountRefusee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "congeCountValidee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "pretCountRefusee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "congeCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationTeletravailCount": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "changementHoraireCountValidee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "congeCountRefusee": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "congeCountRefusee_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "pretCountEn_attente_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "pretCountEn_attente_RRH": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "congeCountEn_attente_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "autorisationTravailSupCount": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "preCountRefusee_Sup_H": {
-    "type": "integer",
-    "format": "int32"
-    },
-    "pretCountValidee": {
+    "autorisationSortieCountEn_attente_RRH": {
     "type": "integer",
     "format": "int32"
     }

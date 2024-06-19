@@ -28,6 +28,7 @@ public class SecurityConfig { private final JwtFilter jwtAuthFilter;
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(
+                                "/v1/auth/refresh-token",  // Add this line to permit /api/v1/auth/refresh-token
                                         "/auth/**",
                                         "/v2/api-docs",
                                         "/v3/api-docs",
@@ -39,7 +40,7 @@ public class SecurityConfig { private final JwtFilter jwtAuthFilter;
                                         "/swagger-ui/**",
                                         "/webjars/**",
                                         "/swagger-ui.html"
-                                )
+                                        )
                                     .permitAll()
                                 .anyRequest()
                                     .authenticated()

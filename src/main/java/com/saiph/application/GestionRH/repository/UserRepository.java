@@ -1,5 +1,6 @@
 package com.saiph.application.GestionRH.repository;
 
+import com.saiph.application.GestionRH.Domain.dto.UserDto;
 import com.saiph.application.GestionRH.Domain.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

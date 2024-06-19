@@ -64,12 +64,11 @@ public class AuthenticationService {
         if (request.getDepartement() != null) {
             departementService.addEmpl(request.getDepartement().getId(), userdetail.getId());
         }
-        System.out.println(userdetail.getDepartement() != null);
         return request;
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) throws  ResourceAlreadyExistsException {
-             if (userRepository.findByEmail(request.getEmail()).isEmpty()) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) throws ResourceAlreadyExistsException {
+        if (userRepository.findByEmail(request.getEmail()).isEmpty()) {
             throw new ResourceAlreadyExistsException("Email est incorrecte");
         }
 
@@ -90,27 +89,27 @@ public class AuthenticationService {
                 .build();
     }
 
- public User resetPassword(String email, String cin, String phoneNumber) throws ResourceNotFoundException {
-    Optional<User> userOptional = userRepository.findByEmail(email);
+    public User resetPassword(String email, String cin, String phoneNumber) throws ResourceNotFoundException {
+        Optional<User> userOptional = userRepository.findByEmail(email);
 
-    if (!userOptional.isPresent()) {
-        throw new ResourceNotFoundException("User not found");
+        if (!userOptional.isPresent()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
+        User foundUser = userOptional.get();
+
+        if (!Objects.equals(foundUser.getCin(), cin)) {
+            throw new ResourceNotFoundException("CIN does not match");
+        }
+
+        if (!Objects.equals(foundUser.getPhonenumber(), phoneNumber)) {
+            throw new ResourceNotFoundException("Phone number does not match");
+        }
+
+        foundUser.setPassword(passwordEncoder.encode("password")); // Ensure you define a new password or generate it
+        userRepository.save(foundUser);
+        return foundUser;
     }
-
-    User foundUser = userOptional.get();
-
-    if (!Objects.equals(foundUser.getCin(), cin)) {
-        throw new ResourceNotFoundException("CIN does not match");
-    }
-
-    if (!Objects.equals(foundUser.getPhonenumber(), phoneNumber)) {
-        throw new ResourceNotFoundException("Phone number does not match");
-    }
-
-    foundUser.setPassword(passwordEncoder.encode("password")); // Ensure you define a new password or generate it
-    userRepository.save(foundUser);
-    return foundUser;
-}
 
     public User updateInfoconfidentiel(Long id, String password, String email, String phoneNumber) throws ResourceNotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
@@ -124,8 +123,8 @@ public class AuthenticationService {
         if (userRepository.findByEmail(email).isPresent() && !Objects.equals(user.getEmail(), email)) {
             throw new ResourceAlreadyExistsException("Email already exists");
         }
-  if (!Objects.equals(user.getPassword(), password)) {
-              user.setPassword(passwordEncoder.encode(password));
+        if (!Objects.equals(user.getPassword(), password)) {
+            user.setPassword(passwordEncoder.encode(password));
         }
         user.setEmail(email);
         user.setPhonenumber(phoneNumber);
@@ -178,18 +177,19 @@ public class AuthenticationService {
         return user;
     }
 
-    public AuthenticationResponse refreshToken(String oldToken) {
 
-        String username = jwtService.extractUsername(oldToken);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        if (!jwtService.isTokenValid(oldToken,userDetails)) {
+    public AuthenticationResponse refreshToken(String oldToken, String email) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(jwtService.extractUsername(oldToken));
+        if (!jwtService.isTokenValid(oldToken, userDetails)) {
             throw new IllegalArgumentException("Invalid token");
         }
-
+        User user = (User) userDetails;
+        user.setEmail(email);
         Map<String, Object> claims = new HashMap<>();
-        claims.put("fullName", ((User) userDetails).fullName());
-        claims.put("Id", ((User) userDetails).getId());
-        String newToken = jwtService.generateToken(claims, (User) userDetails);
+        claims.put("fullName", user.fullName());
+        claims.put("Id", user.getId());
+        String newToken = jwtService.generateToken(claims,(User) user);
+
 
         return AuthenticationResponse.builder()
                 .token(newToken)

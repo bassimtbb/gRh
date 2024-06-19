@@ -1,181 +1,219 @@
 <div class="containe">
-    <!-- <div class="entete">
+  <!-- <div class="entete">
         <h3>Profile</h3>
     </div> -->
-  
-    <div class="   card ">
-        <div class="img">
-          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" *ngIf="user.sexe=='H'"  routerLinkActive="List-item-active"  routerLinkActive="List-item-active"  class="card-img-top mb-2">
-          <img src="../../../../assets/profile_pic.svg" alt="" *ngIf="user.sexe=='F'"  routerLinkActive="List-item-active"  routerLinkActive="List-item-active"  class="card-img-top mb-2">
 
-            <p style="text-align: center;"> {{user.firstname}} {{user.lastname}}</p>
-        </div>
-        <div class="list-group">
-            <a class="list-group-item nav-link list-group-item-action" 
-            [ngClass]="{'active-lin': togglenav}" 
-            style="cursor: pointer;" 
-            (click)="toggle(true)"> 
-            Profile</a>
-
-            <a  class="list-group-item nav-link list-group-item-action" 
-            [ngClass]="{'active-lin': !togglenav}" 
-            style="cursor: pointer;" 
-            (click)="toggle(false)">
-            Demandes
-            </a>
+  <div class="   card ">
+    <div class="img">
+      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" *ngIf="user.sexe=='H'"
+        routerLinkActive="List-item-active" routerLinkActive="List-item-active" class="card-img-top mb-2">
+      <img src="../../../../assets/profile_pic.svg" alt="" *ngIf="user.sexe=='F'" routerLinkActive="List-item-active"
+        routerLinkActive="List-item-active" class="card-img-top mb-2">
+      <p style="text-align: center;"> {{user.firstname}} {{user.lastname}}</p>
+    </div>
+    <div class="list-group">
+      <a class="list-group-item nav-link list-group-item-action" [ngClass]="{'active-lin': togglenav}"
+        style="cursor: pointer;" (click)="toggle(true)">        Profile</a>
+      <a class="list-group-item nav-link list-group-item-action" [ngClass]="{'active-lin': !togglenav}"
+        style="cursor: pointer;" (click)="toggle(false)">
+        Demandes
+      </a>
     </div>
 
-    </div>
-    <div *ngIf="!togglenav" class="center">    
-<div class="d-flex mb-4 justify-content-around">
-    <div class="d-flex justify-content-center box shadow p-3 bg-body-tertiary rounded flex-column align-items-center">
-            <p class="card-text">{{nbrToutDemande}}</p>
-            <h5 class="card-title">Demandes</h5>
-    </div>
-    <div class="d-flex justify-content-center box shadow p-3 bg-body-tertiary rounded flex-column align-items-center">
-            <p class="p-0  card-text">{{nbrDemandeValide}}</p>
-            <h5 class="card-title ">Validée </h5>
-    </div>
-    <div class="d-flex justify-content-center box shadow p-3 bg-body-tertiary rounded flex-column align-items-center">
+  </div>
+  <div *ngIf="!togglenav" class="center">
+    <div class="d-flex mb-4 justify-content-around">
+      <div class="d-flex justify-content-center box shadow p-3 bg-body-tertiary rounded flex-column align-items-center">
+        <p class="card-text">{{nbrToutDemande}}</p>
+        <h5 class="card-title">Demandes</h5>
+      </div>
+      <div class="d-flex justify-content-center box shadow p-3 bg-body-tertiary rounded flex-column align-items-center">
+        <p class="p-0  card-text">{{nbrDemandeValide}}</p>
+        <h5 class="card-title ">Validée </h5>
+      </div>
+      <div class="d-flex justify-content-center box shadow p-3 bg-body-tertiary rounded flex-column align-items-center">
         <p class="p-0  card-text">{{nbrDemandeEnattente}}</p>
         <h5 class="card-title ">En attente</h5>
-</div>
-<div class="d-flex justify-content-center box shadow p-3 bg-body-tertiary rounded flex-column align-items-center">
-    <p class="p-0  card-text">{{ nbrDemandeRefuser}}</p>
-    <h5 class="card-title ">Refusée</h5>
-</div>
-</div>
-<div class=" data  mt-5">
+      </div>
+      <div class="d-flex justify-content-center box shadow p-3 bg-body-tertiary rounded flex-column align-items-center">
+        <p class="p-0  card-text">{{ nbrDemandeRefuser}}</p>
+        <h5 class="card-title ">Refusée</h5>
+      </div>
+    </div>
+    <div class=" data  mt-5">
 
-    <div  *ngIf="!demandes" class=" data d-flex justify-content-center m-5" >
+      <div *ngIf="!demandes" class=" data d-flex justify-content-center m-5">
         <p class="mb-0 "><small class="text-body-secondary">Aucune Demande </small></p>
       </div>
 
-<table *ngIf="demandes " class="table table-striped table-hover">
-    <thead>
-        <th>ID</th>
-        <th>Type</th>
-        <th>Nom et prénom</th>
-        <th>Statut</th>
-        <th>Date</th>
-        <th>Département</th>
-        <th></th>
-     </thead>
-    <tbody>
-        <tr *ngFor="let demande of demandes">
+      <table *ngIf="demandes " class="table table-striped table-hover">
+        <thead>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Nom et prénom</th>
+          <th>Statut</th>
+          <th>Date</th>
+          <th>Département</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let demande of demandes">
 
             <td>{{ demande.id }}</td>
             <td>{{ demande.type }}</td>
             <td>{{ demande.utilisateur?.firstname }} {{ demande.utilisateur?.lastname}}</td>
-            <td ><i [ngClass]="getStatusClass(demande.statut)"  class="bi  "></i>{{ demande.statut }}</td>
+            <td><i [ngClass]="getStatusClass(demande.statut)" class="bi  "></i>{{ demande.statut }}</td>
             <td>{{ demande.createdDate | date:'dd/MM/yyyy'}}</td>
             <td>{{ demande.departement?.name }}</td>
 
             <td style="display: flex; justify-content: space-around;">
-                <button type="button" *ngIf="demande.statut==='En_attente_Sup_H' && user.role==='SUP_H'"  (click)="valid_Sup(demande )" class="btn btn-success"><i class="bi bi-check2"></i></button>
-                <button type="button" *ngIf="demande.statut==='En_attente_RRH' && user.role==='RRH'"  (click)="valid_RRH(demande )" class="btn btn-success"><i class="bi bi-check2"></i></button>
-                <button type="button" *ngIf="demande.statut==='En_attente_Sup_H' && user.role==='SUP_H'"  (click)="refuse_Sup(demande )"  class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
-                <button type="button" *ngIf="demande.statut==='En_attente_RRH' && user.role==='RRH'"  (click)="refuse_RRH(demande )"  class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
-                <button type="button" *ngIf="demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH'" class="btn btn-light"><i class="bi bi-eye-fill"></i></button>
-                <button type="button" *ngIf="demande.statut==='Validee' || demande.statut==='Refusee'"  class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
+              <button type="button" *ngIf="demande.statut==='En_attente_Sup_H' && user.role==='SUP_H'"
+                (click)="valid_Sup(demande )" class="btn btn-success"><i class="bi bi-check2"></i></button>
+              <button type="button" *ngIf="demande.statut==='En_attente_RRH' && user.role==='RRH'"
+                (click)="valid_RRH(demande )" class="btn btn-success"><i class="bi bi-check2"></i></button>
+              <button type="button" *ngIf="demande.statut==='En_attente_Sup_H' && user.role==='SUP_H'"
+                (click)="refuse_Sup(demande )" class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
+              <button type="button" *ngIf="demande.statut==='En_attente_RRH' && user.role==='RRH'"
+                (click)="refuse_RRH(demande )" class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
+              <button type="button" *ngIf="demande.statut==='En_attente_Sup_H' ||demande.statut==='En_attente_RRH'"
+                class="btn btn-light"><i class="bi bi-eye-fill"></i></button>
+              <button type="button" *ngIf="demande.statut==='Validee' || demande.statut==='Refusee'"
+                class="btn btn-primary"><i class="bi bi-file-earmark-arrow-down-fill"></i></button>
 
             </td>
           </tr>
-    </tbody>
-  </table>
+        </tbody>
+      </table>
 
+    </div>
   </div>
-    </div>
 
-    <div  *ngIf="togglenav" class="center">    
+  <div *ngIf="togglenav" class="center">
 
-        <div class="p-4" style="border-radius: 10px; background-color: white;">
-            <div class="ml-3 mt-3 mb-5 d-flex justify-content-between align-items-center">
-              <h3 class="   fw-bolder">Informations personnelles</h3 >
-              <button class="btn  btn-primary" type="button" id="button-addon2" *ngIf="role==='RRH'" [disabled]="!inputsDisabled" (click)="toggleInputs()">Modifier</button>
-              </div>
-              <div [ngClass]=alert role="alert">
-                {{Msg}}
-              </div>
-              <div class="container ">
-                  <div class="row mb-4 pl-7 ">
-                    <div class="col">
-                          <div class="item">
-                              <p class=" fw-bolder mb-0 fs-5 titre"> Matricule</p>    
-                <input type="text" class="form-control"  [(ngModel)]="user.id" disabled  aria-label="Recipient's username" aria-describedby="button-addon2">
-                          </div>          
-                      </div>
-                      <div class="col order-5">  
-                        <div class="item">
-                          <p class=" fw-bolder mb-0 fs-5 titre"> Service</p>      
-            <input type="text" class="form-control"  [(ngModel)]="user.role" disabled aria-label="Recipient's username" aria-describedby="button-addon2">
-                        </div>          
-                    </div>
-                  <div class="col order-1">
-                        <div class="item">
-                          <p class=" fw-bolder mb-0 fs-5 titre"> Département </p>    
-            <input type="text" class="form-control" *ngIf="user.departement"  [(ngModel)]="user.departement!.name" disabled aria-label="Recipient's username" aria-describedby="button-addon2">
-            <input type="text" class="form-control"  *ngIf="!user.departement" value="--------" disabled aria-label="Recipient's username" aria-describedby="button-addon2">
-                        </div>          
-                    </div>
-                  
-                  </div>
-              
-                  <div class="row mb-4 pl-7">
-                      <div class="col">
-                            <div class="item">
-                              <p class=" fw-bolder mb-0 fs-5 titre"> CIN</p>          
-                <input type="text" class="form-control"  [(ngModel)]="user.cin" [disabled]="inputsDisabled"  aria-label="Recipient's username" aria-describedby="button-addon2">
-                            </div>          
-                        </div>
-                        <div class="col order-5">  
-                            <div class="item">
-                                <p class=" fw-bolder mb-0 fs-5 titre"> Nom</p>          
-                  <input type="text" class="form-control"  [(ngModel)]="user.firstname" [disabled]="inputsDisabled"  aria-label="Recipient's username" aria-describedby="button-addon2">
-                            </div>          
-                        </div>
-                      <div class="col order-1">
-                            <div class="item">
-                                <p class=" fw-bolder mb-0 fs-5 titre"> Prénom</p>       
-                  <input type="text" class="form-control"  [(ngModel)]="user.lastname" [disabled]="inputsDisabled"  aria-label="Recipient's username" aria-describedby="button-addon2">
-                            </div>          
-                        </div>
-                    </div>
-           
-                    <div class="row mb-4 pl-7">
-                      <div class="col">
-                        <div class="item">
-                        <p  class=" fw-bolder mb-0 fs-5 titre"  for="sexe">Sexe</p>
-                            <select class="form-select form-control" [(ngModel)]="user.sexe" [disabled]="inputsDisabled" required aria-label="Default select example">
-                              <option value="H">Homme</option>
-                              <option value="F">Femme</option>
-                            </select>
-                        </div>
-                    </div>
-                      <div class="col order-5">  
-                            <div class="item">
-                              <p class=" fw-bolder mb-0 fs-5 titre"> Adresse </p>     
-                <input type="text" class="form-control"  [(ngModel)]="user.address" [disabled]="inputsDisabled"  aria-label="Recipient's username" aria-describedby="button-addon2">
-                            </div>          
-                        </div>
-                      <div class="col order-1">
-                            <div class="item">
-                              <p class=" fw-bolder mb-0 fs-5 titre"> Date d'embauche </p>    
-                              <input type="date" min={{datePickerId}} min={{datePickerId}} class="form-control"  [(ngModel)]="user.dembauche" [disabled]="inputsDisabled"  aria-label="Recipient's username" aria-describedby="button-addon2">
- 
-                            </div>          
-                        </div>
-                    </div>          
-          
-              </div>
-          
-              <div>
-                <div *ngIf="!inputsDisabled"  class="d-flex justify-content-around w-100">
-                  <input class="btn btn-success w-25" type="submit" id="button-addon2"  (click)="  update()" value="Envoyer">
-                  <input class="btn btn-danger w-25" type="submit" id="button-addon2"  (click)="toggleInputs()" value="Annuler">
+    <div class="p-4" style="border-radius: 10px; background-color: white;">
+      <div class="ml-3 mt-3 mb-5 d-flex justify-content-between align-items-center">
+        <h3 class="   fw-bolder">Informations personnelles</h3>
+        <button class="btn  btn-primary" type="button" id="button-addon2" *ngIf="role==='RRH'"
+          [disabled]="!inputsDisabled" (click)="toggleInputs()">Modifier</button>
+      </div>
+      <div [ngClass]=alert role="alert">
+        {{Msg}}
+      </div>
+      <div class="container ">
+        <div class="row mb-4 pl-7 ">
+          <div class="col">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> Matricule</p>
+              <input type="text" class="form-control" [(ngModel)]="user.id" disabled aria-label="Recipient's username"
+                aria-describedby="button-addon2">
+            </div>
           </div>
+          <div class="col order-5">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> Service</p>
+              <input type="text" class="form-control" [(ngModel)]="user.role" disabled aria-label="Recipient's username"
+                aria-describedby="button-addon2">
+            </div>
+
           </div>
-    
-    
+          <div class="col order-1">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> Département </p>
+              <input type="text" class="form-control" *ngIf="user.departement" [(ngModel)]="user.departement!.name"
+                disabled aria-label="Recipient's username" aria-describedby="button-addon2">
+              <input type="text" class="form-control" *ngIf="!user.departement" value="--------" disabled
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            </div>
+          </div>
+
+        </div>
+        <div class="row mb-4 pl-7 ">
+          <div class="col">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> Email</p>
+              <input type="text" class="form-control" [(ngModel)]="user.email" disabled
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            </div>
+
+          </div>
+          <div class="col order-5">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> Numéro de téléphone </p>
+              <input type="text" class="form-control" [(ngModel)]="user.phonenumber" disabled
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            </div>
+          </div>
+          <div class="col order-1">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre">Entité Juridique</p>
+              <input type="text" class="form-control" [(ngModel)]="user.ejuridic" disabled
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            </div>
+          </div>
+
+        </div>
+        <div class="row mb-4 pl-7">
+          <div class="col">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> CIN</p>
+              <input type="text" class="form-control" [(ngModel)]="user.cin" [disabled]="inputsDisabled"
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            </div>
+          </div>
+          <div class="col order-5">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> Nom</p>
+              <input type="text" class="form-control" [(ngModel)]="user.firstname" [disabled]="inputsDisabled"
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            </div>
+          </div>
+          <div class="col order-1">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> Prénom</p>
+              <input type="text" class="form-control" [(ngModel)]="user.lastname" [disabled]="inputsDisabled"
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4 pl-7">
+          <div class="col">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre" for="sexe">Sexe</p>
+              <select class="form-select form-control" [(ngModel)]="user.sexe" [disabled]="inputsDisabled" required
+                aria-label="Default select example">
+                <option value="H">Homme</option>
+                <option value="F">Femme</option>
+              </select>
+            </div>
+          </div>
+          <div class="col order-5">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> Adresse </p>
+              <input type="text" class="form-control" [(ngModel)]="user.address" [disabled]="inputsDisabled"
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+            </div>
+          </div>
+          <div class="col order-1">
+            <div class="item">
+              <p class=" fw-bolder mb-0 fs-5 titre"> Date d'embauche </p>
+              <input type="date" min={{datePickerId}} min={{datePickerId}} class="form-control"
+                [(ngModel)]="user.dembauche" [disabled]="inputsDisabled" aria-label="Recipient's username"
+                aria-describedby="button-addon2">
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+        <div *ngIf="!inputsDisabled" class="d-flex justify-content-around w-100">
+          <input class="btn btn-success w-25" type="submit" id="button-addon2" (click)="  update()" value="Envoyer">
+          <input class="btn btn-danger w-25" type="submit" id="button-addon2" (click)="toggleInputs()" value="Annuler">
+        </div>
+      </div>
+
+
     </div>
-</div>
+  </div>

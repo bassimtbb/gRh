@@ -192,7 +192,7 @@ export class AuthenticationService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `refreshToken()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   refreshToken$Response(params: RefreshToken$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticationResponse>> {
     return refreshToken(this.http, this.rootUrl, params, context);
@@ -202,7 +202,7 @@ export class AuthenticationService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `refreshToken$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   refreshToken(params: RefreshToken$Params, context?: HttpContext): Observable<AuthenticationResponse> {
     return this.refreshToken$Response(params, context).pipe(
